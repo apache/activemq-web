@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- How should I implement request response with JMS
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="community.html">Community</a>&nbsp;&gt;&nbsp;<a href="faq.html">FAQ</a>&nbsp;&gt;&nbsp;<a href="jms.html">JMS</a>&nbsp;&gt;&nbsp;<a href="how-should-i-implement-request-response-with-jms.html">How should I implement request response with JMS</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><h2 id="HowshouldIimplementrequestresponsewithJMS-HowshouldIimplementrequestresponsewithJMS?">How should I implement request response with JMS?</h2>
+
+<p>The simplest solution is to use <a shape="rect" class="external-link" href="http://activemq.apache.org/camel/spring-remoting.html">Camel as a Spring Remoting provider</a> which allows you to hide all the JMS API from your business logic and letting Camel provide the request/response handling code for you.</p>
+
+<p>However if you wish to write the JMS client code yourself, please read on how it works...</p>
+
+<h3 id="HowshouldIimplementrequestresponsewithJMS-UsingtheJMSAPItoimplementrequest-response">Using the JMS API to implement request-response</h3>
+
+<p>You might think at first that to implement request-response type operations in JMS that you should create a new consumer with a selector per request; or maybe create a new temporary queue per request.</p>
+
+<p>Creating temporary destinations, consumers, producers and connections are all synchronous request-response operations with the broker and so should be avoided for processing each request as it results in lots of chat with the JMS broker.</p>
+
+<p>The best way to implement request-response over JMS is to create a temporary queue and consumer per client on startup, set JMSReplyTo property on each message to the temporary queue and then use a <a shape="rect" class="external-link" href="http://java.sun.com/j2ee/1.4/docs/api/javax/jms/Message.html#setJMSCorrelationID(java.lang.String)" rel="nofollow">correlationID on each message</a> to correlate request messages to response messages. This avoids the overhead of creating and closing a consumer for each request (which is expensive). It also means you can share the same producer &amp; consumer across many threads if you want (or pool them maybe).</p>
+
+<p>The <a shape="rect" class="external-link" href="http://lingo.codehaus.org/" rel="nofollow">Lingo library</a> is an implementation of Spring remoting using JMS. (Spring remoting is a kind of POJO based remoting where the remoting code is invisible to your business logic code).</p>
+
+<p>It uses exactly this pattern; of using correlation IDs to correlate requests to responses. The server side just has to remember to put the inbound message's correlation ID on the response.</p>
+
+<p>The actual class which does this is the <a shape="rect" class="external-link" href="http://lingo.codehaus.org/maven/apidocs/org/logicblaze/lingo/jms/impl/MultiplexingRequestor.html" rel="nofollow">MultiplexingRequestor</a> . It may be just using Spring remoting with Lingo is the simplest way of implementing request response - or maybe you could just use Lingo's <a shape="rect" class="external-link" href="http://lingo.codehaus.org/maven/apidocs/org/logicblaze/lingo/jms/Requestor.html" rel="nofollow">Requestor</a> interface to keep the JMS semantics.</p>
+
+<p>More details <a shape="rect" class="external-link" href="http://docs.codehaus.org/display/LINGO/Request+Response+with+JMS" rel="nofollow">here</a></p>
+
+<h3 id="HowshouldIimplementrequestresponsewithJMS-Clientside">Client side</h3>
+
+<p>So the client side creates a consumer on a temporary queue as follows...</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+// client side
+Destination tempDest = session.createTemporaryQueue();
+MessageConsumer responseConsumer = session.createConsumer(tempDest);
+...
+
+// send a request..
+message.setJMSReplyTo(tempDest)
+message.setJMSCorrelationID(myCorrelationID);
+
+producer.send(message);
+</pre>
+</div></div>
+
+<h3 id="HowshouldIimplementrequestresponsewithJMS-Serverside">Server side</h3>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+public void onMessage(Message request) {
+
+  Message response = session.createMessage();
+  response.setJMSCorrelationID(request.getJMSCorrelationID())
+
+  producer.send(request.getJMSReplyTo(), response)
+}
+</pre>
+</div></div>
+
+<h2 id="HowshouldIimplementrequestresponsewithJMS-FullExamples">Full Examples</h2>
+
+<h3 id="HowshouldIimplementrequestresponsewithJMS-ServerSide">Server Side</h3>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+import org.apache.activemq.broker.BrokerService;
+import org.apache.activemq.ActiveMQConnectionFactory;
+
+import javax.jms.*;
+
+public class Server implements MessageListener {
+    private static int ackMode;
+    private static String messageQueueName;
+    private static String messageBrokerUrl;
+
+    private Session session;
+    private boolean transacted = false;
+    private MessageProducer replyProducer;
+    private MessageProtocol messageProtocol;
+
+    static {
+        messageBrokerUrl = "tcp://localhost:61616";
+        messageQueueName = "client.messages";
+        ackMode = Session.AUTO_ACKNOWLEDGE;
+    }
+
+    public Server() {
+        try {
+            //This message broker is embedded
+            BrokerService broker = new BrokerService();
+            broker.setPersistent(false);
+            broker.setUseJmx(false);
+            broker.addConnector(messageBrokerUrl);
+            broker.start();
+        } catch (Exception e) {
+            //Handle the exception appropriately
+        }
+
+        //Delegating the handling of messages to another class, instantiate it before setting up JMS so it
+        //is ready to handle messages
+        this.messageProtocol = new MessageProtocol();
+        this.setupMessageQueueConsumer();
+    }
+
+    private void setupMessageQueueConsumer() {
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(messageBrokerUrl);
+        Connection connection;
+        try {
+            connection = connectionFactory.createConnection();
+            connection.start();
+            this.session = connection.createSession(this.transacted, ackMode);
+            Destination adminQueue = this.session.createQueue(messageQueueName);
+
+            //Setup a message producer to respond to messages from clients, we will get the destination
+            //to send to from the JMSReplyTo header field from a Message
+            this.replyProducer = this.session.createProducer(null);
+            this.replyProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+            //Set up a consumer to consume messages off of the admin queue
+            MessageConsumer consumer = this.session.createConsumer(adminQueue);
+            consumer.setMessageListener(this);
+        } catch (JMSException e) {
+            //Handle the exception appropriately
+        }
+    }
+
+    public void onMessage(Message message) {
+        try {
+            TextMessage response = this.session.createTextMessage();
+            if (message instanceof TextMessage) {
+                TextMessage txtMsg = (TextMessage) message;
+                String messageText = txtMsg.getText();
+                response.setText(this.messageProtocol.handleProtocolMessage(messageText));
+            }
+
+            //Set the correlation ID from the received message to be the correlation id of the response message
+            //this lets the client identify which message this is a response to if it has more than
+            //one outstanding message to the server
+            response.setJMSCorrelationID(message.getJMSCorrelationID());
+
+            //Send the response to the Destination specified by the JMSReplyTo field of the received message,
+            //this is presumably a temporary queue created by the client
+            this.replyProducer.send(message.getJMSReplyTo(), response);
+        } catch (JMSException e) {
+            //Handle the exception appropriately
+        }
+    }
+
+    public static void main(String[] args) {
+        new Server();
+    }
+}
+</pre>
+</div></div>
+
+<h3 id="HowshouldIimplementrequestresponsewithJMS-ClientSide">Client Side</h3>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+import org.apache.activemq.ActiveMQConnectionFactory;
+
+import javax.jms.*;
+import java.util.Random;
+
+public class Client implements MessageListener {
+    private static int ackMode;
+    private static String clientQueueName;
+
+    private boolean transacted = false;
+    private MessageProducer producer;
+
+    static {
+        clientQueueName = "client.messages";
+        ackMode = Session.AUTO_ACKNOWLEDGE;
+    }
+
+    public Client() {
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
+        Connection connection;
+        try {
+            connection = connectionFactory.createConnection();
+            connection.start();
+            Session session = connection.createSession(transacted, ackMode);
+            Destination adminQueue = session.createQueue(clientQueueName);
+
+            //Setup a message producer to send message to the queue the server is consuming from
+            this.producer = session.createProducer(adminQueue);
+            this.producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+            //Create a temporary queue that this client will listen for responses on then create a consumer
+            //that consumes message from this temporary queue...for a real application a client should reuse
+            //the same temp queue for each message to the server...one temp queue per client
+            Destination tempDest = session.createTemporaryQueue();
+            MessageConsumer responseConsumer = session.createConsumer(tempDest);
+
+            //This class will handle the messages to the temp queue as well
+            responseConsumer.setMessageListener(this);
+
+            //Now create the actual message you want to send
+            TextMessage txtMessage = session.createTextMessage();
+            txtMessage.setText("MyProtocolMessage");
+
+            //Set the reply to field to the temp queue you created above, this is the queue the server
+            //will respond to
+            txtMessage.setJMSReplyTo(tempDest);
+
+            //Set a correlation ID so when you get a response you know which sent message the response is for
+            //If there is never more than one outstanding message to the server then the
+            //same correlation ID can be used for all the messages...if there is more than one outstanding
+            //message to the server you would presumably want to associate the correlation ID with this
+            //message somehow...a Map works good
+            String correlationId = this.createRandomString();
+            txtMessage.setJMSCorrelationID(correlationId);
+            this.producer.send(txtMessage);
+        } catch (JMSException e) {
+            //Handle the exception appropriately
+        }
+    }
+
+    private String createRandomString() {
+        Random random = new Random(System.currentTimeMillis());
+        long randomLong = random.nextLong();
+        return Long.toHexString(randomLong);
+    }
+
+    public void onMessage(Message message) {
+        String messageText = null;
+        try {
+            if (message instanceof TextMessage) {
+                TextMessage textMessage = (TextMessage) message;
+                messageText = textMessage.getText();
+                System.out.println("messageText = " + messageText);
+            }
+        } catch (JMSException e) {
+            //Handle the exception appropriately
+        }
+    }
+
+    public static void main(String[] args) {
+        new Client();
+    }
+}
+</pre>
+</div></div>
+
+<h3 id="HowshouldIimplementrequestresponsewithJMS-ProtocolClass">Protocol Class</h3>
+
+<p>This class is needed to run the client/server example above. Delegating the handling of messages to a seperate class is solely a personal preference.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+public class MessageProtocol {
+    public String handleProtocolMessage(String messageText) {
+        String responseText;
+        if ("MyProtocolMessage".equalsIgnoreCase(messageText)) {
+            responseText = "I recognize your protocol message";
+        } else {
+            responseText = "Unknown protocol message: " + messageText;
+        }
+        
+        return responseText;
+    }
+}
+</pre>
+</div></div></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=36091">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

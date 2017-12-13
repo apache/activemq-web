@@ -1,0 +1,227 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushPlain.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Stomp Delayed and Scheduled Message Feature
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+            <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="index.html">Index</a>&nbsp;&gt;&nbsp;<a href="apachenms.html">Apache.NMS</a>&nbsp;&gt;&nbsp;<a href="nms-providers.html">NMS Providers</a>&nbsp;&gt;&nbsp;<a href="apachenmsstomp.html">Apache.NMS.Stomp</a>&nbsp;&gt;&nbsp;<a href="stomp-advanced-features.html">Stomp Advanced Features</a>&nbsp;&gt;&nbsp;<a href="stomp-message-features.html">Stomp Message Features</a>&nbsp;&gt;&nbsp;<a href="stomp-delayed-and-scheduled-message-feature.html">Stomp Delayed and Scheduled Message Feature</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" href="nms-api.html">API</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Forums</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>This documentation only applies when the Stomp client is connected to an ActiveMQ Broker v5.4 and above.</p></div></div>
+
+ActiveMQ from version <strong>5.4</strong> has an optional persistent scheduler built into the ActiveMQ message broker. It is enabled by setting the broker <strong>schedulerSupport</strong> attribute to true in the <a shape="rect" class="unresolved" href="#">xml configuration</a>. <br clear="none">
+An ActiveMQ client can take advantage of a delayed delivery by using the following message properties:
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>type </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>AMQ_SCHEDULED_DELAY</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> long </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>  The time in milliseconds that a message will wait before being scheduled to be delivered by the broker</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>AMQ_SCHEDULED_PERIOD </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>long </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The time in milliseconds to wait after the start time to wait before scheduling the message again</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>AMQ_SCHEDULED_REPEAT </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>int </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The number of times to repeat scheduling a message for delivery</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>AMQ_SCHEDULED_CRON </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>String </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Use a Cron entry to set the schedule</p></td></tr></tbody></table></div>
+
+
+<p>For example, to have a message scheduled for delivery in 60 seconds - you would need to set the <em>AMQ_SCHEDULED_DELAY</em> property:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+        IMessageProducer producer = session.CreateProducer(destination);
+        ITextMessage message = session.CreateTextMessage("test msg");
+        long time = 60 * 1000;
+        message.Properties["AMQ_SCHEDULED_DELAY"] = time;
+        producer.Send(message);
+</pre>
+</div></div>
+
+<p>You can set a message to wait with an initial delay, and the repeat delivery 10 times, waiting 10 seconds between each re-delivery:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+        IMessageProducer producer = session.CreateProducer(destination);
+        ITextMessage message = session.CreateTextMessage("test msg");
+        long delay = 30 * 1000;
+        long period = 10 * 1000;
+        int repeat = 9;
+        message.Properties["AMQ_SCHEDULED_DELAY"] = delay;
+        message.Properties["AMQ_SCHEDULED_PERIOD"] = period;
+        message.Properties["AMQ_SCHEDULED_REPEAT"] = repeat;
+        producer.Send(message);
+</pre>
+</div></div>
+
+
+<p>You can also use <a shape="rect" class="external-link" href="http://en.wikipedia.org/wiki/Cron" rel="nofollow">CRON</a> to schedule a message, for example, if you want a message scheduled to be delivered every hour, you would need to set the CRON entry to be - <em>0 * * * *</em> - e.g.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+        IMessageProducer producer = session.CreateProducer(destination);
+        ITextMessage message = session.CreateTextMessage("test msg");
+        message.Properties["AMQ_SCHEDULED_CRON"] = "0 * * * *";
+        producer.Send(message);
+</pre>
+</div></div>
+
+<p>CRON scheduling takes priority over using message delay - however, if a repeat and period is set with a CRON entry, the ActiveMQ scheduler will schedule delivery of the message for every time the CRON entry fires. Easier to explain with an example. Supposing that you want a message to be delivered 10 times, with a one second delay between each message - and you wanted this to happen every hour - you'd do this:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+        IMessageProducer producer = session.CreateProducer(destination);
+        ITextMessage message = session.CreateTextMessage("test msg");
+        message.Properties["AMQ_SCHEDULED_CRON"] = "0 * * * *";
+        message.Properties["AMQ_SCHEDULED_DELAY"] = 1000;
+        message.Properties["AMQ_SCHEDULED_PERIOD"] = 1000;
+        message.Properties["AMQ_SCHEDULED_REPEAT"] = 9;
+        producer.Send(message);
+</pre>
+</div></div></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45788"><a shape="rect" href="overview.html">Overview</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="index.html">Home</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="download.html">Download</a></li></ul>
+
+
+<h3 id="Navigation-UsingNMShttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=117579"><a shape="rect" href="using-nms.html">Using NMS</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="apachenms.html">NMS Overview</a></li><li><a shape="rect" href="nms.html">Getting Started</a></li><li><a shape="rect" href="nms-api.html">NMS API Reference</a></li><li><a shape="rect" href="apachenmsactivemq.html">ActiveMQ</a></li><li><a shape="rect" href="apachenmsstomp.html">Stomp</a></li><li><a shape="rect" href="apachenmsmsmq.html">MSMQ</a></li><li><a shape="rect" href="apachenmsems.html">Tibco EMS</a></li><li><a shape="rect" href="apachenmswcf.html">WCF</a></li></ul>
+
+
+<h3 id="Navigation-Search">Search</h3>
+<p></p><p>
+</p><form enctype="application/x-www-form-urlencoded" method="get" id="cse-search-box" action="http://www.google.com/cse">
+  <div>
+    <input type="hidden" name="cx" value="007878419884033443453:m5nhvy4hmyq">
+    <input type="hidden" name="ie" value="UTF-8">
+    <input type="text" name="q" size="21">
+    <input type="submit" name="sa" value="Search">
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+<p></p>
+
+<h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45789"><a shape="rect" href="community.html">Community</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/team.html">Team</a></li></ul>
+
+
+<h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45790"><a shape="rect" href="developers.html">Developers</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=25202035">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

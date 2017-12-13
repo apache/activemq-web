@@ -1,0 +1,710 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Handling Advisory Messages
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<p>
+	</p><div id="asf_logo">
+	<div id="activemq_logo">
+            <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org/">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org">ASF</a>
+	</div>
+        </div>
+<p></p>
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="index.html">Index</a>&nbsp;&gt;&nbsp;<a href="overview.html">Overview</a>&nbsp;&gt;&nbsp;<a href="tutorials.html">Tutorials</a>&nbsp;&gt;&nbsp;<a href="handling-advisory-messages.html">Handling Advisory Messages</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" href="api.html">API</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><p>ActiveMQ supports advisory messages which allows you to watch the system using regular CMS messages. A few things that you can currently do with advisory messages are:</p>
+
+<ul><li>See consumers, producers and connections starting and stopping</li><li>See temporary destinations being created and destroyed</li><li>Get notified messages expiring on topics and queues</li><li>Observe brokers sending messages to destinations with no consumers.</li><li>See connections starting and stopping</li></ul>
+
+
+<p>Advisory messages can be thought as some kind of administrative channel where you receive information regarding what is happening on your JMS provider along with what's happening with producers, consumers and destinations.  To learn more about the broker's advisory message support see this <a shape="rect" href="../advisory-message.html">article</a>.</p>
+
+<h3 id="HandlingAdvisoryMessages-BeforeYouBegin"><strong>Before You Begin</strong></h3>
+
+<p>This tutorial assumes that the reader has a working knowledge of the CMS API and knows how to build basic applications using the ActiveMQ-CPP Library.  If you aren't sure how to use the CMS API then you should first read the <a shape="rect" href="cms-api-overview.html">CMS API Overview</a>.  The tutorial is written against the ActiveMQ-CPP 3.0 release API and while it is possible to handle advisory messages using the older ActiveMQ-CPP 2.x clients there may be some code differences which are not shown in this article.  </p>
+
+<h3 id="HandlingAdvisoryMessages-SubscribingtoAdvisoryTopics"><strong>Subscribing to Advisory Topics</strong></h3>
+
+<p>To receive advisory message's you first need to subscribe to the Topic that supplies the advisory message you want.  You subscribe to these Topics like you would any other destination, the trick is to use the correct name for the Topic that you want to use.  Lets first take a look at a couple of the types available for use (this is not a complete set).</p>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Advisory Topics</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>properties</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Data Structure</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> ActiveMQ.Advisory.Connection </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Connection start &amp; stop messages </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> ActiveMQ.Advisory.Producer.Queue </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Producer start &amp; stop messages on a Queue </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>String='producerCount' - the number of producers</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> ProducerInfo</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> ActiveMQ.Advisory.Producer.Topic </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Producer start &amp; stop messages on a Topic </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>String='producerCount' - the number of producers</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ProducerInfo</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> ActiveMQ.Advisory.Consumer.Queue </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Consumer start &amp; stop messages on a Queue </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>String='consumerCount' - the number of Consumers</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ConsumerInfo</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> ActiveMQ.Advisory.Consumer.Topic </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Consumer start &amp; stop messages on a Topic </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>String='consumerCount' - the number of Consumers</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ConsumerInfo</p></td></tr></tbody></table></div>
+
+
+<p>Now, looking at the above list lets pick one of the Topics and figure out how we would create the CMS Topic to subscribe to in order to receive the advisory messages.  Using the Java client we could create the Destination using the utility class <strong>AdvisorySupport</strong> but for now ActiveMQ-CPP doesn't provide such a utility class, hopefully we will see this added in a future release (Contributions are of course always welcomed!).</p>
+
+<p>If we had a Topic named TOPIC.FOO and we wanted to know when a producer subscribed to that Topic we would need to create a Topic object whose name is <strong>ActiveMQ.Advisory.Producer.Topic.TOPIC.FOO</strong> in order to receive the advisory message we are interested in.  We know this because we can look at the above table and see that the <strong>ActiveMQ.Advisory.Producer.Topic</strong> is informed whenever a Producer starts or stops publishing messages on a Topic and we also know that our Topic is named TOPIC.FOO, so adding them together gets us the name of our Advisory Topic, we also know this because we peaked at the AdvisorySupport.java class, and no, that's not cheating.  Below is a code snippet showing the creation of the Topic using a CMS Session:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Creating an Advisory Topic for Producers on TOPIC.FOO</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+    std::auto_ptr&lt;cms::Topic&gt; advisories( session-&gt;createTopic(
+        "ActiveMQ.Advisory.Producer.Topic.TOPIC.FOO" ) );
+
+</pre>
+</div></div>
+
+<p>Once we create the Topic for the advisory messages we want to listen for we just need to create a consumer to listen for them, the code snippet below demonstrates this:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Creating an Consumer for an Advisory Topic.</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+std::auto_ptr&lt;cms::MessageConsumer&gt; consumer;
+consumer.reset( session-&gt;createConsumer( advisories.get() ) );
+consumer-&gt;setMessageListener( this );
+
+</pre>
+</div></div>
+
+<p>As you can see there is no difference between subscriptions to advisory topics that subscriptions to any other Destination in CMS.  In the above example we registered as an asynchronous listener, you can also use the normal blocking <strong>receive</strong> method but we prefer this method.</p>
+
+<h3 id="HandlingAdvisoryMessages-DealingwithincomingAdvisoryMessages"><strong>Dealing with incoming Advisory Messages</strong></h3>
+
+<p>Every Advisory has the message type 'Advisory' and some predefined message properties, to check a CMS Message for this type you would call the <strong>getCMSType</strong> method on a Message object.  In some cases you will know that the only message you are going to receive are advisory messages because your client only subscribes to advisory topics, other times you might have wired multiple MessageConsumers to the same MessageListener in which case you will have to check the message tppe.  Once you know you are dealing with an advisory message then you can start to inspect it to determine what sort of message it is and extract the data that is meaningful to your application.</p>
+
+<p>Many of the advisory messages store meaningful data in the Message properties, for instance the Consumer Start / Stop advisory message contains an element with the key <strong>consumerCount</strong> which is populated with the current number of active consumers on the Topic or Queue in question.  Lets take a look at a code snippet now that checks the messages received in an onMessage callback to see if its an advisory message and acts on it if it is:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Using the CMS Type to determine if a Message is an Advisory</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+ void AdvisoryProducer::onMessage( const cms::Message* message ) {
+
+     if( message-&gt;getCMSType() == "Advisory" ) {
+
+         std::cout &lt;&lt; "Received an Advisory Message!" &lt;&lt; std::endl;
+
+         if( message-&gt;propertyExists( "consumerCount" ) ) {
+
+             std::string consumerCount = message-&gt;getStringProperty( "consumerCount" );
+             std::cout &lt;&lt; "Number of Consumers = " &lt;&lt; consumerCount &lt;&lt; std::endl;
+ 
+             // Do Something Meaningful here....
+         }
+
+     } else {
+         std::cout &lt;&lt; "Received a Non-Advisory Message!" &lt;&lt; std::endl;
+     }
+ }
+
+</pre>
+</div></div>
+
+<h3 id="HandlingAdvisoryMessages-CompleteExample:ProducerthatonlyProduceswhenthereisaConsumer"><strong>Complete Example: Producer that only Produces when there is a Consumer</strong></h3>
+
+<p>Now that you've seen the basics of advisory message processing its time to show you a complete example that demonstrates what you can do with advisory messages.  The following code shows a class header and source file that implements a basic CMS Producer that will send heart beat message to a Topic called <strong>HEART-BEAT-CHANNEL</strong> only when there are active consumers, otherwise it sits idle.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>AdvisoryProducer Header file</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+#ifndef _ACTIVEMQCPP_EXAMPLES_ADVISORIES_ADVISORYPRODUCER_H_
+#define _ACTIVEMQCPP_EXAMPLES_ADVISORIES_ADVISORYPRODUCER_H_
+
+#include &lt;string&gt;
+#include &lt;memory&gt;
+
+#include &lt;cms/Session.h&gt;
+#include &lt;cms/MessageProducer.h&gt;
+#include &lt;cms/MessageConsumer.h&gt;
+#include &lt;cms/MessageListener.h&gt;
+
+#include &lt;decaf/lang/Runnable.h&gt;
+#include &lt;decaf/util/concurrent/CountDownLatch.h&gt;
+
+namespace activemqcpp {
+namespace examples {
+namespace advisories {
+
+    /**
+     * A sample Producer that will only send Messages on its Topic when it has
+     * received an advisory indicating that there is an active MessageConsumer
+     * on the Topic.  Once another message comes in indicating that there is no
+     * longer a consumer then this Producer stops producing again.
+     *
+     * @since 3.0
+     */
+    class AdvisoryProducer : public decaf::lang::Runnable,
+                             public cms::MessageListener {
+    private:
+
+        volatile bool consumerOnline;
+        volatile bool shutdown;
+        decaf::util::concurrent::CountDownLatch shutdownLatch;
+
+        cms::Session* session;
+        std::auto_ptr&lt;cms::MessageConsumer&gt; consumer;
+        std::auto_ptr&lt;cms::MessageProducer&gt; producer;
+
+    public:
+
+        AdvisoryProducer( cms::Session* session );
+        virtual ~AdvisoryProducer();
+
+        /**
+         * Shut down the processing that occurs in the Run method.
+         */
+        void stop();
+
+        /**
+         * Run the producer code.
+         */
+        virtual void run();
+
+        /**
+         * Async Message callback.
+         */
+        virtual void onMessage( const cms::Message* message );
+
+    };
+
+}}}
+
+#endif /* _ACTIVEMQCPP_EXAMPLES_ADVISORIES_ADVISORYPRODUCER_H_ */
+
+</pre>
+</div></div>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>AdvisoryProducer Source file</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+#include "AdvisoryProducer.h"
+
+#include &lt;cms/Topic.h&gt;
+#include &lt;cms/Message.h&gt;
+#include &lt;cms/TextMessage.h&gt;
+#include &lt;decaf/lang/exceptions/NullPointerException.h&gt;
+#include &lt;decaf/lang/Integer.h&gt;
+
+using namespace std;
+using namespace activemqcpp;
+using namespace activemqcpp::examples;
+using namespace activemqcpp::examples::advisories;
+using namespace decaf;
+using namespace decaf::lang;
+using namespace decaf::lang::exceptions;
+
+////////////////////////////////////////////////////////////////////////////////
+AdvisoryProducer::AdvisoryProducer( cms::Session* session ) : shutdownLatch(1) {
+
+    if( session == NULL ) {
+        throw NullPointerException(
+            __FILE__, __LINE__, "Session Object passed was Null." );
+    }
+
+    std::auto_ptr&lt;cms::Topic&gt; destination( session-&gt;createTopic(
+        "HEART-BEAT-CHANNEL" ) );
+    std::auto_ptr&lt;cms::Topic&gt; advisories( session-&gt;createTopic(
+        "ActiveMQ.Advisory.Consumer.Topic.HEART-BEAT-CHANNEL" ) );
+
+    this-&gt;shutdown = false;
+    this-&gt;consumerOnline = false;
+
+    this-&gt;session = session;
+    this-&gt;producer.reset( session-&gt;createProducer( destination.get() ) );
+    this-&gt;consumer.reset( session-&gt;createConsumer( advisories.get() ) );
+    this-&gt;consumer-&gt;setMessageListener( this );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+AdvisoryProducer::~AdvisoryProducer() {
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void AdvisoryProducer::stop() {
+    this-&gt;shutdown = true;
+    this-&gt;shutdownLatch.await( 3000 );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void AdvisoryProducer::run() {
+
+    while( !this-&gt;shutdown ) {
+
+        if( this-&gt;consumerOnline ) {
+
+            std::auto_ptr&lt;cms::TextMessage&gt; message(
+                this-&gt;session-&gt;createTextMessage( "Alive" ) );
+
+            this-&gt;producer-&gt;send( message.get() );
+
+            Thread::sleep( 1000 );
+        }
+    }
+
+    this-&gt;shutdownLatch.countDown();
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void AdvisoryProducer::onMessage( const cms::Message* message ) {
+
+    if( message-&gt;getCMSType() == "Advisory" ) {
+
+        std::cout &lt;&lt; "Received an Advisory Message!" &lt;&lt; std::endl;
+
+        if( message-&gt;propertyExists( "consumerCount" ) ) {
+
+            std::string consumerCount = message-&gt;getStringProperty( "consumerCount" );
+            std::cout &lt;&lt; "Number of Consumers = " &lt;&lt; consumerCount &lt;&lt; std::endl;
+            this-&gt;consumerOnline = Integer::parseInt( consumerCount ) &gt; 0 ? true : false;
+        }
+
+    } else {
+        std::cout &lt;&lt; "Received a Non-Advisory Message!" &lt;&lt; std::endl;
+    }
+}
+
+</pre>
+</div></div>
+
+<h3 id="HandlingAdvisoryMessages-*AdvancedTopic*DealingwithCommandObjectsinAdvisories">*<strong>Advanced Topic</strong>* Dealing with Command Objects in Advisories </h3>
+
+<p>If you read the ActiveMQ Advisory Message <a shape="rect" href="../advisory-message.html">article</a> mentioned at the start of this tutorial then you know that certain advisory messages can contain an embedded command object.  If you didn't read that <a shape="rect" href="../advisory-message.html">article</a> then this section is going to be very confusing, so go read it.  We can access those command object in CMS with a little work which means we can take full advantage of the Advisory Message feature.</p>
+
+<p>All Advisory Messages are sent as a basic ActiveMQMessage to your client.  The underlying type hierarchy in ActiveMQ-CPP is the same as that of ActiveMQ so the names of the embedded command objects you saw in the Advisory <a shape="rect" href="../advisory-message.html">article</a> are the same and they contain mostly the same information, although sometimes the information is encoded in a more C++ friendly or unfriendly way depending on your point of view. </p>
+
+<p>To demonstrate how we can access the command objects lets try and create a client application that listens to the Broker for advisories that indicate that Temporary Destinations have either been created or destroyed.  The Broker will publish advisory messages to the "ActiveMQ.Advisory.TempTopic" and "ActiveMQ.Advisory.TempQueue" Topics whenever the corresponding Temporary Destination is created or destroyed and the command object will be of type DestinationInfo.  The DestinationInfo object contains a Destination object describing the Destination in question and an Operation Type value telling whether the command is a create or destroy command.  First lets look at how we subscribe to this Advisory Topic:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Subscribing to a Composite Advisory Topic</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+std::auto_ptr&lt;cms::Topic&gt; advisories( session-&gt;createTopic(
+    "ActiveMQ.Advisory.TempTopic,ActiveMQ.Advisory.TempQueue" ) );
+
+std::auto_ptr&lt;cms::MessageConsumer&gt; consumer;
+consumer.reset( session-&gt;createConsumer( advisories.get() ) );
+consumer-&gt;setMessageListener( this );
+
+</pre>
+</div></div>
+
+<p>As you can see in the above code snippet we just create a new Topic object whose name is a composite of the two Topics we want to subscribe on, this will allow our single <strong>MessageConsumer</strong> instance to receive both Temporary Topic and Temporary Queue advisories.  As before we also create a <strong>MessageConsumer</strong> and register our class' instance as the asynchronous listener.  Now all that's left is to implement the <strong>onMessage</strong> method of the <strong>MessageListener</strong> interface, lets take a look at that code now:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Processing an Advisory message with an embedded command object</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+////////////////////////////////////////////////////////////////////////////////
+void TempDestinationAdvisoryConsumer::onMessage( const cms::Message* message ) {
+
+    if( message-&gt;getCMSType() == "Advisory" ) {
+
+        std::cout &lt;&lt; "Received an Advisory Message!" &lt;&lt; std::endl;
+
+        const ActiveMQMessage* amqMessage =
+            dynamic_cast&lt;const ActiveMQMessage*&gt;( message );
+
+        if( amqMessage != NULL &amp;&amp; amqMessage-&gt;getDataStructure() != NULL ) {
+            std::cout &lt;&lt; "Advisory Message contains a Command Object!" &lt;&lt; std::endl;
+
+            try {
+
+                Pointer&lt;DestinationInfo&gt; info =
+                    amqMessage-&gt;getDataStructure().dynamicCast&lt;DestinationInfo&gt;();
+
+                unsigned char operationType = info-&gt;getOperationType();
+
+                if( operationType == ActiveMQConstants::DESTINATION_REMOVE_OPERATION ) {
+                    std::cout &lt;&lt; "Temporary Destination {"
+                              &lt;&lt; info-&gt;getDestination()-&gt;getPhysicalName()
+                              &lt;&lt; "} Removed."
+                              &lt;&lt; std::endl;
+                } else if( operationType == ActiveMQConstants::DESTINATION_ADD_OPERATION ) {
+                    std::cout &lt;&lt; "Temporary Destination {"
+                              &lt;&lt; info-&gt;getDestination()-&gt;getPhysicalName()
+                              &lt;&lt; "} Added."
+                              &lt;&lt; std::endl;
+                } else {
+                    std::cout &lt;&lt; "ERROR: I have no Idea what just happened!"
+                              &lt;&lt; std::endl;
+                }
+
+            } catch( ClassCastException&amp; ex ) {
+                std::cout &lt;&lt; "ERROR: Expected the Command to be a DestinationInfo, "
+                          &lt;&lt; "it wasn't so PANIC!!"
+                          &lt;&lt; std::endl;
+            }
+        }
+
+    } else {
+        std::cout &lt;&lt; "Received a Non-Advisory Message!" &lt;&lt; std::endl;
+    }
+}
+
+</pre>
+</div></div>
+
+<p>Fortunately for use the code above looks more complicated than it really is, lets walk through it a bit more slowly now to understand what is going on:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Getting to the ActiveMQMessage object</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+if( message-&gt;getCMSType() == "Advisory" ) {
+
+    std::cout &lt;&lt; "Received an Advisory Message!" &lt;&lt; std::endl;
+
+    const ActiveMQMessage* amqMessage =
+        dynamic_cast&lt;const ActiveMQMessage*&gt;( message );
+
+    ... Other scary code comes next...
+
+else {
+    std::cout &lt;&lt; "Received a Non-Advisory Message!" &lt;&lt; std::endl;
+}
+</pre>
+</div></div>
+
+<p>The first thing we need to do is check that we received an advisory message, ActiveMQ encodes the Message Type as "Advisory" so that's easy enough.  We don't technically need to do this here since our consumer only listens on an advisory Topic but its not a bad idea to check.  Once we know its an advisory message we know that the message pointer should be of type ActiveMQMessage under that generic cms::Message disguise its wearing so we use a <strong>dynamic_cast</strong> to convert it.  Now that we've converted to an ActiveMQMessage what's next, well lets take a look:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Checking for an embedded command object</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+if( amqMessage != NULL &amp;&amp; amqMessage-&gt;getDataStructure() != NULL ) {
+    std::cout &lt;&lt; "Advisory Message contains a Command Object!" &lt;&lt; std::endl;
+
+</pre>
+</div></div>
+
+<p>Every ActiveMQMessage derived object has a method called <strong>getDataStructure</strong> which can be used for all sorts of useful things, here we are trying to see if there is a command object contained in this message, and you guessed it, the getDataStructure method will tell us if there is one.  If there is then we can move onto checking for a DestinationInfo object:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Getting to the DestinationInfo object</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+try{
+
+    Pointer&lt;DestinationInfo&gt; info =
+        amqMessage-&gt;getDataStructure().dynamicCast&lt;DestinationInfo&gt;();
+
+    unsigned char operationType = info-&gt;getOperationType();
+
+    if( operationType == ActiveMQConstants::DESTINATION_REMOVE_OPERATION ) {
+        std::cout &lt;&lt; "Temporary Destination {"
+                  &lt;&lt; info-&gt;getDestination()-&gt;getPhysicalName()
+                  &lt;&lt; "} Removed."
+                  &lt;&lt; std::endl;
+    } else if( operationType == ActiveMQConstants::DESTINATION_ADD_OPERATION ) {
+        std::cout &lt;&lt; "Temporary Destination {"
+                  &lt;&lt; info-&gt;getDestination()-&gt;getPhysicalName()
+                  &lt;&lt; "} Added."
+                  &lt;&lt; std::endl;
+     } else {
+        std::cout &lt;&lt; "ERROR: I have no Idea what just happened!"
+                  &lt;&lt; std::endl;
+     }
+
+} catch( ClassCastException&amp; ex ) {
+    std::cout &lt;&lt; "ERROR: Expected the Command to be a DestinationInfo, "
+              &lt;&lt; "it wasn't so PANIC!!"
+              &lt;&lt; std::endl;
+}
+
+</pre>
+</div></div>
+
+<p>First thing you are probably asking about this code snippet is "what is that Pointer thing?", that is a thread safe smart pointer that is used internally by ActiveMQ-CPP to manage all the pointers that make up the cms::Message objects among other things.  We create an instance of a Pointer&lt;DestinationInfo&gt; type which will pointer to our DestinationInfo command if the dynamicCast method is able to make that conversion, if not a ClassCastException is thrown.  Once we have the DestinationInfo pointer we can retrieve the Operation Type of the command and then compare it to the constants in ActiveMQConstants to see what is being done to the Destination.  There are only two operation types, add and remove, but since the DestinationInfo object encodes the operation type value as an unsigned char we provide a fall-back case to alert us to that error.  We are almost done now, all that remains is to output what happened, and also let the user know what the name of the Destination is, the <strong>getPhysicalName</strong> method in the Destination class tells us that.  You could also find out whether the Destination is a Topic or a Queue using the Destination object, we leave that as an exercise to the reader.</p>
+
+<h3 id="HandlingAdvisoryMessages-CompleteExample:ConsumerthatlistensforCreationandDestructionofTemporaryDestinations"><strong>Complete Example: Consumer that listens for Creation and Destruction of Temporary Destinations</strong></h3>
+
+<p>The complete code of our client application is shown below, you can also find this code as well as a simple client that creates both a Temporary Topic and a Temporary Queue in the examples folder in the source distribution.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>TempDestinationAdvisoryConsumer Header File</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+#ifndef _ACTIVEMQCPP_EXAMPLES_ADVISORIES_TEMPDESTINATIONADVISORYCONSUMER_H_
+#define _ACTIVEMQCPP_EXAMPLES_ADVISORIES_TEMPDESTINATIONADVISORYCONSUMER_H_
+
+#include &lt;string&gt;
+#include &lt;memory&gt;
+
+#include &lt;cms/Session.h&gt;
+#include &lt;cms/MessageProducer.h&gt;
+#include &lt;cms/MessageConsumer.h&gt;
+#include &lt;cms/MessageListener.h&gt;
+
+#include &lt;decaf/lang/Runnable.h&gt;
+
+namespace activemqcpp {
+namespace examples {
+namespace advisories {
+
+    /**
+     * Monitors a Broker for Temporary Topic creation and destruction.
+     *
+     * @since 3.0
+     */
+    class TempDestinationAdvisoryConsumer : public cms::MessageListener {
+    private:
+
+        cms::Session* session;
+        std::auto_ptr&lt;cms::MessageConsumer&gt; consumer;
+
+    public:
+
+        TempDestinationAdvisoryConsumer( cms::Session* session );
+        virtual ~TempDestinationAdvisoryConsumer();
+
+        /**
+         * Async Message callback.
+         */
+        virtual void onMessage( const cms::Message* message );
+
+    };
+
+}}}
+
+#endif /* _ACTIVEMQCPP_EXAMPLES_ADVISORIES_TEMPDESTINATIONADVISORYCONSUMER_H_ */
+
+</pre>
+</div></div>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>TempDestinationAdvisoryConsumer Source File</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+
+#include "TempDestinationAdvisoryConsumer.h"
+
+#include &lt;cms/Topic.h&gt;
+#include &lt;cms/Message.h&gt;
+#include &lt;cms/TextMessage.h&gt;
+#include &lt;activemq/core/ActiveMQConstants.h&gt;
+#include &lt;activemq/commands/ActiveMQMessage.h&gt;
+#include &lt;activemq/commands/DestinationInfo.h&gt;
+#include &lt;decaf/lang/exceptions/NullPointerException.h&gt;
+#include &lt;decaf/lang/exceptions/ClassCastException.h&gt;
+#include &lt;decaf/lang/Integer.h&gt;
+
+using namespace std;
+using namespace activemqcpp;
+using namespace activemqcpp::examples;
+using namespace activemqcpp::examples::advisories;
+using namespace activemq;
+using namespace activemq::commands;
+using namespace activemq::core;
+using namespace decaf;
+using namespace decaf::lang;
+using namespace decaf::lang::exceptions;
+
+////////////////////////////////////////////////////////////////////////////////
+TempDestinationAdvisoryConsumer::TempDestinationAdvisoryConsumer( cms::Session* session ) {
+
+    if( session == NULL ) {
+        throw NullPointerException(
+            __FILE__, __LINE__, "Session Object passed was Null." );
+    }
+
+    std::auto_ptr&lt;cms::Topic&gt; advisories( session-&gt;createTopic(
+        "ActiveMQ.Advisory.TempTopic,ActiveMQ.Advisory.TempQueue" ) );
+
+    this-&gt;session = session;
+    this-&gt;consumer.reset( session-&gt;createConsumer( advisories.get() ) );
+    this-&gt;consumer-&gt;setMessageListener( this );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+TempDestinationAdvisoryConsumer::~TempDestinationAdvisoryConsumer() {
+}
+
+////////////////////////////////////////////////////////////////////////////////
+void TempDestinationAdvisoryConsumer::onMessage( const cms::Message* message ) {
+
+    if( message-&gt;getCMSType() == "Advisory" ) {
+
+        std::cout &lt;&lt; "Received an Advisory Message!" &lt;&lt; std::endl;
+
+        const ActiveMQMessage* amqMessage =
+            dynamic_cast&lt;const ActiveMQMessage*&gt;( message );
+
+        if( amqMessage != NULL &amp;&amp; amqMessage-&gt;getDataStructure() != NULL ) {
+            std::cout &lt;&lt; "Advisory Message contains a Command Object!" &lt;&lt; std::endl;
+
+            try {
+
+                Pointer&lt;DestinationInfo&gt; info =
+                    amqMessage-&gt;getDataStructure().dynamicCast&lt;DestinationInfo&gt;();
+
+                unsigned char operationType = info-&gt;getOperationType();
+
+                if( operationType == ActiveMQConstants::DESTINATION_REMOVE_OPERATION ) {
+                    std::cout &lt;&lt; "Temporary Destination {"
+                              &lt;&lt; info-&gt;getDestination()-&gt;getPhysicalName()
+                              &lt;&lt; "} Removed."
+                              &lt;&lt; std::endl;
+                } else if( operationType == ActiveMQConstants::DESTINATION_ADD_OPERATION ) {
+                    std::cout &lt;&lt; "Temporary Destination {"
+                              &lt;&lt; info-&gt;getDestination()-&gt;getPhysicalName()
+                              &lt;&lt; "} Added."
+                              &lt;&lt; std::endl;
+                } else {
+                    std::cout &lt;&lt; "ERROR: I have no Idea what just happened!"
+                              &lt;&lt; std::endl;
+                }
+
+            } catch( ClassCastException&amp; ex ) {
+                std::cout &lt;&lt; "ERROR: Expected the Command to be a DestinationInfo, "
+                          &lt;&lt; "it wasn't so PANIC!!"
+                          &lt;&lt; std::endl;
+            }
+        }
+
+    } else {
+        std::cout &lt;&lt; "Received a Non-Advisory Message!" &lt;&lt; std::endl;
+    }
+}
+
+</pre>
+</div></div></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overview"><a shape="rect" href="index.html">Overview</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="tutorials.html">Tutorials</a></li><li><a shape="rect" href="api.html">API</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="download.html">Download</a></li></ul>
+
+
+<h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=51964"><a shape="rect" href="connectivity.html">Connectivity</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="stomp-support.html">Stomp</a></li><li><a shape="rect" href="openwire-support.html">OpenWire</a></li></ul>
+
+
+<h3 id="Navigation-UsingActiveMQ-CPPhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=51968"><a shape="rect" href="using-activemq-cpp.html">Using ActiveMQ-CPP</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="cms-api-overview.html">CMS API Overview</a></li><li><a shape="rect" href="example.html">Example</a></li><li><a shape="rect" href="configuring.html">Configuring</a></li></ul>
+
+
+<h3 id="Navigation-Search">Search</h3>
+
+<p></p><p>
+</p><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<p></p>
+
+<h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45948"><a shape="rect" href="community.html">Community</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></li><li><a shape="rect" class="external-link" href="http://servlet.uwyn.com/drone/log/hausbot/activemq" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/team.html">Team</a></li></ul>
+
+
+
+<h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45950"><a shape="rect" href="developers.html">Developers</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="creating-distributions.html">Creating Distributions</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=120283">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

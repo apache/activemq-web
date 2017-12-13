@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Configuring
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<p>
+	</p><div id="asf_logo">
+	<div id="activemq_logo">
+            <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org/">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org">ASF</a>
+	</div>
+        </div>
+<p></p>
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="index.html">Index</a>&nbsp;&gt;&nbsp;<a href="configuring.html">Configuring</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" href="api.html">API</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><h2 id="Configuring-ConfiguringActiveMQ-CPP">Configuring ActiveMQ-CPP</h2>
+
+<p>The configuration of ActiveMQ is so slick, we decided to take a similar approach with ActiveMQ-CPP.  All configuration is achieved via URI-encoded parameters, either on the connection or destinations.  Through the URIs, you can configure virtually every facet of your ActiveMQ-CPP client.  The tables below show the comprehensive set of parameters.</p>
+
+<h3 id="Configuring-ConnectionURIParameters"><strong>Connection URI Parameters</strong></h3>
+
+
+<h5 id="Configuring-ExampleConfiguration">&#160;Example Configuration</h5>
+
+<p>This first example uses a standard TCP based transport.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+cf = new ActiveMQConnectionFactory(
+    "tcp://localhost:61616?wireFormat=openwire&amp;wireFormat.tightEncodingEnabled=true");
+</pre>
+</div></div>
+
+<p>For a more reliable connection use the Failover Transport and configure in alternate locations to connect to.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+cf = new ActiveMQConnectionFactory(
+    "failover://(tcp://localhost:61616,tcp://anotherhost:61616)?connection.useAsyncSend=true");
+</pre>
+</div></div>
+
+<h3 id="Configuring-ProtocolOptions">Protocol Options</h3>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name <br clear="none" class="atl-forced-newline"> </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> tcp </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Uses TCP/IP Sockets to connect to the broker. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> ssl </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Uses OpenSSL to secure TCP/IP sockets. <strong>(Since v3.2.0)</strong> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> failover </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Composite of other Transports, when a Transport connection fails, the Failover Transport connects to the next Transport in the list or retries the connection to the failed broker URI. </p></td></tr></tbody></table></div>
+
+
+<h4 id="Configuring-SocketOptions"><strong>Socket Options</strong></h4>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> inputBufferSize </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 10000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The number of bytes in the buffered input stream's buffer </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> outputBufferSize </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 10000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The number of bytes in the buffered output stream's buffer </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> soLinger </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Socket SOLinger value </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> soKeepAlive </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Socket SOKeepAlive value </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> soReceiveBufferSize </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> -1 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Socket receive buffer. If -1, use OS default. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> soSendBufferSize </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> -1 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Socket send buffer. If -1, use OS default. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> soConnectTimeout </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> -1 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Socket connection timeout in microseconds.  If -1, use OS default. <strong>(Since ActiveMQ-CPP 2.2)</strong> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> tcpNoDelay </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> true </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Sets the Socket level TCP_NODELAY option </p></td></tr></tbody></table></div>
+
+
+<h4 id="Configuring-GeneralTransportOptions"><strong>General Transport Options</strong></h4>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> transport.commandTracingEnabled </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> If true, enables tracing of incoming and outgoing transport commands </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> transport.tcpTracingEnabled </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> If true, enables tracing of raw network IO (in hex) </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> transport.useAsyncSend </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> If true, enables asynchronous sending of messages. *<strong>WARNING: Using this could result in a loss of data if messages are pending and the client is shut down or crashes.</strong>* <strong>(Deprecated Since ActiveMQ-CPP 2.2.2 has no effect as of this release, use connection.useAsyncSend instead)</strong> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> transport.ResponseCorrelator.maxResponseWaitTime </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 3000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Milliseconds to wait for responses from the broker. <strong>(Removed as of ActiveMQ-CPP 2.2.1, use connection.sendTimeout instead)</strong> </p></td></tr></tbody></table></div>
+
+
+<h4 id="Configuring-FailoverTransportOptions"><strong>Failover Transport Options</strong></h4>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> initialReconnectDelay </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 10 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> How long to wait if the initial attempt to connect to the broker fails. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> maxReconnectDelay </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 30000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Maximum time that the transport waits before trying to connect to the Broker again. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> useExponentialBackOff </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> true </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should the delay between connection attempt grow on each try up to the max reconnect delay </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> maxReconnectAttempts </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Max number of times to attempt to reconnect before failing the transport, default is forever (0). </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> startupMaxReconnectAttempts </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Max number of times to attempt to reconnect before failing the transport, default is forever (0).  Only applies during the initial attempt to connect, after one successful connection the <em>maxReconnectAttempts</em> flag applies from then on. <strong>(Since v3.2.0)</strong></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> randomize </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> true </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should the transport attempt to connect to the listed Broker URI's in Random order. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> backup </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should the Failover transport maintain hot backups. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> backupPoolSize </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> If enabled, how many hot backup connections are made. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> timeout </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> -1 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> If a send is blocked waiting on a failed connection to reconnect how long should it wait before failing the send, default is forever (-1). </p></td></tr></tbody></table></div>
+
+
+<h4 id="Configuring-TransactionOptions"><strong>Transaction Options</strong></h4>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> transaction.maxRedeliveryCount </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 5 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Maximum number of redelivery attempts. <strong>(Removed in v3.2.0, see instead Connection Redelivery Policy)</strong></p></td></tr></tbody></table></div>
+
+
+<h4 id="Configuring-ConnectionOptions"><strong>Connection Options</strong></h4>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> connection.sendTimeout </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Time to wait on Message Sends for a Response, default value of zero indicates to wait forever.  Waiting forever allows the broker to have flow control over messages coming from this client if it is a fast producer or there is no consumer such that the broker would run out of memory if it did not slow down the producer. <strong>Does not affect Stomp clients as the sends are ack'd by the broker.</strong> <strong>(Since ActiveMQ-CPP 2.2.1)</strong> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> connection.producerWindowSize </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The ProducerWindowSize is the maximum number of bytes in memory that a producer will transmit to a broker before waiting for acknowledgement messages from the broker that it has accepted the previously sent messages. In other words, this how you configure the producer flow control window that is used for async sends where the client is responsible for managing memory usage.  The default value of 0 means no flow control at the client.  See also <a shape="rect" class="external-link" href="http://activemq.apache.org/producer-flow-control.html">Producer Flow Control</a>. <strong>This option only affects Openwire clients as Stomp does not have a means of notifying the clients of accepted messages asynchronously</strong>. <strong>(Since ActiveMQ-CPP 2.2.2)</strong> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> connnection.closeTimeout </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 15000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The amount of time to wait for a response from the broker when shutting down.  Normally we want a response to indicate that the client has been disconnected cleanly, but we don't want to wait forever, however if you do, set this to zero. <strong>(Since ActiveMQ-CPP 2.2.1)</strong> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> connection.useAsyncSend </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Forces the use of Async Sends which adds a massive performance boost; but means that the send() method will return immediately whether the message has been sent or not which could lead to message loss.  Normally only Persistant messages that are not part of a transaction are sent synchronously, using this options forces those messages to also be async. <strong>(</strong><strong>Since ActiveMQ-CPP 2.2.2</strong><strong>)</strong> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> connection.alwaysSyncSend </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Forces all messages that are sent to be sent synchronously overriding any usage of the useAsyncSend flag.  This can reduce performance in some cases since the only messages we normally send synchronously are Persistent messages not sent in a transaction.  This options guarantees that no send will return until the broker has acknowledge receipt of the message. <strong>(</strong><strong>Since ActiveMQ-CPP 2.2.2</strong><strong>)</strong> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> connection.useCompression </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should outgoing messages have their body portion compressed using the ZLib compression algorithms <strong>(Since v3.2.0)</strong> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> connection.dispatchAsync </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> true </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should the broker <a shape="rect" class="external-link" href="http://activemq.apache.org/consumer-dispatch-async.html">dispatch messages asynchronously</a> to the consumer, this causes all consumers from this Connection to use this setting. <strong>(Since v3.2.0)</strong> </p></td></tr></tbody></table></div>
+
+
+<h5 id="Configuring-ConnectionPolicyOptions"><strong>Connection Policy Options</strong></h5>
+
+<p>As of version 3.2.0 the Connection object supports policies that control various aspects its behaviour and of the Consumer objects it creates.</p>
+
+<h6 id="Configuring-PrefetchPolicy">Prefetch Policy</h6>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> cms.PrefetchPolicy.durableTopicPrefetch </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 100 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Max prefetch for Durable Topics </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> cms.PrefetchPolicy.queueBrowserPrefetch </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 500 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Max prefetch for a Queue Browser </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> cms.PrefetchPolicy.queuePrefetch </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Max prefetch for a Queue or Temp Queue </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> cms.PrefetchPolicy.topicPrefetch </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 65535 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Max prefetch for a Topic or Temp Topic </p></td></tr></tbody></table></div>
+
+
+<h6 id="Configuring-RedeliveryPolicy">Redelivery Policy</h6>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> cms.RedeliveryPolicy.backOffMultiplier </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 5.0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Used to extend the redelivery window when the _useExponentialBackOff option is enabled. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> cms.RedeliveryPolicy.collisionAvoidancePercent </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 15 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Percentage of randomness to add to redelivery backoff to keep multiple consumers in a rollback from redelivering at the same time. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> cms.RedeliveryPolicy.initialRedeliveryDelay </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Amount of time to wait before starting redeliveries, in milliseconds. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> cms.RedeliveryPolicy.maximumRedeliveries </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 6 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Maximum number of time to attempt a redelivery before giving up and NAck'ing the message. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> cms.RedeliveryPolicy.useCollisionAvoidance </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should the Random avoidance percentage be added into the redelivery delay. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> cms.RedeliveryPolicy.useExponentialBackOff </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should redeliveries be slowed on each cycle. </p></td></tr></tbody></table></div>
+
+
+<h4 id="Configuring-WireFormatProtocolOptions"><strong>Wire Format Protocol Options</strong></h4>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> openwire </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Selects the wire format to use.  Out of the box, can be either stomp or openwire. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat.stackTraceEnabled </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should the stack trace of exception that occur on the broker be sent to the client?  Only used by openwire protocol. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat.cacheEnabled </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should commonly repeated values be cached so that less marshalling occurs? Only used by openwire protocol. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat.tcpNoDelayEnabled </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> true </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Does not affect the wire format, but provides a hint to the peer that TCP nodelay should be enabled on the communications Socket. Only used by openwire protocol. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat.sizePrefixDisabled </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should serialized messages include a payload length prefix?  Only used by openwire protocol. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat.tightEncodingEnabled </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should wire size be optimized over CPU usage? Only used by the openwire protocol. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat.maxInactivityDuration </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 30000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The maximum inactivity duration (before which the socket is considered dead) in milliseconds. On some platforms it can take a long time for a socket to appear to die, so we allow the broker to kill connections if they are inactive for a period of time. Use by some transports to enable a keep alive heart beat feature. Set to a value &lt;= 0 to disable inactivity monitoring. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> maxInactivityDurationInitalDelay </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 10000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The initial delay in starting the maximum inactivity checks (and, yes, the word 'Inital' is supposed to be misspelled like that) </p></td></tr></tbody></table></div>
+
+
+<h3 id="Configuring-DestinationURIParameters"><strong>Destination URI Parameters</strong></h3>
+
+
+<h5 id="Configuring-ExampleConfiguration.1">Example Configuration</h5>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+d = session-&gt;createTopic("com.foo?consumer.prefetchSize=2000&amp;consumer.noLocal=true");
+</pre>
+</div></div>
+
+<h4 id="Configuring-GeneralOptions"><strong>General Options</strong></h4>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.prefetchSize </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The number of message the consumer will <a shape="rect" class="external-link" href="http://activemq.apache.org/what-is-the-prefetch-limit-for.html">prefetch</a>. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.maximumPendingMessageLimit </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Use to control if messages are dropped if a <a shape="rect" class="external-link" href="http://activemq.apache.org/slow-consumer-handling.html">slow consumer</a> situation exists. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.noLocal </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Same as the noLocal flag on a Topic consumer.  Exposed here so that it can be used with a queue. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.dispatchAsync </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should the broker <a shape="rect" class="external-link" href="http://activemq.apache.org/consumer-dispatch-async.html">dispatch messages asynchronously</a> to the consumer. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.retroactive </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Is this a <a shape="rect" class="external-link" href="http://activemq.apache.org/retroactive-consumer.html">Retroactive Consumer</a>. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.selector </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> null </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> JMS Selector used with the consumer. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.exclusive </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Is this an <a shape="rect" class="external-link" href="http://activemq.apache.org/exclusive-consumer.html">Exclusive Consumer</a>. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.priority </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Allows you to configure a <a shape="rect" class="external-link" href="http://activemq.apache.org/consumer-priority.html">Consumer Priority</a>. </p></td></tr></tbody></table></div>
+
+
+<h4 id="Configuring-OpenWire-onlyOptions"><strong>OpenWire-only Options</strong></h4>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.browser </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.networkSubscription </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.optimizedAcknowledge </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Enables an optimised acknowledgement mode where messages are acknowledged in batches rather than individually. Alternatively, you could use Session.DUPS_OK_ACKNOWLEDGE acknowledgement mode for the consumers which can often be faster. <strong>WARNING</strong> enabling this issue could cause some issues with auto-acknowledgement on reconnection </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.noRangeAcks </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> consumer.retroactive </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Sets whether or not retroactive consumers are enabled. Retroactive consumers allow non-durable topic subscribers to receive old messages that were published before the non-durable subscriber started. </p></td></tr></tbody></table></div></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overview"><a shape="rect" href="index.html">Overview</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="tutorials.html">Tutorials</a></li><li><a shape="rect" href="api.html">API</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="download.html">Download</a></li></ul>
+
+
+<h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=51964"><a shape="rect" href="connectivity.html">Connectivity</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="stomp-support.html">Stomp</a></li><li><a shape="rect" href="openwire-support.html">OpenWire</a></li></ul>
+
+
+<h3 id="Navigation-UsingActiveMQ-CPPhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=51968"><a shape="rect" href="using-activemq-cpp.html">Using ActiveMQ-CPP</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="cms-api-overview.html">CMS API Overview</a></li><li><a shape="rect" href="example.html">Example</a></li><li><a shape="rect" href="configuring.html">Configuring</a></li></ul>
+
+
+<h3 id="Navigation-Search">Search</h3>
+
+<p></p><p>
+</p><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<p></p>
+
+<h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45948"><a shape="rect" href="community.html">Community</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></li><li><a shape="rect" class="external-link" href="http://servlet.uwyn.com/drone/log/hausbot/activemq" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/team.html">Team</a></li></ul>
+
+
+
+<h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45950"><a shape="rect" href="developers.html">Developers</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="creating-distributions.html">Creating Distributions</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=51941">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

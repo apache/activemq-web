@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Connection Configuration URI
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="using-activemq.html">Using ActiveMQ</a>&nbsp;&gt;&nbsp;<a href="configuring-transports.html">Configuring Transports</a>&nbsp;&gt;&nbsp;<a href="activemq-connection-uris.html">ActiveMQ Connection URIs</a>&nbsp;&gt;&nbsp;<a href="connection-configuration-uri.html">Connection Configuration URI</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><h2 id="ConnectionConfigurationURI-ConnectionConfigurationURI">Connection Configuration URI</h2><p>An Apache ActiveMQ connection can be configured by explicitly setting properties on the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/ActiveMQConnection.html">ActiveMQConnection</a> or <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/ActiveMQConnectionFactory.html">ActiveMQConnectionFactory</a> objects themselves via the bean properties or using the following URI syntax.</p><h3 id="ConnectionConfigurationURI-Example">Example</h3><p>You set the property called&#160;<strong><code>jms.$PROPERTY</code></strong> on a regular connection URI. For example you can set the&#160;<strong><code>brokerURL</code></strong> on your <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/ActiveMQConnectionFactory.html">ActiveMQConnectionFactory</a> to the following value to enable <a shape="rect" href="async-sends.html">Async Sends</a></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">tcp://localhost:61616?jms.useAsyncSend=true
+</pre>
+</div></div><h3 id="ConnectionConfigurationURI-ConnectionOptions">Connection Options</h3><div class="confluence-information-macro confluence-information-macro-information"><p class="title">Use the Correct Prefix!</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>The following options should be prefixed with&#160;<strong><code>jms.</code></strong> when used on a&#160;<strong><code>brokerURL</code></strong> or a broker's transport connector.</p></div></div><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Option Name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Default Value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>alwaysSessionAsync</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>true</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>When <strong><code>true</code></strong> a separate thread is used for dispatching messages for each Session in the Connection.</p><p>A separate thread is always used when there's more than one session, or the session isn't in <strong><code>Session.AUTO_ACKNOWLEDGE</code></strong> or <strong><code>Session.DUPS_OK_ACKNOWLEDGE</code></strong> mode.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>alwaysSyncSend</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>When&#160;<strong><code>true</code></strong> a&#160;<strong><code>MessageProducer</code></strong> will always use Sync sends when sending a Message even if it is not required for the Delivery Mode.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>auditDepth</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>2048</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The size of the message window that will be audited for duplicates and out of order messages.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>auditMaximumProducerNumber</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>64</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Maximum number of producers that will be audited.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>checkForDuplicates</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>true</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>When&#160;<strong><code>true</code></strong> the consumer will check for duplicate messages and properly handle the message to make sure that it is not processed twice inadvertently.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>clientID</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>null</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Sets the JMS clientID to use for the connection.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>closeTimeout</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>15000</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Sets the timeout, in milliseconds, before a close is considered complete. Normally a&#160;<strong><code>close()</code></strong> on a connection waits for confirmation from the broker.</p><p>This allows the close operation to timeout preventing the client from hanging when no broker is available.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>consumerExpiryCheckEnabled</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>true</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Controls whether message expiration checking is done in each&#160;<strong><code>MessageConsumer</code></strong> prior to dispatching a message. Disabling this check can lead to consumption of expired messages. (since 5.11).</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>copyMessageOnSend</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>true</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Should a JMS message be copied to a new JMS Message object as part of the&#160;<strong><code>send()</code></strong> method in JMS. This is enabled by default to be compliant with the JMS specification.</p><p>For a performance boost set to&#160;<strong><code>false</code></strong> if you do not mutate JMS messages after they are sent.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>disableTimeStampsByDefault</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Sets whether or not timestamps on messages should be disabled or not.</p><p>For a small performance boost set to <strong><code>false</code></strong>.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>dispatchAsync</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Should the broker <a shape="rect" href="consumer-dispatch-async.html">dispatch messages asynchronously</a> to the consumer?</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>nestedMapAndListEnabled</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>true</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Controls whether <a shape="rect" href="structured-message-properties-and-mapmessages.html">Structured Message Properties and MapMessages</a> are supported so that Message properties and&#160;<strong><code>MapMessage</code></strong> entries can contain nested Map and List objects. Available from version 4.1.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>objectMessageSerializationDefered</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>When an object is set on an <strong><code>ObjectMessage</code></strong> the JMS spec requires the object be serialized by that set method.</p><p>When&#160;<strong><code>true</code></strong> the object will not be serialized. The object may subsequently be serialized if the message needs to be sent over a socket or stored to disk.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>optimizeAcknowledge</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Enables an optimized acknowledgement mode where messages are acknowledged in batches rather than individually. Alternatively, you could use&#160;<strong><code>Session.DUPS_OK_ACKNOWLEDGE</code></strong> acknowledgement mode for the consumers which can often be faster.</p><p><strong>WARNING</strong>: enabling this issue could cause some issues with auto-acknowledgement on reconnection.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>optimizeAcknowledgeTimeOut</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>300</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>If &gt; 0, specifies the max time, in milliseconds, between batch acknowledgements when&#160;<strong><code>optimizeAcknowledge</code></strong> is enabled. (since 5.6).</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>optimizedAckScheduledAckInterval</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>0</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>If &gt; 0, specifies a <span style="line-height: 1.4285715;">time interval upon which all the outstanding ACKs are delivered when optimized acknowledge is used so that a long running consumer that doesn't receive any more messages will eventually ACK the last few un-ACK'ed messages (since 5.7).</span></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>optimizedMessageDispatch</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>true</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>If&#160;<strong><code>true</code></strong> a larger prefetch limit is used - only applicable for durable topic subscribers.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>useAsyncSend</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Forces the use of <a shape="rect" href="async-sends.html">Async Sends</a> which adds a massive performance boost; but means that the&#160;<strong><code>send()</code></strong> method will return immediately whether the message has been sent or not which could lead to message loss.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>useCompression</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Enables the use of compression on the message's body.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>useRetroactiveConsumer</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Sets whether or not retroactive consumers are enabled. Retroactive consumers allow non-durable topic subscribers to receive old messages that were published before the non-durable subscriber started.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>warnAboutUnstartedConnectionTimeout</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>500</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The timeout, in milliseconds, from the time of connection creation to when a warning is generated if the connection is not properly started via <a shape="rect" class="external-link" href="http://java.sun.com/j2ee/1.4/docs/api/javax/jms/Connection.html#start()" rel="nofollow">Connection.start()</a> and a message is received by a consumer. It is a very common gotcha to forget to <a shape="rect" href="i-am-not-receiving-any-messages-what-is-wrong.html">start the connection and then wonder why no messages are delivered</a> so this option makes the default case to create a warning if the user forgets.</p><p>To disable the warning just set the value to <strong><code>&lt; 0</code></strong>.</p></td></tr></tbody></table></div><h3 id="ConnectionConfigurationURI-NestedOptions">Nested Options</h3><p>You can also configure nested objects on the connection object using the given prefixes. See the javadoc for a breakdown of each individual property.</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Option Name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Object configured</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>See Also</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>jms.blobTransferPolicy.*</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/blob/BlobTransferPolicy.html">BlobTransferPolicy</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="unresolved" href="#">Blob Message</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>jms.prefetchPolicy.*</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://http//activemq.apache.org/maven/apidocs/org/apache/activemq/ActiveMQPrefetchPolicy.html" rel="nofollow">ActiveMQPrefetchPolicy</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" href="what-is-the-prefetch-limit-for.html">What is the Prefetch Limit For?</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>jms.redeliveryPolicy.*</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/RedeliveryPolicy.html">RedeliveryPolicy</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" href="redelivery-policy.html">Redelivery Policy</a></p></td></tr></tbody></table></div><p>For example you could set</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">tcp://localhost:61616?jms.prefetchPolicy.all=100&amp;jms.redeliveryPolicy.maximumRedeliveries=5
+</pre>
+</div></div></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=35986">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

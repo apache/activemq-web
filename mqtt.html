@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushXml.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- MQTT
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="connectivity.html">Connectivity</a>&nbsp;&gt;&nbsp;<a href="protocols.html">Protocols</a>&nbsp;&gt;&nbsp;<a href="mqtt.html">MQTT</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><p>ActiveMQ supports the <a shape="rect" class="external-link" href="http://mqtt.org/" rel="nofollow">MQTT</a> protocol and will automatically map between JMS/NMS and MQTT clients. MQTT is a machine-to-machine (M2M) publish/subscribe messaging transport.</p><p>Please see the <a shape="rect" class="external-link" href="http://mqtt.org/" rel="nofollow">MQTT site</a> for more details</p><h3 id="MQTT-EnablingtheActiveMQBrokerforMQTT">Enabling the ActiveMQ Broker for MQTT</h3><p>Its very easy to enable ActiveMQ for MQTT. Just add a connector to the broker using the MQTT URL.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;transportConnectors&gt;
+   &lt;transportConnector name="mqtt" uri="mqtt://localhost:1883"/&gt;
+&lt;/transportConnectors&gt;
+</pre>
+</div></div><h3 id="MQTT-TheMQTTWireFormat">The MQTT Wire Format</h3><p>MQTT uses a compact binary format that can be configured with the following options. &#160;All options can be configured on a Brokers transport bind URI.</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Parameter Name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Default Value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>maxFrameSize</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>268435456</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>(v5.12.0) Maximum frame size that can be sent. The protocol limit is 256 megabytes and his value cannot be set higher. Can help help prevent OOM DOS attacks</p></td></tr></tbody></table></div><p>All options must be prepended with&#160;<code>wireFormat</code>&#160;in order to take effect. Without this proper formatting, the option will have zero effect.</p><h4 id="MQTT-ExampleWireFormatConfiguration">Example Wire Format Configuration<br clear="none">&#160;</h4><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">     &lt;transportConnector name="mqtt" uri="mqtt://localhost:61612?wireFormat.maxFrameSize=100000"/&gt;</pre>
+</div></div><h3 id="MQTT-Security">Security</h3><p>The ActiveMQ MQTT Transport implementation fully supports an <a shape="rect" href="security.html">ActiveMQ security</a> mechanism. Also, the authorization policies will be applied when you try to access (read/write) certain destinations.</p><h3 id="MQTT-EnablingMQTToverNIO">Enabling MQTT over NIO</h3><p>For better scalability (and performance) you might want to run the MQTT protocol over NIO transport. To do that just use <code>mqtt+nio</code> transport prefix instead of <code>matt</code>. For example, add the following transport configuration in your XML file</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">     &lt;transportConnector name="mqtt+nio" uri="mqtt+nio://localhost:1883"/&gt;
+</pre>
+</div></div><p>This transport use <a shape="rect" class="external-link" href="http://activemq.apache.org/configuring-transports.html#ConfiguringTransports-TheNIOTransport">NIO transport</a> underneath and will generally use much less threads than standard connector.</p><h3 id="MQTT-EnablingMQTToverNIO+SSL">Enabling MQTT over NIO + SSL</h3><p>The MQTT transport also supports using NIO and SSL. To enable this option, use the mqtt+nio+ssl protocol - e.g.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">     &lt;transportConnector name="mqtt+nio" uri="mqtt+nio+ssl://localhost:1883"/&gt;
+</pre>
+</div></div><ul><li>For more details on using SSL with ActiveMQ see the following article (<a shape="rect" class="external-link" href="http://activemq.apache.org/how-do-i-use-ssl.html">How do I use SSL</a>).</li></ul><h3 id="MQTT-WorkingwithDestinationswithMQTT">Working with Destinations with MQTT</h3><p>MQTT supports hierarchies and wildcards, though the delimiters and characters are different: - Here's the mapping:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>function</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>ActiveMQ</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>MQTT</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>separator</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>.</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>/</code></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>element</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>*</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>+<br clear="none"></code></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>sub tree</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>&gt;</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>#<br clear="none"></code></p></td></tr></tbody></table></div><p>These values are automatically transposed between clients using JMS/NMS/Stomp and clients using MQTTT. For example - a client subscribing to "foo/#/bar" would receive messages published on a JMS Topic of foo.blah.bar.</p><h3 id="MQTT-Messagetransformations">Message transformations</h3><p>MQTT messages are transformed into an JMS ByteMessage. Conversely, the body of any JMS Message is converted to a byte buffer to be the payload of an MQTT message.</p><h3 id="MQTT-KeepAlive">Keep Alive</h3><p>When a client connects, it will send a keep-alive duration, usually defaulting to 10s. ActiveMQ will honor the keep-alive duration by setting up an Inactivity Monitor that allows a grace period of 1.5 * duration. After that grace period duration elapses a connection could be closed if there is no activity. A broker receiving a PINGREQ and sending PINGRESP is considered activity to keep the connection opened.</p><p>If a client sends a keep-alive value of 0, ActiveMQ will not set up an <a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-inactivitymonitor.html">Inactivity Monitor</a> and connections will not be auto-shutdown due to inactivity. This however can lead to potentially leaky connections, so a default keep alive can be set on the server side (by an admin, for example) to not allow inactive connections to hang. This default keep alive would only be used if specified and if the client requests a keep-alive value of 0. The unit for the keep-alive value is milliseconds.</p><p>To enable a default, server-side MQTT keep alive:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;transportConnector name="mqtt" uri="mqtt://localhost:1883?transport.defaultKeepAlive=60000"/&gt;</pre>
+</div></div><h3 id="MQTT-MessagePrefetch">Message Prefetch</h3><p>When MQTT client connects, it locally create JMS-like consumer to the broker. In older versions this consumer was created with the prefetch size of 1 (message prefetching is explained <a shape="rect" href="what-is-the-prefetch-limit-for.html">here</a> in more details). Starting with 5.11.0 release, the prefetch size is adjusted to the default value for the appropriate JMS subscription. QoS=0 subscriptions have default prefetch of regular non-persistent topic subscriptions, while QoS=1 and QoS=2 are assigned prefetch size of durable subscribers or the queue subscriptions depending on the subscription strategy used (see the next section for more details). Default prefetch values are listed <a shape="rect" href="what-is-the-prefetch-limit-for.html">here</a>.</p><p>To change default value of the prefetch size, you can use&#160;<em>activeMQSubscriptionPrefetch</em> transport option, like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">&lt;transportConnector name="mqtt" uri="mqtt://localhost:1883?transport.activeMQSubscriptionPrefetch=32766"/&gt;</pre>
+</div></div><h3 id="MQTT-SubscriptionStrategy">Subscription Strategy</h3><p>ActiveMQ is a JMS broker in its core, so there needs to be some mapping between MQTT subscriptions and JMS semantics. Subscriptions with QoS=0 (At Most Once) are directly mapped to plain JMS non-persistent topics. For reliable messaging, QoS=1 and QoS=2, by default subscriptions are transformed to JMS durable topic subscribers. This behaviour is desired in most scenarios. For some use cases, it is useful to map these subscriptions to <a shape="rect" href="virtual-destinations.html">virtual topics</a>. Virtual topics provide a better scalability and are generally better solution if you want to use you MQTT subscribers over network of brokers. To change subscription strategy to use virtual topic, use the following settings:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">&lt;transportConnector name="mqtt" uri="mqtt://localhost:1883?transport.subscriptionStrategy=mqtt-virtual-topic-subscriptions"/&gt;</pre>
+</div></div><h3 id="MQTT-RetainedMessages">Retained Messages</h3><p>If a message has been published with the <em>retain</em> flag set, then the message will be 'remembered' by the topic so that if a new subscription arrives, the last retained message is sent to the subscription. Underneath, the broker uses <a shape="rect" href="subscription-recovery-policy.html">retained message subscription recovery policy</a> to retain messages with&#160;<em>ActiveMQ.Retain</em> property set. During the message conversion, MQTT messages with retain flag become JMS message with the <em>ActiveMQ.Retain&#160;</em>property set and retained by the broker.</p></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=27848164">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

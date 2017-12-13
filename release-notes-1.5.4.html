@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd">
+<!--
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  Architecture
+-->
+<html lang="en">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <meta content="ActiveMQ's next generation of messaging" name="description"/>
+    <meta content="messaging,stomp,jms,activemq" name="keywords"/>
+    <meta content="ActiveMQ" name="author"/>
+    <link type="text/css" rel="stylesheet" href="styles/impact/css/pygmentize.css"/>
+    <link type="text/css" rel="stylesheet" href="styles/impact/css/site.css"/>
+
+    <style type='text/css'>
+        /* <![CDATA[ */
+        .download {
+            font-size: 80%;
+        }
+
+        table.download {
+            width: 100%;
+        }
+
+        table.download tr td {
+            border: 1px solid #ccc;
+            padding: .5em;
+        }
+
+        /* ]]> */
+    </style>
+
+    <title>ActiveMQ Artemis</title>
+</head>
+<body>
+<div id="navigation">
+    <div class="wrapper">
+        <ul>
+            <li><a href="index.html">ActiveMQ Artemis</a></li>
+            <li><a href="docs.html">Documentation</a></li>
+            <li><a href="download.html">Download</a></li>
+        </ul>
+    </div>
+</div>
+<div id="overview">
+    <div class="wrapper">
+        <div class="logo">
+            <img src="images/activemq-logo.png" alt="ActiveMQ logo"/>
+        </div>
+        <div class="message">
+            <h1>ActiveMQ Artemis</h1>
+        </div>
+    </div>
+</div>
+<div id="content">
+    <div class="wrapper">
+        <h2 id="release-notes---apache-activemq-artemis-1.5.4">Release Notes - Apache ActiveMQ Artemis 1.5.4</h2>
+    </div>
+    <div class="wrapper">
+        <p>A complete list of JIRAs for the 1.5.4 release can be found at the <a
+                href=https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12315920&version=12339158">Apache
+            ActiveMQ Artemis project JIRA</a></p>
+
+
+        Release Notes - ActiveMQ Artemis - Version 1.5.4
+
+        <h2>        Bug
+        </h2>
+        <ul>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-919'>ARTEMIS-919</a>] -         Issues creating jms queues in core config in broker.xml when hot reloading configuration
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-932'>ARTEMIS-932</a>] -         2 brokers can be started using the same store
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-950'>ARTEMIS-950</a>] -         Change log level from INFO to WARN for &quot;Invalid &quot;host&quot; value &quot;0.0.0.0&quot; detected for...&quot; when Artemis is bound to 0.0.0.0
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-963'>ARTEMIS-963</a>] -         ClassCastException in ActiveMQChannelHandler
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-969'>ARTEMIS-969</a>] -         ReceiveMessage will expand unecessarily on core protocol
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-974'>ARTEMIS-974</a>] -         MQTT Will messages are not retained
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-976'>ARTEMIS-976</a>] -         PostgresSequentialSequentialFileDriver SQLProvider NPE
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-982'>ARTEMIS-982</a>] -         Deadlock on AMQP Close versus Delivery on AMQP
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-986'>ARTEMIS-986</a>] -         Integer overflow in MySQLSQLProvider.java
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-989'>ARTEMIS-989</a>] -         Individual Acknowledge: ActiveMQConnectionFactory.createContext(final int sessionMode) throws exception for ActiveMQJMSConstants.INDIVIDUAL_ACKNOWLEDGE
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-991'>ARTEMIS-991</a>] -         Null dereference after hitting Ctrl+d when prompted for password in `artemis create`
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-992'>ARTEMIS-992</a>] -         NPE and other trouble when cluster-connection has bad connector-ref
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-998'>ARTEMIS-998</a>] -         NPE when using JDBCFileDriver when Blob is null
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-1017'>ARTEMIS-1017</a>] -         Wrong error message when default destination for producer is not specified
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-1020'>ARTEMIS-1020</a>] -         CDI Extension doesn&#39;t discover Configuration via CDI producers
+            </li>
+        </ul>
+
+        <h2>        Improvement
+        </h2>
+        <ul>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-1002'>ARTEMIS-1002</a>] -         ActiveMQBuffers creates a new netty pool increasing memory footprint
+            </li>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-1006'>ARTEMIS-1006</a>] -         JDBC Storage Manager to show SQLExceptions on logs
+            </li>
+        </ul>
+
+        <h2>        New Feature
+        </h2>
+        <ul>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-999'>ARTEMIS-999</a>] -         Support Oracle12C for Artemis JDBC Store
+            </li>
+        </ul>
+
+        <h2>        Task
+        </h2>
+        <ul>
+            <li>[<a href='https://issues.apache.org/jira/browse/ARTEMIS-995'>ARTEMIS-995</a>] -         Cleanup test suite
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

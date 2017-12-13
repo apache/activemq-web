@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+    
+    <title>
+    Apache ActiveMQ &#8482; -- NMS
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+            <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="index.html">Index</a>&nbsp;&gt;&nbsp;<a href="overview.html">Overview</a>&nbsp;&gt;&nbsp;<a href="nms.html">NMS</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" href="nms-api.html">API</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Forums</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><h2 id="NMS-GettingStartedwithNMS">Getting Started with NMS</h2>
+
+<p>The NMS API provides your client with a common API model for working with Message Oriented Middleware, but to make use of the API you need to download one of the NMS Provider libraries.  The NMS Providers libraries are what makes it possible for your code to connect to your Message Broker.  Follow the links below to read more about the <a shape="rect" href="nms-providers.html">NMS Provider</a> for your Message broker and <a shape="rect" href="download.html">download</a> a release bundle.</p>
+
+<h3 id="NMS-NMSProviders">NMS Providers</h3><p>An NMS Provider is a .NET Assembly that provides an implementation of the NMS API that provides connectivity with a particular Messaging Service or an implementation of a standard Messaging Protocol. Currently, the following providers are available:</p><ul><li><a shape="rect" href="apachenmsactivemq.html"><strong>ActiveMQ</strong></a> client which communicates with ActiveMQ using its own native wire protocol and provides many <a shape="rect" href="activemq-advanced-features.html">advanced features</a> beyond the standard NMS API.</li><li><a shape="rect" href="apachenmsstomp.html"><strong>STOMP</strong></a> which connects to any <a shape="rect" class="external-link" href="http://stomp.codehaus.org/" rel="nofollow">STOMP Broker</a>.&#160; Also, when coupled with <a shape="rect" class="external-link" href="http://stomp.codehaus.org/StompConnect" rel="nofollow">StompConnect</a>, NMS can be used to communicate with pretty much any existing MOM provider! (Or at least those that support JMS which most MOM providers do).</li><li><a shape="rect" href="apachenmsmsmq.html"><strong>MSMQ</strong></a> is an implementation of NMS using Microsoft's MSMQ API.</li><li><a shape="rect" href="apachenmsems.html"><strong>EMS</strong></a> provider for talking to TIBCO's EMS message broker.&#160; To use this, you will need to following TIBCO's licensing requirements to acquire the TIBCO client assembly DLL.&#160; NMS does not ship with the TIBCO client assembly.</li><li><a shape="rect" href="apachenmswcf.html"><strong>WCF</strong></a> provides support of Windows Communications Framework.</li><li><a shape="rect" href="apachenmsamqp.html"><strong>AMQP</strong></a> is an implementation of NMS using the <a shape="rect" class="external-link" href="https://qpid.apache.org/components/messaging-api/index.html">Apache Qpid Messaging API</a>. AMQP 1.0 protocol support is provided by <a shape="rect" class="external-link" href="https://qpid.apache.org/proton/index.html">Apache Qpid Proton</a>.</li><li><a shape="rect" href="apachenmsmqtt.html"><strong>MQTT</strong></a> provider uses the&#160;publish-subscribe<span style="color: rgb(37,37,37);">&#160;pattern that is a "light weight" messaging protocol for use on top of the&#160;</span><a shape="rect" class="external-link" href="https://en.wikipedia.org/wiki/TCP/IP" rel="nofollow" title="TCP/IP">TCP/IP protocol</a><span style="color: rgb(37,37,37);">.&#160;</span></li><li><span style="color: rgb(37,37,37);"><strong><a shape="rect" href="apachenmsxms.html">XMS</a></strong> provider connects to the IBM WebSphere MQ Series broker.</span></li></ul>
+
+<h2 id="NMS-Buildingthecode">Building the code</h2>
+
+<p>While there are binary distributions available for all the <a shape="rect" href="nms-providers.html">NMS Providers</a> you sometimes might want to build the code from trunk in order to test out the latest changes or fixes.  On Windows you can use Visual Studio to build the code. On Linux or OS X you can use <a shape="rect" class="external-link" href="http://www.mono-project.com" rel="nofollow">Mono</a>.</p>
+
+<p>The build uses <a shape="rect" class="external-link" href="http://nant.sourceforge.net/" rel="nofollow">NAnt</a> which both work on .Net and Mono.&#160; You will need to have NAnt 0.91-Alpha2 or later.</p>
+
+<p>For more help see the <a shape="rect" class="external-link" href="http://activemq.apache.org/nms/building.html">Building NMS</a> guide.</p>
+
+<h2 id="NMS-AlternativestoNMS">Alternatives to NMS</h2>
+
+<p>There are currently a few alternatives to using NMS and working with ActiveMQ in .NET applications however the <a shape="rect" href="apachenmsactivemq.html">NMS ActiveMQ Provider</a> is very feature rich and we recommend it as your starting point for .NET ActiveMQ inter-op.</p>
+<ul><li>use the <a shape="rect" class="external-link" href="http://stomp.codehaus.org/DotNet" rel="nofollow">pure C# Stomp client</a> to access ActiveMQ from .Net using a lightweight client.</li><li>use the ActiveMQ Java client from C# and .Net using IKVM. <a shape="rect" class="external-link" href="http://dotnetjunkies.com/WebLog/csteen/archive/2004/08/20/22813.aspx" rel="nofollow">More information</a>.</li><li>use the <a shape="rect" class="external-link" href="http://activemq.apache.org/rest.html">ActiveMQ REST</a> API via HTTP</li><li>use the <a shape="rect" class="external-link" href="http://activemq.apache.org/c-integration.html">ActiveMQ C Integration</a> to reuse the C/C++ library.</li></ul></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45788"><a shape="rect" href="overview.html">Overview</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="index.html">Home</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="download.html">Download</a></li></ul>
+
+
+<h3 id="Navigation-UsingNMShttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=117579"><a shape="rect" href="using-nms.html">Using NMS</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="apachenms.html">NMS Overview</a></li><li><a shape="rect" href="nms.html">Getting Started</a></li><li><a shape="rect" href="nms-api.html">NMS API Reference</a></li><li><a shape="rect" href="apachenmsactivemq.html">ActiveMQ</a></li><li><a shape="rect" href="apachenmsstomp.html">Stomp</a></li><li><a shape="rect" href="apachenmsmsmq.html">MSMQ</a></li><li><a shape="rect" href="apachenmsems.html">Tibco EMS</a></li><li><a shape="rect" href="apachenmswcf.html">WCF</a></li></ul>
+
+
+<h3 id="Navigation-Search">Search</h3>
+<p></p><p>
+</p><form enctype="application/x-www-form-urlencoded" method="get" id="cse-search-box" action="http://www.google.com/cse">
+  <div>
+    <input type="hidden" name="cx" value="007878419884033443453:m5nhvy4hmyq">
+    <input type="hidden" name="ie" value="UTF-8">
+    <input type="text" name="q" size="21">
+    <input type="submit" name="sa" value="Search">
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+<p></p>
+
+<h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45789"><a shape="rect" href="community.html">Community</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/team.html">Team</a></li></ul>
+
+
+<h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45790"><a shape="rect" href="developers.html">Developers</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=45803">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

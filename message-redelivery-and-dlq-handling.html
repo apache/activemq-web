@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushXml.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Message Redelivery and DLQ Handling
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="developers.html">Developers</a>&nbsp;&gt;&nbsp;<a href="developer-guide.html">Developer Guide</a>&nbsp;&gt;&nbsp;<a href="design-documents.html">Design Documents</a>&nbsp;&gt;&nbsp;<a href="message-redelivery-and-dlq-handling.html">Message Redelivery and DLQ Handling</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><h3 id="MessageRedeliveryandDLQHandling-Overview">Overview</h3><p>Messages are redelivered to a client when <strong>any</strong> of the following occurs:</p><ol><li>A transacted session is used and&#160;<strong><code>rollback()</code></strong> is called.</li><li>A transacted session is closed before&#160;<strong><code>commit()</code></strong> is called.</li><li>A session is using&#160;<strong><code>CLIENT_ACKNOWLEDGE</code></strong> and&#160;<strong><code>Session.recover()</code></strong> is called.</li><li>A client connection times out (perhaps the code being executed takes longer than the configured time-out period).</li></ol><p>The broker transmits the default delivery policy that he prefers to a client connection in his&#160;<strong><code>BrokerInfo</code></strong> command packet. But the client can override the policy settings by using the&#160;<strong><code>ActiveMQConnection.getRedeliveryPolicy()</code></strong> method:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">RedeliveryPolicy policy = connection.getRedeliveryPolicy();
+policy.setInitialRedeliveryDelay(500);
+policy.setBackOffMultiplier(2);
+policy.setUseExponentialBackOff(true);
+policy.setMaximumRedeliveries(2);
+</pre>
+</div></div><p>Once a message's redelivery attempts exceeds the&#160;<strong><code>maximumRedeliveries</code></strong> configured for the <a shape="rect" href="redelivery-policy.html">Redelivery Policy</a>, a "Poison ACK" is sent back to the broker letting him know that the message was considered a poison pill. The Broker then takes the message and sends it to a Dead Letter Queue so that it can be analyzed later on.</p><p>The default Dead Letter Queue in ActiveMQ is called <strong><code>ActiveMQ.DLQ</code></strong>; all un-deliverable messages will get sent to this queue and this can be difficult to manage. So, you can set an&#160;<strong><code>individualDeadLetterStrategy</code></strong> in the destination policy map of the <strong><code>activemq.xml</code></strong> configuration file, which allows you to specify a specific dead letter queue prefix for a given queue or topic. You can apply this strategy using wild card if you like so that all queues get their own dead-letter queue, as is shown in the example below.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;broker&gt;
+  
+  &lt;destinationPolicy&gt;
+    &lt;policyMap&gt;
+      &lt;policyEntries&gt;
+        &lt;!-- Set the following policy on all queues using the '&gt;' wildcard --&gt;
+        &lt;policyEntry queue="&gt;"&gt;
+          &lt;deadLetterStrategy&gt;
+            &lt;!--
+              Use the prefix 'DLQ.' for the destination name, and make
+              the DLQ a queue rather than a topic
+            --&gt;
+            &lt;individualDeadLetterStrategy queuePrefix="DLQ." useQueueForQueueMessages="true"/&gt;
+          &lt;/deadLetterStrategy&gt;
+        &lt;/policyEntry&gt;
+      &lt;/policyEntries&gt;
+    &lt;/policyMap&gt;
+  &lt;/destinationPolicy&gt;
+  
+&lt;/broker&gt;
+</pre>
+</div></div><p>See the <a shape="rect" href="redelivery-policy.html">Redelivery Policy</a> section for some more detail on the policy options.</p><h3 id="MessageRedeliveryandDLQHandling-AutomaticallyDiscardExpiredMessages">Automatically Discard Expired Messages</h3><p>Some folks simply need expired messages to be discarded instead of sent to the DLQ i.e., skip the DLQ entirely. This simplifies the management of the DLQ so that you're not sifting through loads of expired messages to find messages with real problems. To tell ActiveMQ to just discard expired messages, configure the <strong><code>processExpired</code></strong> property to false on a dead letter strategy:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;broker&gt;
+  
+  &lt;destinationPolicy&gt;
+   &lt;policyMap&gt;
+     &lt;policyEntries&gt;
+       &lt;!-- Set the following policy on all queues using the '&gt;' wildcard --&gt;
+       &lt;policyEntry queue="&gt;"&gt;
+         &lt;!-- 
+           Tell the dead letter strategy not to process expired messages
+           so that they will just be discarded instead of being sent to
+           the DLQ 
+         --&gt;
+         &lt;deadLetterStrategy&gt;
+           &lt;sharedDeadLetterStrategy processExpired="false" /&gt;
+         &lt;/deadLetterStrategy&gt;
+       &lt;/policyEntry&gt;
+     &lt;/policyEntries&gt;
+   &lt;/policyMap&gt;
+  &lt;/destinationPolicy&gt;
+  
+&lt;/broker&gt;
+</pre>
+</div></div><h3 id="MessageRedeliveryandDLQHandling-PlaceNon-PersistentMessagesOntoTheDead-LetterQueue">Place Non-Persistent Messages Onto The Dead-Letter Queue</h3><p>By default, ActiveMQ will not place undeliverable <em>non-persistent</em> messages on the dead-letter queue. The rationale for this behavior is that if the application doesn't care enough to make the message persistent, then there is little or no value in recording that the message was undeliverable. If you do want to place non-persistent messages on the dead-letter queue, then you should set <strong><code>processNonPersistent="true"</code></strong> on the dead-letter strategy.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;broker&gt;
+  
+ &#160;&lt;destinationPolicy&gt;
+   &lt;policyMap&gt;
+     &lt;policyEntries&gt;
+       &lt;!-- Set the following policy on all queues using the '&gt;' wildcard --&gt;
+       &lt;policyEntry queue="&gt;"&gt;
+         &lt;!-- 
+           Tell the dead letter strategy to also place non-persisted messages 
+           onto the dead-letter queue if they can't be delivered.
+         --&gt;
+         &lt;deadLetterStrategy&gt;
+           &lt;sharedDeadLetterStrategy processNonPersistent="true" /&gt;
+         &lt;/deadLetterStrategy&gt;
+       &lt;/policyEntry&gt;
+     &lt;/policyEntries&gt;
+   &lt;/policyMap&gt;
+  &lt;/destinationPolicy&gt;
+  
+&lt;/broker&gt;
+</pre>
+</div></div><h3 id="MessageRedeliveryandDLQHandling-SettingExpirationonMessagesintheDLQ">Setting Expiration on Messages in the DLQ</h3><p>By default, ActiveMQ will <strong><em>never</em></strong> expire messages sent to the DLQ. However, from ActiveMQ 5.12 the&#160;<strong><code>deadLetterStrategy</code></strong> supports an&#160;<strong><code>expiration</code></strong> attribute whose value is given in milliseconds.</p><div class="confluence-information-macro confluence-information-macro-warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Be selective in how this is applied. In particular do not apply expiration to your DLQ destinations by setting expiration on a default or inclusive wildcard policy entry.</p><p>If a DLQ entry expires and forwards to the same or another DLQ with expiry, you will introduce a loop that can be problematic if the strategy audit is disabled or it's sliding window is exceeded.</p></div></div><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;broker&gt;
+  
+ &#160;&lt;destinationPolicy&gt;
+   &lt;policyMap&gt;
+     &lt;policyEntries&gt;
+       &lt;policyEntry queue="QueueWhereItIsOkToExpireDLQEntries"&gt;
+         &lt;deadLetterStrategy&gt;
+           &lt;.... expiration="300000"/&gt;
+         &lt;/deadLetterStrategy&gt;
+       &lt;/policyEntry&gt;
+     &lt;/policyEntries&gt;
+   &lt;/policyMap&gt;
+  &lt;/destinationPolicy&gt;
+  
+&lt;/broker&gt;
+</pre>
+</div></div><h3 id="MessageRedeliveryandDLQHandling-Messageaudit">Message audit</h3><p>The dead letter strategy has an message audit that is enabled by default. This prevents duplicate messages from being added to the configured DLQ. From 5.15.0, the limits of the audit can configured via the</p><p><strong>maxProducersToAudit</strong> and <strong>maxAuditDepth</strong> attributes. The audit can be disabled using <strong>enableAudit</strong>="false"</p><p>&#160;</p><h3 id="MessageRedeliveryandDLQHandling-TheDiscardingDLQPlugin">The Discarding DLQ Plugin</h3><p>&#160;</p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>From ActiveMQ 5.9 - a destination&#160;<strong><code>policyEntry</code></strong> supports a&#160;<strong><code>deadLetterStrategy</code></strong> of discarding:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;deadLetterStrategy&gt;
+    &lt;discarding/&gt;
+&lt;/deadLetterStrategy&gt;</pre>
+</div></div><p>This does the same thing as the plugin but on a per destination basis. The matching based on regular expressions of the plugin is a bit more powerful than destination matching so the plugin may still be useful in some cases.</p></div></div><p>&#160;</p><p>A very simple yet very useful plugin to the broker. This plugin allows the configuration of queues and topics, all or matched based on <a shape="rect" class="external-link" href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/regex/Pattern.html" rel="nofollow">Java SE regular expressions</a>, to drop messages that have been sent to the DLQ. This is extremely useful when using <a shape="rect" href="slow-consumer-handling.html">constant pending message limit strategy</a> or the other eviction rules, but you don't want to incur the overhead of yet another consumer to clear the DLQ.</p><p>Below is an example of a basic configuration to drop everything:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;beans&gt; 
+  &lt;broker&gt;
+    &lt;plugins&gt;
+      &lt;discardingDLQBrokerPlugin dropAll="true" dropTemporaryTopics="true" dropTemporaryQueues="true"/&gt;
+    &lt;/plugins&gt;
+  &lt;/broker&gt;
+&lt;/beans&gt;
+</pre>
+</div></div><p>Below is a slightly more complex example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;beans&gt; 
+  &lt;broker&gt;
+    &lt;plugins&gt;
+      &lt;discardingDLQBrokerPlugin dropOnly="MY.EXAMPLE.TOPIC.29 MY.EXAMPLE.QUEUE.87" reportInterval="1000"/&gt;
+    &lt;/plugins&gt;
+  &lt;/broker&gt;
+&lt;/beans&gt;
+</pre>
+</div></div><ul><li>Notice that destination names are space delimited.</li><li>The&#160;<strong><code>reportInterval</code></strong> property is used to denote how frequently do we output how many messages we have dropped - use&#160;<strong><code>0</code></strong> to disable.</li></ul><p>Below is an even more complex example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;beans&gt; 
+  &lt;broker&gt;
+    &lt;plugins&gt;
+      &lt;discardingDLQBrokerPlugin dropOnly="MY.EXAMPLE.TOPIC.[0-9]{3} MY.EXAMPLE.QUEUE.[0-9]{3}" reportInterval="3000"/&gt;
+    &lt;/plugins&gt;
+  &lt;/broker&gt;
+&lt;/beans&gt;
+</pre>
+</div></div><ul><li>Notice that the destination names use regular expressions. These match the number&#160;<strong><code>000..999</code></strong> at the end of each destination name.</li></ul><p>For more information, see the source code for the <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-broker/src/main/java/org/apache/activemq/plugin/DiscardingDLQBrokerPlugin.java">DiscardingDLQBrokerPlugin</a> and the <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-broker/src/main/java/org/apache/activemq/plugin/DiscardingDLQBroker.java">DiscardingDLQBroker</a></p><h3 id="MessageRedeliveryandDLQHandling-BrokerRedelivery(v5.7)">Broker Redelivery (v5.7)</h3><p>Typically a consumer handles redelivery so that it can maintain message order while a message appears as inflight on the broker. This means that redelivery is limited to a single consumer unless that consumer terminates. In this way the broker is unaware of redelivery. With broker redelivery, it is possible to have the broker redeliver a message after a delay using a resend. This is implemented by a broker plugin that handles dead letter processing by redelivery via the scheduler. This is useful when total message order is not important and where through put and load distribution among consumers is. With broker redelivery, messages that fail delivery to a given consumer can get immediately re-dispatched.</p><p><br clear="none"> The feature is enabled via XML configuration as follows:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;broker schedulerSupport="true"&gt;
+        
+        &lt;plugins&gt;
+            &lt;redeliveryPlugin fallbackToDeadLetter="true" 
+                              sendToDlqIfMaxRetriesExceeded="true"&gt;
+                &lt;redeliveryPolicyMap&gt;
+                    &lt;redeliveryPolicyMap&gt;
+                        &lt;redeliveryPolicyEntries&gt;
+                            &lt;!-- a destination specific policy --&gt;
+                            &lt;redeliveryPolicy queue="SpecialQueue" 
+                                              maximumRedeliveries="4" 
+                                              redeliveryDelay="10000"/&gt;
+                        &lt;/redeliveryPolicyEntries&gt;
+                       &#160;
+                        &lt;defaultEntry&gt;
+                            &lt;!-- the fallback policy for all other destinations --&gt;
+                         &#160;  &lt;redeliveryPolicy maximumRedeliveries="4" 
+                                              initialRedeliveryDelay="5000"
+                                              redeliveryDelay="10000"/&gt;
+                        &lt;/defaultEntry&gt;
+                    &lt;/redeliveryPolicyMap&gt;
+                &lt;/redeliveryPolicyMap&gt;
+            &lt;/redeliveryPlugin&gt;
+        &lt;/plugins&gt;
+        
+&lt;/broker&gt; </pre>
+</div></div><p>The familiar <a shape="rect" href="redelivery-policy.html">Redelivery Policy</a> has been extended to take a matching destination. <strong><code>fallbackToDeadLetter</code></strong>controls the action when there is no matching redeliver policy for a destination. Defaults to&#160;<strong><code>true</code></strong> so regular DLQ processing ensues. <strong><code>sendToDlqIfMaxRetriesExceeded</code></strong> controls the action when the retry limit is exceeded. Defaults to true so regular DLQ processing ensues. When <strong><code>false</code></strong>, the message is dropped.</p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">ActiveMQ's <strong><code>schedulerSupport</code></strong> must be enabled for this feature to work.</div></div></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=36083">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

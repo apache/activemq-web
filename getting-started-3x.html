@@ -1,0 +1,537 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Getting Started 3.x
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<p>
+	</p><div id="asf_logo">
+	<div id="activemq_logo">
+            <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a> &#8482;
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+        </div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="site.html">Site</a>&nbsp;&gt;&nbsp;<a href="old-links.html">Old Links</a>&nbsp;&gt;&nbsp;<a href="previous-versions.html">Previous Versions</a>&nbsp;&gt;&nbsp;<a href="getting-started-3x.html">Getting Started 3.x</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html" title="Download">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/5.9.0/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html" title="JavaDocs">More...</a> | <a shape="rect" href="source.html" title="Source">Source</a> | <a shape="rect" href="discussion-forums.html" title="Discussion Forums">Forums</a> | <a shape="rect" href="support.html" title="Support">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent">
+<h2><a shape="rect" name="GettingStarted3.x-Introduction"></a>Introduction</h2>
+<p>This document describes how to install and configure ActiveMQ 3.x for both Unix and Windows' platforms. </p>
+
+<h2><a shape="rect" name="GettingStarted3.x-DocumentOrganization"></a>Document Organization</h2>
+
+<p>The Getting Started Guide for ActiveMQ 3.x document contains the following sections:</p>
+<ul><li><a shape="rect" href="#GettingStarted3.x-Introduction">Introduction</a></li><li><a shape="rect" href="#GettingStarted3.x-DocumentOrganization">Document Organization</a></li><li><a shape="rect" href="#GettingStarted3.x-PreInstallationRequirements">Pre-Installation Requirements</a></li><li><a shape="rect" href="#GettingStarted3.x-InstallationProcedureforWindows">Installation Procedure for Windows</a>
+	<ul><li><a shape="rect" href="#GettingStarted3.x-WindowsBinaryInstallation">Windows Binary Installation</a></li><li><a shape="rect" href="#GettingStarted3.x-WindowsSourceInstallation">Windows Source Installation</a></li><li><a shape="rect" href="#GettingStarted3.x-WindowsDevelopers%27Release">Windows Developers' Release</a></li></ul>
+	</li><li><a shape="rect" href="#GettingStarted3.x-InstallationProcedureforUnix">Installation Procedure for Unix</a>
+	<ul><li><a shape="rect" href="#GettingStarted3.x-UnixBinaryInstallation">Unix Binary Installation</a></li><li><a shape="rect" href="#GettingStarted3.x-UnixSourceInstallation">Unix Source Installation</a></li><li><a shape="rect" href="#GettingStarted3.x-UnixDevelopers%27Release">Unix Developers' Release</a></li></ul>
+	</li><li><a shape="rect" href="#GettingStarted3.x-StartingActiveMQ">Starting ActiveMQ</a></li><li><a shape="rect" href="#GettingStarted3.x-TestingtheInstallation">Testing the Installation</a></li><li><a shape="rect" href="#GettingStarted3.x-StoppingActiveMQ">Stopping ActiveMQ</a></li><li><a shape="rect" href="#GettingStarted3.x-ConfiguringActiveMQ">Configuring ActiveMQ</a></li></ul>
+
+
+
+<h2><a shape="rect" name="GettingStarted3.x-PreInstallationRequirements"></a>Pre-Installation Requirements</h2>
+
+<p><b>Hardware:</b></p>
+<ul><li>33 MB of free disk space for the ActiveMQ 3.x binary distribution.</li><li>18 MB of free disk space for the ActiveMQ 3.x source or developer's distributions.</li></ul>
+
+
+<p><b>Operating Systems:</b></p>
+<ul><li>Windows: Windows XP SP2, Windows 2000.</li><li>Unix: Ubuntu Linux, Powerdog Linux, MacOS, AIX, HP-UX, Solaris, or any Unix platform that supports Java.</li></ul>
+
+
+<p><b>Environment:</b></p>
+<ul><li>Java Developer Kit (JDK) 1.4.x or greater for deployment and 1.5.x (Java 5) for compiling/building.</li><li>The JAVA_HOME environment variable must be set to the directory where the JDK is installed, e.g., <tt>c:\Program Files\jsdk.1.4.2-09</tt>.</li><li>Maven 1.0.2 or greater (required when installing source or developer's releases).</li><li><a shape="rect" class="external-link" href="http://cvs.apache.org/repository/geronimo-spec/jars/">JARs</a> that will be used must be added to the classpath.</li></ul>
+
+
+
+<h2><a shape="rect" name="GettingStarted3.x-InstallationProcedureforWindows"></a>Installation Procedure for Windows</h2>
+
+<p>This section of the Getting Started Guide explains how to install binary and source distributions of ActiveMQ on a Windows system. </p>
+
+
+<h4><a shape="rect" name="GettingStarted3.x-WindowsBinaryInstallation"></a>Windows Binary Installation</h4>
+
+<p>This procedure explains how to download and install the binary distribution on a Windows system.</p>
+<ol><li>From a browser, navigate to <a shape="rect" class="external-link" href="http://www.ActiveMQ.org" rel="nofollow">www.ActiveMQ.org</a>.</li><li>Click the <a shape="rect" href="#GettingStarted3.x-Download">Download</a> link in the navigation pane (the left pane).</li><li>Click the <a shape="rect" href="#GettingStarted3.x-ActiveMQ3.xRelease">ActiveMQ 3.x Release</a> link under the "Latest Releases" section. This brings up a new page.</li><li>Under the <a shape="rect" href="#GettingStarted3.x-DownloadHere">Download Here</a> section, select the desired distribution (you may have to scroll down to see the "Download Here" section).<br clear="none">
+For a binary distribution, the filename will be similar to: <tt>activemq-x.x.x.zip</tt>.</li><li>Extract the files from the ZIP file into a directory of your choice.</li><li>Proceed to the <a shape="rect" href="#GettingStarted3.x-StartingActiveMQ">Starting ActiveMQ</a> section of this document.</li><li>Following start-up, go to the <a shape="rect" href="#GettingStarted3.x-TestingtheInstallation">Testing the Installation</a> section of this document.</li></ol>
+
+
+<h4><a shape="rect" name="GettingStarted3.x-WindowsSourceInstallation"></a>Windows Source Installation</h4>
+
+<p>This procedure explains how to download and install the source distribution on a Windows system. </p>
+
+<p><b>NOTE:</b> ActiveMQ can be run on a Java 1.4.x system, however, Java 1.5 is required to compile/build ActiveMQ.</p>
+<ol><li>From a browser, navigate to <a shape="rect" class="external-link" href="http://www.ActiveMQ.org" rel="nofollow">www.ActiveMQ.org</a>.</li><li>Click the <a shape="rect" href="#GettingStarted3.x-Download">Download</a> link in the navigation pane (the left pane).</li><li>Click the <a shape="rect" href="#GettingStarted3.x-ActiveMQ3.xRelease">ActiveMQ 3.x Release</a> link under the "Latest Releases" section. This brings up another page.</li><li>Under the <a shape="rect" href="#GettingStarted3.x-DownloadHere">Download Here</a> section, select the desired distribution (if necessary, scroll down to see the "Download Here" section).<br clear="none">
+For a source distribution, the filename will be similar to: <tt>activemq-x.x-src.zip</tt>.</li><li>Extract ActiveMQ from the ZIP file into a directory of your choice.</li><li><a shape="rect" name="GettingStarted3.x-WindowsSourceInstallation"></a> Build ActiveMQ using Maven 1.0.2 or greater and Java 1.5.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+The recommended method of building ActiveMQ is the following:
+cd [activemq_install_dir]
+  where [activemq_install_dir] is the directory in which ActiveMQ was installed.
+maven clean test
+
+If the above build fails on some tests, type the following:
+cd [activemq_install_dir]
+maven -Dmaven.test.skip=true 
+]]></script>
+</div></div></li><li>If you prefer to use an IDE, then you can auto-generate the IDE's project file using maven plugins:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+maven eclipse
+
+or
+
+maven idea
+]]></script>
+</div></div>
+<p>Feel free to use any other applicable IDE. Please refer to the <a shape="rect" class="external-link" href="http://maven.apache.org/reference/plugins/plugins.html">plugin reference</a> for more details.</p></li><li>Start ActiveMQ from the target directory, for example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+ cd [activemq_install_dir]\activemq-assembly\target\activemq-x.x-SNAPSHOT\
+ bin\activemq
+]]></script>
+</div></div>
+<p><b>NOTE:</b> Working directories get created relative to the current directory. To create the working directories in the proper place, ActiveMQ must be launched from its home/installation directory.</p></li><li>Proceed to the <a shape="rect" href="#GettingStarted3.x-TestingtheInstallation">Testing the Installation</a> section.</li></ol>
+
+
+<p><b>NOTE:</b> Working directories get created relative to the current directory. To create the working directories in the proper place, ActiveMQ must be launched from its home/installation directory.  </p>
+
+<div class="panelMacro"><table class="warningMacro"><colgroup span="1"><col span="1" width="24"><col span="1"></colgroup><tr><td colspan="1" rowspan="1" valign="top"><img align="middle" src="https://cwiki.apache.org/confluence/images/icons/emoticons/forbidden.gif" width="16" height="16" alt="" border="0"></td><td colspan="1" rowspan="1"><b>Warning</b><br clear="none">If you are building ActiveMQ 3.x under Windows using Cygwin there is a path name length limitation. If the path name length is exceeded, you may see build errors. To correct this, move the ActiveMQ source directory higher in the file system tree, e.g., /cygdrive/c/d/sm.</td></tr></table></div>
+
+<h4><a shape="rect" name="GettingStarted3.x-WindowsDeveloper%27sRelease"></a>Windows Developer's Release</h4>
+
+<p>This procedure explains how to download and install the latest developer's snapshot. </p>
+
+<p><b>NOTE:</b> ActiveMQ can be run on a Java 1.4.x system, however, Java 1.5 is required to compile/build ActiveMQ.</p>
+<ol><li>From a browser, navigate to <a shape="rect" class="external-link" href="http://www.ActiveMQ.org" rel="nofollow">www.ActiveMQ.org</a>.</li><li>Click the <a shape="rect" href="#GettingStarted3.x-Download">Download</a> link in the navigation pane (the left pane).</li><li>Click the <a shape="rect" href="#GettingStarted3.x-CurrentdevelopmentSNAPSHOTrelease">Current development SNAPSHOT release</a> link.</li><li>Select the version of ActiveMQ to download (if necessary, scroll down to see the ActiveMQ snapshots).</li><li>Extract the files from the ZIP file into a directory of your choice.</li><li>If a binary snapshot was downloaded, proceed to the <a shape="rect" href="#GettingStarted3.x-StartingActiveMQ">Starting ActiveMQ</a> section of this document.<br clear="none">
+If a source snapshot was downloaded, perform step 6 and step 7 of the <a shape="rect" href="#GettingStarted3.x-WindowsSourceInstallation">Windows Source Installation</a> procedure.</li><li>Following start-up, proceed to the <a shape="rect" href="#GettingStarted3.x-TestingtheInstallation">Testing the Installation</a> section.</li></ol>
+
+
+
+<h2><a shape="rect" name="GettingStarted3.x-InstallationProcedureforUnix"></a>Installation Procedure for Unix</h2>
+
+<h4><a shape="rect" name="GettingStarted3.x-UnixBinaryInstallation"></a><a shape="rect" name="GettingStarted3.x-UnixBinaryInstallation"></a> Unix Binary Installation</h4>
+
+<p>This procedure explains how to download and install the binary distribution on a Unix system.</p>
+<ol><li>Download the activemq gzip file to the Unix machine, using either a browser or a tool, i.e., wget, scp, ftp, etc.
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+If the Unix machine has a browser:
+
+a. Navigate to www.ActiveMQ.org.
+b. Click the "Download" link in the navigation pane (the left pane).
+c. Click the "ActiveMQ 3.x Release" link under the &amp;quot;Latest Releases&amp;quot; section. This brings up a new page.
+d. Under the "Download Here" section, select the desired distribution (if necessary,
+scroll down to see the "Download Here" section). For a binary Unix distribution, the filename
+will be similar to: activemq-x.x.x.tar.gz.
+
+OR
+
+If the Unix machine does NOT have a browser, tools such as wget, scp, or ftp can be used to download the ActiveMQ distribution.
+
+It is beyond the scope of this document to explain the use of those tools. For convenience an example is provided below using a Windows machine (that has a browser) and a Unix machine with &amp;quot;wget&amp;quot; installed on it.
+
+*NOTE:* There are several alternative ways to perform this type of installation.
+
+a. Obtain the link to the ActiveMQ distribution file. On the Windows machine with a browser, navigate to www.ActiveMQ.org.
+b. Click the "Download" link in the left navigation pane.
+c. Click the "ActiveMQ 3.x Release" link under the &amp;quot;Latest Releases&amp;quot; section. This brings up a new page.
+d. Under the "Download Here" section, roll-over the desired distribution (if necessary, scroll
+down to see the "Download Here" section). For a binary Unix distribution the filename will be
+similar to: activemq-x.x.x.tar.gz.
+e. Right-click on the distribution name and Copy Shortcut
+f. On the Unix machine, change to the directory in which ActiveMQ will be installed, e.g., /usr/local.
+f. Download the ActiveMQ distribution to the Unix machine using the "wget" tool. For example, type "wget" followed by the saved shortcut:
+
+      wget http://cvs.apache.org/repository/incubator-activemq/distributions/activemq-x.x.x.tar.gz
+]]></script>
+</div></div></li><li>Extract the files from the gzip file into a directory of your choice. For example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+tar zxvf activemq-x.x.x.tar.gz
+]]></script>
+</div></div></li><li>If the <tt>ActiveMQ</tt> start-up script is not executable, change its permisssions. The <tt>ActiveMQ</tt> script is located in the <tt>bin</tt> directory. For example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+cd [activemq_install_dir]/bin
+  where [activemq_install_dir] is the directory in which ActiveMQ was installed.
+chmod 755 activemq
+]]></script>
+</div></div></li><li>Proceed to the <a shape="rect" href="#GettingStarted3.x-StartingActiveMQ">Starting ActiveMQ</a> section of this document.</li><li>Following start-up, go to the <a shape="rect" href="#GettingStarted3.x-TestingtheInstallation">Testing the Installation</a> section.</li></ol>
+
+
+<h4><a shape="rect" name="GettingStarted3.x-UnixSourceInstallation"></a>Unix Source Installation</h4>
+
+<p>This procedure explains how to download and install the source distribution on a Unix system. This procedure assumes the Unix machine has a browser. Please see the previous <a shape="rect" href="#GettingStarted3.x-UnixBinaryInstallation">Unix Binary Installation</a> section for details on how to install ActiveMQ without a browser. </p>
+
+<p><b>NOTE:</b> ActiveMQ can be run on a Java 1.4.x system, however, Java 1.5 is required to compile/build ActiveMQ.</p>
+
+<ol><li>From a browser, navigate to <a shape="rect" class="external-link" href="http://www.ActiveMQ.org" rel="nofollow">www.ActiveMQ.org</a>.</li><li>Click the <a shape="rect" href="#GettingStarted3.x-Download">Download</a> link in the navigation pane (the left pane).</li><li>Click the <a shape="rect" href="#GettingStarted3.x-ActiveMQ3.xRelease">ActiveMQ 3.x Release</a> link under the "Latest Releases" section. This brings up a new page.</li><li>Under the <a shape="rect" href="#GettingStarted3.x-DownloadHere">Download Here</a> section, select the desired distribution (if necessary, scroll down to see the "Download Here" section).<br clear="none">
+For a source distribution, the filename will be similar to: <tt>activemq-x.x-src.tar.gz</tt>.</li><li>Extract the files from the ZIP file into a directory of your choice. For example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+tar zxvf activemq.x.x-src.tar.gz
+]]></script>
+</div></div></li><li>Build ActiveMQ using Maven 1.0.2 or greater and Java 5:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+The preferred method of building ActiveMQ is the following:
+cd [activemq_install_dir]
+  where [activemq_install_dir] is the directory in which ActiveMQ was installed.
+maven clean test
+
+If the above build fails on some tests, do the following:
+cd [activemq_install_dir]
+maven m:clean
+maven -Dmaven.test.skip=true
+]]></script>
+</div></div></li><li>If you prefer to use an IDE then you can auto-generate the IDE's project file using maven plugins:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+maven eclipse
+
+or
+
+maven idea
+]]></script>
+</div></div>
+<p>Feel free to use any other applicable IDE. Please refer to the <a shape="rect" class="external-link" href="http://maven.apache.org/reference/plugins/plugins.html">plugin reference</a> for more details.<br clear="none">
+<b>NOTE:</b> Working directories get created relative to the current directory. To create working directories in the proper place, ActiveMQ must be launched from its home/installation directory.  </p></li><li>Proceed to the <a shape="rect" href="#GettingStarted3.x-StartingActiveMQ">Starting ActiveMQ</a> section of this document.</li><li>Proceed to <a shape="rect" href="#GettingStarted3.x-TestingtheInstallation">Testing the Installation</a> section.</li></ol>
+
+
+<h4><a shape="rect" name="GettingStarted3.x-UnixDeveloper%27sRelease"></a>Unix Developer's Release</h4>
+
+<p>This procedure explains how to download and install the latest developer's snapshot. </p>
+
+<p><b>NOTE:</b> ActiveMQ can be run on a Java 1.4.x system, however, Java 5 is required to compile/build ActiveMQ.</p>
+
+<ol><li>From a browser, navigate to <a shape="rect" class="external-link" href="http://www.ActiveMQ.org" rel="nofollow">www.ActiveMQ.org</a>.</li><li>Click the <a shape="rect" href="#GettingStarted3.x-Download">Download</a> link in the navigation pane (the left pane).</li><li>Click the <a shape="rect" href="#GettingStarted3.x-CurrentdevelopmentSNAPSHOTrelease">Current development SNAPSHOT release</a> link.</li><li>Select the version of ActiveMQ to download (you may have to scroll down to see the ActiveMQ snapshots). The filename will be similar to: <tt>activemq-x.x.x-tar.gz</tt> or <tt>activemq-x.x.x-src.tar.gz</tt>.</li><li>Extract the files from the gzip file into a directory of your choice. For example:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+For a binary developer's snapshot:
+  tar zxvf activemq-x.x.x.tar.gz
+
+For a source developer's snapshot:
+  tar zxvf activemq-x.x.x-src.tar.gz
+]]></script>
+</div></div></li><li>If a binary snapshot was downloaded, to make it executable, the <tt>ActiveMQ</tt> script may need its permissions changed:
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+cd [activemq_install_dir]/bin
+  where [activemq_install_dir] is the directory in which ActiveMQ was installed.
+chmod 755 activemq
+]]></script>
+</div></div>
+<p>#For a binary snapshot, proceed to the <a shape="rect" href="#GettingStarted3.x-StartingActiveMQ">Starting ActiveMQ</a> section of this document.<br clear="none">
+#If a source snapshot was downloaded perform steps 6 - 8 of the <a shape="rect" href="#GettingStarted3.x-UnixSourceInstallation">Unix Source Installation</a> procedure.</p></li><li>Proceed to the <a shape="rect" href="#GettingStarted3.x-TestingtheInstallation">Testing the Installation</a> section.</li></ol>
+
+
+<h2><a shape="rect" name="GettingStarted3.x-StartingActiveMQ"></a><a shape="rect" name="GettingStarted3.x-StartingActiveMQ"></a> Starting ActiveMQ</h2>
+
+
+<h4><a shape="rect" name="GettingStarted3.x-OnWindows%3A"></a>On Windows:</h4>
+
+<p>From a console window, change to the installation directory and run <tt>ActiveMQ</tt>:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+cd [activemq_install_dir]
+]]></script>
+</div></div>
+<p>where <tt>activemq_install_dir</tt> is the directory in which ActiveMQ was installed, e.g., <tt>c:\Program Files\ActiveMQ-3.x</tt>.
+<br clear="none" class="atl-forced-newline">
+Then type:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+bin\activemq
+]]></script>
+</div></div>
+
+<p><b>NOTE:</b> Working directories get created relative to the current directory. To create working directories in the proper place, ActiveMQ must be launched from its home/installation directory.  </p>
+
+<h4><a shape="rect" name="GettingStarted3.x-OnUnix%3A"></a>On Unix:</h4>
+
+<p>From a command shell, change to the installation directory and run <tt>ActiveMQ</tt>:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+cd [activemq_install_dir]
+]]></script>
+</div></div>
+<p>where <tt>activemq_install_dir</tt> is the directory in which ActiveMQ was installed, e.g., <tt>/usr/local/activemq-3.x</tt>.
+<br clear="none" class="atl-forced-newline">
+Then type:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+bin/activemq
+
+OR
+
+bin/activemq &gt; /tmp/smlog  2&gt;&amp;1 &amp;;
+Note: /tmp/smlog may be changed to another file name.
+]]></script>
+</div></div>
+<p><b>NOTE:</b> Working directories get created relative to the current directory. To create working directories in the proper place, ActiveMQ must be launched from its home/installation directory.  </p>
+
+<div class="panelMacro"><table class="warningMacro"><colgroup span="1"><col span="1" width="24"><col span="1"></colgroup><tr><td colspan="1" rowspan="1" valign="top"><img align="middle" src="https://cwiki.apache.org/confluence/images/icons/emoticons/forbidden.gif" width="16" height="16" alt="" border="0"></td><td colspan="1" rowspan="1"><b>Warning</b><br clear="none">Do NOT close the console or shell in which ActiveMQ was started, as that will terminate ActiveMQ (unless ActiveMQ was started with nohup).
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+nohup bin/activemq &gt; /tmp/smlog 2&gt;&amp;1 &amp;
+]]></script>
+</div></div></td></tr></table></div>
+
+<h2><a shape="rect" name="GettingStarted3.x-TestingtheInstallation"></a><a shape="rect" name="GettingStarted3.x-TestingtheInstallation"></a> Testing the Installation</h2>
+
+<p>If ActiveMQ is up and running without problems, the Window's console window or the Unix command shell will display information similar to the following log line:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+INFO  ActiveMQ JMS Message Broker (ID:apple-s-Computer.local-51222-1140729837569-0:0) has started
+]]></script>
+</div></div>
+<p><br clear="none" class="atl-forced-newline">
+ActiveMQ's default port is 61616. From another window run netstat and search for port 61616.</p>
+
+<p>From a Windows console, type:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+netstat -an|find &amp;quot;61616&amp;quot;
+]]></script>
+</div></div>
+<p><b>OR</b></p>
+
+<p>From a Unix command shell, type:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+netstat -an|grep 61616
+]]></script>
+</div></div>
+
+<h2><a shape="rect" name="GettingStarted3.x-StoppingActiveMQ"></a>Stopping ActiveMQ</h2>
+
+<p>For both Windows and Unix installations, terminate ActiveMQ by typing "CTRL-C" in the console or command shell in which it is running.</p>
+
+<p>If ActiveMQ was started in the background on Unix, the process can be killed, with the following:</p>
+<div class="code panel" style="border-width: 1px;"><div class="codeContent panelContent">
+<script class="theme: Default; brush: java; gutter: false" type="syntaxhighlighter"><![CDATA[
+ps -ef|grep activemq
+kill [PID]
+  where [PID] is the process id of the ActiveMQ process.
+]]></script>
+</div></div>
+
+<h2><a shape="rect" name="GettingStarted3.x-ConfiguringActiveMQ"></a>Configuring ActiveMQ</h2>
+
+<p>The ActiveMQ broker should now run. You can configure the broker by specifying an <a shape="rect" href="xml-configuration.html" title="Xml Configuration">Xml Configuration</a> file as a parameter to the <em>activemq</em> command.</p>
+
+<p>See the <a shape="rect" href="initial-configuration.html" title="Initial Configuration">Initial Configuration</a> for details of which jars you need to add to your classpath to start using ActiveMQ in your Java code</p>
+
+<p>If you want to use JNDI to connect to your JMS provider then please view the <a shape="rect" href="jndi-support.html" title="JNDI Support">JNDI Support</a>. If you are a Spring user you should read about <a shape="rect" href="spring-support.html" title="Spring Support">Spring Support</a></p>
+
+<p>After the installation, ActiveMQ is running with a basic configuration. For details on configuring options, please see refer to the <a shape="rect" href="configuration.html" title="Configuration">Configuration</a> section.</p>
+
+
+<h2><a shape="rect" name="GettingStarted3.x-AdditionalResources"></a>Additional Resources</h2>
+
+<p>If you are new to using ActiveMQ, running the <a shape="rect" href="examples.html" title="Examples">Examples</a> is a good next step to learn more about ActiveMQ.</p>
+</div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3><a shape="rect" name="Navigation-Overview"></a><a shape="rect" href="overview.html" title="Overview">Overview</a></h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" href="index.html" title="Index">Index</a></li><li><a shape="rect" href="news.html" title="News">News</a></li><li><a shape="rect" href="new-features.html" title="New Features">New Features</a></li><li><a shape="rect" href="getting-started.html" title="Getting Started">Getting Started</a></li><li><a shape="rect" href="faq.html" title="FAQ">FAQ</a></li><li><a shape="rect" href="articles.html" title="Articles">Articles</a></li><li><a shape="rect" href="books.html" title="Books">Books</a></li><li><a shape="rect" href="download.html" title="Download">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-Search"></a>Search</h3>
+
+<p>
+</p><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+
+
+<h3><a shape="rect" name="Navigation-SubProjects"></a>Sub Projects</h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/" title="The C++ API for Messaging">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" class="external-link" href="http://camel.apache.org/" title="POJO based Enterprise Integration Patterns with a typesafe Java DSL">Camel</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-Community"></a><a shape="rect" href="community.html" title="Community">Community</a></h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" href="support.html" title="Support">Support</a></li><li><a shape="rect" href="contributing.html" title="Contributing">Contributing</a></li><li><a shape="rect" href="discussion-forums.html" title="Discussion Forums">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html" title="Mailing Lists">Mailing Lists</a></li><li><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></li><li><a shape="rect" class="external-link" href="http://servlet.uwyn.com/drone/log/hausbot/activemq" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="site.html" title="Site">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html" title="Projects Using ActiveMQ">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html" title="Users">Users</a></li><li><a shape="rect" href="team.html" title="Team">Team</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/thanks.html">Thanks</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-Features"></a><a shape="rect" href="features.html" title="Features">Features</a></h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" href="advisory-message.html" title="Advisory Message">Advisory Message</a></li><li><a shape="rect" href="clustering.html" title="Clustering">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html" title="Cross Language Clients">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html" title="Enterprise Integration Patterns">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html" title="JMX">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html" title="JMS to JMS Bridge">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html" title="MasterSlave">MasterSlave</a></li><li><a shape="rect" href="message-groups.html" title="Message Groups">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html" title="Networks of Brokers">Networks of Brokers</a></li><li><a shape="rect" href="performance.html" title="Performance">Performance</a></li><li><a shape="rect" href="persistence.html" title="Persistence">Persistence</a></li><li><a shape="rect" href="security.html" title="Security">Security</a></li><li><a shape="rect" href="virtual-destinations.html" title="Virtual Destinations">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html" title="Visualisation">Visualisation</a></li><li><a shape="rect" href="features.html" title="Features">More ...</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-Connectivity"></a><a shape="rect" href="connectivity.html" title="Connectivity">Connectivity</a></h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" href="ajax.html" title="Ajax">Ajax</a></li><li><a shape="rect" href="amqp.html" title="AMQP">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html" title="Axis and CXF Support">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html" title="C Integration">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html" title="ActiveMQ C++ Clients">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html" title="J2EE">J2EE</a></li><li><a shape="rect" href="jboss-integration.html" title="JBoss Integration">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html" title="JNDI Support">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html" title="REST">REST</a></li><li><a shape="rect" href="rss-and-atom.html" title="RSS and Atom">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html" title="Spring Support">Spring Support</a></li><li><a shape="rect" href="stomp.html" title="Stomp">Stomp</a></li><li><a shape="rect" href="tomcat.html" title="Tomcat">Tomcat</a></li><li><a shape="rect" href="unix-service.html" title="Unix Service">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html" title="WebLogic Integration">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html" title="XMPP">XMPP</a></li><li><a shape="rect" href="connectivity.html" title="Connectivity">More ...</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-UsingActiveMQ5UsingActiveMQ5"></a><a shape="rect" href="using-activemq-5.html" title="Using ActiveMQ 5">Using ActiveMQ 5</a></h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" href="version-5-getting-started.html" title="Version 5 Getting Started">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html" title="Version 5 Initial Configuration">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html" title="Version 5 Run Broker">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html" title="How do I embed a Broker inside a Connection">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html" title="ActiveMQ Command Line Tools Reference">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html" title="Configuring Version 5 Transports">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html" title="Version 5 Examples">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html" title="Version 5 Web Samples">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html" title="How can I monitor ActiveMQ">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html" title="Version 5 XML Configuration">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html" title="Xml Reference">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html" title="Using ActiveMQ 5">More ...</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-UsingActiveMQ4UsingActiveMQ"></a><a shape="rect" href="using-activemq.html" title="Using ActiveMQ">Using ActiveMQ 4</a></h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" href="getting-started.html" title="Getting Started">Getting Started</a></li><li><a shape="rect" href="initial-configuration.html" title="Initial Configuration">Initial Configuration</a></li><li><a shape="rect" href="run-broker.html" title="Run Broker">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html" title="How do I embed a Broker inside a Connection">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html" title="ActiveMQ Command Line Tools Reference">Command Line Tools</a></li><li><a shape="rect" href="configuring-transports.html" title="Configuring Transports">Configuring Transports</a></li><li><a shape="rect" href="examples.html" title="Examples">Examples</a></li><li><a shape="rect" href="web-samples.html" title="Web Samples">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html" title="How can I monitor ActiveMQ">Monitoring the Broker</a></li><li><a shape="rect" href="xml-configuration.html" title="Xml Configuration">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html" title="Xml Reference">Xml Reference</a></li><li><a shape="rect" href="using-activemq.html" title="Using ActiveMQ">More ...</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-Tools"></a><a shape="rect" href="tools.html" title="Tools">Tools</a></h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" href="web-console.html" title="Web Console">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html" title="ActiveMQ Performance Module Users Manual">Maven2 Performance Plugin</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-ExternalToolsTools"></a><a shape="rect" href="tools.html" title="Tools">External Tools</a></h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" class="external-link" href="http://hawt.io" title="HTML5 console for monitoring Apache ActiveMQ and Apache Camel" rel="nofollow">hawtio</a></li><li><a shape="rect" href="hermes-jms.html" title="Hermes Jms">Hermes Jms</a></li><li><a shape="rect" class="external-link" href="http://jakarta.apache.org/jmeter">JMeter</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-Support"></a><a shape="rect" href="support.html" title="Support">Support</a></h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-RelatedProjects"></a>Related Projects</h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" class="external-link" href="http://incubator.apache.org/servicemix/" title="Distributed Enterprise Service Bus based on JBI">Apache ServiceMix</a></li><li><a shape="rect" class="external-link" href="http://lingo.codehaus.org/" title="POJO Remoting using JMS" rel="nofollow">Lingo</a></li><li><a shape="rect" class="external-link" href="http://jencks.codehaus.org/" title="Message Driven POJOs and pooling for JMS and JDBC" rel="nofollow">Jencks</a></li><li><a shape="rect" class="external-link" href="http://stomp.codehaus.org/" title="A simple protocol for messaging middleware interop and the easy development of custom clients" rel="nofollow">Stomp</a></li><li><a shape="rect" class="external-link" href="http://www.springframework.org/" rel="nofollow">Spring</a></li><li><a shape="rect" class="external-link" href="http://openejb.apache.org">OpenEJB</a></li><li><a shape="rect" class="external-link" href="http://geronimo.apache.org/">Geronimo</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-Developers"></a><a shape="rect" href="developers.html" title="Developers">Developers</a></h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" href="source.html" title="Source">Source</a></li><li><a shape="rect" href="building.html" title="Building">Building</a></li><li><a shape="rect" href="developer-guide.html" title="Developer Guide">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html" title="Becoming a committer">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html" title="Code Overview">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html" title="Wire Protocol">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html" title="Release Guide">Release Guide</a></li></ul>
+
+
+<h3><a shape="rect" name="Navigation-Tests"></a>Tests</h3>
+
+<ul class="alternate" type="square"><li><a shape="rect" href="activemq-performance-module-users-manual.html" title="ActiveMQ Performance Module Users Manual">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html" title="Benchmark Tests">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html" title="JMeter System Tests">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html" title="JMeter Performance Tests">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html" title="Integration Tests">Integration Tests</a></li></ul>
+
+
+
+<h3><a shape="rect" name="Navigation-ProjectReports"></a>Project Reports</h3>
+<ul class="alternate" type="square"><li><a shape="rect" href="junit-reports.html" title="JUnit Reports">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html" title="Source XRef">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html" title="Test Source XRef">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html" title="Xml Reference">Xml Reference</a></li></ul>
+
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=36078">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

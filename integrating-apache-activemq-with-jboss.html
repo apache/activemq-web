@@ -1,0 +1,957 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushXml.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Integrating Apache ActiveMQ with JBoss
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="connectivity.html">Connectivity</a>&nbsp;&gt;&nbsp;<a href="containers.html">Containers</a>&nbsp;&gt;&nbsp;<a href="integrating-apache-activemq-with-jboss.html">Integrating Apache ActiveMQ with JBoss</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><h1 id="IntegratingApacheActiveMQwithJBoss-IntegratingApacheActiveMQwithJBoss">Integrating Apache ActiveMQ with JBoss</h1>
+
+<p>Integration with application servers is a common scenario in the enterprise Java world, especially when it comes to messaging. <a shape="rect" class="external-link" href="http://activemq.org/" rel="nofollow">ActiveMQ</a> is a JMS 1.1 compliant, open source, Apache Licensed, message oriented middleware (MOM) with <a shape="rect" class="external-link" href="http://activemq.org/site/changes-in-40.html" rel="nofollow">many</a>, <a shape="rect" class="external-link" href="http://activemq.org/site/new-features-in-41.html" rel="nofollow">many</a> features far beyond the JMS specification. ActiveMQ offers many different <a shape="rect" class="external-link" href="http://activemq.org/site/connectivity.html" rel="nofollow">points of connectivity</a>, many <a shape="rect" class="external-link" href="http://activemq.org/site/cross-language-clients.html" rel="nofollow">cross language clients</a> and many <a shape="rect" class="external-link" href="http://activemq.org/site/protocols.html" rel="nofollow">pluggable transport protocols</a> including integration with any J2EE 1.4 application server.</p>
+
+<p>One of the application servers in the open source world is JBoss. A very common requirement is to configure ActiveMQ as the messaging infrastructure within JBoss. Although there is <a shape="rect" class="external-link" href="http://www.activemq.org/site/jboss-integration.html" rel="nofollow">a bit of documentation</a> on this integration, this article seeks to provide much more detail and explanation. So if you have a need to integrate ActiveMQ with JBoss, this article is for you.</p>
+
+<p>This article explains how to configure JBoss to start up ActiveMQ as part of its lifecycle and how to configure the ActiveMQ resource adapter to handle the messaging and transactionality between ActiveMQ and JBoss.</p>
+
+<h2 id="IntegratingApacheActiveMQwithJBoss-Requirements">Requirements</h2>
+
+<p>Below are the software requirements for this article with links to download each:</p>
+<ul><li><a shape="rect" class="external-link" href="http://activemq.org/site/download.html" rel="nofollow">Apache ActiveMQ 4.0.1+</a></li><li><a shape="rect" class="external-link" href="http://sourceforge.net/project/showfiles.php?group_id=22866&amp;package_id=16942&amp;release_id=416591" rel="nofollow">JBoss 4.0.4+</a></li><li><a shape="rect" class="external-link" href="http://www.java.com/en/download/index.jsp" rel="nofollow">Sun Java 1.5+</a></li><li><a shape="rect" class="external-link" href="http://ant.apache.org/bindownload.cgi">Apache Ant 1.6+</a></li></ul>
+
+
+<p>Though this article is using Unix, the installation and integration will work on any platform running Sun Java. It is recommended that each piece of software be downloaded before working through the steps is this article. Once each piece of software has been downloaded, proceed to the first step.</p>
+
+<h2 id="IntegratingApacheActiveMQwithJBoss-InstalltheJ2SE1.5">Install the J2SE 1.5</h2>
+
+<p>The first step in this process is to install Java 1.5 and verify that it runs correctly. Using the link above, find, download and install the correct version of Java for your platform. Once Java is installed and in the PATH, test it to see that it runs correctly using the following command:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+$ java -version
+java version "1.5.0_06"
+Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_06-112)
+Java HotSpot(TM) Client VM (build 1.5.0_06-64, mixed mode, sharing)
+</pre>
+</div></div>
+<p>Depending upon your platform and the exact build number of Java 1.5, your output may vary slightly. As long as it's Java 1.5 and the version information is output, you should be ready to proceed to the next step.</p>
+
+<h2 id="IntegratingApacheActiveMQwithJBoss-InstallApacheAnt">Install Apache Ant</h2>
+
+<p>The second step is to install Apache Ant. Simply download it using the link above, expand somewhere on your hard drive and place the <code>bin</code> directory in the PATH. This will allow you to test it quickly using the commands below:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+$ ant -version
+Apache Ant version 1.6.2 compiled on July 16 2004
+</pre>
+</div></div>
+<p>As long as you see the version output above, Ant should be usable. If you did not see the version output or received an error, consult the Ant documentation or mailing list archives to work out the issue. Please note that Ant is not used until the end of this whole exercise to test the integration.</p>
+
+<h2 id="IntegratingApacheActiveMQwithJBoss-InstalltheJBossApplicationServer">Install the JBoss Application Server</h2>
+
+<p>The third step in this process is to install JBoss and make sure it runs correctly before installing and configuring ActiveMQ. Upon downloading JBoss-4.0.4, expand it in a place where it can create a directory. Next, run the server using the following commands:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+$ cd jboss-4.0.4.GA
+$ ./bin/run.sh -c default
+=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: /opt/jboss-4.0.4.GA
+
+  JAVA: java
+
+  JAVA_OPTS: -server -Xms128m -Xmx512m -Dsun.rmi.dgc.client.gcInterval=3600000 
+-Dsun.rmi.dgc.server.gcInterval=3600000 -Dprogram.name=run.sh
+
+  CLASSPATH: /opt/jboss-4.0.4.GA/bin/run.jar:/lib/tools.jar
+
+=========================================================================
+
+15:34:47,999 INFO  [Server] Starting JBoss (MX MicroKernel)...
+15:34:48,001 INFO  [Server] Release ID: JBoss [Zion] 4.0.4.GA (build: CVSTag=JBoss_4_0_4_GA date=200605151000)
+15:34:48,004 INFO  [Server] Home Dir: /opt/jboss-4.0.4.GA
+15:34:48,005 INFO  [Server] Home URL: file:/opt/jboss-4.0.4.GA/
+15:34:48,007 INFO  [Server] Patch URL: null
+15:34:48,007 INFO  [Server] Server Name: default
+15:34:48,007 INFO  [Server] Server Home Dir: /opt/jboss-4.0.4.GA/server/default
+15:34:48,011 INFO  [Server] Server Home URL: file:/opt/jboss-4.0.4.GA/server/default/
+15:34:48,012 INFO  [Server] Server Log Dir: /opt/jboss-4.0.4.GA/server/default/log
+15:34:48,017 INFO  [Server] Server Temp Dir: /opt/jboss-4.0.4.GA/server/default/tmp
+15:34:48,022 INFO  [Server] Root Deployment Filename: jboss-service.xml
+...
+15:35:17,360 INFO  [Server] JBoss (MX MicroKernel) [4.0.4.GA (build: CVSTag=JBoss_4_0_4_GA date=200605151000)] 
+Started in 22s:238ms
+</pre>
+</div></div>
+<p>The first few lines of output from the JBoss startup indicates the configuration being used but the last line is the most important one. It tells you that JBoss has been started successfully on your system. For an extra measure of assurance, visit <a shape="rect" class="external-link" href="http://localhost:8080/web-console/" rel="nofollow">http://localhost:8080/web-console/</a> in a web browser to make sure you are able to see the JBoss web console. If you can see this console, everything should be ready to go.</p>
+
+<p>As a side note, the left-hand side of the web-console requires that the <a shape="rect" class="external-link" href="http://java.sun.com/products/plugin/" rel="nofollow">Java plugin</a> be properly installed. This is supposed to take place when installing the J2SE, so if it did not work correctly for you, I suggest that you consult some documentation about any errors you may be seeing. The Java plugin is not required for JBoss or ActiveMQ to function properly, it is simply for the JBoss web-console.</p>
+
+<p>Once JBoss is installed properly, shut it down using either the shutdown script or by simply typing ctrl-c to activate the shutdown hook. Once it is shut down, proceed to the next step.</p>
+
+<h2 id="IntegratingApacheActiveMQwithJBoss-PrepareforIntegratingApacheActiveMQwiththeJBossApplicationServer">Prepare for Integrating Apache ActiveMQ with the JBoss Application Server</h2>
+
+<p>The fourth step is to prepare your environment for integrating ActiveMQ with JBoss. If you haven't done so already, download Apache ActiveMQ using the link above. As of the writing of this article, the latest released version is 4.0.2-RC4. Upon downloading this archive, expand it in a place where it can create a directory, preferably in the same location where JBoss was expanded. Verify that the ActiveMQ RAR file is included using the following commands:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+$ cd ./incubator-activemq-4.0.2.tar.gz
+$ jar tvf /opt/incubator-activemq-4.0.2/lib/optional/activemq-ra-4.0.2.rar
+     0 Mon Sep 25 19:00:50 MDT 2006 META-INF/
+   399 Mon Sep 25 19:00:48 MDT 2006 META-INF/MANIFEST.MF
+   523 Mon Sep 25 13:07:40 MDT 2006 META-INF/DISCLAIMER.txt
+ 11359 Mon Sep 25 13:07:40 MDT 2006 META-INF/LICENSE.txt
+ 20305 Mon Sep 25 13:07:40 MDT 2006 META-INF/ra.xml
+  2334 Mon Sep 25 13:07:40 MDT 2006 broker-config.xml
+ 70023 Mon Sep 25 19:00:48 MDT 2006 activemq-ra-4.0.2.jar
+1351744 Mon Sep 25 19:00:14 MDT 2006 activemq-core-4.0.2.jar
+232107 Mon Sep 25 18:22:48 MDT 2006 activeio-core-3.0-beta4.jar
+2143211 Tue Aug 01 11:44:50 MDT 2006 derby-10.1.1.0.jar
+1901653 Tue Aug 01 11:47:08 MDT 2006 spring-1.2.6.jar
+ 94713 Tue Aug 01 11:47:22 MDT 2006 xbean-spring-2.2.jar
+ 52915 Tue Aug 01 12:22:16 MDT 2006 commons-logging-1.1.jar
+ 16030 Tue Aug 01 12:22:32 MDT 2006 geronimo-j2ee-management_1.0_spec-1.0.jar
+329586 Tue Aug 01 12:22:54 MDT 2006 backport-util-concurrent-2.1.jar
+358085 Tue Aug 01 12:23:26 MDT 2006 log4j-1.2.12.jar
+   523 Mon Sep 25 19:00:50 MDT 2006 META-INF/DISCLAIMER.txt
+ 11359 Mon Sep 25 19:00:50 MDT 2006 META-INF/LICENSE.txt
+</pre>
+</div></div>
+<p>This is simply a table of contents of the RAR file. There should only be one reason that this will fail - an incomplete download of the ActiveMQ tarball or zip file. Beyond that, depending on the version you download, some of the library versions may be slightly different.</p>
+
+<p>Now go back to the JBoss installation and create a directory for ActiveMQ in the JBoss deploy directory for the default JBoss context. Below are the commands to achieve this task:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+$ mkdir /opt/jboss-4.0.4.GA/server/default/deploy/activemq-ra.rar
+$ cd /opt/jboss-4.0.4.GA/server/default/deploy/activemq-ra.rar
+$ pwd
+/opt/jboss-4.0.4.GA/server/default/deploy/activemq-ra.rar
+</pre>
+</div></div>
+<div class="panel" style="background-color: #ccccff;border-width: 1px;"><div class="panelContent" style="background-color: #ccccff;">
+<p><strong><em>NOTE:</em></strong> The creation of a directory is not required but is the easiest way to set up the ActiveMQ RAR when you're just getting started. This is due to the flexibility it affords during the development phase for the configuration to be changed very easily. The alternative is to JAR up the directory as a RAR file once the configuration is solid enough that it no longer needs to be changed. But leaving everything in a directory during development is the easiest path.</p>
+</div></div>
+<p>Now expand the activemq-ra-4.0.2.rar into the current working directory:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+jar xvf /opt/incubator-activemq-4.0.2/lib/optional/activemq-ra-4.0.2.rar
+  created: META-INF/
+ inflated: META-INF/MANIFEST.MF
+ inflated: META-INF/DISCLAIMER.txt
+ inflated: META-INF/LICENSE.txt
+ inflated: META-INF/ra.xml
+ inflated: broker-config.xml
+ inflated: activemq-ra-4.0.2.jar
+ inflated: activemq-core-4.0.2.jar
+ inflated: activeio-core-3.0-beta4.jar
+ inflated: derby-10.1.1.0.jar
+ inflated: spring-1.2.6.jar
+ inflated: xbean-spring-2.2.jar
+ inflated: commons-logging-1.1.jar
+ inflated: geronimo-j2ee-management_1.0_spec-1.0.jar
+ inflated: backport-util-concurrent-2.1.jar
+ inflated: log4j-1.2.12.jar
+ inflated: META-INF/DISCLAIMER.txt
+ inflated: META-INF/LICENSE.txt
+</pre>
+</div></div>
+<p>Below is a quick listing of the contents of that directory:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+$ ls -l
+total 12848
+drwxr-xr-x   6 bsnyder  bsnyder      204 Oct 16 16:27 META-INF
+-rw-r--r--   1 bsnyder  bsnyder   232107 Oct 16 16:27 activeio-core-3.0-beta4.jar
+-rw-r--r--   1 bsnyder  bsnyder  1351744 Oct 16 16:27 activemq-core-4.0.2.jar
+-rw-r--r--   1 bsnyder  bsnyder    70023 Oct 16 16:27 activemq-ra-4.0.2.jar
+-rw-r--r--   1 bsnyder  bsnyder   329586 Oct 16 16:27 backport-util-concurrent-2.1.jar
+-rw-r--r--   1 bsnyder  bsnyder     2334 Oct 16 16:27 broker-config.xml
+-rw-r--r--   1 bsnyder  bsnyder    52915 Oct 16 16:27 commons-logging-1.1.jar
+-rw-r--r--   1 bsnyder  bsnyder  2143211 Oct 16 16:27 derby-10.1.1.0.jar
+-rw-r--r--   1 bsnyder  bsnyder    16030 Oct 16 16:27 geronimo-j2ee-management_1.0_spec-1.0.jar
+-rw-r--r--   1 bsnyder  bsnyder   358085 Oct 16 16:27 log4j-1.2.12.jar
+-rw-r--r--   1 bsnyder  bsnyder  1901653 Oct 16 16:27 spring-1.2.6.jar
+-rw-r--r--   1 bsnyder  bsnyder    94713 Oct 16 16:27 xbean-spring-2.2.jar
+</pre>
+</div></div>
+<p>Now it's time to configure ActiveMQ.</p>
+
+<h2 id="IntegratingApacheActiveMQwithJBoss-ConfiguringApacheActiveMQ">Configuring Apache ActiveMQ</h2>
+
+<p>The fifth step is to actually configure ActiveMQ for integration with JBoss. Remember that you should be sitting in the following directory:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+/opt/jboss-4.0.4.GA/server/default/deploy/activemq-ra.rar
+</pre>
+</div></div>
+<p>You may or may not have installed JBoss in <code>/opt</code>, that doesn't particularly matter. What does matter is that you're sitting in the directory that was created above to hold the contents of the expanded ActiveMQ RAR file.</p>
+<div class="panel" style="background-color: #ccccff;border-width: 1px;"><div class="panelContent" style="background-color: #ccccff;">
+<p><strong><em>NOTE:</em></strong> A RAR file is a Resource adapter ARchive (RAR). Resource adapters are a concept from the <a shape="rect" class="external-link" href="http://java.sun.com/j2ee/connector/" rel="nofollow">J2EE Connector Architecture (JCA)</a> and are used to interface with Enterprise Information Systems (EIS), i.e., systems external to the application server (e.g., relational databases, mainframes, MOMs, accounting systems, etc.). Resource adapters are often referred to as J2EE connectors and are very similar to the concept of a device driver for, say, a printer in that they contain information specific to connecting to a particular system. The difference with JCA is that that connection has been formalized in specification for Java. So the overall concepts of JCA is for connection to any EIS, but what does that mean? JCA 1.5 provides connectivity and more via the following contracts:</p>
+
+<p>Version 1.0 Contracts</p>
+
+<p>In version 1.0 of the Connector Architecture, three contracts are defined to address the functions mentioned above:</p>
+<ul><li>Connection Management Contract: Lets applications connect to an EIS through the resource adapter. It also allows the application server to pool connection requests to the EIS.</li><li>Transaction Management Contract: Allows an application to manage and perform transactional access across one-to-many EIS resource managers.</li><li>Security Contract: Provides support for secure access to the EIS.</li></ul>
+
+
+<p>New Contracts in Version 1.5</p>
+
+<p>In version 1.5 of the J2EE Connector Architecture, there are more contracts that a resource adapter must support, as new functionality and features made their way into the specification. A resource adapter can support these four new contracts by implementing the required interfaces defined in the specification for each contract.</p>
+<ul><li>Lifecycle Management Contract: Lets the application server manage the lifecycle &#8211; that is, the startup and shutdown functionality &#8211; of the resource adapter.</li><li>Work Management Contract: Allows the resource adapter to do work by submitting it to an application server for execution. Since the application server does the work for the resource adapter, the resource adapter needn't worry about thread management. Instead, the application server manages this aspect efficiently and can use thread pooling if necessary. Although the work management contract is not required (the resource adapter can choose to manage its own thread for work), it is definitely recommended.</li><li>Transaction Inflow Contract: Allows a resource adapter to propagate an imported transaction to an application server, as well as flow-in transaction completion and crash recovery initiated by an EIS.</li><li>Message Inflow Contract: Allows the resource adapter to synchronously or asynchronously deliver messages to endpoints in the application server, irrespective of message style, semantics, and infrastructure.</li></ul>
+
+
+<p><sub>Quoted from</sub> <sub><a shape="rect" class="external-link" href="http://java.sun.com/developer/technicalArticles/J2EE/connectorarch1_5/" rel="nofollow"><sub>What's New in the J2EE Connector Architecture 1.5</sub></a></sub></p>
+
+<p>For more information about JCA, please consult the <a shape="rect" class="external-link" href="http://java.sun.com/j2ee/connector/index.jsp" rel="nofollow">J2EE Connector Architecture documentation</a>.</p>
+</div></div>
+<p>Open the <code>META-INF/ra.xml</code> file and look for the following section:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>META-INF/ra.xml</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+&lt;config-property&gt;
+    &lt;description&gt;
+      The URL to the ActiveMQ server that you want this connection to connect to.  If using
+      an embedded broker, this value should be 'vm://localhost'.
+    &lt;/description&gt;
+    &lt;config-property-name&gt;ServerUrl&lt;/config-property-name&gt;
+    &lt;config-property-type&gt;java.lang.String&lt;/config-property-type&gt;
+    &lt;config-property-value&gt;tcp://localhost:61616&lt;/config-property-value&gt;
+&lt;!-- &lt;config-property-value&gt;vm://localhost&lt;/config-property-value&gt; --&gt;
+  &lt;/config-property&gt;
+</pre>
+</div></div>
+<p>The section above is used to tell the ActiveMQ RAR where ActiveMQ is located. By default, the in-VM protocol is commented out in favor of the tcp protocol. This will find ActiveMQ running on any interface on the localhost on port 61616. It's ok to just leave this alone if you don't mind the inefficiency of communicating within the JVM via TCP. However, it is recommended that <code>vm://</code> transport be used for an embedded broker, so comment out the <code>tcp://</code> transport and uncomment the <code>vm://</code> transport. Below is an example of this:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>META-INF/ra.xml</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+&lt;config-property&gt;
+    &lt;description&gt;
+      The URL to the ActiveMQ server that you want this connection to connect to.  If using
+      an embedded broker, this value should be 'vm://localhost'.
+    &lt;/description&gt;
+    &lt;config-property-name&gt;ServerUrl&lt;/config-property-name&gt;
+    &lt;config-property-type&gt;java.lang.String&lt;/config-property-type&gt;
+    &lt;!-- &lt;config-property-value&gt;tcp://localhost:61616&lt;/config-property-value&gt; --&gt;
+    &lt;config-property-value&gt;vm://localhost&lt;/config-property-value&gt;
+  &lt;/config-property&gt;
+</pre>
+</div></div>
+<p>Because we're embedding ActiveMQ inside of JBoss, it is more efficient to use the <code>vm://</code> transport, rather than to perform messaging over the <code>tcp://</code> transport.</p>
+
+<p>Now look further down the <code>META-INF/ra.xml</code> file and locate the following section:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>META-INF/ra.xml</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+&lt;config-property&gt;
+    &lt;description&gt;
+      Sets the XML configuration file used to configure the embedded ActiveMQ broker via
+      Spring if using embedded mode.
+
+      BrokerXmlConfig is the filename which is assumed to be on the classpath unless
+      a URL is specified. So a value of foo/bar.xml would be assumed to be on the
+      classpath whereas file:dir/file.xml would use the file system.
+      Any valid URL string is supported.
+    &lt;/description&gt;
+    &lt;config-property-name&gt;BrokerXmlConfig&lt;/config-property-name&gt;
+    &lt;config-property-type&gt;java.lang.String&lt;/config-property-type&gt;
+    &lt;config-property-value&gt;&lt;/config-property-value&gt;
+    &lt;!--
+    &lt;config-property-value&gt;xbean:broker-config.xml&lt;/config-property-value&gt;
+    --&gt;
+  &lt;/config-property&gt;
+</pre>
+</div></div>
+<p>The section above needs to be changed to uncomment the second to last line and remove/replace the empty element that is above it. Below is an example of how this should be changed:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>META-INF/ra.xml</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+&lt;config-property&gt;
+    &lt;description&gt;
+      Sets the XML configuration file used to configure the embedded ActiveMQ broker via
+      Spring if using embedded mode.
+
+      BrokerXmlConfig is the filename which is assumed to be on the classpath unless
+      a URL is specified. So a value of foo/bar.xml would be assumed to be on the
+      classpath whereas file:dir/file.xml would use the file system.
+      Any valid URL string is supported.
+    &lt;/description&gt;
+    &lt;config-property-name&gt;BrokerXmlConfig&lt;/config-property-name&gt;
+    &lt;config-property-type&gt;java.lang.String&lt;/config-property-type&gt;
+    &lt;config-property-value&gt;xbean:broker-config.xml&lt;/config-property-value&gt;
+  &lt;/config-property&gt;
+</pre>
+</div></div>
+<p>This change tells the ActiveMQ RAR to read a configuration file named <code>broker-config.xml</code> (the <code>xbean:</code> that proceeds the filename is simply a hint to class doing the reading of the configuration file) which is located on the CLASSPATH. In this case, the <code>broker-config.xml</code> file is located in the <code>activemq-ra.rar</code> directory. Save the changes to that file and then open the <code>broker-config.xml</code> file.</p>
+
+<p>The <code>broker-config.xml</code> file <em>is</em> the ActiveMQ configuration file. This is the file used to configure ActiveMQ. The default contents of this file are usable, but should be customized to suit your environment. There are several items of note about this configuration. The most prominent sections to note in this file are the <code>&lt;persistenceAdapter&gt;</code> element and the <code>&lt;transportConnectors&gt;</code> and <code>&lt;networkConnectors&gt;</code> elements as seen below:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>broker-config.xml</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+&lt;beans xmlns="http://activemq.org/config/1.0"&gt;
+
+  &lt;broker useJmx="true"&gt;
+  ...
+    &lt;persistenceAdapter&gt;
+      &lt;journaledJDBC journalLogFiles="5" dataDirectory="activemq-data"/&gt;
+      &lt;!-- To use a different datasource, use th following syntax : --&gt;
+      &lt;!--
+      &lt;journaledJDBC journalLogFiles="5" dataDirectory="../data" dataSource="#postgres-ds"/&gt;
+       --&gt;
+    &lt;/persistenceAdapter&gt;
+
+    &lt;transportConnectors&gt;
+      &lt;!-- prefixing a connector with discovery: causes the connector to be advertiesed over rendezvous --&gt;
+      &lt;transportConnector uri="tcp://localhost:61616" discoveryUri="multicast://default"/&gt;
+    &lt;/transportConnectors&gt;
+
+    &lt;networkConnectors&gt;
+      &lt;!-- by default just auto discover the other brokers --&gt;
+      &lt;networkConnector uri="multicast://default"/&gt;
+      &lt;!--
+      &lt;networkConnector uri="static://(tcp://host1:61616,tcp://host2:61616)"/&gt;
+      --&gt;
+    &lt;/networkConnectors&gt;
+
+  &lt;/broker&gt;
+
+&lt;/beans&gt;
+</pre>
+</div></div>
+<p>The first change to this file is to add the brokerName attribute to the broker element and provide a name:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+&lt;broker useJmx="true" brokerName="bruce.broker1"&gt;
+</pre>
+</div></div>
+<p>In addition, this same name is used further down the configuration to provide a name for the <code>&lt;transportConnector&gt;</code> element:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+&lt;transportConnector name="bruce.broker1" uri="tcp://localhost:61616" discoveryUri="multicast://default"/&gt;
+</pre>
+</div></div>
+<p>Now we'll tell ActiveMQ not to initialize JMX because we'll use the existing one that JBoss has:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">
+&lt;!-- put the following as the first child of the broker tag --&gt;
+&lt;managementContext&gt;&lt;!-- we'll use an existing one (JBoss) instead of creating one --&gt;
+  &lt;managementContext createConnector="false"/&gt;
+&lt;/managementContext&gt;
+</pre>
+</div></div>
+<p>The <code>&lt;persistenceAdapter&gt;</code> element should be reconfigured to store its data in an appropriate place.  On JBoss, that's most likely within the "data" directory of the server configuration you're using.  We're going to set this dynamically using an XBean and Spring feature that allows us to inject system properties values into the configuration. First this needs to be enabled:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">
+&lt;!-- put the following as the first child of the beans element --&gt;
+&lt;bean xmlns="" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/&gt;
+</pre>
+</div></div>
+<p>Now, modify the <code>dataDirectory</code> attribute of the <code>journaledJDBC</code> element to be the following: <code>${jboss.server.data.dir}/activemq</code>.</p>
+
+<p>The <code>&lt;transportConnectors&gt;</code> element is used to advertise the ActiveMQ broker for client-to-broker communications and the <code>&lt;networkConnectors&gt;</code> element advertises the ActiveMQ broker for broker-to-broker communications. The default configuration is to use the ActiveMQ <a shape="rect" class="external-link" href="http://www.activemq.org/site/multicast-transport-reference.html" rel="nofollow">multicast transport</a> for both. This is simply an easy configuration under which to get ActiveMQ up and running, so we'll just leave it at that for the time being.</p>
+<div class="panel" style="background-color: #ccccff;border-width: 1px;"><div class="panelContent" style="background-color: #ccccff;">
+<p><strong><em>NOTE:</em></strong> There are far more configuration options available for ActiveMQ than are noted here. The configuration above is only enough to just get ActiveMQ up and running, nothing more. For more information on the ActiveMQ configuration, see the <a shape="rect" class="external-link" href="http://www.activemq.org/site/xbean-xml-reference-41.html" rel="nofollow">ActiveMQ 4.1 XML Reference</a>.</p>
+</div></div>
+<p>Now we just need to start up JBoss to assure that it comes up correctly without error using the same commands we used previously to start JBoss:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+$ cd jboss-4.0.4.GA
+$ ./bin/run.sh -c default
+=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: /opt/jboss-4.0.4.GA
+
+  JAVA: java
+
+  JAVA_OPTS: -server -Xms128m -Xmx512m -Dsun.rmi.dgc.client.gcInterval=3600000 
+-Dsun.rmi.dgc.server.gcInterval=3600000 -Dprogram.name=run.sh
+
+  CLASSPATH: /opt/jboss-4.0.4.GA/bin/run.jar:/lib/tools.jar
+
+=========================================================================
+
+15:34:47,999 INFO  [Server] Starting JBoss (MX MicroKernel)...
+15:34:48,001 INFO  [Server] Release ID: JBoss [Zion] 4.0.4.GA (build: CVSTag=JBoss_4_0_4_GA date=200605151000)
+15:34:48,004 INFO  [Server] Home Dir: /opt/jboss-4.0.4.GA
+15:34:48,005 INFO  [Server] Home URL: file:/opt/jboss-4.0.4.GA/
+15:34:48,007 INFO  [Server] Patch URL: null
+15:34:48,007 INFO  [Server] Server Name: default
+15:34:48,007 INFO  [Server] Server Home Dir: /opt/jboss-4.0.4.GA/server/default
+15:34:48,011 INFO  [Server] Server Home URL: file:/opt/jboss-4.0.4.GA/server/default/
+15:34:48,012 INFO  [Server] Server Log Dir: /opt/jboss-4.0.4.GA/server/default/log
+15:34:48,017 INFO  [Server] Server Temp Dir: /opt/jboss-4.0.4.GA/server/default/tmp
+15:34:48,022 INFO  [Server] Root Deployment Filename: jboss-service.xml
+...
+15:35:17,360 INFO  [Server] JBoss (MX MicroKernel) [4.0.4.GA (build: CVSTag=JBoss_4_0_4_GA date=200605151000)] 
+Started in 28s:576ms
+</pre>
+</div></div>
+<p>As long as JBoss comes up without error, you're ready to move on to the next step.</p>
+
+<h2 id="IntegratingApacheActiveMQwithJBoss-ConfiguringJBoss">Configuring JBoss</h2>
+
+<p>The sixth step is to configure JBoss to initialize and start ActiveMQ whenever JBoss starts up. This is accomplished using an XML file that abides by the <a shape="rect" class="external-link" href="http://www.jboss.org/j2ee/dtd/jboss-ds_1_5.dtd" rel="nofollow">JBoss JCA DTD</a> for data sources. Like most other Java application servers on the market, the JBoss architecture uses the J2EE Connector Architecture to manage connections of any kind including JDBC, JMS, etc. and the JBoss JCA DTD denotes the allowed contents for creating an XML data source instance to configure JBoss JCA. Below is an example XML data source instance for use with JBoss:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>activemq-jms-ds.xml</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+
+&lt;!DOCTYPE connection-factories
+    PUBLIC "-//JBoss//DTD JBOSS JCA Config 1.5//EN"
+    "http://www.jboss.org/j2ee/dtd/jboss-ds_1_5.dtd"&gt;
+
+&lt;connection-factories&gt;
+
+   &lt;tx-connection-factory&gt;
+      &lt;jndi-name&gt;activemq/QueueConnectionFactory&lt;/jndi-name&gt;
+      &lt;xa-transaction/&gt;
+      &lt;track-connection-by-tx/&gt;
+      &lt;rar-name&gt;activemq-ra.rar&lt;/rar-name&gt;
+      &lt;connection-definition&gt;javax.jms.QueueConnectionFactory&lt;/connection-definition&gt;
+      &lt;ServerUrl&gt;vm://localhost&lt;/ServerUrl&gt;
+      &lt;!--
+      &lt;UserName&gt;sa&lt;/UserName&gt;
+      &lt;Password&gt;&lt;/Password&gt;
+      --&gt;
+      &lt;min-pool-size&gt;1&lt;/min-pool-size&gt;
+      &lt;max-pool-size&gt;200&lt;/max-pool-size&gt;
+      &lt;blocking-timeout-millis&gt;30000&lt;/blocking-timeout-millis&gt;
+      &lt;idle-timeout-minutes&gt;3&lt;/idle-timeout-minutes&gt;
+   &lt;/tx-connection-factory&gt;
+
+   &lt;tx-connection-factory&gt;
+      &lt;jndi-name&gt;activemq/TopicConnectionFactory&lt;/jndi-name&gt;
+      &lt;xa-transaction/&gt;
+      &lt;track-connection-by-tx/&gt;
+      &lt;rar-name&gt;activemq-ra.rar&lt;/rar-name&gt;
+      &lt;connection-definition&gt;javax.jms.TopicConnectionFactory&lt;/connection-definition&gt;
+      &lt;ServerUrl&gt;vm://localhost&lt;/ServerUrl&gt;
+      &lt;!--
+      &lt;UserName&gt;sa&lt;/UserName&gt;
+      &lt;Password&gt;&lt;/Password&gt;
+      --&gt;
+      &lt;min-pool-size&gt;1&lt;/min-pool-size&gt;
+      &lt;max-pool-size&gt;200&lt;/max-pool-size&gt;
+      &lt;blocking-timeout-millis&gt;30000&lt;/blocking-timeout-millis&gt;
+      &lt;idle-timeout-minutes&gt;3&lt;/idle-timeout-minutes&gt;
+   &lt;/tx-connection-factory&gt;
+
+   &lt;mbean code="org.jboss.resource.deployment.AdminObject" name="activemq.queue:name=outboundQueue"&gt;
+      &lt;attribute name="JNDIName"&gt;activemq/queue/outbound&lt;/attribute&gt;
+      &lt;depends optional-attribute-name="RARName"&gt;jboss.jca:service=RARDeployment,name='activemq-ra.rar'&lt;/depends&gt;
+      &lt;attribute name="Type"&gt;javax.jms.Queue&lt;/attribute&gt;
+      &lt;attribute name="Properties"&gt;PhysicalName=queue.outbound&lt;/attribute&gt;
+   &lt;/mbean&gt;
+
+   &lt;mbean code="org.jboss.resource.deployment.AdminObject" name="activemq.topic:name=inboundTopic"&gt;
+      &lt;attribute name="JNDIName"&gt;activemq/topic/inbound&lt;/attribute&gt;
+      &lt;depends optional-attribute-name="RARName"&gt;jboss.jca:service=RARDeployment,name='activemq-ra.rar'&lt;/depends&gt;
+      &lt;attribute name="Type"&gt;javax.jms.Topic&lt;/attribute&gt;
+      &lt;attribute name="Properties"&gt;PhysicalName=topic.inbound&lt;/attribute&gt;
+   &lt;/mbean&gt;
+
+&lt;/connection-factories&gt;
+</pre>
+</div></div>
+<p>This XML instance configures a JMS <code>QueueConnectionFactory</code> and a JMS <code>TopicConnectionFactory</code> and makes them available via JNDI. Also defined in this file are some {{AdminObject}}s which are used to specify a topic and a queue. This file should be dropped into the JBoss deploy directory. Its name (*-ds.xml) will cause it to be picked up by the JBoss deployer upon startup. Speaking of which, once this file is in place, a quick smoke test can be performed by simply starting up the JBoss server. Below is an example of the output that should be seen:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+=========================================================================
+
+  JBoss Bootstrap Environment
+
+  JBOSS_HOME: /opt/jboss
+
+  JAVA: java
+
+  JAVA_OPTS: -server -Xms128m -Xmx512m -Dsun.rmi.dgc.client.gcInterval=3600000 
+-Dsun.rmi.dgc.server.gcInterval=3600000 -Dprogram.name=run.sh
+
+  CLASSPATH: /opt/jboss/bin/run.jar:/lib/tools.jar
+
+=========================================================================
+
+22:55:48,686 INFO  [Server] Starting JBoss (MX MicroKernel)...
+22:55:48,688 INFO  [Server] Release ID: JBoss [Zion] 4.0.4.GA (build: CVSTag=JBoss_4_0_4_GA date=200605151000)
+22:55:48,690 INFO  [Server] Home Dir: /opt/jboss-4.0.4.GA
+22:55:48,692 INFO  [Server] Home URL: file:/opt/jboss-4.0.4.GA/
+22:55:48,695 INFO  [Server] Patch URL: null
+22:55:48,697 INFO  [Server] Server Name: default
+22:55:48,698 INFO  [Server] Server Home Dir: /opt/jboss-4.0.4.GA/server/default
+22:55:48,701 INFO  [Server] Server Home URL: file:/opt/jboss-4.0.4.GA/server/default/
+22:55:48,702 INFO  [Server] Server Log Dir: /opt/jboss-4.0.4.GA/server/default/log
+22:55:48,704 INFO  [Server] Server Temp Dir: /opt/jboss-4.0.4.GA/server/default/tmp
+22:55:48,706 INFO  [Server] Root Deployment Filename: jboss-service.xml
+22:55:49,092 INFO  [ServerInfo] Java version: 1.5.0_06,Apple Computer, Inc.
+22:55:49,101 INFO  [ServerInfo] Java VM: Java HotSpot(TM) Server VM 1.5.0_06-64,"Apple Computer, Inc."
+22:55:49,102 INFO  [ServerInfo] OS-System: Mac OS X 10.4.8,i386
+22:55:49,803 INFO  [Server] Core system initialized
+22:55:53,379 INFO  [WebService] Using RMI server codebase: http://rattlesnake:8083/
+22:55:53,400 INFO  [Log4jService$URLWatchTimerTask] Configuring from URL: resource:log4j.xml
+22:55:54,034 INFO  [NamingService] JNDI bootstrap JNP=/0.0.0.0:1099, RMI=/0.0.0.0:1098, backlog=50, 
+no client SocketFactory, Server SocketFactory=class
+org.jboss.net.sockets.DefaultSocketFactory
+22:55:58,475 INFO  [Embedded] Catalina naming disabled
+22:55:58,566 INFO  [ClusterRuleSetFactory] Unable to find a cluster rule set in the classpath. 
+Will load the default rule set.
+22:55:58,569 INFO  [ClusterRuleSetFactory] Unable to find a cluster rule set in the classpath. 
+Will load the default rule set.
+22:55:59,110 INFO  [Http11BaseProtocol] Initializing Coyote HTTP/1.1 on http-0.0.0.0-8080
+22:55:59,114 INFO  [Catalina] Initialization processed in 545 ms
+22:55:59,116 INFO  [StandardService] Starting service jboss.web
+22:55:59,121 INFO  [StandardEngine] Starting Servlet Engine: Apache Tomcat/5.5.17
+22:55:59,179 INFO  [StandardHost] XML validation disabled
+22:55:59,221 INFO  [Catalina] Server startup in 105 ms
+22:55:59,600 INFO  [TomcatDeployer] deploy, ctxPath=/invoker, warUrl=.../deploy/http-invoker.sar/invoker.war/
+22:55:59,874 INFO  [WebappLoader] Dual registration of jndi stream handler: factory already defined
+22:56:00,899 INFO  [TomcatDeployer] deploy, ctxPath=/, warUrl=.../deploy/jbossweb-tomcat55.sar/ROOT.war/
+22:56:01,700 INFO  [TomcatDeployer] deploy, ctxPath=/jbossws, warUrl=.../tmp/deploy/tmp60528jbossws-exp.war/
+22:56:01,891 INFO  [SubscriptionManager] Bound event dispatcher to java:/EventDispatcher
+22:56:02,203 INFO  [TomcatDeployer] deploy, ctxPath=/jbossmq-httpil, 
+warUrl=.../deploy/jms/jbossmq-httpil.sar/jbossmq-httpil.war/
+22:56:04,546 INFO  [TomcatDeployer] deploy, ctxPath=/web-console, 
+warUrl=.../deploy/management/console-mgr.sar/web-console.war/
+22:56:05,690 INFO  [MailService] Mail Service bound to java:/Mail
+22:56:07,215 INFO  [RARDeployment] Required license terms exist, view META-INF/ra.xml in 
+.../deploy/activemq-ra.rar/
+22:56:07,452 INFO  [XBeanXmlBeanDefinitionReader] Loading XML bean definitions from class 
+path resource [broker-config.xml]
+22:56:07,750 INFO  [ClassPathXmlApplicationContext] Bean factory for application context 
+[org.apache.xbean.spring.context.ClassPathXmlApplicationContext;hashCode=13887543]:
+org.springframework.beans.factory.support.DefaultListableBeanFactory defining
+beans [org.apache.activemq.xbean.XBeanBrokerService]; root of BeanFactory hierarchy
+22:56:07,765 INFO  [ClassPathXmlApplicationContext] 1 beans defined in application context
+[org.apache.xbean.spring.context.ClassPathXmlApplicationContext;hashCode=13887543]
+22:56:07,773 INFO  [CollectionFactory] JDK 1.4+ collections available
+22:56:07,778 INFO  [ClassPathXmlApplicationContext] Unable to locate MessageSource with name 
+'messageSource': using default
+[org.springframework.context.support.DelegatingMessageSource@5fee96]
+22:56:07,781 INFO  [ClassPathXmlApplicationContext] Unable to locate ApplicationEventMulticaster 
+with name 'applicationEventMulticaster': using default
+[org.springframework.context.event.SimpleApplicationEventMulticaster@78c714]
+22:56:07,783 INFO  [DefaultListableBeanFactory] Pre-instantiating singletons in factory
+ [org.springframework.beans.factory.support.DefaultListableBeanFactory
+defining beans [org.apache.activemq.xbean.XBeanBrokerService]; root of BeanFactory hierarchy]
+22:56:08,181 INFO  [BrokerService] ActiveMQ 4.0.2 JMS Message Broker (bruce.broker1) is starting
+22:56:08,181 INFO  [BrokerService] For help or more information please see: 
+http://incubator.apache.org/activemq/
+22:56:09,989 INFO  [JDBCPersistenceAdapter] Database driver recognized: 
+[apache_derby_embedded_jdbc_driver]
+22:56:11,026 INFO  [JournalPersistenceAdapter] Journal Recovery Started from: Active Journal: 
+using 5 x 20.0 Megs at: /opt/jboss-4.0.4.GA/activemq-data/journal
+22:56:11,169 INFO  [JournalPersistenceAdapter] Journal Recovered: 0 message(s) in transactions recovered.
+22:56:11,489 INFO  [TransportServerThreadSupport] Listening for connections at: tcp://rattlesnake:61616
+22:56:11,491 WARN  [MulticastDiscoveryAgent] brokerName not set
+22:56:11,519 INFO  [TransportConnector] Connector bruce.broker1 Started
+22:56:11,522 INFO  [NetworkConnector] Network Connector bridge Started
+22:56:11,522 INFO  [BrokerService] ActiveMQ JMS Message Broker 
+(bruce.broker1, ID:rattlesnake-59052-1161060967859-1:0) started
+22:56:11,556 INFO  [RARDeployment] Required license terms exist, view META-INF/ra.xml in 
+.../deploy/jboss-ha-local-jdbc.rar
+22:56:11,599 INFO  [RARDeployment] Required license terms exist, view META-INF/ra.xml in 
+.../deploy/jboss-ha-xa-jdbc.rar
+22:56:11,623 INFO  [RARDeployment] Required license terms exist, view META-INF/ra.xml in 
+.../deploy/jboss-local-jdbc.rar
+22:56:11,647 INFO  [RARDeployment] Required license terms exist, view META-INF/ra.xml in 
+.../deploy/jboss-xa-jdbc.rar
+22:56:11,737 INFO  [RARDeployment] Required license terms exist, view META-INF/ra.xml in 
+.../deploy/jms/jms-ra.rar
+22:56:11,847 INFO  [RARDeployment] Required license terms exist, view META-INF/ra.xml in 
+.../deploy/mail-ra.rar
+22:56:12,251 INFO  [ConnectionFactoryBindingService] Bound ConnectionManager 
+'jboss.jca:service=ConnectionFactoryBinding,name=activemq/QueueConnectionFactory' to
+JNDI name 'java:activemq/QueueConnectionFactory'
+22:56:12,258 INFO  [ConnectionFactoryBindingService] Bound ConnectionManager 
+'jboss.jca:service=ConnectionFactoryBinding,name=activemq/TopicConnectionFactory' to
+JNDI name 'java:activemq/TopicConnectionFactory'
+22:56:12,265 INFO  [AdminObject] Bound admin object 'org.apache.activemq.command.ActiveMQQueue' 
+at 'activemq/queue/outbound'
+22:56:12,330 INFO  [AdminObject] Bound admin object 'org.apache.activemq.command.ActiveMQTopic' 
+at 'activemq/topic/inbound'
+22:56:13,246 INFO  [ConnectionFactoryBindingService] Bound ConnectionManager 
+'jboss.jca:service=DataSourceBinding,name=DefaultDS' to JNDI name 'java:DefaultDS'
+22:56:13,842 INFO  [A] Bound to JNDI name: queue/A
+22:56:13,845 INFO  [B] Bound to JNDI name: queue/B
+22:56:13,846 INFO  [C] Bound to JNDI name: queue/C
+22:56:13,848 INFO  [D] Bound to JNDI name: queue/D
+22:56:13,850 INFO  [ex] Bound to JNDI name: queue/ex
+22:56:13,876 INFO  [testTopic] Bound to JNDI name: topic/testTopic
+22:56:13,879 INFO  [securedTopic] Bound to JNDI name: topic/securedTopic
+22:56:13,880 INFO  [testDurableTopic] Bound to JNDI name: topic/testDurableTopic
+22:56:13,883 INFO  [testQueue] Bound to JNDI name: queue/testQueue
+22:56:13,994 INFO  [UILServerILService] JBossMQ UIL service available at : /0.0.0.0:8093
+22:56:14,055 INFO  [DLQ] Bound to JNDI name: queue/DLQ
+22:56:14,375 INFO  [ConnectionFactoryBindingService] Bound ConnectionManager 
+'jboss.jca:service=ConnectionFactoryBinding,name=JmsXA' to JNDI name 'java:JmsXA'
+22:56:14,525 INFO  [TomcatDeployer] deploy, ctxPath=/jmx-console, warUrl=.../deploy/jmx-console.war/
+22:56:14,991 INFO  [Http11BaseProtocol] Starting Coyote HTTP/1.1 on http-0.0.0.0-8080
+22:56:15,071 INFO  [ChannelSocket] JK: ajp13 listening on /0.0.0.0:8009
+22:56:15,082 INFO  [JkMain] Jk running ID=0 time=0/25  config=null
+22:56:15,108 INFO  [Server] JBoss (MX MicroKernel) [4.0.4.GA (build: CVSTag=JBoss_4_0_4_GA date=200605151000)] 
+Started in 26s:398ms
+</pre>
+</div></div>
+<p>Note the startup messages from both ActiveMQ and from the <code>AdminObject}}s creating an {{ActiveMQQueue</code> and an <code>ActiveMQTopic</code>. These are good indications that the configuration is correct, but needs to be verified a bit further. This is covered in the next section.</p>
+
+<h2 id="IntegratingApacheActiveMQwithJBoss-TestingtheIntegration">Testing the Integration</h2>
+
+<p>The seventh and final step is to perform a slightly more comprehensive smoke test of the integration. This can be accomplished using Apache Ant via the examples that come with the ActiveMQ binary distribution. An Ant build.xml file is included which provides easy access to a simple consumer and a simple producer. The producer will be used to send messages that are received by the consumer. To proceed with this testing, just follow the steps below:</p>
+<ol><li>In the first terminal, start up JBoss. The same startup script can be used here as was used above.</li><li>In the second terminal, use the commands below to run the ActiveMQ consumer:
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+$ cd /opt/incubator-activemq-4.0.2/examples    #note in activemq v5 the directory is just "example" not "examples"
+$ ant consumer
+Buildfile: build.xml
+
+init:
+    [mkdir] Created dir: /opt/incubator-activemq-4.0.2/example/target/classes
+    [mkdir] Created dir: /opt/incubator-activemq-4.0.2/example/src/ddl
+
+compile:
+    [javac] Compiling 6 source files to /opt/incubator-activemq-4.0.2/example/target/classes
+
+consumer:
+     [echo] Running consumer against server at $url = tcp://localhost:61616 for subject $subject = TEST.FOO
+     [java] Connecting to URL: tcp://localhost:61616
+     [java] Consuming queue: TEST.FOO
+     [java] Using non-durable subscription
+     [java] We are about to wait until we consume: 10 message(s) then we will shutdown
+</pre>
+</div></div></li><li>In the third terminal, use the commands below to run the ActiveMQ producer:
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+$ cd /opt/incubator-activemq-4.0.2/examples
+$ ant producer
+Buildfile: build.xml
+
+init:
+
+compile:
+
+producer:
+     [echo] Running producer against server at $url = tcp://localhost:61616 for subject $subject = TEST.FOO
+     [java] Connecting to URL: tcp://localhost:61616
+     [java] Publishing a Message with size 1000 to queue: TEST.FOO
+     [java] Using non-durable publishing
+     [java] Sleeping between publish 0 ms
+     [java] Sending message: Message: 0 sent at: Mon Oct 16 23:21:08 MDT 2006  ...
+     [java] Sending message: Message: 1 sent at: Mon Oct 16 23:21:08 MDT 2006  ...
+     [java] Sending message: Message: 2 sent at: Mon Oct 16 23:21:08 MDT 2006  ...
+     [java] Sending message: Message: 3 sent at: Mon Oct 16 23:21:08 MDT 2006  ...
+     [java] Sending message: Message: 4 sent at: Mon Oct 16 23:21:08 MDT 2006  ...
+     [java] Sending message: Message: 5 sent at: Mon Oct 16 23:21:08 MDT 2006  ...
+     [java] Sending message: Message: 6 sent at: Mon Oct 16 23:21:08 MDT 2006  ...
+     [java] Sending message: Message: 7 sent at: Mon Oct 16 23:21:08 MDT 2006  ...
+     [java] Sending message: Message: 8 sent at: Mon Oct 16 23:21:08 MDT 2006  ...
+     [java] Sending message: Message: 9 sent at: Mon Oct 16 23:21:08 MDT 2006  ...
+     [java] Done.
+     [java] connection {
+     [java]   session {
+     [java]     messageCount{ count: 10 unit: count startTime: 1161062468001 lastSampleTime: 
+1161062468340 description: Number of messages exchanged }
+     [java]     messageRateTime{ count: 10 maxTime: 142 minTime: 1 totalTime: 315 averageTime: 31.5 
+averageTimeExMinMax: 21.5 averagePerSecond: 31.746031746031747
+averagePerSecondExMinMax: 46.51162790697674 unit: millis startTime: 1161062468002 lastSampleTime: 
+1161062468340 description: Time taken to process a message (thoughtput rate) }
+     [java]     pendingMessageCount{ count: 0 unit: count startTime: 1161062468001 lastSampleTime: 
+1161062468001 description: Number of pending messages }
+     [java]     expiredMessageCount{ count: 0 unit: count startTime: 1161062468001 lastSampleTime: 
+1161062468001 description: Number of expired messages }
+     [java]     messageWaitTime{ count: 0 maxTime: 0 minTime: 0 totalTime: 0 averageTime: 0.0 
+averageTimeExMinMax: 0.0 averagePerSecond: 0.0
+averagePerSecondExMinMax: 0.0 unit: millis startTime: 1161062468002 lastSampleTime: 1161062468002 
+description: Time spent by a message before being delivered }
+     [java]     durableSubscriptionCount{ count: 0 unit: count startTime: 1161062468002 lastSampleTime: 
+1161062468002 description: The number of durable
+subscriptions }
+
+     [java]     producers {
+     [java]       producer queue://TEST.FOO {
+     [java]         messageCount{ count: 10 unit: count startTime: 1161062468025 lastSampleTime: 
+1161062468340 description: Number of messages processed }
+     [java]         messageRateTime{ count: 10 maxTime: 142 minTime: 1 totalTime: 315 averageTime: 
+31.5 averageTimeExMinMax: 21.5 averagePerSecond:
+31.746031746031747 averagePerSecondExMinMax: 46.51162790697674 unit: millis startTime: 1161062468025 
+lastSampleTime: 1161062468340 description: Time taken to
+process a message (thoughtput rate) }
+     [java]         pendingMessageCount{ count: 0 unit: count startTime: 1161062468025 lastSampleTime: 
+1161062468025 description: Number of pending messages }
+     [java]         messageRateTime{ count: 10 maxTime: 142 minTime: 1 totalTime: 315 averageTime: 31.5 
+averageTimeExMinMax: 21.5 averagePerSecond:
+31.746031746031747 averagePerSecondExMinMax: 46.51162790697674 unit: millis startTime: 1161062468025 
+lastSampleTime: 1161062468340 description: Time taken to
+process a message (thoughtput rate) }
+     [java]         expiredMessageCount{ count: 0 unit: count startTime: 1161062468025 lastSampleTime: 
+1161062468025 description: Number of expired messages }
+     [java]         messageWaitTime{ count: 0 maxTime: 0 minTime: 0 totalTime: 0 averageTime: 0.0 
+averageTimeExMinMax: 0.0 averagePerSecond: 0.0
+averagePerSecondExMinMax: 0.0 unit: millis startTime: 1161062468025 lastSampleTime: 1161062468025 
+description: Time spent by a message before being delivered }
+     [java]       }
+     [java]     }
+     [java]     consumers {
+     [java]     }
+     [java]   }
+     [java] }
+</pre>
+</div></div></li></ol>
+
+
+<p>Step 1 above just starts up JBoss. Step 2 above starts up a simple message consumer that comes with ActiveMQ. Step 3 above starts up a simple message producer that comes with ActiveMQ. Though the message consumer and message producer are simple utilities, the each one accepts many parameters making them extremely useful for testing ActiveMQ configurations.</p>
+
+<p>To paraphrase, what just happened was that the message producer sent 10 messages to the TEST.FOO destination and the message consumer received 10 messages from the TEST.FOO destination. Despite being a simple test, it does utilize the ActiveMQ broker, albeit only on a single machine. The next logical step is to set up a full network of ActiveMQ brokers.</p>
+
+<p>After setting up one broker within one instance of JBoss, setting up another is made much easier, but requires another machine or operating system instance. But that's a whole separate article and something to address another day.</p>
+
+<h2 id="IntegratingApacheActiveMQwithJBoss-Conclusion">Conclusion</h2>
+
+<p>What has been demonstrated here is the integration of ActiveMQ with the JBoss application server. This integration is quite common and performed by many enterprises. I hope that this was helpful to people interested in the integration of ActiveMQ with JBoss application server. If you have any questions or are interested in consulting services surrounding ActiveMQ, please <a shape="rect" class="external-link" href="http://www.logicblaze.com/contact.jsp" rel="nofollow">contact us</a> for more information.</p>
+
+<h3 id="IntegratingApacheActiveMQwithJBoss-Resources">Resources</h3>
+
+<p>Below are the configurations for use with both Spring 1.x and Spring 2.x:</p>
+
+
+    
+
+<div class="plugin_attachments_container">
+    <div class="plugin_attachments_table_container">
+        <fieldset class="hidden">
+            <input type="hidden" class="plugin_attachments_macro_render_param" name="pageId" value="67786">
+            <input type="hidden" name="deleteConfirmMessage" value="Are you sure you want to send the attached file " _0="_0" to="to" the="the" trash="trash" only="only" a="a" space="space" administrator="administrator" can="can" undo="undo" this="this" action.="action.">
+                                                    <input type="hidden" name="outputType" value="email">
+        </fieldset>
+                
+
+
+
+
+
+
+    
+
+
+
+<table class="attachments aui"><thead><tr><th colspan="1" rowspan="1" class="expand-column attachment-summary-toggle">&#160;</th><th colspan="1" rowspan="1" class="filename-column">            <a shape="rect" href="integrating-apache-activemq-with-jboss.html?sortBy=name&amp;sortOrder=ascending">File</a>
+        </th><th colspan="1" rowspan="1" class="modified-column">            <span class="propersortedby $sortOrder"><a shape="rect" href="integrating-apache-activemq-with-jboss.html?sortBy=date&amp;sortOrder=descending">Modified</a></span>
+        </th></tr></thead><tbody><tr class="attachment-row" id="attachment-59670763" data-attachment-id="59670763" data-attachment-idx="1"><td colspan="1" rowspan="1" class="attachment-summary-toggle">
+                    <span class="icon icon-section-closed" title="Show more info"></span>
+                </td><td colspan="1" rowspan="1" class="filename-column">
+                    
+
+    
+
+
+<span class="icon icon-file-unknown" title="File">File</span>                    <a shape="rect" class="filename" href="integrating-apache-activemq-with-jboss.data/amq-spring-1.2.6.tgz?api=v2" title="Download" data-filename="amq-spring-1.2.6.tgz" data-type="application/x-tar" data-linked-resource-container-id="67786">
+                        amq-spring-1.2.6.tgz
+                    </a>
+                                    </td><td colspan="1" rowspan="1" class="attachment-created modified-column">
+                    <span>Oct 03, 2007</span>
+                    <span>by</span>
+                        <a shape="rect" class="url fn confluence-userlink" href="https://cwiki.apache.org/confluence/display/~bsnyder">Bruce Snyder</a>                </td></tr><tr class="attachment-summary attachment-summary-59670763 hidden" data-attachment-id="59670763" data-attachment-filename="amq-spring-1.2.6.tgz"><td colspan="1" rowspan="1" class="attachment-summary-toggle"></td><td colspan="2" rowspan="1" class="attachment-details-wrapper">
+
+                    
+                                        <p class="attachment-labels">Labels</p>
+                    
+<div class="labels-section-content content-column" entityid="59670763" entitytype="attachment">
+	<div class="labels-content">
+		
+    <ul class="label-list  has-pen"><li class="no-labels-message">
+            No labels
+        </li><li class="labels-edit-container">
+            <a shape="rect" class="show-labels-editor" href="#" title="Edit Labels">
+                <span class="aui-icon aui-icon-small aui-iconfont-edit-small">Edit Labels</span>
+            </a>
+        </li></ul>
+
+    </div>
+</div>
+
+                                            <div class="attachment-history-wrapper"></div>
+                    
+                                            <div class="attachment-buttons">
+                                                            <a shape="rect" class="aui-button previewAttachmentLink" data-filename="amq-spring-1.2.6.tgz" data-file-src="/confluence/download/attachments/67786/amq-spring-1.2.6.tgz?api=v2" data-linked-resource-default-alias="amq-spring-1.2.6.tgz" data-mime-type="application/x-tar" data-linked-resource-container-id="67786" data-linked-resource-id="59670763">Preview</a>
+                            
+                                                    </div>
+                                    </td></tr><tr class="attachment-row" id="attachment-59670764" data-attachment-id="59670764" data-attachment-idx="2"><td colspan="1" rowspan="1" class="attachment-summary-toggle">
+                    <span class="icon icon-section-closed" title="Show more info"></span>
+                </td><td colspan="1" rowspan="1" class="filename-column">
+                    
+
+    
+
+
+<span class="icon icon-file-unknown" title="File">File</span>                    <a shape="rect" class="filename" href="integrating-apache-activemq-with-jboss.data/amq-spring-2.0.tgz?api=v2" title="Download" data-filename="amq-spring-2.0.tgz" data-type="application/x-tar" data-linked-resource-container-id="67786">
+                        amq-spring-2.0.tgz
+                    </a>
+                                    </td><td colspan="1" rowspan="1" class="attachment-created modified-column">
+                    <span>Oct 03, 2007</span>
+                    <span>by</span>
+                        <a shape="rect" class="url fn confluence-userlink" href="https://cwiki.apache.org/confluence/display/~bsnyder">Bruce Snyder</a>                </td></tr><tr class="attachment-summary attachment-summary-59670764 hidden" data-attachment-id="59670764" data-attachment-filename="amq-spring-2.0.tgz"><td colspan="1" rowspan="1" class="attachment-summary-toggle"></td><td colspan="2" rowspan="1" class="attachment-details-wrapper">
+
+                    
+                                        <p class="attachment-labels">Labels</p>
+                    
+<div class="labels-section-content content-column" entityid="59670764" entitytype="attachment">
+	<div class="labels-content">
+		
+    <ul class="label-list  has-pen"><li class="no-labels-message">
+            No labels
+        </li><li class="labels-edit-container">
+            <a shape="rect" class="show-labels-editor" href="#" title="Edit Labels">
+                <span class="aui-icon aui-icon-small aui-iconfont-edit-small">Edit Labels</span>
+            </a>
+        </li></ul>
+
+    </div>
+</div>
+
+                                            <div class="attachment-history-wrapper"></div>
+                    
+                                            <div class="attachment-buttons">
+                                                            <a shape="rect" class="aui-button previewAttachmentLink" data-filename="amq-spring-2.0.tgz" data-file-src="/confluence/download/attachments/67786/amq-spring-2.0.tgz?api=v2" data-linked-resource-default-alias="amq-spring-2.0.tgz" data-mime-type="application/x-tar" data-linked-resource-container-id="67786" data-linked-resource-id="59670764">Preview</a>
+                            
+                                                    </div>
+                                    </td></tr></tbody></table>
+    </div>
+    <div class="plugin_attachments_upload_container">
+            </div>
+
+    <div>
+                    <a shape="rect" class="download-all-link" href="/confluence/pages/downloadallattachments.action?pageId=67786" title="Download all the latest versions of attachments on this page as single zip file.">Download All</a>
+            </div>
+</div>
+</div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=67786">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

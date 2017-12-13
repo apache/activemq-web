@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushXml.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Pluggable storage lockers
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="features.html">Features</a>&nbsp;&gt;&nbsp;<a href="persistence.html">Persistence</a>&nbsp;&gt;&nbsp;<a href="pluggable-storage-lockers.html">Pluggable storage lockers</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><p>As of the 5.7.0 release of ActiveMQ the choice of storage locking mechanism, as used by a persistence adapter, has been made pluggable. This feature is only meaningful to brokers configured in a shared storage master/slave topology. Prior to release 5.7.0 the storage locking mechanism (and thus master election) was dictated by the choice of persistence adapter. With the KahaDB persistence adapter, for example, the storage locking mechanism was based on a shared file lock. Similarly, the JDBC persistence adapter used a database backed storage lock.</p><p>Now that the choice of storage locker is divorced from that of the persistence adapter one can mix and match combinations of the two. Storage locker pluggability is made possible by the <a shape="rect" class="external-link" href="https://fisheye6.atlassian.com/browse/activemq/trunk/activemq-broker/src/main/java/org/apache/activemq/broker/Locker.java?hb=true" rel="nofollow">Locker</a> interface that all pluggable lockers must implement. This interface makes it easy to implement a custom storage locker that meets local requirements.</p><p>Every persistence adapter, however, has its own default locker which works as before.</p><h2 id="Pluggablestoragelockers-Lockers">Lockers</h2><p>Every locker must implement the <a shape="rect" class="external-link" href="https://fisheye6.atlassian.com/browse/activemq/trunk/activemq-broker/src/main/java/org/apache/activemq/broker/Locker.java?hb=true" rel="nofollow">Locker</a> interface. The locker interface has the following properties:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Property Name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Default Value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><strong><code>lockAcquireSleepInterval</code></strong></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>10000</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The polling interval (in milliseconds) between lock acquire attempts.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><strong><code>failIfLocked</code></strong></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Should the broker start fail if the lock is not immediately available. When&#160;<strong><code>true</code></strong> slave brokers will not start.</p></td></tr></tbody></table></div><h2 id="Pluggablestoragelockers-PersistenceAdapters">Persistence Adapters</h2><p>Every persistence adapter (or any other broker service that wishes to use locks) must implement the <a shape="rect" class="external-link" href="https://fisheye6.atlassian.com/browse/activemq/trunk/activemq-broker/src/main/java/org/apache/activemq/broker/Lockable.java?r=1383400" rel="nofollow">Lockable</a> interface. This interface has the following properties:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Property Name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Default Value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><strong><code>useLock</code></strong></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>true</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Should the persistence adapter use the configured locker. Intended primarily for use during development to temporarily disable the use of the locker without having to remove its configuration.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><strong><code>lockKeepAlivePeriod</code></strong></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>0</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The duration (in milliseconds) to keep the lock alive, when greater than <code>0</code>.</p></td></tr></tbody></table></div><h2 id="Pluggablestoragelockers-ExistingLockers">Existing Lockers</h2><h3 id="Pluggablestoragelockers-SharedFileLocker">Shared File Locker</h3><p>The Shared File Locker is the default locker for the KahaDB persistence adapter. It locks a file to ensure that only the broker holding the lock (the master) is granted access to the message store.</p><h4 id="Pluggablestoragelockers-Example:">Example:</h4><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;persistenceAdapter&gt;
+	&lt;kahaDB directory="target/activemq-data" lockKeepAlivePeriod="10000"&gt;
+		&lt;locker&gt;
+			&lt;shared-file-locker lockAcquireSleepInterval="5000"/&gt;
+		&lt;/locker&gt;
+	&lt;/kahaDB&gt;
+&lt;/persistenceAdapter&gt;</pre>
+</div></div><p>The&#160;<strong><code>lockKeepAlivePeriod</code></strong> attribute is not applicable to versions of ActiveMQ older than 5.9.0.</p><div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Consequences of lockKeepAlivePeriod = 0</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>For this locker <strong><code>lockKeepAlivePeriod</code></strong> should be greater than <strong><code>0</code></strong>.This period is the frequency with which the master broker makes lock keep alive calls.</p><p>When&#160;<strong><code>lockKeepAlivePeriod = 0</code></strong> slave brokers are still unable to obtain the file lock. However, if some third party modifies the lock file (either modification or deletion) the master broker will not detect the change. Therefore a slave broker's next attempt (per its configured <strong><code>lockAcquireSleepInterval</code></strong>) to obtain the file lock will succeed. When this happens there will be two master brokers in the cluster. <em><u>This situation will result in message store corruption</u></em>!</p><p>When&#160;<strong><code>lockKeepAlivePeriod</code></strong> is greater than <strong><code>0</code></strong>, the master broker will make a lock keep alive call every&#160;<strong><code>lockKeepAlivePeriod</code></strong> milliseconds. Therefore the master broker will detect any lock file changes when it makes its next keep alive call. Upon detecting said change the master broker will demote itself to a slave broker.</p></div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Note that as of ActiveMQ 5.9.0 the KahaDB persistence adapter can also use the Lease Database Locker (see below).</p></div></div><h3 id="Pluggablestoragelockers-DatabaseLocker">Database Locker</h3><p>The Database Locker is the default locker for the JDBC persistence adapter. It locks a database table in a transaction to ensure that only single resource is used.</p><h4 id="Pluggablestoragelockers-Example:.1">Example:</h4><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;persistenceAdapter&gt;
+    &lt;jdbcPersistenceAdapter dataDirectory="${activemq.data}" dataSource="#mysql-ds" lockKeepAlivePeriod="10000"&gt;
+        &lt;locker&gt;
+            &lt;database-locker lockAcquireSleepInterval="5000"/&gt;
+        &lt;/locker&gt;
+    &lt;/jdbcPersistenceAdapter&gt;
+&lt;/persistenceAdapter&gt;</pre>
+</div></div><p>The Database Locker uses its&#160;<strong><code>keepAlive</code></strong> method to ensure the broker still holds the lock. You can set the keep alive period using the <strong><code>lockKeepAlivePeriod</code></strong> property. The default period is 30000 ms. If a broker fails to acquire the lock on the database, it will retry every <strong><code>lockAcquireSleepInterval</code></strong> milliseconds.</p><p>This locker opens a JDBC transaction against a database table (<strong><code>activemq_lock</code></strong>) that lasts as long as the broker remains alive. This locks the entire table and prevents another broker from accessing the store. In most cases this will be a fairly long running JDBC transaction which occupies resources on the database over time.</p><p>A problem with this locker can arise when the master broker crashes or loses its connection to the database causing the lock to remain in the database until the database responds to the half closed socket connection via a TCP timeout. The database lock expiry requirement can prevent the slave from starting some time. In addition, if the database supports failover, and the connection is dropped in the event of a replica failover, that JDBC transaction will be rolled back. The broker sees this as a failure. Both master and slave brokes will again compete for a lock.</p><h3 id="Pluggablestoragelockers-LeaseDatabaseLocker">Lease Database Locker</h3><p>The Lease Database Locker was created to solve the shortcomings of the Database Locker. The Lease Database Locker does not open a long running JDBC transaction. Instead it lets the master broker acquire a lock that's valid for a fixed (usually short) duration after which it expires. To retain the lock the master broker must periodically extend the lock's lease before it expires. Simultaneously the slave broker checks periodically to see if the lease has expired. If, for whatever reason, the master broker fails to update its lease on the lock the slave will take ownership of the lock becoming the new master in the process. The leased lock can survive a DB replica failover.</p><h4 id="Pluggablestoragelockers-Example:.2">Example:</h4><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;persistenceAdapter&gt;
+	&lt;jdbcPersistenceAdapter dataDirectory="${activemq.data}" dataSource="#mysql-ds" lockKeepAlivePeriod="5000"&gt;
+		&lt;locker&gt;
+			&lt;lease-database-locker lockAcquireSleepInterval="10000"/&gt;
+		&lt;/locker&gt;
+	&lt;/jdbcPersistenceAdapter&gt;
+&lt;/persistenceAdapter&gt;</pre>
+</div></div><p>In order for this mechanism to work correctly, each broker in a master/slave(s) cluster must have a unique value for the <strong><code>brokerName</code></strong> attribute as defined on the <strong><code>&lt;broker/&gt;</code></strong> tag. Alternatively, use unique values for the <span><strong><code>leaseHolderId</code></strong> attribute</span> on the <strong><code><span style="line-height: 1.42857;">&lt;lease-database-locker/&gt;</span></code></strong><span> tag as this value is used to create a lease lock definition.</span></p><p>The lease based lock is acquired by blocking at startup. It is then retained for a period whose duration (in ms) is given by the <strong><code>lockKeepAlivePeriod</code></strong> attribute. To retain the lock the master broker periodically extends its lease by <strong><code>lockAcquireSleepInterval</code></strong> milliseconds each time. In theory, therefore, the master broker is always (<strong><code>lockAcquireSleepInterval - lockKeepAlivePeriod</code></strong>) ahead of the slave broker with regard to the lease. It is imperative that <strong><code>lockAcquireSleepInterval &gt; lockKeepAlivePeriod</code></strong>, to ensure the lease is always current. As of ActiveMQ 5.9.0 a warning message is logged if this condition is not met.</p><p>In the simplest case, the clocks between master and slave must be in sync for this solution to work properly. If the clocks cannot be in sync, the locker can use the system time from the database CURRENT TIME and adjust the timeouts in accordance with their local variance from the DB system time. If&#160;<strong><code>maxAllowableDiffFromDBTime</code></strong> is greater than zero the local periods will be adjusted by any delta that exceeds <strong><code>maxAllowableDiffFromDBTime</code></strong>.</p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>It is important to know if the default rules your JDBC driver uses for converting <code>TIME</code> values are JDBC compliant. If you're using MySQL, for example, the driver's JDBC URL should contain&#160;<strong><code>useJDBCCompliantTimezoneShift=true</code></strong> to ensure that <code>TIME</code> value conversion is JDBC compliant. If not the locker could report a large time difference when it compares the retrieved lease expiration time against the current system time. Consult your JDBC driver's documentation for more details.</p></div></div><p>As of ActiveMQ 5.9.0 the lease database locker can be used in conjunction with the KahaDB persistence adapter. However, this particular combination requires that the lease database locker element contains a <strong><code>&lt;statements/&gt;</code></strong> child element. In the example below the&#160;<strong><code>lockTableName</code></strong> is also configured, although doing so is not mandatory.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&#160;&lt;persistenceAdapter&gt;
+	&lt;kahaDB directory="target/activemq-data" lockKeepAlivePeriod="5000"&gt;
+		&lt;locker&gt;
+            &lt;!-- When used with the KahaDB persistence adapter the 'dataSource' attribute must be defined on the locker itself: --&gt;
+            &lt;lease-database-locker lockAcquireSleepInterval="10000" dataSource="#mysql-ds"&gt;
+                &lt;statements&gt;
+                    &lt;!-- Default locker attributes and SQL statements may be overridden here 
+                         using one or more &lt;statements attribute_or_statement="value"/&gt; entries: --&gt;  
+                    &lt;statements lockTableName="activemq_lock"/&gt;
+                &lt;/statements&gt;
+            &lt;/lease-database-locker&gt;
+		&lt;/locker&gt;
+	&lt;/kahaDB&gt;
+&lt;/persistenceAdapter&gt;</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>To see the complete list of attributes and SQL statements that can be overridden see the <a shape="rect" class="external-link" href="https://fisheye6.atlassian.com/browse/activemq/trunk/activemq-jdbc-store/src/main/java/org/apache/activemq/store/jdbc/Statements.java?hb=true" rel="nofollow">Statements</a> class.</p></div></div><p>When the KahaDB persistence adapter is configured to use the <strong><code>lease-database-locker</code></strong> you must configure the broker to use your own IO exception handler as neither the <strong><code>DefaultIOExceptionHandler</code></strong> nor the <strong><code>JDBCIOExceptionHandler</code></strong> will work correctly with this combination. See <a shape="rect" href="configurable-ioexception-handling.html">Configurable IOException Handlers</a> for details on how to write a handler.</p><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>As of ActiveMQ 5.11, however, the <strong><code>JDBCIOExceptionHandler</code></strong> has been deprecated. It has been replaced by the <strong><code>org.apache.activemq.util.LeaseLockerIOExceptionHandler</code></strong> that will work with any persistence adapter that supports pluggable storage lockers, regardless if one is configured.</p></div></div><p>&#160;</p><p>&#160;</p><p>&#160;</p><p>&#160;</p><p>&#160;</p></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=30150882">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

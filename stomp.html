@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushXml.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Stomp
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="connectivity.html">Connectivity</a>&nbsp;&gt;&nbsp;<a href="protocols.html">Protocols</a>&nbsp;&gt;&nbsp;<a href="stomp.html">Stomp</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><p>ActiveMQ supports the <a shape="rect" class="external-link" href="http://stomp.github.com/" rel="nofollow">Stomp</a> protocol and the Stomp - JMS mapping. This makes it easy to write a client in pure <a shape="rect" class="unresolved" href="#">Ruby</a>, <a shape="rect" class="unresolved" href="#">Perl</a>, <a shape="rect" class="unresolved" href="#">Python</a> or <a shape="rect" class="unresolved" href="#">PHP</a> for working with ActiveMQ.</p><p>Please see the <a shape="rect" class="external-link" href="http://stomp.github.io/" rel="nofollow">Stomp site</a> for more details</p><div class="confluence-information-macro confluence-information-macro-information"><p class="title">Spec Compliance</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>ActiveMQ v5.6 implements the Stomp v1.1 spec except for allowing spaces at the beginning or end of message header keys, they are preserved in the header values however. In future releases this will not be the case, clients should be updated and user code checked to ensure that spaces in the headers are there intentionally and not as a accident or a client "feature".</p></div></div><h3 id="Stomp-EnablingtheActiveMQBrokerforStomp">Enabling the ActiveMQ Broker for Stomp</h3><p>To enable STOMP protocol support in the broker add a transport connector definition whose URI scheme is <strong><code>stomp</code></strong>.</p><p>Example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;transportConnectors&gt;
+   &lt;transportConnector name="stomp" uri="stomp://localhost:61613"/&gt;
+&lt;/transportConnectors&gt;
+</pre>
+</div></div><p>To see a full example, try <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/assembly/src/release/example/conf/activemq.xml">this XML</a>. If you save that XML as&#160;<strong><code>foo.xml</code></strong> then you can run stomp via the command line as</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">activemq xbean:foo.xml
+</pre>
+</div></div><p>For more help see <a shape="rect" href="run-broker.html">Run Broker</a>.</p><h3 id="Stomp-TheStompWireFormat">The Stomp Wire Format</h3><p>Stomp uses a text based wire format that can be configured with the following options. &#160;All options can be configured on a Brokers transport bind URI.</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Parameter Name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Default Value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>maxDataLength</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>104857600</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Maximum size of the message body (content) that can be sent.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>maxFrameSize</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>MAX_LONG</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><strong>From ActiveMQ 5.12.0</strong>: maximum frame size that can be sent. A Stomp frame includes a command, optional headers, and an optional body. Can help help prevent OOM DOS attacks</p></td></tr></tbody></table></div><p>Example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;transportConnector name="stomp+ssl" uri="stomp+ssl://localhost:61612?wireFormat.maxFrameSize=1000000"/&gt;</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Use the Correct Prefix!</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Wire format options must have the prefix&#160;<strong><code>wireFormat.</code></strong> to take effect, e.g.,&#160;<strong><code>wireFormat.<code>maxDataLength</code>=100000</code></strong>. Options missing this prefix will be ignored.</p></div></div><h3 id="Stomp-Security">Security</h3><p><strong>From ActiveMQ 5.1</strong>: Stomp fully supports <a shape="rect" href="security.html">ActiveMQ's security</a> mechanism. This means that the <strong><code>CONNECT</code></strong> command will return an <strong><code>ERROR</code></strong> STOMP frame on unsuccessful authentication. Also, the authorization policies will be applied when you try to access (read/write) certain destinations. If you use synchronous operations (by using <a shape="rect" class="external-link" href="http://stomp.github.com/stomp-specification-1.1.html#RECEIPT" rel="nofollow">receipts</a>), you can expect an <strong><code>ERROR</code></strong> frame in case of unauthorized access attempt. In other case, operations will be discarded but the client will not be informed of errors. This applies to all errors that can occur broker-side.</p><div class="confluence-information-macro confluence-information-macro-tip"><p class="title">SSL</p><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>For additional security, you can use Stomp over SSL as described in the following section.</p></div></div><h3 id="Stomp-EnablingStompoverNIO">Enabling Stomp over NIO</h3><p><strong>From ActiveMQ 5.3</strong>: for better scalability and performance the Stomp protocol can be configured to be run over the NIO transport. The <a shape="rect" class="external-link" href="http://activemq.apache.org/configuring-transports.html#ConfiguringTransports-TheNIOTransport">NIO transport</a> will use far fewer threads than the corresponding TCP connector. This can help when support for a <a shape="rect" class="external-link" href="http://activemq.apache.org/how-do-i-configure-10s-of-1000s-of-queues-in-a-single-broker-.html">large number of queues</a> is required. To use NIO change the URI scheme of the transport connector to <strong><code>stomp+nio</code></strong>.</p><p>Example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;transportConnector name="stomp+nio" uri="stomp+nio://localhost:61612"/&gt;
+</pre>
+</div></div><h3 id="Stomp-EnablingStompoverSSL">Enabling Stomp over SSL</h3><p>To configure ActiveMQ to use Stomp over an SSL connection change the URI scheme to <strong><code>stomp+ssl</code></strong>.</p><p>Example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;transportConnector name="stomp+ssl" uri="stomp+ssl://localhost:61612"/&gt;
+</pre>
+</div></div><p>For more details on using SSL with ActiveMQ see the following article (<a shape="rect" class="external-link" href="http://activemq.apache.org/how-do-i-use-ssl.html">How do I use SSL</a>). An example of using Stomp over SSL on the client side can be found in the <a shape="rect" class="external-link" href="http://stomp.fusesource.org/documentation/php/book.html#SSL" rel="nofollow">PHP Stomp client example</a>.</p><h3 id="Stomp-Heart-BeatGracePeriod">Heart-Beat Grace Period</h3><p>The STOMP protocol (version 1.1 or greater) <a shape="rect" class="external-link" href="http://stomp.github.io/stomp-specification-1.2.html#Heart-beating" rel="nofollow">defines the concept of heart beats</a> as a method by which a client and broker can determine the health of the underlying TCP connection between them. ActiveMQ supports STOMP heart beating provided the client is using version 1.1 (or greater) of the protocol.</p><p><strong>Before ActiveMQ 5.9.0</strong>: enforcement of the 'read' heart-beat timeout (that is, a heart-beat sent from the client to the broker) was strict. In other words, the broker was intolerant of late arriving read heart-beats from the client. This resulted in the broker concluding that the client was no longer present causing it to close its side of the client's connection when the client failed to honor it's configured heart-beat settings.</p><p><strong>From ActiveMQ 5.9.0</strong>: the timeout enforcement for read heart-beats is now configurable via a new transport option&#160;<strong><code>transport.hbGracePeriodMultiplier</code></strong>:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;transportConnectors&gt;
+   &lt;transportConnector name="stomp" uri="stomp://localhost:61613?transport.hbGracePeriodMultiplier=1.5"/&gt;
+&lt;/transportConnectors&gt;
+</pre>
+</div></div><p>This multiplier is used to calculate the effective read heart-beat timeout the broker will enforce for each client's connection. The multiplier is applied to the read-timeout interval the client specifies in its&#160;<strong><code>CONNECT</code></strong> frame:</p><p><code>&#160; <strong>&lt;client specified read heart-beat interval&gt; * &lt;grace periodmultiplier&gt; == &lt;broker enforced read heart-beat timeout interval&gt;</strong></code></p><p>For backward compatibility, if the grace period multiplier is not configured the default enforcement mode remains strict, e.g.,&#160;<strong><code>transport.hbGracePeriodMultiplier=1.0</code></strong>. Attempts to configure the grace period multiplier to a value less than, or equal to&#160;<strong><code>1.0</code></strong> will be silently ignored.</p><p>STOMP clients that wish to be tolerant of late arriving heart-beats from the broker must implement their own solution for doing so.</p><ul><li><p>Please check the <a shape="rect" class="external-link" href="http://stomp.github.io/stomp-specification-1.2.html#Heart-beating" rel="nofollow">STOMP specification</a> for the details on heart-beating</p></li><li><p>The JIRA that implemented this: <a shape="rect" class="external-link" href="https://issues.apache.org/jira/browse/AMQ-4674">ActiveMQ 5.x does not support the notion of a grace-period for heart beats as supported by the STOMP protocol</a></p></li></ul><h3 id="Stomp-WorkingwithDestinationswithStomp">Working with Destinations with Stomp</h3><p>Note that the prefix in stomp <strong><code>/queue/</code></strong> or&#160;<strong><code>/topic/</code></strong> is removed from the string before passing it to ActiveMQ as a JMS destination. Also note that the default separator in MOM systems is&#160;<strong><code>.</code></strong> (dot). Whilst <strong><code>FOO.BAR</code></strong> is the normal syntax to identify a queue type destination the Stomp equivalent is <strong><code>/queue/FOO.BAR</code></strong></p><div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Be careful about starting destinations with /</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>If in Stomp world you use&#160;<strong><code>/queue/foo/bar</code></strong> then in a JMS world the queue would be called <strong><code>foo/bar</code></strong> not&#160;<strong><code>/foo/bar</code></strong>.</p></div></div><div class="confluence-information-macro confluence-information-macro-information"><p class="title">Persistent Messaging in STOMP</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>STOMP messages are non-persistent by default. To use persistent messaging add the following STOMP header to all&#160;<strong><code>SEND</code></strong> requests: <strong><code>persistent:true</code></strong>. This default is the opposite of that for JMS messages.</p></div></div><h3 id="Stomp-WorkingwithJMSText/BytesMessagesandStomp">Working with JMS Text/Bytes Messages and Stomp</h3><p>Stomp is a very simple protocol - that's part of the beauty of it! As such, it does not have knowledge of JMS messages such as&#160;<strong><code>TextMessage</code></strong>'s or <strong><code>BytesMessage</code></strong>'s. The protocol does however support a&#160;<strong><code>content-length</code></strong> header. To provide more robust interaction between STOMP and JMS clients, ActiveMQ keys off of the inclusion of this header to determine what message type to create when sending from Stomp to JMS. The logic is simple:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Inclusion of content-length header</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Resulting Message</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>yes</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><strong><code>BytesMessage</code></strong></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>no</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><strong><code>TextMessage</code></strong></p></td></tr></tbody></table></div><p>This same logic can be followed when going from JMS to Stomp, as well. A Stomp client could be written to key off of the inclusion of the&#160;<strong><code>content-length</code></strong> header to determine what type of message structure to provide to the user.</p><h3 id="Stomp-MessageTransformations">Message Transformations</h3><p>The <strong><code>transformation</code></strong> message header on <strong><code>SEND</code></strong> and <strong><code>SUBSCRIBE</code></strong> messages could be used to instruct ActiveMQ to transform messages from text to the format of your desire. Currently, ActiveMQ comes with a transformer that can transform XML/JSON text to Java objects, but you can add your own transformers as well.</p><p>Here's a quick example of how to use built-in transformer (taken from test cases)</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">    private String xmlObject = "&lt;pojo&gt;\n" 
+            + "  &lt;name&gt;Dejan&lt;/name&gt;\n"
+            + "  &lt;city&gt;Belgrade&lt;/city&gt;\n" 
+            + "&lt;/pojo&gt;";
+
+    public void testTransformationReceiveXMLObject() throws Exception {
+    	
+        MessageProducer producer = session.createProducer(new ActiveMQQueue("USERS." + getQueueName()));
+        ObjectMessage message = session.createObjectMessage(new SamplePojo("Dejan", "Belgrade"));
+        producer.send(message);
+    	
+        String frame = "CONNECT\n" + "login: system\n" + "passcode: manager\n\n" + Stomp.NULL;
+        stompConnection.sendFrame(frame);
+
+        frame = stompConnection.receiveFrame();
+        assertTrue(frame.startsWith("CONNECTED"));
+
+        frame = "SUBSCRIBE\n" + "destination:/queue/USERS." + getQueueName() + "\n" + "ack:auto" + "\n" + "transformation:jms-object-xml\n\n" + Stomp.NULL;
+        stompConnection.sendFrame(frame);
+        
+        frame = stompConnection.receiveFrame();
+
+        assertTrue(frame.trim().endsWith(xmlObject));
+        
+        frame = "DISCONNECT\n" + "\n\n" + Stomp.NULL;
+        stompConnection.sendFrame(frame);
+    }     
+</pre>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><p class="title">Dependencies</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>ActiveMQ uses <a shape="rect" class="external-link" href="http://xstream.codehaus.org" rel="nofollow">XStream</a> for its transformation needs. Since it's the optional dependency you have to add it to broker's classpath by putting the appropriate JAR into the <strong><code>lib/</code></strong> folder. Additionally, if you plan to use JSON transformations you have to add <a shape="rect" class="external-link" href="http://jettison.codehaus.org/" rel="nofollow">Jettison</a> JSON parser to the classpath.</p></div></div><p>In order to create your own transformer, you have to do the following:</p><ol><li><p>Build your transformer by implementing a <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/transport/stomp/FrameTranslator.html">FrameTranslator</a> interface</p></li><li><p>Associate it with the appropriate header value by creating a file named as a value you want to use in the <strong><code>META-INF/services/org/apache/activemq/transport/frametranslator/</code></strong> folder of your JAR which will contain the value <strong><code>class=<em>fully qualified classname of your transformer</em></code></strong></p></li></ol><p>For example the built-in transformer contains the following value:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">class=org.apache.activemq.transport.stomp.XStreamFrameTranslator</pre>
+</div></div><p>in the <strong><code>META-INF/services/org/apache/activemq/transport/frametranslator/jms-xml</code></strong> file.</p><h3 id="Stomp-Debugging"><span style="line-height: 1.5625;">Debugging</span></h3><p>In case you want to debug Stomp communication between broker and clients you should configure the Stomp connector with the <strong><code>trace</code></strong> parameter, like this:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">&lt;transportConnectors&gt;
+   &lt;transportConnector name="stomp" uri="stomp://localhost:61613?trace=true"/&gt;
+&lt;/transportConnectors&gt;
+</pre>
+</div></div><p>This will instruct the broker to trace all packets it sends and receives.</p><p>Furthermore, you have to enable tracing for the appropriate log. You can achieve that by adding the following to your <strong><code>conf/log4j.properties</code></strong></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">log4j.logger.org.apache.activemq.transport.stomp=TRACE
+</pre>
+</div></div><p>Finally, you will probably want to keep these messages in the separate file instead of polluting the standard broker's log. You can achieve that with the following log4j configuration:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">log4j.appender.stomp=org.apache.log4j.RollingFileAppender
+log4j.appender.stomp.file=${activemq.base}/data/stomp.log
+log4j.appender.stomp.maxFileSize=1024KB
+log4j.appender.stomp.maxBackupIndex=5
+log4j.appender.stomp.append=true
+log4j.appender.stomp.layout=org.apache.log4j.PatternLayout
+log4j.appender.stomp.layout.ConversionPattern=%d [%-15.15t] %-5p %-30.30c{1} - %m%n
+
+log4j.logger.org.apache.activemq.transport.stomp=TRACE, stomp
+log4j.additivity.org.apache.activemq.transport.stomp=false
+
+# Enable these two lines and disable the above two if you want the frame IO ONLY (e.g., no heart beat messages, inactivity monitor etc).
+#log4j.logger.org.apache.activemq.transport.stomp.StompIO=TRACE, stomp
+#log4j.additivity.org.apache.activemq.transport.stomp.StompIO=false
+</pre>
+</div></div><p>After this, all your Stomp packets will be logged to the <strong><code>data/stomp.log</code></strong></p><h3 id="Stomp-JavaAPI">Java API</h3><p><strong>From ActiveMQ 5.2</strong>: there is a simple Java Stomp API distributed with ActiveMQ. Note that this API is provided purely for testing purposes and you should always consider using standard JMS API from Java instead of this one. The following code snippet provides a simple example of using this API:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">StompConnection connection = new StompConnection();
+connection.open("localhost", 61613);
+		
+connection.connect("system", "manager");
+StompFrame connect = connection.receive();
+
+if(!connect.getAction().equals(Stomp.Responses.CONNECTED)) {
+	throw new Exception ("Not connected");
+}
+		
+connection.begin("tx1");
+connection.send("/queue/test", "message1", "tx1", null);
+connection.send("/queue/test", "message2", "tx1", null);
+connection.commit("tx1");
+	
+connection.subscribe("/queue/test", Subscribe.AckModeValues.CLIENT);
+	
+connection.begin("tx2");
+	
+StompFrame message = connection.receive();
+System.out.println(message.getBody());
+connection.ack(message, "tx2");
+	
+message = connection.receive();
+System.out.println(message.getBody());
+connection.ack(message, "tx2");
+	
+connection.commit("tx2");
+		
+connection.disconnect();
+</pre>
+</div></div><p>This example is part of the standard ActiveMQ distribution. You can run it from the&#160;<strong><code>./example</code></strong> folder with:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">ant stomp
+</pre>
+</div></div><h3 id="Stomp-StompExtensionsforJMSMessageSemantics">Stomp Extensions for JMS Message Semantics</h3><p>Note that STOMP is designed to be as simple as possible - so any scripting language/platform can message any other with minimal effort. STOMP allows pluggable headers on each request such as sending &amp; receiving messages. ActiveMQ has several extensions to the Stomp protocol, so that JMS semantics can be supported by Stomp clients. An OpenWire JMS producer can send messages to a Stomp consumer, and a Stomp producer can send messages to an OpenWire JMS consumer. And Stomp to Stomp configurations, can use the richer JMS message control.</p><p>STOMP supports the following standard JMS properties on&#160;<strong><code>SENT</code></strong> messages:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>STOMP Header</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>JMS Header</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>correlation-id</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>JMSCorrelationID</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Good consumers will add this header to any responses they send.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>expires</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>JMSExpiration</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Expiration time of the message.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>JMSXGroupID</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>JMSXGroupID</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Specifies the <a shape="rect" href="message-groups.html">Message Groups.</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>JMSXGroupSeq</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>JMSXGroupSeq</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Optional header that specifies the sequence number in the <a shape="rect" href="message-groups.html">Message Groups.</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>persistent</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>JMSDeliveryMode</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Whether or not the message is persistent.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>priority</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>JMSPriority</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Priority on the message.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>reply-to</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>JMSReplyTo</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Destination you should send replies to.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>type</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>JMSType</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Type of the message.</p></td></tr></tbody></table></div><h3 id="Stomp-ActiveMQExtensionstoSTOMP">ActiveMQ Extensions to STOMP</h3><p>You can add custom headers to STOMP commands to configure the ActiveMQ protocol. Here are some examples:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Verb</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Header</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Type</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>CONNECT</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>client-id</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>string</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Specifies the JMS clientID which is used in combination with the&#160;<strong><code>activemq.subcriptionName</code></strong> to denote a durable subscriber.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>SUBSCRIBE</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>activemq.dispatchAsync</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>boolean</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Should messages be dispatched synchronously or asynchronously from the producer thread for non-durable topics in the broker?</p><p>For fast consumers set this to <strong><code>false</code></strong>.</p><p>For slow consumers set it to&#160;<strong><code>true</code></strong> so that dispatching will not block fast consumers.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>SUBSCRIBE</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>activemq.exclusive</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>boolean</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>I would like to be an <a shape="rect" href="exclusive-consumer.html">Exclusive Consumer</a> on the queue.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>SUBSCRIBE</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>activemq.maximumPendingMessageLimit</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>int</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>For <a shape="rect" href="slow-consumer-handling.html">Slow Consumer Handling</a> on non-durable topics by dropping old messages - we can set a maximum-pending limit, such that once a slow consumer backs up to this high water mark we begin to discard old messages.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>SUBSCRIBE</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>activemq.noLocal</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>boolean</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Specifies whether or not locally sent messages should be ignored for subscriptions.</p><p>Set to <strong><code>true</code></strong> to filter out locally sent messages.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>SUBSCRIBE</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>activemq.prefetchSize</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>int</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Specifies the maximum number of pending messages that will be dispatched to the client. Once this maximum is reached no more messages are dispatched until the client acknowledges a message.</p><p>Set to a low value &gt; <strong>1</strong> for fair distribution of messages across consumers when processing messages can be slow</p><p><strong>Note</strong>: if your STOMP client is implemented using a dynamic scripting language like Ruby, say, then this parameter <strong><em>must</em></strong> be set to&#160;<strong><code>1</code></strong> as there is no notion of a client-side message size to be sized.</p><p>STOMP does not support a value of <strong><code>0</code></strong>.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>SUBSCRIBE</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>activemq.priority</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>byte</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Sets the priority of the consumer so that dispatching can be weighted in priority order.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>SUBSCRIBE</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>activemq.retroactive</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>boolean</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>For non-durable topics make this subscription <a shape="rect" href="retroactive-consumer.html">retroactive</a>.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>SUBSCRIBE</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>activemq.subscriptionName</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>string</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>For durable topic subscriptions you must specify the same&#160;<strong><code>activemq.client-id</code></strong> on the connection and <strong><code>activemq.subcriptionName</code></strong> on the subscribe prior to v5.7.0.</p><p><strong>Note</strong>: the spelling <strong><code>subcriptionName</code></strong> NOT <strong><code>subscriptionName</code></strong>. This is not intuitive, but it is how it is implemented in ActiveMQ 4.x.</p><p>For the 5.0 release of ActiveMQ, both&#160;<strong><code>subcriptionName</code></strong> and&#160;<strong><code>subscriptionName</code></strong> will be supported (<strong><code>subcriptionName</code></strong> was removed as of v5.6.0).</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>SUBSCRIBE</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>selector</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>string</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Specifies a JMS Selector using SQL 92 syntax as specified in the JMS 1.1 specification. This allows a filter to be applied to each message as part of the subscription.</p></td></tr></tbody></table></div></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=36208">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+    
+    <title>
+    Apache ActiveMQ &#8482; -- ActiveMQ-CPP product version number
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<p>
+	</p><div id="asf_logo">
+	<div id="activemq_logo">
+            <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org/">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org">ASF</a>
+	</div>
+        </div>
+<p></p>
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="index.html">Index</a>&nbsp;&gt;&nbsp;<a href="overview.html">Overview</a>&nbsp;&gt;&nbsp;<a href="download.html">Download</a>&nbsp;&gt;&nbsp;<a href="activemq-cpp-libtool-and-packaging-notes.html">ActiveMQ-CPP, libtool and packaging notes</a>&nbsp;&gt;&nbsp;<a href="activemq-cpp-product-version-number.html">ActiveMQ-CPP product version number</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" href="api.html">API</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent">
+
+<p><em>This is a DRAFT proposal and has not been adopted as official policy by this project.</em></p>
+
+<p>In order to facilitate the correct use of libtool and the preparation of binary packages for distribution on Debian, Red Hat, etc, it is beneficial to have a written policy on version numbers.</p>
+
+<h3 id="ActiveMQ-CPPproductversionnumber-Productversionnumber">Product version number</h3>
+
+<p>These numbers represent the release of the product.  E.g. 2.1.2</p>
+
+<p>For the ActiveMQ-CPP project, the numbers have the format MAJOR.MINOR.REVISION, and the following meanings:</p>
+
+<ul><li>MAJOR: a change in the MAJOR number is necessary for anything that changes binary compatibility (e.g. changing a function prototype or class definition), or when major internal changes occur</li><li>MINOR: a change in the MINOR number is necessary whenever new functionality is added without breaking binary compatibility (e.g. adding a new class), or when anything other than very minor internal changes occur</li><li>REVISION: a change in the REVISION number is made for any other type of change that does not justify a change to MINOR or MAJOR</li></ul>
+
+
+<p>Further to the above, it is envisaged that a user who has a packaging system (such as Debian):</p>
+<ul><li>may choose to have more than one major version installed on the same system concurrently (e.g. 2.1.2 and 3.4.5)</li><li>may only have one variation of each major version installed (e.g. it is not intended to have 2.1.2 and 2.3.0 concurrently)</li></ul>
+
+
+<h3 id="ActiveMQ-CPPproductversionnumber-libtoolABIversionnumber">libtool ABI version number</h3>
+
+<p>This number represents an ABI version.  It is an integer, e.g., the number 5.</p>
+
+<p>The ABI version number does not need to be the same as the product version number.</p>
+
+<p>An increment in the libtool version number is mandatory when one of the following occurs:</p>
+<ul><li>any new structs, classes or function prototypes are added</li><li>the definition of any structs, classes or function prototypes are modified</li><li>any structs, classes or function prototypes are removed</li></ul>
+
+
+<p>Note that in the first case above, binary compatibility with existing applications is maintained.  In the second and third case, binary compatibility is lost, and the libtool `age' variable must also be changed.</p></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overview"><a shape="rect" href="index.html">Overview</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="tutorials.html">Tutorials</a></li><li><a shape="rect" href="api.html">API</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="download.html">Download</a></li></ul>
+
+
+<h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=51964"><a shape="rect" href="connectivity.html">Connectivity</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="stomp-support.html">Stomp</a></li><li><a shape="rect" href="openwire-support.html">OpenWire</a></li></ul>
+
+
+<h3 id="Navigation-UsingActiveMQ-CPPhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=51968"><a shape="rect" href="using-activemq-cpp.html">Using ActiveMQ-CPP</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="cms-api-overview.html">CMS API Overview</a></li><li><a shape="rect" href="example.html">Example</a></li><li><a shape="rect" href="configuring.html">Configuring</a></li></ul>
+
+
+<h3 id="Navigation-Search">Search</h3>
+
+<p></p><p>
+</p><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<p></p>
+
+<h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45948"><a shape="rect" href="community.html">Community</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></li><li><a shape="rect" class="external-link" href="http://servlet.uwyn.com/drone/log/hausbot/activemq" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/team.html">Team</a></li></ul>
+
+
+
+<h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45950"><a shape="rect" href="developers.html">Developers</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="creating-distributions.html">Creating Distributions</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=72722">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

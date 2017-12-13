@@ -1,0 +1,447 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Security
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="features.html">Features</a>&nbsp;&gt;&nbsp;<a href="security.html">Security</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><p>ActiveMQ 4.x and greater provides pluggable security through various different providers.</p><p>The most common providers are</p><ul><li><a shape="rect" class="external-link" href="http://java.sun.com/products/jaas/" rel="nofollow">JAAS</a> for authentication</li><li>a default authorization mechanism using a simple XML configuration file.</li></ul><h3 id="Security-Authentication">Authentication</h3><p>The default <a shape="rect" class="external-link" href="http://java.sun.com/products/jaas/" rel="nofollow">JAAS</a> plugin relies on the standard JAAS mechanism for authentication. Refer to the <a shape="rect" class="external-link" href="http://java.sun.com/products/jaas/reference/docs/index.html" rel="nofollow">documentation</a> for more detail.</p><p>Typically you configure JAAS using a config file like <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/resources/login.config">this one</a> and set the <strong>java.security.auth.login.config</strong> system property to point to it. If no system property is specified then by default the ActiveMQ JAAS plugin will look for <strong>login.config</strong> on the classpath and use that.</p><h4 id="Security-AuthenticationExample">Authentication Example</h4><p>Here is an example <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/resources/login.config">login.config</a> which then points to these files</p><ul><li><a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/security/users.properties">users.properties</a></li><li><a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/security/groups.properties">groups.properties</a></li></ul><p><strong>Note:</strong> Until version 5.11.1, these property files got reloaded on every authentication request by default. So updates to users, password and groups were loaded immediately. From 5.12 onward they only get reloaded if reload=true is set in your LoginModule configuration, e.g.</p><plain-text-body>activemq {
+    org.apache.activemq.jaas.PropertiesLoginModule required
+        org.apache.activemq.jaas.properties.user="users.properties"
+        org.apache.activemq.jaas.properties.group="groups.properties"
+        reload=true;
+};
+</plain-text-body><p>If reload=true is not set, these property files get loaded on broker startup only!! See AMQ-5876 for details.</p><h4 id="Security-SimpleAuthenticationPlugin">Simple Authentication Plugin</h4><p>If you have modest authentication requirements (or just want to quickly set up your testing environment) you can use SimpleAuthenticationPlugin. With this plugin you can define users and groups directly in the broker's XML configuration. Take a look at the following snippet for example:</p><parameter ac:name="">xml</parameter><plain-text-body>&lt;simpleAuthenticationPlugin&gt;
+	&lt;users&gt;
+		&lt;authenticationUser username="system" password="manager"
+			groups="users,admins"/&gt;
+		&lt;authenticationUser username="user" password="password"
+			groups="users"/&gt;
+		&lt;authenticationUser username="guest" password="password" groups="guests"/&gt;
+	&lt;/users&gt;
+&lt;/simpleAuthenticationPlugin&gt;
+</plain-text-body><p>Users and groups defined in this way can be later used with the appropriate authorization plugin.</p><h5 id="Security-Anonymousaccess">Anonymous access</h5><p>From version 5.4.0 onwards, you can configure simple authentication plugin to allow anonymous access to the broker.</p><parameter ac:name="">xml</parameter><plain-text-body>&lt;simpleAuthenticationPlugin anonymousAccessAllowed="true"&gt;
+    &lt;users&gt;
+        &lt;authenticationUser username="system" password="manager"
+            groups="users,admins"/&gt;
+        &lt;authenticationUser username="user" password="password"
+            groups="users"/&gt;
+        &lt;authenticationUser username="guest" password="password" groups="guests"/&gt;
+    &lt;/users&gt;
+&lt;/simpleAuthenticationPlugin&gt;
+</plain-text-body><p>To allow anonymous access to the broker, use <code>anonymousAccessAllowed</code> attribute and set it to <code>true</code> as shown above. Now, when the client connects without username and password provided, a default username (<code>anonymous</code>) and group (<code>anonymous</code>) will be assigned to its security context. You can use this username and password to authorize client's access to appropriate broker resources (see the next section). You can also change username and group that will be assigned to <em>anonymous</em> users by using <code>anonymousUser</code> and <code>anonymousGroup</code> attributes.</p><h3 id="Security-Authorization">Authorization</h3><p>In ActiveMQ we use a number of operations which you can associate with user roles and either individual queues or topics or you can use wildcards to attach to hierarchies of topics and queues.</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Operation</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>read</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>You can browse and consume from the destination</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>write</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>You can send messages to the destination</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>admin</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>You can lazily create the destination if it does not yet exist. This allows you fine grained control over which new destinations can be dynamically created in what part of the queue/topic hierarchy</p></td></tr></tbody></table></div><p>Queues/Topics can specified using the ActiveMQ <a shape="rect" href="wildcards.html">Wildcards</a> syntax.</p><h4 id="Security-AuthorizationExample">Authorization Example</h4><p>The following <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/security/jaas-broker.xml">example</a> shows these 2 plugins in operation. Though note its very easy to write your own plugin.<plain-text-body>{snippet:id=example|lang=xml|url=activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/security/jaas-broker.xml}</plain-text-body><strong>Note</strong> that full access rights should generally be given to the ActiveMQ.Advisory destinations because by default an ActiveMQConnection uses destination advisories to get early knowledge of temp destination creation and deletion. In addition, dynamic network connectors use advisories to determine consumer demand.<br clear="none"> If necessary, the use of advisories in this manner can be disabled via the <em>watchTopicAdvisories</em> boolean attribute of ActiveMQConnectionFactory and for a networkConnector, via the network connector <em>staticBridge</em>(5.6) boolean attribute.</p><h3 id="Security-Broker-to-BrokerAuthenticationandAuthorization">Broker-to-Broker Authentication and Authorization</h3><p>If you have enabled authentication for a particular message broker, then other brokers that wish to connect to that broker must provide the proper authentication credentials via their &lt;networkConnector&gt; element. For example, suppose that we have a network of brokers with the following configuration:</p><ul class="alternate"><li>The network of brokers comprises two brokers (BrokerA and BrokerB)</li><li>Authentication for BrokerA has been enabled via the example &lt;simpleAuthenticationPlugin&gt; element.</li><li>Authentication for BrokerB has not been enabled.</li><li>BrokerA only listens for connections. In other words, BrokerA has a &lt;transportConnector&gt; element, but no &lt;networkConnector&gt; elements.</li></ul><p>In order for BrokerB to connect to BrokerA, the corresponding &lt;networkConnector&gt; element in BrokerB's XML configuration file must be set up as follows.</p><parameter ac:name="">xml</parameter><plain-text-body>&lt;networkConnectors&gt;
+   &lt;networkConnector name="brokerAbridge"
+                     userName="user"
+                     password="password"
+                     uri="static://(tcp://brokerA:61616)"/&gt;
+   &lt;/networkConnectors&gt;
+</plain-text-body><p>Note how BrokerB's &lt;networkConnector&gt; element must provide the proper credentials in order to connect to BrokerA. If authorization has been enabled on BrokerA, then the userName assigned to the &lt;networkConnector&gt; element must also have the proper authorization credentials. Messages cannot be forwarded from BrokerB to BrokerA if BrokerA has authorization enabled and BrokerB's corresponding &lt;networkConnector&gt; element's userName has not been given the proper authorization credentials.</p><p>Also, if BrokerA is given a &lt;networkConnector&gt; element so that it can initiate a connection to BrokerB, then that &lt;networkConnector&gt; must be given a userName/password combination that is defined in the &lt;simpleAuthenticationPlugin&gt; element; this is required even though BrokerB does not have authentication services enabled.</p><h3 id="Security-ControllingAccessToTemporaryDestinations">Controlling Access To Temporary Destinations</h3><p>To control access to temporary destinations, you will need to add a &lt;tempDestinationAuthorizationEntry&gt; element to the authorizationMap. Through this element, you control access to all temporary destinations. If this element is not present, read, write, and admin privileges for temporary destinations will be granted to all. In the example below, read, write, and admin privileges for temporary destinations are only granted to those clients that have been assigned to the 'admin' group.</p><parameter ac:name="">xml</parameter><plain-text-body>&lt;broker&gt;
+  ..
+   &lt;plugins&gt;
+      ..
+   &lt;authorizationPlugin&gt;
+       &lt;map&gt;
+         &lt;authorizationMap&gt;
+           &lt;authorizationEntries&gt;
+             &lt;authorizationEntry queue="TEST.Q" read="users" write="users" admin="users" /&gt;
+             &lt;authorizationEntry topic="ActiveMQ.Advisory.&gt;" read="all" write="all" admin="all"/&gt;
+           &lt;/authorizationEntries&gt;
+           &lt;tempDestinationAuthorizationEntry&gt;
+             &lt;tempDestinationAuthorizationEntry read="admin" write="admin" admin="admin"/&gt;
+           &lt;/tempDestinationAuthorizationEntry&gt;
+        &lt;/authorizationMap&gt;
+      &lt;/map&gt;
+   &lt;/authorizationPlugin&gt;
+     ..
+  &lt;/plugins&gt;
+  ..
+&lt;/broker&gt;
+</plain-text-body><h3 id="Security-LDAPAuthenticationUsingtheJAASPlugin">LDAP Authentication Using the JAAS Plugin</h3><parameter ac:name="">New module</parameter><rich-text-body><p>A new/better ldap authorization module is available since 5.6. See <a shape="rect" href="cached-ldap-authorization-module.html">Cached LDAP Authorization Module</a> for more info.</p></rich-text-body><p>1. Configure the JAAS LDAPLoginModule and the LDAPAuthorizationMap in activemq.xml:</p><parameter ac:name="">xml</parameter><plain-text-body>    &lt;plugins&gt; 
+      &lt;!--  use JAAS to authenticate using the login.config file on the classpath to configure JAAS --&gt; 
+      &lt;jaasAuthenticationPlugin configuration="LdapConfiguration" /&gt; 
+      &lt;!--  lets configure a destination based role/group authorization mechanism --&gt; 
+      &lt;authorizationPlugin&gt; 
+        &lt;map&gt; 
+          &lt;bean xmlns="http://www.springframework.org/schema/beans" id="lDAPAuthorizationMap" 
+                class="org.apache.activemq.security.LDAPAuthorizationMap"&gt; 
+            &lt;property name="initialContextFactory" value="com.sun.jndi.ldap.LdapCtxFactory"/&gt; 
+            &lt;property name="connectionURL" value="ldap://ldap.acme.com:389"/&gt; 
+            &lt;property name="authentication" value="simple"/&gt; 
+            &lt;property name="connectionUsername" value="cn=mqbroker,ou=Services,dc=acme,dc=com"/&gt; 
+            &lt;property name="connectionPassword" value="password"/&gt; 
+            &lt;property name="connectionProtocol" value="s"/&gt; 
+            &lt;property name="topicSearchMatching" value="cn={0},ou=Topic,ou=Destination,ou=ActiveMQ,ou=systems,dc=acme,dc=com"/&gt; 
+            &lt;property name="topicSearchSubtreeBool" value="true"/&gt; 
+            &lt;property name="queueSearchMatching" value="cn={0},ou=Queue,ou=Destination,ou=ActiveMQ,ou=systems,dc=acme,dc=com"/&gt; 
+            &lt;property name="queueSearchSubtreeBool" value="true"/&gt; 
+            &lt;property name="adminBase" value="(cn=admin)"/&gt; 
+            &lt;property name="adminAttribute" value="member"/&gt; 
+            &lt;property name="adminAttributePrefix" value="cn="/&gt; 
+            &lt;property name="readBase" value="(cn=read)"/&gt; 
+            &lt;property name="readAttribute" value="member"/&gt; 
+            &lt;property name="readAttributePrefix" value="cn="/&gt; 
+            &lt;property name="writeBase" value="(cn=write)"/&gt; 
+            &lt;property name="writeAttribute" value="member"/&gt; 
+            &lt;property name="writeAttributePrefix" value="cn="/&gt; 
+          &lt;/bean&gt; 
+        &lt;/map&gt; 
+      &lt;/authorizationPlugin&gt; 
+    &lt;/plugins&gt; 
+</plain-text-body><p>2. Configure the JAAS login.config (I haven't de-duplicated the config yet):</p><plain-text-body> 
+LdapConfiguration { 
+   org.apache.activemq.jaas.LDAPLoginModule required 
+       debug=true 
+       initialContextFactory=com.sun.jndi.ldap.LdapCtxFactory 
+       connectionURL="ldap://ldap.acme.com:389" 
+       connectionUsername="cn=mqbroker,ou=Services,dc=acme,dc=com" 
+       connectionPassword=password 
+       connectionProtocol=s 
+       authentication=simple 
+       userBase="ou=User,ou=ActiveMQ,ou=systems,dc=acme,dc=com" 
+       userRoleName=dummyUserRoleName 
+       userSearchMatching="(uid={0})" 
+       userSearchSubtree=false 
+       roleBase="ou=Group,ou=ActiveMQ,ou=systems,dc=acme,dc=com" 
+       roleName=cn 
+       roleSearchMatching="(member:=uid={1})" 
+       roleSearchSubtree=true 
+       ; 
+}; 
+</plain-text-body><p>3. Import the following LDIF file into the LDAP server:</p><plain-text-body>version: 1
+
+#
+# Sample LDIF for ActiveMQ LDAP authentication and authorisation
+# Passwords are defaulted to "password" - it is your responsibility to change them!
+#
+# Sets up:
+# 1. Bind user
+# 2. A sample queue with admin,read,write permission assignments
+# 3. ActiveMQ advisory topics
+# 4. Two groups - admin and webapp
+# 5. Two users - admin and webapp
+# 6. Role assignments - admin-&gt;admin, webapp-&gt;webapp
+#
+# (c) Robin Bramley 2008
+# Provided as is without any warranty of any kind
+# 
+
+dn: dc=acme,dc=com
+dc: acme
+objectClass: domain
+objectClass: top
+
+dn: ou=Services,dc=acme,dc=com
+ou: Services
+objectClass: organizationalUnit
+objectClass: top
+
+dn: cn=mqbroker,ou=Services,dc=acme,dc=com
+cn: mqbroker
+objectClass: organizationalRole
+objectClass: top
+objectClass: simpleSecurityObject
+userPassword: {SSHA}j0NpveEO0YD5rgI5kY8OxSRiN5KQ/kE4
+description: Bind user for MQ broker
+
+dn: ou=systems,dc=acme,dc=com
+ou: systems
+objectClass: organizationalUnit
+objectClass: top
+
+dn: ou=ActiveMQ,ou=systems,dc=acme,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: ActiveMQ
+
+dn: ou=Destination,ou=ActiveMQ,ou=systems,dc=acme,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: Destination
+
+dn: ou=Queue,ou=Destination,ou=ActiveMQ,ou=systems,dc=acme,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: Queue
+
+dn: cn=com.acme.myfirstrealqueue,ou=Queue,ou=Destination,ou=ActiveMQ,ou=syst
+ ems,dc=acme,dc=com
+cn: com.acme.myfirstrealqueue
+description: A queue
+objectClass: applicationProcess
+objectClass: top
+
+dn: cn=admin,cn=com.acme.myfirstrealqueue,ou=Queue,ou=Destination,ou=ActiveM
+ Q,ou=systems,dc=acme,dc=com
+cn: admin
+description: Admin privilege group, members are roles
+member: cn=admin
+member: cn=webapp
+objectClass: groupOfNames
+objectClass: top
+
+dn: cn=read,cn=com.acme.myfirstrealqueue,ou=Queue,ou=Destination,ou=ActiveMQ
+ ,ou=systems,dc=acme,dc=com
+cn: read
+member: cn=webapp
+objectClass: groupOfNames
+objectClass: top
+
+dn: cn=write,cn=com.acme.myfirstrealqueue,ou=Queue,ou=Destination,ou=ActiveM
+ Q,ou=systems,dc=acme,dc=com
+cn: write
+objectClass: groupOfNames
+objectClass: top
+member: cn=webapp
+
+dn: ou=Topic,ou=Destination,ou=ActiveMQ,ou=systems,dc=acme,dc=co
+ m
+objectClass: organizationalUnit
+objectClass: top
+ou: Topic
+
+dn: cn=ActiveMQ.Advisory.Consumer,ou=Topic,ou=Destination,ou=ActiveMQ,ou=sys
+ tems,dc=acme,dc=com
+cn: ActiveMQ.Advisory.Consumer
+objectClass: applicationProcess
+objectClass: top
+description: Advisory topic about consumers
+
+dn: cn=read,cn=ActiveMQ.Advisory.Consumer,ou=Topic,ou=Destination,ou=ActiveM
+ Q,ou=systems,dc=acme,dc=com
+cn: read
+member: cn=webapp
+objectClass: groupOfNames
+objectClass: top
+
+dn: cn=ActiveMQ.Advisory.TempQueue,ou=Topic,ou=Destination,ou=ActiveMQ,ou=sy
+ stems,dc=acme,dc=com
+cn: ActiveMQ.Advisory.TempQueue
+description: Advisory topic about temporary queues
+objectClass: applicationProcess
+objectClass: top
+
+dn: cn=read,cn=ActiveMQ.Advisory.TempQueue,ou=Topic,ou=Destination,ou=Active
+ MQ,ou=systems,dc=acme,dc=com
+cn: read
+member: cn=webapp
+objectClass: groupOfNames
+objectClass: top
+
+dn: cn=ActiveMQ.Advisory.TempTopic,ou=Topic,ou=Destination,ou=ActiveMQ,ou=sy
+ stems,dc=acme,dc=com
+cn: ActiveMQ.Advisory.TempTopic
+objectClass: applicationProcess
+objectClass: top
+description: Advisory topic about temporary topics
+
+dn: cn=read,cn=ActiveMQ.Advisory.TempTopic,ou=Topic,ou=Destination,ou=Active
+ MQ,ou=systems,dc=acme,dc=com
+cn: read
+member: cn=webapp
+objectClass: groupOfNames
+objectClass: top
+
+dn: ou=Group,ou=ActiveMQ,ou=systems,dc=acme,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: Group
+
+dn: cn=admin,ou=Group,ou=ActiveMQ,ou=systems,dc=acme,dc=com
+cn: admin
+member: uid=admin
+objectClass: groupOfNames
+objectClass: top
+
+dn: cn=webapp,ou=Group,ou=ActiveMQ,ou=systems,dc=acme,dc=com
+cn: webapp
+member: uid=webapp
+objectClass: groupOfNames
+objectClass: top
+
+dn: ou=User,ou=ActiveMQ,ou=systems,dc=acme,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: User
+
+dn: uid=admin,ou=User,ou=ActiveMQ,ou=systems,dc=acme,dc=com
+uid: admin
+userPassword: {SSHA}j0NpveEO0YD5rgI5kY8OxSRiN5KQ/kE4
+objectClass: account
+objectClass: simpleSecurityObject
+objectClass: top
+
+dn: uid=webapp,ou=User,ou=ActiveMQ,ou=systems,dc=acme,dc=com
+uid: webapp
+userPassword: {SSHA}j0NpveEO0YD5rgI5kY8OxSRiN5KQ/kE4
+objectClass: account
+objectClass: simpleSecurityObject
+objectClass: top
+</plain-text-body><p>4. Start up ActiveMQ</p><p>5. Test it out</p><h3 id="Security-SecurityandActiveMQComponents">Security and ActiveMQ Components</h3><p>Along with the message broker, you can optionally execute several additional "components", such as Camel and/or the Web console. These components establish connections with the broker; therefore, if you have secured your broker (i.e., enabled authentication), you will have to configure these components in order to have them provide the required security credentials (username, password) when they connect to the broker.</p><h4 id="Security-Camel">Camel</h4><p>You may have the following Camel context defined in your broker's XML configuration file.</p><parameter ac:name="">xml</parameter><plain-text-body>&lt;!--
+  ** Lets deploy some Enterprise Integration Patterns inside the ActiveMQ Message Broker
+  ** For more details see
+  **
+  ** http://activemq.apache.org/enterprise-integration-patterns.html --&gt;
+
+  &lt;camelContext id="camel" xmlns="http://activemq.apache.org/camel/schema/spring"&gt;
+       &lt;package&gt;org.foo.bar&lt;/package&gt;
+        &lt;route&gt;
+            &lt;from uri="activemq:example.A"/&gt;
+            &lt;to uri="activemq:example.B"/&gt;
+        &lt;/route&gt;
+  &lt;/camelContext&gt;
+</plain-text-body><p>The above configuration is not set up to work within a secure environment.</p><p>If the application is running in an OSGi container, add the following line before the CamelContext definition:</p><parameter ac:name="">xml</parameter><plain-text-body>&lt;osgi:reference id="activemq" interface="org.apache.camel.Component" /&gt;
+</plain-text-body><p>This allows any pre-configured instance of the ActiveMQComponent deployed in the container to take precedence on the default ActiveMQComponent.</p><p>That is, with the above configuration, Camel will establish a connection with ActiveMQ, but will not provide a username and password. Therefore, when ActiveMQ security is enabled, the above configuration results in a security exception. The exception will be thrown multiple times, because Camel will continue to retry the connection. If you're not using Camel, comment out the above XML code. If you are using Camel, add the following bean definition to your broker's XML configuration:</p><parameter ac:name="">xml</parameter><plain-text-body>&lt;!-- configure the camel activemq component to use the current broker --&gt;
+    &lt;bean id="activemq" class="org.apache.activemq.camel.component.ActiveMQComponent" &gt;
+        &lt;property name="connectionFactory"&gt;
+          &lt;bean class="org.apache.activemq.ActiveMQConnectionFactory"&gt;
+            &lt;property name="brokerURL" value="vm://localhost?create=false&amp;amp;waitForStart=10000" /&gt;
+            &lt;property name="userName" value="system"/&gt;
+            &lt;property name="password" value="manager"/&gt;
+          &lt;/bean&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+</plain-text-body><p>With the above bean definition, Camel will pass the specified security credentials when it connects to the broker.</p><p>If the broker is running in an OSGi container, add the following line after the ActiveMQComponent bean definition:</p><parameter ac:name="">xml</parameter><plain-text-body>&lt;service ref="activemq" interface="org.apache.camel.Component"/&gt;
+</plain-text-body><h4 id="Security-WebConsole">Web Console</h4><p>If you want to use the Web Console with a secured broker, you have to change <code>connectionFactory</code> bean in your <code>webapps/admin/WEB-INF/webconsole-embeded.xml</code> to something like this:</p><parameter ac:name="">xml</parameter><plain-text-body>&lt;bean id="connectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"&gt;
+    &lt;property name="brokerURL" value="vm://localhost"/&gt;
+    &lt;property name="userName" value="system"/&gt;
+    &lt;property name="password" value="manager"/&gt;
+  &lt;/bean&gt;
+</plain-text-body><h4 id="Security-DefaultCredentials">Default Credentials</h4><p>Starting with version 5.3, all of the above configuration details are included in the default ActiveMQ configuration. Also, there is a central place where you can set credentials that these components will use to connect to the broker. Just set your desired username and password in the <code>conf/credentials.properties</code> file, which by default looks like this:</p><plain-text-body>activemq.username=system
+activemq.password=manager
+</plain-text-body><h4 id="Security-EncryptedPasswords">Encrypted Passwords</h4><p>As of version 5.4.1 you can also use <a shape="rect" href="encrypted-passwords.html">Encrypted passwords</a> with your broker</p><h3 id="Security-MessagelevelAuthorization">Message level Authorization</h3><p>It's also possible to authorize each single message using some content based authorization policy of your choosing. In comparison to the other security options described before, Message level Authorization requires a bit more than just some configuration. You have to start with creating a new maven project and add the&#160;<a shape="rect" class="external-link" href="https://mvnrepository.com/artifact/org.apache.activemq/activemq-all" rel="nofollow">activemq-all</a> maven dependency (in the same version as your activemq installation) to the pom.xml of your new project.<br clear="none">In the next step you have to create a new Java class and let it implement the org.apache.activemq.security.MessageAuthorizationPolicy interface. After that, simply add a method with signature:</p><p>public boolean isAllowedToConsume(ConnectionContext context, Message message){...}</p><p>to the new Java class. For usage of your own Message level Authorization policy, the Java class has to be packaged as jar and added to the /lib folder of ActiveMQ to make it available for ActiveMQ. In the last step, it has to be configured on the broker directly by using the * messageAuthorizationPolicy* property or add it to the XML as follows</p><parameter ac:name="">xml</parameter><plain-text-body>&lt;broker&gt;
+  ..
+  &lt;messageAuthorizationPolicy&gt;
+    &lt;bean class="com.acme.MyMessageAuthorizationPolicy" xmlns=""/&gt;
+  &lt;/messageAuthorizationPolicy&gt;
+  ..
+&lt;/broker&gt;
+</plain-text-body><h2 id="Security-ImplementingyourowncustomSecurityPlugin">Implementing your own custom Security Plugin</h2><p>All of the various security implementations are implemented as <a shape="rect" href="interceptors.html">Interceptors</a> so its very easy to add your own custom implementation. Its probably easier to start with one of the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/security/package-summary.html">simple implementations</a> though if you are using JAAS you could derive from the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/jaas/package-summary.html">JAAS implementation</a>.</p><h3 id="Security-ThirdPartyTools">Third Party Tools</h3><ul><li><a shape="rect" class="external-link" href="http://www.ttmsolutions.com/Apache_Software/ActiveMQ_LDAP_JDBC_Security_Plugins.php" rel="nofollow">ActiveMQ LDAP and JDBC Security Plugins from TTM Solutions</a></li></ul></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=35870">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

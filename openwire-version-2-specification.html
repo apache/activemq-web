@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- OpenWire Version 2 Specification
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="connectivity.html">Connectivity</a>&nbsp;&gt;&nbsp;<a href="protocols.html">Protocols</a>&nbsp;&gt;&nbsp;<a href="openwire.html">OpenWire</a>&nbsp;&gt;&nbsp;<a href="openwire-version-2-specification.html">OpenWire Version 2 Specification</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><div class="confluence-information-macro confluence-information-macro-warning"><p class="title">OpenWire Version 2 is not the latest version.</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>This article references OpenWire V2 which is no longer the latest version. The formatting and encoding rules in this article are still valid for later OpenWire versions, but later versions define additional fields in the OpenWire commands. The default settings shown in this article may not reflect the current defaults, see <a shape="rect" href="configuring-wire-formats.html">this page</a> for the latest default OpenWire settings.</p></div></div><h2 id="OpenWireVersion2Specification-Overview">Overview</h2><p>OpenWire is used to marshal objects to byte arrays and back. We will refer to the marshaled objects as commands.</p><p>A TCP network connection would see multiple commands back to back on the stream. Commands are not delimited in anyway and are variable sized.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">+---------+  +---------+      +---------+
+| command |  | command | .... | command |
++---------+  +---------+      +---------+
+</pre>
+</div></div><p>All data primitive types used in the encoded commands are encoded in big-endian/network byte order.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">primitive types and encoding:
+             |               |               |               |               |               |               
++----------+ | +-----------+ | +-----------+ | +-----------+ | +-----------+ | +-----------+ | +-----------+ 
+| byte     | | | char      | | | short     | | | int       | | | long      | | | float     | | | double    | 
++----------+ | +-----------+ | +-----------+ | +-----------+ | +-----------+ | +-----------+ | +-----------+ 
+| 1 octect | | | 2 octects | | | 2 octects | | | 4 octects | | | 8 octects | | | 4 octects | | | 8 octects | 
++----------+ | +-----------+ | +-----------+ | +-----------+ | +-----------+ | +-----------+ | +-----------+ 
+             |               |               |               |               |               |               
+</pre>
+</div></div><h2 id="OpenWireVersion2Specification-WireFormatNegotiation">Wire Format Negotiation</h2><p>OpenWire is an extensible in that it supports adding new encoding options while still being backward compatible with previous versions of the protocol. Every OpenWire protocol session initially starts with all encoding options turned off and at version 1 of command marshalers. An initial WIREFORMAT_INFO command is exchanged between the two nodes so that additional encoding features can be enabled. If both sides request an encoding feature to be enabled then it will be enabled. The command marshalers used will be the highest version that they both support.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">+-------------------------+ +---------+  +---------+      +---------+
+| WIREFORMAT_INFO command | | command |  | command | .... | command |
++-------------------------+ +---------+  +---------+      +---------+
+</pre>
+</div></div><h2 id="OpenWireVersion2Specification-CommandEncoding">Command Encoding</h2><p>Every command is encoded as follows:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">command encoding:
+[=If SizePrefixDisabled =] 
+[ option is not enabled. ]
+[ +------+               ] +------+-------------------------+
+[ | size |               ] | type | command-specific-fields |
+[ +------+               ] +------+-------------------------+
+[ | int  |               ] | byte | (size-1) octects        |
+[ +------+               ] +------+-------------------------+
+[========================]
+</pre>
+</div></div><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Field</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>size</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Holds how many subsequent bytes are in the the command</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>type</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Command type identifier</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>command-specific-fields</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The data for the command. It is encoding depends on the type used</p></td></tr></tbody></table></div><p>If a command type does not have any command specific content, then size would be 1.</p><p>Prefixing the size on every command is done to aid in non-blocking IO processing so that receiver can easily determine when a whole command has been received and can be processed. But finding out the size of command takes additional buffering on the sender size and is not needed if the receiver is doing blocking IO. If the SizePrefixDisabled option is enabled after the exchange of WIREFORMAT_INFO packets, then every subsequent command will not have the size prefixed.</p><h2 id="OpenWireVersion2Specification-CommandTypes">Command Types</h2><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Type Identifier</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Command</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>1</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>WIREFORMAT_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>2</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>BROKER_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>3</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>CONNECTION_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>4</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>SESSION_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>5</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>CONSUMER_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>6</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>PRODUCER_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>7</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>TRANSACTION_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>8</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>DESTINATION_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>9</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>REMOVE_SUBSCRIPTION_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>10</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>KEEP_ALIVE_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>11</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>SHUTDOWN_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>12</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>REMOVE_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>14</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>CONTROL_COMMAND</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>15</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>FLUSH_COMMAND</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>16</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>CONNECTION_ERROR</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>17</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>CONSUMER_CONTROL</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>18</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>CONNECTION_CONTROL</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>21</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>MESSAGE_DISPATCH</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>22</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>MESSAGE_ACK</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>23</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_MESSAGE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>24</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_BYTES_MESSAGE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>25</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_MAP_MESSAGE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>26</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_OBJECT_MESSAGE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>27</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_STREAM_MESSAGE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>28</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_TEXT_MESSAGE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>30</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>RESPONSE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>31</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>EXCEPTION_RESPONSE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>32</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>DATA_RESPONSE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>33</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>DATA_ARRAY_RESPONSE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>34</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>INTEGER_RESPONSE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>40</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>DISCOVERY_EVENT</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>50</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>JOURNAL_ACK</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>52</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>JOURNAL_REMOVE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>53</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>JOURNAL_TRACE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>54</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>JOURNAL_TRANSACTION</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>55</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>DURABLE_SUBSCRIPTION_INFO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>60</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>PARTIAL_COMMAND</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>61</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>PARTIAL_LAST_COMMAND</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>65</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>REPLAY</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>70</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>BYTE_TYPE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>71</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>CHAR_TYPE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>72</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>SHORT_TYPE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>73</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>INTEGER_TYPE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>74</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>LONG_TYPE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>75</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>DOUBLE_TYPE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>76</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>FLOAT_TYPE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>77</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>STRING_TYPE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>78</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>BOOLEAN_TYPE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>79</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>BYTE_ARRAY_TYPE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>90</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>MESSAGE_DISPATCH_NOTIFICATION</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>91</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>NETWORK_BRIDGE_FILTER</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>100</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_QUEUE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>101</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_TOPIC</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>102</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_TEMP_QUEUE</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>103</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_TEMP_TOPIC</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>110</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>MESSAGE_ID</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>111</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_LOCAL_TRANSACTION_ID</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>112</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>ACTIVEMQ_XA_TRANSACTION_ID</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>120</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>CONNECTION_ID</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>121</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>SESSION_ID</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>122</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>CONSUMER_ID</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>123</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>PRODUCER_ID</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>124</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>BROKER_ID</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td></tr></tbody></table></div><h3 id="OpenWireVersion2Specification-CommandFieldEncoding">Command Field Encoding</h3><p>All OpenWire commands use the same algorithm when encoding their fields. The algorithm restricts commands to use fields that are of the following type:</p><ul><li>Java primitive types</li><li>String</li><li>Byte Arrays</li><li>N Sized Byte Arrays</li><li>Throwable</li><li>Nested OpenWire commands</li><li>Nested OpenWire command arrays</li><li>Cached Nested OpenWire commands</li></ul><p>Notice that OpenWire commands can nest other OpenWire commands in it's fields. Care must be taken that only acyclic graphs of commands are marshaled.</p><h4 id="OpenWireVersion2Specification-StringTypeEncoding">String Type Encoding</h4><p>Strings fields may be null. If it is null then it encodes to a single "0" byte.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">string encoding:
+             [=If not-null is 1===========]
++----------+ [ +-------+----------------+ ]
+| not-null | [ | size  | encoded-string | ]
++----------+ [ +-------+----------------+ ]
+| byte     | [ | short | size octects   | ]
++----------+ [ +-------+----------------+ ]
+             [============================]
+</pre>
+</div></div><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Field</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>not-null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>1 if the string is not null, 0 if the string is null</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>size</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The number of bytes of the UTF-8 Encoded string</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>encoded-string</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The UTF-8 encoded form of the string</p></td></tr></tbody></table></div><h3 id="OpenWireVersion2Specification-ByteArrayTypeEncoding">Byte Array Type Encoding</h3><p>Byte array fields may be null. If it is null then it encodes to a single "0" byte.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">byte-array encoding:
+             [=If not-null is 1========]
++----------+ [ +------+--------------+ ]
+| not-null | [ | size | data         | ]
++----------+ [ +------+--------------+ ]
+| byte     | [ | int  | size octects | ]
++----------+ [ +------+--------------+ ]
+             [=========================]
+</pre>
+</div></div><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Field</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>not-null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>1 if the byte array is not null, 0 if it is null</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>size</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The number of bytes in the byte array</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>data</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The data of the byte array</p></td></tr></tbody></table></div><h3 id="OpenWireVersion2Specification-NSizedByteArrayTypeEncoding">N Sized Byte Array Type Encoding</h3><p>Fixed Size Byte array fields may NOT be null and their length must be N length. Used for byte arrays that are always a fixed size.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">N-sized-byte-array encoding:
++-----------+
+| data      |
++-----------+
+| N octects |
++-----------+
+</pre>
+</div></div><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Field</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>data</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The data of the byte array</p></td></tr></tbody></table></div><h3 id="OpenWireVersion2Specification-ThrowableTypeEncoding">Throwable Type Encoding</h3><p>Throwable fields may be null. If it is null then it encodes to a single "0" byte.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">throwable encoding:
+             [=If not-null is 1===========================================================================]
+             [                               [=If StackTraceEnabled option is enabled.==================] ]
+             [                               [             [=Repeated size times======================] ] ]
++----------+ [ +----------------+---------+  [ +-------+ [ +--------+--------+--------+-------------+ ] ] ]
+| not-null | [ | exception-name | message |  [ | size  | [ | class  | method | file   | line-number | ] ] ]
++----------+ [ +----------------+---------+  [ +-------+ [ +--------+--------+--------+-------------+ ] ] ]
+| byte     | [ | string         | string  |  [ | short | [ | string | string | string | int         | ] ] ]
++----------+ [ +----------------+---------+  [ +-------+ [ +--------+--------+--------+-------------+ ] ] ]
+             [                               [           [============================================] ] ]
+             [                               [==========================================================] ]
+             [============================================================================================]
+</pre>
+</div></div><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Field</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>not-null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>1 if the Throwable not null, 0 if the Throwable is null</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>exception-name</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The class name of the exception</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>message</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The exception message</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>size</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The number of stack frames in the stack trace</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>class</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The name of the class in a stack frame</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>method</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The name of the method in a stack frame</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>file</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The name of the file in a stack frame</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>line-number</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The line number in a stack frame</p></td></tr></tbody></table></div><p>If the StackTraceEnabled encoding option is enabled after the exchange of WIREFORMAT_INFO packets, then every Throwable filed will have stack trace data appended to it.</p><h3 id="OpenWireVersion2Specification-NestedCommandTypeEncoding">Nested Command Type Encoding</h3><p>Nested command fields may be null. If it is null then it encodes to a single "0" byte.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">nested-object encoding:
+             [=If not-null is 1===================]
++----------+ [ +------+-------------------------+ ]
+| not-null | [ | type | command-specific-fields | ]
++----------+ [ +------+-------------------------+ ]
+| byte     | [ | byte | variable sized          | ]
++----------+ [ +------+-------------------------+ ]
+             [====================================]
+</pre>
+</div></div><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Field</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>not-null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>1 if the Throwable not null, 0 if the Throwable is null</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>type</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Command type identifier</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>command-specific-fields</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The data for the command. It is encoding depends on the type used</p></td></tr></tbody></table></div><h3 id="OpenWireVersion2Specification-CachedNestedCommandTypeEncoding">Cached Nested Command Type Encoding</h3><p>Nested Command types can be cached so that subsequent marshaling operations of the same object result in a smaller on the wire size. By default the CacheEnabled option is not enabled and therefore standard nested-object encoding is used.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">cached-object-encoding:
+[=If CacheEnabled option is enabled=====================]
+[                       [=If new-value is 1===========] ]
+[ +-----------+-------+ [ +-------------------------+ ] ]
+[ | new-value | key   | [ | command-specific-fields | ] ]
+[ +-----------+-------+ [ +-------------------------+ ] ]
+[ | byte      | short | [ | nested-object           | ] ]
+[ +-----------+-------+ [ +-------------------------+ ] ]
+[                       [=============================] ]
+[=====================================================] ]
+
+[=If CacheEnabled option is disabled =]
+[ +-------------------------+         ]
+[ | command-specific-fields |         ]
+[ +-------------------------+         ]
+[ | nested-object           |         ]
+[ +-------------------------+         ]
+[=====================================]
+</pre>
+</div></div><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Field</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>new-value</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>1 if the value is not in the cache, 0 if it already is in the cache</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>key</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Key used to identify the value in the cache</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>command-specific-fields</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The data for the command. It is encoding depends on the type used</p></td></tr></tbody></table></div><h2 id="OpenWireVersion2Specification-LooseEncoding">Loose Encoding</h2><p>The default encoding explained so far is called "loose encoding" and is the default encoding used when OpenWire if first initialized. Loose encoding is simple to implement does not add much CPU overhead to the marshaling/unmarshaling process. It is able to marshal an object graph in single pass of the object tree.</p><h2 id="OpenWireVersion2Specification-TightEncoding">Tight Encoding</h2><p>Another encoding option is supported by OpenWire which is called TightEncoding. When tight encoding is used, it uses bit streams to marshal all the boolean values that would have taken up a byte in loose encoding to a bit in the bit stream. To build the bit stream 2 passes through the object graph are taken so this is more CPU intensive marshaling process but it produces a smaller on the wire size.</p></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=36239">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

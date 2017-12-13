@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- How do I change the logging
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="community.html">Community</a>&nbsp;&gt;&nbsp;<a href="faq.html">FAQ</a>&nbsp;&gt;&nbsp;<a href="using-apache-activemq.html">Using Apache ActiveMQ</a>&nbsp;&gt;&nbsp;<a href="how-do-i-change-the-logging.html">How do I change the logging</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><h2 id="HowdoIchangethelogging-HowdoIchangethelogging">How do I change the logging</h2>
+
+<p>We use <a shape="rect" class="unresolved" href="#">slf4j</a> to log information in the broker client and the broker itself so you can fully configure which logging levels are used and whether to log to files or the console etc. For more information see the <a shape="rect" class="external-link" href="http://logging.apache.org/log4j/docs/manual.html">log4j manual.</a>.</p>
+
+<p>You can disable the ActiveMQ logging by editing the <strong>conf/log4j.properties</strong> file to disable all INFO level logging for activemq by adding this line</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+log4j.logger.org.apache.activemq=WARN
+</pre>
+</div></div>
+
+<p>or to disable stdout logging all together change this line</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+log4j.rootLogger=INFO, stdout, out
+</pre>
+</div></div>
+
+<p>to</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+log4j.rootLogger=INFO, out
+</pre>
+</div></div>
+
+<h2 id="HowdoIchangethelogging-HowDoIChangetheLoggingatRuntime?">How Do I Change the Logging at Runtime? </h2>
+
+<p>The default logging level in ActiveMQ is INFO. This can be seen by starting up the default ActiveMQ binary in a terminal. In doing so, you will see the output shown below: </p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+$ ./bin/activemq
+ACTIVEMQ_HOME: /Users/bsnyder/amq/apache-activemq-5.1.0
+ACTIVEMQ_BASE: /Users/bsnyder/amq/apache-activemq-5.1.0
+Loading message broker from: xbean:activemq.xml
+INFO  BrokerService                  - Using Persistence Adapter: AMQPersistenceAdapter(/Users/bsnyder/amq/apache-activemq-5.1.0/data)
+INFO  BrokerService                  - ActiveMQ 5.1.0 JMS Message Broker (localhost) is starting
+INFO  BrokerService                  - For help or more information please see: http://activemq.apache.org/
+INFO  AMQPersistenceAdapter          - AMQStore starting using directory: /Users/bsnyder/amq/apache-activemq-5.1.0/data
+INFO  KahaStore                      - Kaha Store using data directory /Users/bsnyder/amq/apache-activemq-5.1.0/data/kr-store/state
+INFO  AMQPersistenceAdapter          - Active data files: []
+INFO  KahaStore                      - Kaha Store using data directory /Users/bsnyder/amq/apache-activemq-5.1.0/data/kr-store/data
+INFO  TransportServerThreadSupport   - Listening for connections at: tcp://mongoose.local:61616
+INFO  TransportConnector             - Connector openwire Started
+INFO  TransportServerThreadSupport   - Listening for connections at: ssl://mongoose.local:61617
+INFO  TransportConnector             - Connector ssl Started
+INFO  TransportServerThreadSupport   - Listening for connections at: stomp://mongoose.local:61613
+INFO  TransportConnector             - Connector stomp Started
+INFO  TransportServerThreadSupport   - Listening for connections at: xmpp://mongoose.local:61222
+INFO  TransportConnector             - Connector xmpp Started
+INFO  NetworkConnector               - Network Connector default-nc Started
+INFO  BrokerService                  - ActiveMQ JMS Message Broker (localhost, ID:mongoose.local-56138-1224025139259-0:0) started
+INFO  log                            - Logging to org.slf4j.impl.JCLLoggerAdapter(org.mortbay.log) via org.mortbay.log.Slf4jLog
+INFO  log                            - jetty-6.1.9
+INFO  WebConsoleStarter              - ActiveMQ WebConsole initialized.
+INFO  /admin                         - Initializing Spring FrameworkServlet 'dispatcher'
+INFO  log                            - ActiveMQ Console at http://0.0.0.0:8161/admin
+INFO  log                            - ActiveMQ Web Demos at http://0.0.0.0:8161/demo
+INFO  log                            - RESTful file access application at http://0.0.0.0:8161/fileserver
+INFO  log                            - Started SelectChannelConnector@0.0.0.0:8161
+INFO  FailoverTransport              - Successfully connected to tcp://localhost:61616
+</pre>
+</div></div>
+
+<p>But stopping ActiveMQ to change the logging level is not always feasible. There are many cases where the logging level and other configuration details may need to be changed at runtime. Using a JMX tool such as jconsole, the logging configuration file can be changed and reloaded without shutting down ActiveMQ. </p>
+
+<p>To change the ActiveMQ logging level from INFO to DEBUG while ActiveMQ is running, start up jconsole, point to the ActiveMQ instance and navigate to the Broker object's Operations tab as shown below: </p>
+
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="how-do-i-change-the-logging.data/reloadLog4jProperties1.png"></span> </p>
+
+<p>To enable debug level logging in ActiveMQ, edit the <code>conf/log4j.properties</code> file that is part of the ActiveMQ binary distribution to disable INFO level logging and enable DEBUG level logging from this: </p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+log4j.rootLogger=INFO, stdout, out
+log4j.logger.org.apache.activemq.spring=WARN
+log4j.logger.org.springframework=WARN
+log4j.logger.org.apache.xbean.spring=WARN
+
+# When debugging or reporting problems to the ActiveMQ team,
+# comment out the above lines and uncomment the next.
+
+#log4j.rootLogger=DEBUG, out, stdout
+</pre>
+</div></div>
+
+<p>to this: </p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+#log4j.rootLogger=INFO, stdout, out
+log4j.logger.org.apache.activemq.spring=WARN
+log4j.logger.org.springframework=WARN
+log4j.logger.org.apache.xbean.spring=WARN
+
+# When debugging or reporting problems to the ActiveMQ team,
+# comment out the above lines and uncomment the next.
+
+log4j.rootLogger=DEBUG, out, stdout
+</pre>
+</div></div>
+
+<p>Notice that the line <code>log4j.rootLogger=INFO, stdout, out</code> has been commented out and the line <code>log4j.rootLogger=DEBUG, out, stdout</code> has been uncommented. Save this change and then, in jconsole, click the button named <strong>reloadLog4jProperties</strong> as shown below: </p>
+
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="how-do-i-change-the-logging.data/reloadLog4jProperties2.png"></span> </p>
+
+<p>After clicking the <strong>reloadLog4jProperties</strong> button, the dialog pops up stating, 'Method successfully invoked'. This just lets you know that the <code>reloadLog4jProperties</code> method was invoked to reload the <code>conf/log4j.properties</code> file. Now notice in the terminal where ActiveMQ is running that the logging that is being output is now DEBUG: </p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+INFO  WebConsoleStarter              - ActiveMQ WebConsole initialized.
+INFO  /admin                         - Initializing Spring FrameworkServlet 'dispatcher'
+INFO  log                            - ActiveMQ Console at http://0.0.0.0:8161/admin
+INFO  log                            - ActiveMQ Web Demos at http://0.0.0.0:8161/demo
+INFO  log                            - RESTful file access application at http://0.0.0.0:8161/fileserver
+INFO  log                            - Started SelectChannelConnector@0.0.0.0:8161
+INFO  FailoverTransport              - Successfully connected to tcp://localhost:61616
+DEBUG InactivityMonitor              - 10000 ms elapsed since last write check.
+DEBUG InactivityMonitor              - 10000 ms elapsed since last write check.
+DEBUG AbstractRegion                 - Removing consumer: ID:mongoose.local-56517-1224026019987-0:0:-1:1
+DEBUG AbstractRegion                 - Removing consumer: ID:mongoose.local-56511-1224026011897-0:0:1:1
+DEBUG TransportConnection            - Stopping connection: /127.0.0.1:56518
+DEBUG TcpTransport                   - Stopping transport tcp:///127.0.0.1:56518
+DEBUG TransportConnection            - Stopped connection: /127.0.0.1:56518
+DEBUG TransportConnection            - Connection Stopped: /127.0.0.1:56518
+DEBUG AbstractRegion                 - Removing consumer: ID:mongoose.local-56511-1224026011897-0:0:-1:1
+DEBUG TransportConnection            - Stopping connection: /127.0.0.1:56512
+DEBUG TcpTransport                   - Stopping transport tcp:///127.0.0.1:56512
+DEBUG TransportConnection            - Stopped connection: /127.0.0.1:56512
+DEBUG TransportConnection            - Connection Stopped: /127.0.0.1:56512
+DEBUG InactivityMonitor              - 9999 ms elapsed since last write check.
+DEBUG InactivityMonitor              - 10000 ms elapsed since last write check.
+DEBUG InactivityMonitor              - 29999 ms elapsed since last read check.
+</pre>
+</div></div> 
+
+<p>Disabling DEBUG level logging and enabling INFO level logging is done by editing the <code>log4j.properties</code> file and clicking the <strong>reloadLog4jProperties</strong> button again. </p></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=35929">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

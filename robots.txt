@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /viewvc
+Disallow: /viewcvs.cgi
+Disallow: /repos/asf/!svn
+Disallow: /repos/infra/!svn
+Disallow: /repos/private/!svn
+Disallow: /repos/tck/!svn

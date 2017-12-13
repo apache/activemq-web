@@ -1,0 +1,305 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- zOS
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="connectivity.html">Connectivity</a>&nbsp;&gt;&nbsp;<a href="containers.html">Containers</a>&nbsp;&gt;&nbsp;<a href="zos.html">zOS</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><h1 id="zOS-RunningActiveMQonz/OS">Running ActiveMQ on z/OS</h1>
+
+<p>It is relatively straightforward to run the ActiveMQ broker on z/OS.</p>
+
+<p>There are a couple of steps:</p>
+
+<p>   1. Copy ActiveMQ to z/OS<br clear="none">
+   2. Modify the configuration<br clear="none">
+   3. Run using JZOS<br clear="none">
+   4. Test</p>
+
+<h3 id="zOS-CopyActiveMQtoz/OS">Copy ActiveMQ to z/OS</h3>
+
+<ul><li>Ensure that the 1.5 JVM is available on z/OS, together with the <a shape="rect" class="external-link" href="http://www.dovetail.com/docs/jzos/index.html" rel="nofollow">JZOS</a> component.</li><li>Download the .zip version of ActiveMQ from Apache.</li><li>FTP the broker to a suitable directory in USS.</li><li>Log into USS using rlogin or whatever has been configured at your site to do a login into USS.</li><li>Extract the zip file using the command: jar -xvf apache-activemq-5.0.0.zip</li><li>This will extract the whole package in ASCII, so do not except any of the files to be viewable on z/OS, except using special editors suitable for ASCII.</li><li>Maybe rename the directory to which the files were extracted to something shorter or create a softlink for more convenient access.</li></ul>
+
+
+<h3 id="zOS-Modifytheconfiguration">Modify the configuration</h3>
+
+<p>Currently, the Jetty plugin does not work on z/OS, so need to be disabled in the activemq.xml file.</p>
+
+<ul><li>FTP the activemq.xml file from the conf directory in the ActiveMQ installation to your PC in binary mode.</li><li>Edit the XML file using your XML editor or a text editor like Wordpad.</li><li>Search for "jetty" in the XML.</li><li>Change the comment block so that jetty is completely commented out.</li><li>Save the file.</li><li>FTP the file back into the location on z/OS it came from, again in binary mode, so that it is preserved as an ASCII file.</li></ul>
+
+
+<h3 id="zOS-RunusingJZOS">Run using JZOS</h3>
+
+<p>I have renamed the lib/optional directory in USS and shortened some of the lib/optional jar names to make the JCL easier to handle. The JCL to run the ActiveMQ broker is then:</p>
+
+<div class="code panel pdl" style="border-style: solid;border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;border-bottom-style: solid;"><b>ACTIVEMQ.JCL</b></div><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+//ACTIVEMQ JOB   (),
+//         CLASS=A,                                                    
+//         MSGCLASS=X,                                                 
+//         MSGLEVEL=(1,1),                                             
+//         NOTIFY=&amp;SYSUID,                                             
+//         REGION=0M,                                                  
+//         TIME=1440                                                   
+//PROCLIB JCLLIB ORDER=&lt;JZOS.SYS1.PROCLIB&gt;
+//*                                                                    
+//*********************************************************************
+//*                                                                    
+//* Batch job to run Tomcat under JZOS                                 
+//*                                                                    
+//* Tailor the proc and job for your installation:                     
+//* 1.) Modify the Job card per your installation's requirements       
+//* 2.) Modify the PROCLIB card to point to JZOS proclib               
+//* 3.) Set VERSION='14' for Java 1.4 or VERSION='50' for Java 5       
+//* 4.) Set JAVA_HOME to point the location of the Java SDK            
+//* 5.) Set CATALINA_HOME to point to the shared Tomcat install dir    
+//* 6.) (Optional) set CATALINA_BASE to point to instance specific     
+//*     Tomcat base dir                                                
+//*                                                                    
+//*********************************************************************
+//*                                                                    
+//JAVA EXEC PROC=JVMPRC50,                                             
+// LOGLVL='+D',
+// JAVACLS='org.apache.activemq.console.Main',
+// ARGS='start'
+//STDENV DD *
+# This is a shell script which configures
+# any environment variables for the Java JVM.
+# Variables must be exported to be seen by the launcher.
+. /etc/profile
+export JAVA_HOME=/space/javaV5_31/J5.0 
+AMQ_HOME=/home/user/activemq/amq
+ACTIVEMQ_BASE="$AMQ_HOME"
+
+export PATH=/bin:"${JAVA_HOME}"/bin:
+
+LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/bin/classic
+export LIBPATH="$LIBPATH":
+
+CLASSPATH="${JAVA_HOME}/lib/tools.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/conf"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/activemq-all-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/bin/run.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/bin/wrapper.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activation-1.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activemq-console-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activemq-core-5.0.0-tests.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activemq-core-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activemq-jaas-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activemq-web-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/camel-core-1.2.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/camel-jms-1.2.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/camel-spring-1.2.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/commons-logging-1.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/geronimo-j2ee-management_1.0_spec-1.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/geronimo-jms_1.1_spec-1.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/geronimo-jta_1.0.1B_spec-1.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/jaxb-api-2.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/jaxb-impl-2.0.3.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/stax-1.2.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/stax-api-1.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/spring-2.0.6.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/xbean.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/jetty-6.1.4.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/jetty-util-6.1.4.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/activeio-core-3.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/geronimo-j2ee-connector.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/activeio-core-tests.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/geronimo-j2ee-jacc.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/activemq-optional-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/activemq-xmpp-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/jmdns-1.0-RC2.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/commons-beanutils-1.6.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/log4j-1.2.14.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/commons-collections-3.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/servlet-api-2.5-6.1.4.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/commons-dbcp-1.2.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/commons-httpclient-2.0.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/commons-pool-1.2.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/xmlpull-1.1.3.4d_b4_min.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/derby-10.1.3.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/xstream-1.1.2.jar"
+export CLASSPATH="$CLASSPATH":
+
+# Set JZOS specific options
+# Use this variable to specify encoding for DD STDOUT and STDERR
+#export JZOS_OUTPUT_ENCODING=IBM-1047
+# Use this variable to prevent JZOS from handling MVS operator commands
+#export JZOS_ENABLE_MVS_COMMANDS=false
+# Use this variable to supply additional arguments to main
+#export JZOS_MAIN_ARGS=""
+
+# Configure JVM options
+# Note that ActiveMQ requires default ASCII file.encoding
+IJO="-Xms64m -Xmx512m"
+IJO="$IJO -Dfile.encoding=ISO8859-1"
+IJO="$IJO -Dcom.sun.management.jmxremote"
+IJO="$IJO -Dorg.apache.activemq.UseDedicatedTaskRunner=true"
+IJO="$IJO -Dderby.system.home=${ACTIVEMQ_BASE}/data"
+IJO="$IJO -Dderby.storage.fileSyncTransactionLog=true"
+IJO="$IJO -Djavax.net.ssl.keyStorePassword=password"
+IJO="$IJO -Djavax.net.ssl.trustStorePassword=password"
+IJO="$IJO -Djavax.net.ssl.keyStore=${ACTIVEMQ_BASE}/conf/broker.ks"
+IJO="$IJO -Djavax.net.ssl.trustStore=${ACTIVEMQ_BASE}/conf/broker.ts"
+IJO="$IJO -Dactivemq.classpath=${CLASSPATH}"
+IJO="$IJO -Dactivemq.base=${ACTIVEMQ_BASE}"
+IJO="$IJO -Dactivemq.home=${AMQ_HOME}"
+IJO="$IJO -Djava.io.tmpdir=${ACTIVEMQ_BASE}/temp"
+
+# Configure SDK5.0 to use shared classes (at group level)
+# You must comment this out if you are not running SDK 5
+groupname=`id -gn`
+IJO="$IJO -Xshareclasses:name=$groupname,groupAccess"
+export IBM_JAVA_OPTIONS="$IJO "
+
+export JAVA_DUMP_HEAP=false
+export JAVA_PROPAGATE=NO
+export IBM_JAVA_ZOS_TDUMP=NO
+//
+</pre>
+</div></div>
+
+<h3 id="zOS-Test">Test</h3>
+
+<p>Once the broker has been started on z/OS, modify one of the example application to have the hostname of the z/OS system and run it to confirm that the broker is functioning correctly.</p>
+
+<p>You can also gather information about the broker as usual using <a shape="rect" href="jmx.html">jmx</a>.</p></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=77899">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

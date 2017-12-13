@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Replicated LevelDB Store
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="features.html">Features</a>&nbsp;&gt;&nbsp;<a href="persistence.html">Persistence</a>&nbsp;&gt;&nbsp;<a href="replicated-leveldb-store.html">Replicated LevelDB Store</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Warning</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>The LevelDB store has been deprecated and is no longer supported or recommended for use. The recommended store is <a shape="rect" href="kahadb.html">KahaDB</a></p></div></div><h2 id="ReplicatedLevelDBStore-Synopsis">Synopsis</h2><p>The Replicated LevelDB Store uses Apache ZooKeeper to pick a master from a set of broker nodes configured to replicate a LevelDB Store. Then synchronizes all slave LevelDB Stores with the master keeps them up to date by replicating all updates from the master.</p><p>The Replicated LevelDB Store uses the same data files as a LevelDB Store, so you can switch a broker configuration between replicated and non replicated whenever you want.</p><div class="confluence-information-macro confluence-information-macro-information"><p class="title">Version Compatibility</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Available as of ActiveMQ 5.9.0.</p></div></div><h2 id="ReplicatedLevelDBStore-Howitworks.">How it works.</h2><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="replicated-leveldb-store.data/replicated-leveldb-store.png"></span></p><p>It uses <a shape="rect" class="external-link" href="http://zookeeper.apache.org/">Apache ZooKeeper</a> to coordinate which node in the cluster becomes the master. The elected master broker node starts and accepts client connections. The other nodes go into slave mode and connect the the master and synchronize their persistent state /w it. The slave nodes do not accept client connections. All persistent operations are replicated to the connected slaves. If the master dies, the slaves with the latest update gets promoted to become the master. The failed node can then be brought back online and it will go into slave mode.</p><p>All messaging operations which require a sync to disk will wait for the update to be replicated to a quorum of the nodes before completing. So if you configure the store with <code>replicas="3"</code> then the quorum size is <code>(3/2+1)=2</code>. The master will store the update locally and wait for 1 other slave to store the update before reporting success. Another way to think about it is that store will do synchronous replication to a quorum of the replication nodes and asynchronous replication replication to any additional nodes.</p><p>When a new master is elected, you also need at least a quorum of nodes online to be able to find a node with the lastest updates. The node with the lastest updates will become the new master. Therefore, it's recommend that you run with at least 3 replica nodes so that you can take one down without suffering a service outage.</p><h3 id="ReplicatedLevelDBStore-DeploymentTips">Deployment Tips</h3><p>Clients should be using the <a shape="rect" href="failover-transport-reference.html">Failover Transport</a> to connect to the broker nodes in the replication cluster. e.g. using a URL something like the following:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">failover:(tcp://broker1:61616,tcp://broker2:61616,tcp://broker3:61616)
+</pre>
+</div></div><p>You should run at least 3 ZooKeeper server nodes so that the ZooKeeper service is highly available. Don't overcommit your ZooKeeper servers. An overworked ZooKeeper might start thinking live replication nodes have gone offline due to delays in processing their 'keep-alive' messages.</p><p>For best results, make sure you explicitly configure the hostname attribute with a hostname or ip address for the node that other cluster members to access the machine with. The automatically determined hostname is not always accessible by the other cluster members and results in slaves not being able to establish a replication session with the master.</p><h2 id="ReplicatedLevelDBStore-Configuration">Configuration</h2><p>You can configure ActiveMQ to use LevelDB for its persistence adapter - like below :</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">  &lt;broker brokerName="broker" ... &gt;
+    ...
+    &lt;persistenceAdapter&gt;
+      &lt;replicatedLevelDB
+        directory="activemq-data"
+        replicas="3"
+        bind="tcp://0.0.0.0:0"
+        zkAddress="zoo1.example.org:2181,zoo2.example.org:2181,zoo3.example.org:2181"
+        zkPassword="password"
+        zkPath="/activemq/leveldb-stores"
+        hostname="broker1.example.org"
+        /&gt;
+    &lt;/persistenceAdapter&gt;
+    ...
+  &lt;/broker&gt;
+</pre>
+</div></div><h3 id="ReplicatedLevelDBStore-ReplicatedLevelDBStoreProperties">Replicated LevelDB Store Properties</h3><p>All the broker nodes that are part of the same replication set should have matching <code>brokerName</code> XML attributes. The following configuration properties should be the same on all the broker nodes that are part of the same replication set:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Comments</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>replicas</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>3</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The number of nodes that will exist in the cluster. At least (replicas/2)+1 nodes must be online to avoid service outage.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>securityToken</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>A security token which must match on all replication nodes for them to accept each others replication requests.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>zkAddress</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>127.0.0.1:2181</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>A comma separated list of ZooKeeper servers.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>zkPassword</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The password to use when connecting to the ZooKeeper server.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>zkPath</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>/default</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The path to the ZooKeeper directory where Master/Slave election information will be exchanged.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>zkSessionTimeout</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>2s</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>How quickly a node failure will be detected by ZooKeeper. (prior to 5.11 - this had a typo <span>zkSessionTmeout)</span></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>sync</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>quorum_mem</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Controls where updates are reside before being considered complete. This setting is a comma separated list of the following options: <code>local_mem</code>, <code>local_disk</code>, <code>remote_mem</code>, <code>remote_disk</code>, <code>quorum_mem</code>, <code>quorum_disk</code>. If you combine two settings for a target, the stronger guarantee is used. For example, configuring <code>local_mem, local_disk</code> is the same as just using <code>local_disk</code>. quorum_mem is the same as <code>local_mem, remote_mem</code> and <code>quorum_disk</code> is the same as <code>local_disk, remote_disk</code></p></td></tr></tbody></table></div><p>Different replication sets can share the same <code>zkPath</code> as long they have different <code>brokerName</code>.</p><p>The following configuration properties can be unique per node:</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Comments</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>bind</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>tcp://0.0.0.0:61619</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>When this node becomes a master, it will bind the configured address and port to service the replication protocol. Using dynamic ports is also supported. Just configure with <code>tcp://0.0.0.0:0</code></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>hostname</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The host name used to advertise the replication service when this node becomes the master. If not set it will be automatically determined.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>weight</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>1</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The replication node that has the latest update with the highest weight will become the master. Used to give preference to some nodes towards becoming master.</p></td></tr></tbody></table></div><p>The store also supports the same configuration properties of a standard <a shape="rect" href="leveldb-store.html">LevelDB Store</a> but it does not support the pluggable storage lockers :</p><h3 id="ReplicatedLevelDBStore-StandardLevelDBStoreProperties">Standard LevelDB Store Properties</h3><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Comments</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>directory</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>LevelDB</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The directory which the store will use to hold it's data files. The store will create the directory if it does not already exist.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>readThreads</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>10</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The number of concurrent IO read threads to allowed.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>logSize</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>104857600</code> (100 MB)</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The max size (in bytes) of each data log file before log file rotation occurs.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>verifyChecksums</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Set to true to force checksum verification of all data that is read from the file system.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>paranoidChecks</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>false</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Make the store error out as soon as possible if it detects internal corruption.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>indexFactory</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>org.fusesource.leveldbjni.JniDBFactory, org.iq80.leveldb.impl.Iq80DBFactory</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The factory classes to use when creating the LevelDB indexes</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>indexMaxOpenFiles</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>1000</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Number of open files that can be used by the index.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>indexBlockRestartInterval</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>16</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Number keys between restart points for delta encoding of keys.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>indexWriteBufferSize</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>6291456</code> (6 MB)</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Amount of index data to build up in memory before converting to a sorted on-disk file.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>indexBlockSize</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>4096</code> (4 K)</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The size of index data packed per block.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>indexCacheSize</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>268435456</code> (256 MB)</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The maximum amount of off-heap memory to use to cache index blocks.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>indexCompression</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>snappy</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The type of compression to apply to the index blocks. Can be snappy or none.</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><code>logCompression</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><code>none</code></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The type of compression to apply to the log records. Can be snappy or none.</p></td></tr></tbody></table></div><div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Caveats</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>The LevelDB store does not yet support storing data associated with <a shape="rect" href="delay-and-schedule-message-delivery.html">Delay and Schedule Message Delivery</a>. Those are are stored in a separate non-replicated KahaDB data files. Unexpected results will occur if you use <a shape="rect" href="delay-and-schedule-message-delivery.html">Delay and Schedule Message Delivery</a> with the replicated leveldb store since that data will be not be there when the master fails over to a slave.</p></div></div></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=31820167">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+    
+    <title>
+    Apache ActiveMQ &#8482; -- ActiveMQ Virtual Destinations
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+            <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="index.html">Index</a>&nbsp;&gt;&nbsp;<a href="apachenms.html">Apache.NMS</a>&nbsp;&gt;&nbsp;<a href="nms-providers.html">NMS Providers</a>&nbsp;&gt;&nbsp;<a href="apachenmsactivemq.html">Apache.NMS.ActiveMQ</a>&nbsp;&gt;&nbsp;<a href="activemq-advanced-features.html">ActiveMQ Advanced Features</a>&nbsp;&gt;&nbsp;<a href="activemq-destination-features.html">ActiveMQ Destination Features</a>&nbsp;&gt;&nbsp;<a href="activemq-virtual-destinations.html">ActiveMQ Virtual Destinations</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" href="nms-api.html">API</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Forums</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><em>Virtual Destinations</em> allow us to create logical destinations that clients can use to produce and consume from but which map onto one or more <em>physical destinations</em>. It allows us to provide more flexible loosely coupled messaging configurations.<h2 id="ActiveMQVirtualDestinations-VirtualTopics">Virtual Topics</h2><p>The idea behind <em>publish subscribe</em> is a great one. Allow producers to be decoupled from consumers so that they do not even know how many consumers are interested in the messages they publish. The JMS specification defines support for durable topics however they have limitations as we will describe...</p><h3 id="ActiveMQVirtualDestinations-ThelimitationsofJMSdurabletopics">The limitations of JMS durable topics</h3><p>A JMS durable subscriber MessageConsumer is created with a unique JMS clientID and durable subscriber name. To be JMS compliant only one JMS connection can be active at any point in time for one JMS clientID, and only one consumer can be active for a clientID and subscriber name. i.e., only <strong>one</strong> thread can be actively consuming from a given logical topic subscriber. This means we cannot implement</p><ul><li>load balancing of messages.</li><li>fast failover of the subscriber if that one process running that one consumer thread dies.</li></ul><p>Now <em>queue</em> semantics in JMS offer the ability to load balance work across a number of consumers in a reliable way - allowing many threads, processes and machines to be used to process messages. Then we have sophisticated sticky load balancing techniques like <a shape="rect" href="../message-groups.html">Message Groups</a> to load balance and parallelise work while maintaining ordering.</p><p>Another added benefit of having physical queues for each logical topic subscriber is we can them monitor the queue depths via <a shape="rect" href="../jmx.html">JMX</a> to monitor system performance together with being able to browse these physical queues.</p><h3 id="ActiveMQVirtualDestinations-VirtualTopicstotherescue">Virtual Topics to the rescue</h3><p>The idea behind virtual topics is that producers send to a topic in the usual JMS way. Consumers can continue to use the Topic semantics in the JMS specification. However if the topic is virtual, consumer can consume from a physical queue for a logical topic subscription, allowing many consumers to be running on many machines &amp; threads to load balance the load.</p><p>E.g., let's say we have a topic called <strong>VirtualTopic.Orders</strong>. (Where the prefix VirtualTopic. indicates its a virtual topic). And we logically want to send orders to systems A and B. Now with regular durable topics we'd create a JMS consumer for clientID_A and "A" along with clientID_B and "B".</p><p>With virtual topics we can just go right ahead and consume to queue <strong>Consumer.A.VirtualTopic.Orders</strong> to be a consumer for system A or consume to <strong>Consumer.B.VirtualTopic.Orders</strong> to be a consumer for system B.</p><p>We can now have a pool of consumers for each system which then compete for messages for systems A or B such that all the messages for system A are processed exactly once and similarly for system B.</p><h3 id="ActiveMQVirtualDestinations-Customizingtheout-of-the-boxdefaults">Customizing the out-of-the-box defaults</h3><p>The out-of-the-box defaults are described above. Namely that the only virtual topics available must be within the <strong>VirtualTopic.&gt;</strong> namespace and that the consumer queues are named <strong>Consumer.*.VirtualTopic.&gt;</strong>.</p><p>You can configure this to use whatever naming convention you wish. The following <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/broker/virtual/global-virtual-topics.xml">example</a> shows how to make all topics virtual topics. The example below is using the name <strong>&gt;</strong> to indicate 'match all topics'. You could use this wildcard to apply different virtual topic policies in different hierarchies.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;destinationInterceptors&gt;
+  &lt;virtualDestinationInterceptor&gt;
+	&lt;virtualDestinations&gt;
+	  &lt;virtualTopic name="&gt;" prefix="VirtualTopicConsumers.*." selectorAware="false"/&gt;
+	&lt;/virtualDestinations&gt;
+  &lt;/virtualDestinationInterceptor&gt;
+&lt;/destinationInterceptors&gt;</pre>
+</div></div><p>Note that making a topic virtual does add a small CPU overhead when sending messages to the topic but it is fairly small.</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh">Option</th><th colspan="1" rowspan="1" class="confluenceTh">Default</th><th colspan="1" rowspan="1" class="confluenceTh">Description</th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd">selectorAware</td><td colspan="1" rowspan="1" class="confluenceTd">false</td><td colspan="1" rowspan="1" class="confluenceTd">only messages that match one of the existing subscribers are actually dispatched. Using this option prevents the build up of unmatched messages when selectors are used by exclusive consumers</td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd">local</td><td colspan="1" rowspan="1" class="confluenceTd">false</td><td colspan="1" rowspan="1" class="confluenceTd">when true, don't fan out messages that were received over a network</td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd">concurrentSend</td><td colspan="1" rowspan="1" class="confluenceTd">false</td><td colspan="1" rowspan="1" class="confluenceTd">when true, use an executor to fanout such that sends occur in parallel. This allows the journal to batch writes which will reduce disk io (5.12)</td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd">transactedSend</td><td colspan="1" rowspan="1" class="confluenceTd">false</td><td colspan="1" rowspan="1" class="confluenceTd">when true, use a transaction for fanout sends such that there is a single disk sync. A local broker transaction will be created if there is no client transaction (5.13)</td></tr></tbody></table></div><p>&#160;</p><h2 id="ActiveMQVirtualDestinations-CompositeDestinations">Composite Destinations</h2><p>Composite Destinations allow for one-to-many relationships on individual destinations; the main use case is for <em>composite queues</em>. For example when a message is sent to queue A you may want to forward it also to queues B and C and topic D. Composite destinations are then a mapping from a virtual destination to a collection of other physical destinations. In this case the mapping is broker side and the client is unaware of the mapping between the destinations. This is different from client side <a shape="rect" href="../composite-destinations.html">Composite Destinations</a> where the client uses a URL notation to specify the actual physical destinations that a message must be sent to.</p><p>The following <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/broker/virtual/composite-queue.xml">example</a> shows how to set up a <strong>&lt;compositeQueue/&gt;</strong> element in the XML configuration so that when a message is sent to <code>MY.QUEUE</code> then it is really forwarded to the physical queue <code>FOO</code> and the topic <code>BAR</code>.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;destinationInterceptors&gt;
+  &lt;virtualDestinationInterceptor&gt;
+	&lt;virtualDestinations&gt;
+	  &lt;compositeQueue name="MY.QUEUE"&gt;
+		&lt;forwardTo&gt;
+		  &lt;queue physicalName="FOO" /&gt;
+		  &lt;topic physicalName="BAR" /&gt;
+		&lt;/forwardTo&gt;
+	  &lt;/compositeQueue&gt;
+	&lt;/virtualDestinations&gt;
+  &lt;/virtualDestinationInterceptor&gt;
+&lt;/destinationInterceptors&gt;</pre>
+</div></div><p>By default, subscribers cannot consume messages directly from a composite queue or topic - it is a logical construct only. Given the configuration above, subscribers can only consume messages from <code>FOO</code> and <code>BAR</code>; but not <code>MY.QUEUE</code>.</p><p>This behaviour can be altered to implement use cases such as watching a queue by sending the same messages to a notification topic (wire tapping), by setting the optionally set <code>forwardOnly</code> attribute to false.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;compositeQueue name="IncomingOrders" forwardOnly="false"&gt;
+    &lt;forwardTo&gt;
+        &lt;topic physicalName="Notifications" /&gt;
+    &lt;/forwardTo&gt;
+&lt;/compositeQueue&gt;</pre>
+</div></div><p>Messages sent to <code>IncomingOrders</code> will all be copied and forwarded to <code>Notifications</code>, before being placed on the physical <code>IncomingOrders</code> queue for consumption by subscribers.</p><p>Where the <code>forwardOnly</code> attribute is not defined or is set to <code>true</code>, there is no logical difference between a <code>compositeQueue</code> and a <code>compositeTopic</code> - they can be used interchangeably. It is only when a composite destination is made physical through the use of <code>forwardOnly</code> that the choice of <code>compositeTopic</code>/<code>compositeQueue</code> has an impact on behavior.</p><h3 id="ActiveMQVirtualDestinations-Usingfiltereddestinations">Using filtered destinations</h3><p>From Apache ActiveMQ <strong>4.2</strong> onwards you can now use selectors to define virtual destinations.</p><p>You may wish to create a virtual destination which forwards messages to multiple destinations but applying a selector first to decide if the message really does have to go to a particular destination.</p><p>The following example shows how a message sent to the virtual destination <strong>MY.QUEUE</strong> will be forwarded to <strong>FOO</strong> and <strong>BAR</strong> if the selectors match</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">&lt;destinationInterceptors&gt;
+  &lt;virtualDestinationInterceptor&gt;
+	&lt;virtualDestinations&gt;
+	  &lt;compositeQueue name="MY.QUEUE"&gt;
+		&lt;forwardTo&gt;
+		  &lt;filteredDestination selector="odd = 'yes'" queue="FOO"/&gt;
+		  &lt;filteredDestination selector="i = 5" topic="BAR"/&gt;
+		&lt;/forwardTo&gt;
+	  &lt;/compositeQueue&gt;
+	&lt;/virtualDestinations&gt;
+  &lt;/virtualDestinationInterceptor&gt;
+&lt;/destinationInterceptors&gt;</pre>
+</div></div><h2 id="ActiveMQVirtualDestinations-AvoidingDuplicateMessageinaNetworkofBrokers">Avoiding Duplicate Message in a Network of Brokers</h2><p>You have to make sure that the messages sent to the <strong>Consumer.*.VirtualTopic.&gt;</strong> destination are not forwarded when you're using both queue-based and non-queue based subscribers to the virtual topic (that is, if you have normal topic subscribers to the virtual topic). If you use Virtual Topics in a network of brokers, it is likely you will get duplicate messages if you use the default network configuration. This is because a network node will not only forward message sent to the virtual topic, but also the associated physical queues. To fix this, you should disable forwarding messages on the associated physical queues.</p><p>Here is an example of how to do that:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: xml; gutter: false; theme: Default" style="font-size:12px;">    &lt;networkConnectors&gt;
+      &lt;networkConnector uri="static://(tcp://localhost:61617)"&gt;
+      	&lt;excludedDestinations&gt;
+   	  &lt;queue physicalName="Consumer.*.VirtualTopic.&gt;"/&gt;
+      	&lt;/excludedDestinations&gt;
+      &lt;/networkConnector&gt;
+    &lt;/networkConnectors&gt;
+</pre>
+</div></div></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45788"><a shape="rect" href="overview.html">Overview</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="index.html">Home</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="download.html">Download</a></li></ul>
+
+
+<h3 id="Navigation-UsingNMShttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=117579"><a shape="rect" href="using-nms.html">Using NMS</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="apachenms.html">NMS Overview</a></li><li><a shape="rect" href="nms.html">Getting Started</a></li><li><a shape="rect" href="nms-api.html">NMS API Reference</a></li><li><a shape="rect" href="apachenmsactivemq.html">ActiveMQ</a></li><li><a shape="rect" href="apachenmsstomp.html">Stomp</a></li><li><a shape="rect" href="apachenmsmsmq.html">MSMQ</a></li><li><a shape="rect" href="apachenmsems.html">Tibco EMS</a></li><li><a shape="rect" href="apachenmswcf.html">WCF</a></li></ul>
+
+
+<h3 id="Navigation-Search">Search</h3>
+<p></p><p>
+</p><form enctype="application/x-www-form-urlencoded" method="get" id="cse-search-box" action="http://www.google.com/cse">
+  <div>
+    <input type="hidden" name="cx" value="007878419884033443453:m5nhvy4hmyq">
+    <input type="hidden" name="ie" value="UTF-8">
+    <input type="text" name="q" size="21">
+    <input type="submit" name="sa" value="Search">
+  </div>
+</form>
+<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
+<p></p>
+
+<h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45789"><a shape="rect" href="community.html">Community</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/team.html">Team</a></li></ul>
+
+
+<h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45790"><a shape="rect" href="developers.html">Developers</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=25201942">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

@@ -1,0 +1,313 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Ajax
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="connectivity.html">Connectivity</a>&nbsp;&gt;&nbsp;<a href="ajax.html">Ajax</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><h1 id="Ajax-Introduction">Introduction</h1>
+
+<p>ActiveMQ supports <a shape="rect" class="external-link" href="http://en.wikipedia.org/wiki/Ajax_%28programming%29" rel="nofollow">Ajax</a> which is an Asychronous Javascript And Xml mechanism for real time web applications. This means you can create highly real time web applications taking full advantage of the publish/subscribe nature of ActiveMQ</p>
+
+<p>Ajax allows a regular DHTML client (with JavaScript and a modern version 5 or later web browser) to send and receive messages over the web. Ajax support in ActiveMQ builds on the same basis as the <a shape="rect" href="rest.html">REST</a> connector for ActiveMQ which allows any web capable device to send or receive messages over JMS.</p>
+
+<p>To see Ajax in action, try <a shape="rect" href="web-samples.html">running the examples</a></p>
+
+<h1 id="Ajax-TheServlet">The Servlet</h1>
+
+<p>The AMQ AjaxServlet needs to be installed in your webapplications to support JMS over Ajax:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+...
+  &lt;servlet&gt;
+    &lt;servlet-name&gt;AjaxServlet&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.apache.activemq.web.AjaxServlet&lt;/servlet-class&gt;
+  &lt;/servlet&gt;
+  ...
+  &lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;AjaxServlet&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/amq/*&lt;/url-pattern&gt;
+  &lt;/servlet-mapping&gt;
+</pre>
+</div></div>
+<p>The servlet both serves the required js files and handles the JMS requests and responses.</p>
+
+<h1 id="Ajax-JavascriptAPI">Javascript API</h1>
+
+<p>The ajax featues of amq are provided on the client side by the <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-web-demo/src/main/webapp/js/amq.js">amq.js</a> script.  Beginning with ActiveMQ 5.4, this script utilizes one of three different adapters to support ajax communication with the server.  Current <a shape="rect" class="external-link" href="http://jquery.org" rel="nofollow">jQuery</a>, <a shape="rect" class="external-link" href="http://prototypejs.org" rel="nofollow">Prototype</a>, and <a shape="rect" class="external-link" href="http://www.dojotoolkit.org" rel="nofollow">Dojo</a> are supported, and recent versions of all three libraries are shipped with ActiveMQ.</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+&lt;script type="text/javascript" src="js/jquery-1.4.2.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/amq_jquery_adapter.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="js/amq.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+  var amq = org.activemq.Amq;
+  amq.init({ 
+    uri: 'amq', 
+    logging: true,
+    timeout: 20
+  });
+&lt;/script&gt;
+</pre>
+</div></div>
+<p>Including these scripts results in the creation of a javascript object called <code>amq</code>, which provides the API to send messages and to subscribe to channels and topics.</p>
+
+<h2 id="Ajax-Sendingamessage">Sending a message</h2>
+
+<p>All that is required to send a JMS message from the javascript client, is to call the method:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+amq.sendMessage(myDestination,myMessage);
+</pre>
+</div></div>
+<p>where <code>myDestination</code> is the URL string address of the destination (e.g. "topic://MY.NAME"  or "channel://MY.NAME") and <code>myMessage</code> is any well formed XML or plain text encoded as XML content.</p>
+
+<h2 id="Ajax-Receivingmessages">Receiving messages</h2>
+
+<p>To receive messages, the client must define a message handling function and register it with the <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-web-demo/src/main/webapp/js/amq.js">amq</a> object. For example:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+var myHandler =
+{
+  rcvMessage: function(message)
+  {
+     alert("received "+message);
+  }
+};
+
+amq.addListener(myId,myDestination,myHandler.rcvMessage);
+</pre>
+</div></div>
+
+<p>where <code>myId</code> is a string identifier that can be used for a later call to <code>amq.removeHandler(myId)</code> and <code>myDestination</code> is a URL string address of the destination (e.g. "topic://MY.NAME"  or "channel://MY.NAME").  When a message is received, a call back to the <code>myHandler.rcvMessage</code> function passes the message to your handling code.<br clear="none">
+The "message" is actually a text of the Text message or a String representation (<code>toString()</code>) in case of Object messages.</p>
+
+<p>Be aware that, by default, messages published via <a shape="rect" class="external-link" href="http://activemq.apache.org/stomp.html">Stomp</a> which include a <code>content-length</code> header will be converted by ActiveMQ to binary messages, and will not be visible to your web clients.  Beginning with ActiveMQ 5.4.0, you can resolve this problem by always setting the <a shape="rect" class="external-link" href="https://issues.apache.org/jira/browse/AMQ-2833"><code>amq-msg-type</code> header</a> to <code>text</code> in messages which will may be consumed by web clients.</p>
+
+<h3 id="Ajax-Selectorsupport">Selector support</h3>
+
+<p>By default, an ajax client will receive all messages on a topic or queue it is subscribed to.  In <a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-541-release.html">ActiveMQ 5.4.1</a> amq.js supports <a shape="rect" class="external-link" href="http://activemq.apache.org/selectors.html">JMS selectors</a> since it is frequently useful to receive only a subset of these messages.  Selectors are supplied to an <code>amq.addListener</code> call by way of an optional 4th parameter.</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+amq.addListener( myId, myDestination, myHandler.rcvMessage, { selector:"identifier='TEST'" } );
+</pre>
+</div></div>
+<p>When used in this way, the Javascript client will receive only messages containing an <code>identifier</code> header set to the value <code>TEST</code>.</p>
+
+<h2 id="Ajax-UsingAMQAjaxinMultipleBrowserWindows">Using AMQ Ajax in Multiple Browser Windows</h2>
+
+<p>All windows or tabs in a single browser share the same <code>JSESSIONID</code> on the ActiveMQ server.  Unless the server can distinguish listeners from multiple windows, messages which were intended for 1 window will be delivered to another one instead.  Effectively, this means that amq.js could be active in only a single browser window at any given time.  Beginning in <a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-542-release.html">ActiveMQ 5.4.2</a>, this is resolved by allowing each call to <code>amq.init</code> to specify a unique <code>clientId</code>.  When this is done, multiple windows in the same browser can happily co-exist.  Each can have a separate set of message subscriptions on the broker with no interactions between them.</p>
+
+<p>In this example, we use the current time (at the time the web page is loaded) as a unique identifier.  This is effective as long as two browser windows are not opened within the same millisecond, and is the approach used by the example <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-web-demo/src/main/webapp/chat.html">chat.html</a> included with ActiveMQ.  Other schemes to ensure the uniqueness of <code>clientId</code> can easily be devised.  Note that this <code>clientId</code> need only be unique within a single session.  (Browser windows opened in the same millisecond in separate browsers will not interact, since they are in different sessions.)</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+org.activemq.Amq.init({
+  uri: 'amq', 
+  logging: true, 
+  timeout: 45, 
+  clientId:(new Date()).getTime().toString() 
+});
+</pre>
+</div></div>
+
+<p>Note that this <code>clientId</code> is common to all message subscriptions in a single tab or window, and is entirely different from the <code>clientId</code> which is supplied as a first argument in <code>amq.addListener</code> calls.</p>
+<ul><li>In <code>amq.init</code>, <code>clientId</code> serves to distinguish different web clients sharing the same <code>JSESSIONID</code>.  All windows in a single browser need a unique <code>clientId</code> when they call <code>amq.init</code>.</li><li>In <code>amq.addListener</code>, <code>clientId</code> is used to associate a message subscription with the callback function which should be invoked when a message is received for that subscription.  These <code>clientId</code> values are internal to each web page, and do not need to be unique across multiple windows or tabs.</li></ul>
+
+
+<h1 id="Ajax-Howitworks">How it works</h1>
+
+
+<h2 id="Ajax-AjaxServletandMessageListenerServlet">AjaxServlet and MessageListenerServlet</h2>
+
+<p>The ajax featues of amq are handled on the server side  by the <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-web/src/main/java/org/apache/activemq/web/AjaxServlet.java">AjaxServlet</a> which extends the <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-web/src/main/java/org/apache/activemq/web/MessageListenerServlet.java">MessageListenerServlet</a>.  This servlet is responsible for tracking the existing clients (using a HttpSesssion) and lazily creating the AMQ and javax.jms objects required by the client to send and receive messages (eg. Destination, MessageConsumer, MessageAVailableListener). This servlet should be mapped to <code>/amq/*</code> in the web application context serving the Ajax client (this can be changed, but the client javascript <code>amq.uri</code> field needs to be updated to match.)</p>
+
+<h2 id="Ajax-ClientSendingmessages">Client Sending messages</h2>
+
+<p>When a message is sent from the client it is encoded as the content of a POST request, using the API of one of the supported connection adapters (jQuery, Prototype, or Dojo) for <a shape="rect" class="external-link" href="http://jibbering.com/2002/4/httprequest.html" rel="nofollow">XmlHttpRequest</a>.  The <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-web-demo/src/main/webapp/js/amq.js">amq</a> object may combine several sendMessage calls into a single POST if it can do so without adding additional delays (see polling below).</p>
+
+<p>When the MessageListenerServlet receives a POST, the messages are decoded as <code>application/x-www-form-urlencoded</code> parameters with their type (in this case <code>send</code> as opposed to <code>listen</code> or <code>unlisten</code> see below) and destination.  If a destination channel or topic do not exist, it is created. The message is sent to the destination as a TextMessage.</p>
+
+<h2 id="Ajax-Listeningformessages">Listening for messages</h2>
+
+<p>When a client registers a listener, a message subscription request is sent from the client to the server in a POST in the same way as a message, but with a type of <code>listen</code>.  When the MessageListenerServlet receives a <code>listen</code> message, it lazily creates a MessageAvailableConsumer and registers a Listener on it.</p>
+
+<h2 id="Ajax-WaitingPollformessages">Waiting Poll for messages</h2>
+
+<p>When a Listener created by the MessageListenerServlet is called to indicate that a message is available, due to the limitations of the HTTP client-server model, it is not possible to send that message directly to the ajax client.   Instead the client must perform a special type of <strong>Poll</strong> for messages.  Polling normally means periodically making a request to see if there are messages available and there is a trade off: either the poll frequency is high and excessive load is generated when the system is idle; or the frequency is low and the latency for detecting new messages is high.</p>
+
+<p>To avoid the load vs latency tradeoff, AMQ uses a waiting poll mechanism.  As soon as the amq.js script is loaded, the client begins polling the server for available messages. A poll request can be sent as a GET request or as a POST if there are other messages ready to be delivered from the client to the server.  When the MessageListenerServlet receives a poll it:</p>
+<ol><li>if the poll request is a POST, all <code>send</code>, <code>listen</code> and <code>unlisten</code> messages are processed</li><li>if there are no messages available for the client on any of the subscribed channels or topic, the servlet suspends the request handling until:
+	<ul><li>A MessageAvailableConsumer Listener is called to indicate that a message is now available; or</li><li>A timeout expires (normally around 30 seconds, which is less than all common TCP/IP, proxy and browser timeouts).</li></ul>
+	</li><li>A HTTP response is returned to the client containing all available messages encapsulated as <code>text/xml</code>.</li></ol>
+
+
+<p>When the amq.js javascipt receives the response to the poll, it processes all the messages by passing them to the registered handler functions. Once it has processed all the messages, it immediately sends another poll to the server.</p>
+
+<p>Thus the idle state of the amq ajax feature is a poll request "parked" in the server, waiting for messages to be sent to the client. Periodically this "parked" request is refreshed by a timeout that prevents any TCP/IP, proxy or browser timeout closing the connection.  The server is thus able to asynchronously send a message to the client by waking up the "parked" request and allowing the response to be sent.</p>
+
+<p>The client is able to asynchronously send a message to the server by creating  (or using an existing) second connection to the server.  However, during the processing of the poll response, normal client message sending is suspended, so that all messages to be sent are queued and sent as a single POST with the poll that will be sent (with no delay) at the end of the processing. This ensures that only two connections are required between client and server (the normal for most browsers).</p>
+
+<h2 id="Ajax-ThreadlessWaiting">Threadless Waiting</h2>
+
+<p>The waiting poll described above is implemented using the <a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Continuations" rel="nofollow">Jetty 6 Continuations</a> mechanism.  This allows the thread associated with the request to be released during the wait, so that the container does not need to have a thread per client (which may be a large number).   If another servlet container is used, the Continuation mechanism falls back to use a wait and the thread is not released.</p>
+
+<h1 id="Ajax-ComparisontoPushlets">Comparison to Pushlets</h1>
+
+<p>Firstly we could easily add support for pushlets to ActiveMQ. However we prefer the Ajax approach for various reasons</p>
+<ul><li>using Ajax means that we use a distinct HTTP request for each send/receive which is much more friendly to web infrastructure (firewalls, proxies, caches and so forth) rather than having an infinitely-long GET.</li></ul>
+
+
+<ul><li>we can still take advantage of HTTP 1.1 keep-alive sockets and pipeline processing to gain the efficiency of a single socket used for communication between the client and server side; though in a way that works with any HTTP-capable infrastructure</li></ul>
+
+
+<ul><li>the server is pure REST and so will work with any client side (rather than being tied to custom JavaScript function calls used on the page which the Pushlet approach requires). So Pushlets tie the server to the web page; with Ajax we can have a generic service which works with any page.</li></ul>
+
+
+<ul><li>the client can be in control over frequency of polling &amp; timeouts. e.g. it can avoid the memory issues of Pushlets in some browsers by using a 20-second timeout HTTP GET. Or using a zero timeout GET to poll queues.</li></ul>
+
+
+<ul><li>its easier to take full advantage of HTTP encoding of messages, rather than using JavaScript function calls as the transfer protocol.</li></ul>
+
+
+<ul><li>pushlets assume the server knows what functions are used on the client side as the server basically writes JavaScript function calls down the scoket - it's better for us to send generic XML packets (or strings or whatever the message format is) and let the JavaScript client side be totally decoupled from the server side</li></ul>
+
+
+<ul><li>Ajax supports clean XML support allowing full XML documents to be streamed to the client for rich messages which are easy to process via standard JavaScript DOM support</li></ul></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=35893">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

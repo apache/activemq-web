@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- REST
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="connectivity.html">Connectivity</a>&nbsp;&gt;&nbsp;<a href="protocols.html">Protocols</a>&nbsp;&gt;&nbsp;<a href="rest.html">REST</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><p>ActiveMQ implements a RESTful API to messaging which allows any web capable device to publish or consume messages using a regular HTTP POST or GET.</p><p>If you are interested in messaging directly from web browsers you might wanna check out our <a shape="rect" href="ajax.html">Ajax</a> or <a shape="rect" href="websockets.html">WebSockets</a> support or try <a shape="rect" href="web-samples.html">running the REST examples</a></p><h2 id="REST-MappingofRESTtoJMS">Mapping of REST to JMS</h2><p>To publish a message use a HTTP POST. To consume a message use HTTP DELETE or GET.</p><p>ActiveMQ has a Servlet that takes care of the integration between HTTP and the ActiveMQ dispatcher.</p><p><span style="color: rgb(255,153,0);">NOTE: The example below requires servlet mapping on the URL. For posting without the servlet mapping, see examples further down.</span></p><p>You can map a URI to the servlet and then use the relative part of the URI as the topic or queue name. e.g. you could HTTP POST to</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">http://www.acme.com/orders/input
+</pre>
+</div></div><p>which would publish the contents of the HTTP POST to the orders.input queue on JMS.&#160;</p><p>Similarly you could perform a HTTP DELETE GET on the above URL to read from the same queue. In this case we will map the MessageServlet from ActiveMQ to the URI</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">http://www.acme.com/queue
+</pre>
+</div></div><p>and configure it to accept the URI as a queue destination. We can do similar things to support topic destinations too.</p><p>We can use the HTTP session to denote a unique publisher or consumer.</p><p>Note that strict REST requires that GET be a read only operation; so strictly speaking we should not use GET to allow folks to consume messages. Though we allow this as it simplifies HTTP/DHTML/Ajax integration somewhat.</p><p>For a more cleaner mapping of a simple transfer protocol to different languages, you might wish to take a look at <a shape="rect" href="stomp.html">Stomp</a>.</p><h2 id="REST-Defaultconfiguration">Default configuration</h2><p>Until version 5.8, REST API was part of the <a shape="rect" href="web-samples.html">Web Samples</a> and was mapped to <a shape="rect" class="external-link" href="http://localhost:8161/demo/message" rel="nofollow">http://localhost:8161/demo/message</a> url. From 5.8 onwards, the API is available by default at <a shape="rect" class="external-link" href="http://localhost:8161/api/message" rel="nofollow">http://localhost:8161/api/message</a> url. Also, starting with 5.8, web server is secured by default (see <a shape="rect" href="web-console.html">Web Console</a> for more information), so have that in mind when trying to use it. Examples below will assume new api location and secured web server.</p><h3 id="REST-Producing">Producing</h3><p>You can produce by sending a POST request to the server, like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">curl -u admin:admin -d "body=message" http://localhost:8161/api/message/TEST?type=queue</pre>
+</div></div><p>&#160;</p><p><span style="color: rgb(255,153,0);">NOTE: If&#160;no type parameter is specified, the default is to create a &#160;topic. To change the default to queue,&#160;initialize &#160;the servlet &#160;with an init param&#160;in the&#160;<code>webapps/demo/WEB-INF/web.xml</code></span></p><p><span style="color: rgb(255,153,0);">As shown below:</span></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">&lt;servlet&gt;
+  &lt;servlet-name&gt;MessageServlet&lt;/servlet-name&gt;  
+  &lt;servlet-class&gt;org.apache.activemq.web.MessageServlet&lt;/servlet-class&gt;
+  &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;init-param&gt;
+     &lt;param-name&gt;topic&lt;/param-name&gt;
+     &lt;param-value&gt;false&lt;/param-value&gt;
+  &lt;/init-param&gt;
+&lt;/servlet&gt;</pre>
+</div></div><h4 class="p1" id="REST-AlternateProducingSyntax"><span class="s1">Alternate Producing Syntax</span></h4><p class="p1"><span class="s1">An alternative syntax for posting is supported, using the destination URL-encoded parameter; here are some examples:</span>&#160;</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;"># Send to queue orders.input:
+curl -XPOST -d "body=message" http://admin:admin@localhost:8161/api/message?destination=queue://orders.input
+ 
+# Send to topic orders.input:
+curl -XPOST -d "body=message" http://admin:admin@localhost:8161/api/message?destination=topic://orders.input</pre>
+</div></div><h3 id="REST-Timeouts">Timeouts</h3><p>When reading from a queue we might not have any messages. We can use a timeout query parameter to indicate how long we are prepared to wait for a message to arrive. This allows us to poll or block until a message arrives.</p><p>Couple this with HTTP 1.1 keep-alive sockets and pipeline processing we can have efficient access to JMS over HTTP.</p><p>Obviously if your client is Java then using ActiveMQ's JMS API is the fastest and most efficient way to work with the message broker; however, if you are not using Java or prefer the simplicity of HTTP then it should be fairly efficient, especially if your HTTP client supports keep-alive sockets and pipeline processing.</p><h4 class="p1" id="REST-Consuming"><span style="font-size: 16.0px;line-height: 1.5625;">Consuming</span></h4><p>When consuming messages using the REST API, you have to keep session alive between GET requests, or you'll create a separate consumer for every request and due to prefetch limit your succeeding call will hang.</p><p>For example, you can use <code>wget</code> to consume messages, like this:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">wget --user admin --password admin --save-cookies cookies.txt --load-cookies cookies.txt --keep-session-cookies  http://localhost:8161/api/message/TEST1?type=queue
+</pre>
+</div></div><p>Also, if you plan to have multiple consumer using REST, it's advisable to set prefetch size to 1 so all consumers have an equal chance of getting the message. You can do that by passing a special parameter to the <code>MessageServlet</code></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">    &lt;servlet&gt;
+        &lt;servlet-name&gt;MessageServlet&lt;/servlet-name&gt;       
+        &lt;servlet-class&gt;org.apache.activemq.web.MessageServlet&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+        &lt;init-param&gt;
+                &lt;param-name&gt;destinationOptions&lt;/param-name&gt;
+                &lt;param-value&gt;consumer.prefetchSize=1&lt;/param-value&gt;
+        &lt;/init-param&gt;
+    &lt;/servlet&gt;
+</pre>
+</div></div><p>in the <code>webapps/demo/WEB-INF/web.xml</code></p><h4 class="p1" id="REST-AlternateConsumingSyntax"><span class="s1">Alternate Consuming Syntax</span></h4><p class="p1"><span class="s1">As with producing, an alternative syntax for consuming messages is also supported, using the destination URL-encoded parameter; here are some examples:</span>&#160;</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;"># Send to queue orders.input:
+curl -XGET http://admin:admin@localhost:8161/api/message?destination=queue://orders.input
+ 
+# Send to topic orders.input:
+curl -XGET http://admin:admin@localhost:8161/api/message?destination=topic://orders.input</pre>
+</div></div><h4 class="p1" id="REST-Consumingwithoutsessions"><span style="font-size: 16.0px;line-height: 1.5625;">Consuming without sessions</span></h4><p>Since 5.2.0 you can use <code>clientId</code> parameter to avoid storing actual JMS consumer in the request session. When using this approach, you don't need to keep sessions alive between requests, you just need to use the same <code>clientId</code> every time.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">wget --user admin --password admin http://localhost:8161/api/message/test?type=queue&amp;clientId=consumerA
+</pre>
+</div></div><p>Every such call will use the same JMS consumer and deliver messages send to it by the broker.</p><p>In 5.4.1 it's also possible to unsubscribe the client. It's done by sending a POST call with <code>clientId</code> and <code>action=unsubscribe</code> parameters to the server, like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">http://localhost:8161/demo/message/test?clientId=consumerA&amp;action=unsubscribe</pre>
+</div></div><h3 id="REST-Consumingwithselectors">Consuming with selectors</h3><p>As of ActiveMQ 5.4.0, you can use selectors when consuming using REST protocol. To do that, just specify the appropriate header with selector. To define a selector for the consumer, you have to provide it in an appropriate HTTP header. By default selector header name is <code>selector</code>, so the following example</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">wget  --user admin --password admin --save-cookies cookies.txt --load-cookies cookies.txt --keep-session-cookies  --header="selector: test=2" http://localhost:8161/api/message/test?type=queue
+</pre>
+</div></div><p>should consume only messages that have <code>test</code> property set to <code>2</code>.</p><p>You can change the name of the selector header using the <code>org.apache.activemq.selectorName</code> Servlet context property in <code>WEB-INF/web.xml</code>, such as</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">    &lt;context-param&gt;
+        &lt;param-name&gt;org.apache.activemq.selectorName&lt;/param-name&gt;
+        &lt;param-value&gt;activemq-selector&lt;/param-value&gt;
+    &lt;/context-param&gt;
+</pre>
+</div></div><p>For more info, take a look at <a shape="rect" class="external-link" href="http://fisheye6.atlassian.com/browse/activemq/trunk/activemq-web-demo/src/test/java/org/apache/activemq/web/RestTest.java?r=HEAD" rel="nofollow">RestTest</a></p><h3 id="REST-ConsumingwithOneShotConsumers">Consuming with One Shot Consumers</h3><p>One shot consumption allows a REST call to receive a single message and then immediately close the associated consumer.</p><p>All of the examples so far lead to the servlet creating and holding on to consumers of the destination across multiple HTTP requests. Without care, these consumers could easily lead to confusion as messages are dispatched to them but then sit unused because the consuming HTTP session, or clientId, fails to connect to continue requesting the messages. One way around that problem is the use of one-shot consumers. &#160;Simple add the&#160;<code>?oneShot=true</code> option and the consumer is removed once the consumption completes; as follows:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">curl -XGET http://admin:admin@localhost:8161/api/message?destination=queue://orders.input&amp;oneShot=true</pre>
+</div></div><p>Note that interrupting the call while the consumer is waiting for a message, the consumer may remain until the server times out the HTTP request, or until a message finally arrives.</p><h3 id="REST-ContentTypes">Content Types</h3><p>By default messages are sent to the consumers with <code>text/xml</code> content type. Your REST-based application may expect JSON response instead of XML one. In that case, you can configure the servlet to send responses back by adding something like this</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">    &lt;servlet&gt;
+        &lt;servlet-name&gt;MessageServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.apache.activemq.web.MessageServlet&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+        &lt;init-param&gt;
+                &lt;param-name&gt;defaultContentType&lt;/param-name&gt;
+                &lt;param-value&gt;application/json&lt;/param-value&gt;
+        &lt;/init-param&gt; 
+    &lt;/servlet&gt;
+</pre>
+</div></div><p>to your <code>WEB-INF/web.xml</code>.</p><p>A default content type can also be overridden using request headers. Specifying <code>xml=true</code> or <code>json=true</code> URL parameter you'll get a response with the desired content type.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">wget --user admin --password admin http://localhost:8161/api/message/TEST?type=queue\&amp;clientId=A\&amp;json=true</pre>
+</div></div><h3 id="REST-Security">Security</h3><p>Since 5.7.0 release REST API can connect to the secured brokers. The API uses basic authentication header format to get username and password information.</p><p>For example, with curl you can do something like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">curl -u system:manager -d "body=message" http://localhost:8161/demo/message/TEST?type=queue</pre>
+</div></div><p>Also, you might want to enable <code>ssl</code> for your connections. To do that, just uncomment SecureConnector in <code>conf/jetty.xml</code></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">                &lt;bean id="SecureConnector" class="org.eclipse.jetty.server.ssl.SslSelectChannelConnector"&gt;
+                    &lt;property name="port" value="8162" /&gt;
+                    &lt;property name="keystore" value="file:${activemq.conf}/broker.ks" /&gt;
+                    &lt;property name="password" value="password" /&gt;
+                &lt;/bean&gt;</pre>
+</div></div><h2 id="REST-RestManagement">Rest Management</h2><p>Starting with version 5.8 we provide a REST management API for the broker. Using <a shape="rect" class="external-link" href="http://www.jolokia.org/" rel="nofollow">Jolokia</a> JMX-HTTP bridge it's possible to access all broker metrics (like memory usage) and execute management operations (like purging queues) using REST API. By default the management API is exposed at <a shape="rect" class="external-link" href="http://localhost:8161/api/jolokia/" rel="nofollow">http://localhost:8161/api/jolokia/</a> URL. So you can for example get basic broker data with</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">wget --user admin --password admin --auth-no-challenge http://localhost:8161/api/jolokia/read/org.apache.activemq:type=Broker,brokerName=localhost</pre>
+</div></div><p>or to be more specific, total consumer count with</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">wget --user admin --password admin --auth-no-challenge http://localhost:8161/api/jolokia/read/org.apache.activemq:type=Broker,brokerName=localhost/TotalConsumerCount</pre>
+</div></div><p>For more information on Jolokia protocol, see its reference manual. An API like this makes it easy to script monitoring and management operations against the broker, see also&#160;<a shape="rect" href="how-can-i-monitor-activemq.html">How can I monitor ActiveMQ</a>?</p><h2 id="REST-Gotcha'sandothertrivia">Gotcha's and other trivia</h2><ol><li>Missing "body" parameter</li></ol><p style="margin-left: 90.0px;">In the curl POST examples above, the use of "body=..." is critical. If this is not specified in front of the message body contents, the web servlet will attempt to read the body from the request (rather than from the -d parameter), and this will result in the following exception:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">java.lang.IllegalStateException: STREAMED
+at org.eclipse.jetty.server.Request.getReader(Request.java:898)
+at org.apache.activemq.web.MessageServletSupport.getPostedMessageBody(MessageServletSupport.java:347)
+at org.apache.activemq.web.MessageServlet.doPost(MessageServlet.java:126)
+...</pre>
+</div></div><p style="margin-left: 90.0px;">However, one option in this case would be to specify the content type explicitly:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">curl -u admin:admin -d "hello world $(date)" -H "Content-Type: text/plain" -XPOST http://localhost:8161/api/message?destination=queue://abc.def</pre>
+</div></div></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=35998">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

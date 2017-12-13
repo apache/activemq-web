@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+          <link href='http://activemq.apache.org/styles/highlighter/styles/shCore.css' rel='stylesheet' type='text/css' /> 
+      <link href='http://activemq.apache.org/styles/highlighter/styles/shThemeEclipse.css' rel='stylesheet' type='text/css' /> 
+      <script src='http://activemq.apache.org/styles/highlighter/scripts/shCore.js' type='text/javascript'></script> 
+              <script src='http://activemq.apache.org/styles/highlighter/scripts/shBrushJava.js' type='text/javascript'></script> 
+         
+      <script type="text/javascript"> 
+        SyntaxHighlighter.defaults['toolbar'] = false; 
+        SyntaxHighlighter.all(); 
+      </script> 
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Old OSGi Integration
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<div id="asf_logo">
+	<div id="activemq_logo">
+     <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org" title="The most popular and powerful open source Message Broker">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org" title="The Apache Software Foundation">ASF</a>
+	</div>
+</div>
+
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="connectivity.html">Connectivity</a>&nbsp;&gt;&nbsp;<a href="containers.html">Containers</a>&nbsp;&gt;&nbsp;<a href="old-osgi-integration.html">Old OSGi Integration</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/index.html">JavaDocs</a> <a shape="rect" href="javadocs.html">More...</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" href="discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><p><strong>This article applies to versions of ActiveMQ prior to 5.4.0. If you use version 5.4.0 or newer proceed to the <a shape="rect" href="osgi-integration.html">following article</a>.</strong></p>
+
+<h1 id="OldOSGiIntegration-Introduction">Introduction</h1>
+
+<p>All ActiveMQ modules are packaged as OSGi bundles and can be used in any OSGi container. This article will provide more details on how to use ActiveMQ in <a shape="rect" class="external-link" href="http://felix.apache.org/site/apache-felix-karaf.html">Apache Karaf</a>, small OSGi based runtime. Apache Karaf was previously know as <em>ServiceMix kernel</em>, so informations found here are applicable to <a shape="rect" class="external-link" href="http://servicemix.apache.org/home.html">Apache ServiceMix Enterprise Service Bus</a> as well.</p>
+
+<h1 id="OldOSGiIntegration-ActiveMQ">ActiveMQ</h1>
+
+<p>ActiveMQ comes as a feature in ServiceMix (Karaf). So instead of installing all necessary bundles one by one, you can simply install it using a single command. But first of all, you need to setup ServiceMix features url.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; features/addUrl mvn:org.apache.servicemix/apache-servicemix/4.0.0/xml/features
+</pre>
+</div></div>
+
+<p>Now you can install ActiveMQ like this</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; features/install activemq
+</pre>
+</div></div>
+
+<p>This command will install all necessary ActiveMQ bundles and if you type</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; osgi/list
+</pre>
+</div></div>
+
+<p>you should see something like this</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+[  50] [Active     ] [       ] [   60] geronimo-jta_1.1_spec (1.1.1)
+[  51] [Active     ] [       ] [   60] geronimo-j2ee-connector_1.5_spec (2.0.0)
+[  52] [Active     ] [       ] [   60] Apache ServiceMix Bundles: howl-1.0.1-1 (1.0.1.1_1)
+[  53] [Active     ] [       ] [   60] Geronimo TxManager :: Transaction (2.2.0.r634076)
+[  54] [Active     ] [       ] [   60] Spring Transaction (2.5.6)
+[  55] [Active     ] [Started] [   60] Apache ServiceMix Transaction (1.0.0)
+[  56] [Active     ] [       ] [   60] Geronimo TxManager :: Connector (2.2.0.r634076)
+[  57] [Active     ] [       ] [   60] geronimo-jms_1.1_spec (1.1.1)
+[  58] [Active     ] [       ] [   60] Apache ServiceMix Bundles: jencks-2.1 (2.1.0.1)
+[  59] [Active     ] [       ] [   60] geronimo-j2ee-management_1.1_spec (1.0.1)
+[  60] [Active     ] [       ] [   60] Apache Commons Pool Bundle (1.4)
+[  61] [Active     ] [       ] [   60] xbean-spring (3.5)
+[  62] [Active     ] [       ] [   60] activemq-core (5.2.0)
+[  63] [Active     ] [       ] [   60] activemq-ra (5.2.0)
+[  64] [Active     ] [       ] [   60] activemq-console (5.2.0)
+[  65] [Active     ] [       ] [   60] activemq-pool (5.2.0)
+[  66] [Active     ] [Started] [   60] Apache ServiceMix Features :: ActiveMQ Commands (4.0.0)
+</pre>
+</div></div>
+
+<p>Once installed, this feature offers a special set of commands which enables you easily use the broker. </p>
+<div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>This feature comes pre-installed with the ServiceMix ESB so previous steps are not necessary.</p></div></div>
+<p>The following example shows how to create and destroy the broker using the <code>create-broker</code> and <code>destroy-broker</code> commands.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; activemq/create-broker
+Creating file: /Users/dejanb/workspace/apache-servicemix-kernel-1.1.0/deploy/localhost-broker.xml
+
+Default ActiveMQ Broker (localhost) configuration file created at: /Users/dejanb/workspace/apache-servicemix-kernel-1.1.0/deploy/localhost-broker.xml
+Please review the configuration and modify to suite your needs.  
+
+smx@root:/&gt; activemq/destroy-broker
+
+Default ActiveMQ Broker (localhost) configuration file created at: /Users/dejanb/workspace/apache-servicemix-kernel-1.1.0/deploy/localhost-broker.xml removed.
+</pre>
+</div></div>
+
+<p>For more information on ActiveMQ feature take a look at the <a shape="rect" class="external-link" href="http://servicemix.apache.org/SMX4/activemq-integration.html">ServiceMix ActiveMQ integration guide </a></p>
+
+<h1 id="OldOSGiIntegration-Webconsole">Web console</h1>
+
+<p><a shape="rect" href="web-console.html">Web console</a> is included in ActiveMQ distribution and you'll probably want to have it to monitor your broker. First of all you'll have to install the <code>web</code> feature, so that you have a web container ready to deploy our web application. To do that you should first add the ServiceMix features url, like we did above (if you didn't already). Now, you can just run</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; features/install web
+</pre>
+</div></div>
+
+<p>to grab all necessary bundles. If you type</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; osgi/list
+</pre>
+</div></div>
+
+<p>you'll see all installed bundles (such as)</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+[  43] [Active     ] [       ] [   60] Apache ServiceMix Bundles: jetty-6.1.14 (6.1.14.1)
+[  44] [Active     ] [       ] [   60] OPS4J Pax Web - Jsp Support (0.5.2)
+[  45] [Active     ] [       ] [   60] OPS4J Pax Web - Web Container (0.5.2)
+[  46] [Active     ] [       ] [   60] OPS4J Pax Web Extender - WAR (0.5.0)
+[  47] [Active     ] [       ] [   60] OPS4J Pax Web Extender - Whiteboard (0.5.0)
+[  48] [Active     ] [       ] [   60] OPS4J Pax Url - war:, war-i: (0.3.3)
+[  49] [Active     ] [Started] [   60] Apache ServiceMix WAR Deployer (4.0.0)
+</pre>
+</div></div>
+
+<div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>This feature comes pre-installed with the ServiceMix ESB so previous steps are not necessary.</p></div></div>
+
+<p>The important thing is that we need to use proper versions of Pax web bundles to make all this work, and those are:</p>
+
+<ul><li>pax-web-bundle version 0.6.0</li><li>pax-web-jsp version 0.6.0</li><li>pax-web-ex-war version 0.5.1</li><li>pax-web-ex-whiteboard version 0.5.1</li></ul>
+
+
+<p>So if you have older bundles, like it is the case in our example, you'll need to unistall them and install new ones. To uninstall old bundles, simply look at their id and execute</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; osgi/uninstall [id]
+</pre>
+</div></div>
+
+<p>In this example it would be</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; osgi/uninstall 44
+smx@root:/&gt; osgi/uninstall 45
+smx@root:/&gt; osgi/uninstall 46
+smx@root:/&gt; osgi/uninstall 47
+</pre>
+</div></div>
+
+<p>Now install new ones</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; osgi/install mvn:org.ops4j.pax.web/pax-web-bundle/0.6.0
+smx@root:/&gt; osgi/install mvn:org.ops4j.pax.web/pax-web-jsp/0.6.0
+smx@root:/&gt; osgi/install mvn:org.ops4j.pax.web-extender/pax-web-ex-war/0.5.1
+smx@root:/&gt; osgi/install mvn:org.ops4j.pax.web-extender/pax-web-ex-whiteboard/0.5.1
+</pre>
+</div></div>
+
+<p>After successful installation, you should start your newly added bundles. You can do that by executing </p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; osgi/start [id]
+</pre>
+</div></div>
+
+<p>It's best to restart your container at this point and afterwards we're finally ready to deploy our war. To do that we'll use the Pax Web War Extender. The following example will use the latest <code>5.3-SNAPSHOT</code> build and deploy it in the OSGi runtime</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; osgi/install war:mvn:org.apache.activemq/activemq-web-console/5.3-SNAPSHOT/war?Webapp-Context=activemqweb
+</pre>
+</div></div>
+
+
+
+<div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>You have to use the latest 5.3-SNAPSHOT web console, since this doesn't work right with previous versions.</p></div></div>
+
+<p>Also, if you have problems installing the war with the previous method, download it manually from <a shape="rect" class="external-link" href="https://repository.apache.org/content/repositories/snapshots/org/apache/activemq/activemq-web-console/5.3-SNAPSHOT/">https://repository.apache.org/content/repositories/snapshots/org/apache/activemq/activemq-web-console/5.3-SNAPSHOT/</a> and install using</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; osgi/install war:file:///path_to_the_war/activemq-web-console-5.3-SNAPSHOT.war?Webapp-Context=activemqweb
+</pre>
+</div></div>
+<p>Unfortunately the command</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+osgi/install \
+war:mvn:https://repository.apache.org/content/repositories/snapshots@snapshots!org.apache.activemq/activemq-web-console/5.3-SNAPSHOT/war?Webapp-Context=activemqweb
+</pre>
+</div></div>
+
+<p>does not work with pax web war extender 0.5.1, but you try it if you're using the newer one.</p>
+
+<p>If you execute</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; osgi/list
+</pre>
+</div></div>
+
+<p>you'll see the newly added bundle here.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+[  84] [Resolved   ] [       ] [   60] mvn_org.apache.activemq_activemq-web-console_5.3-SNAPSHOT_war (0)
+</pre>
+</div></div>
+
+<p>It's time t start it now</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+smx@root:/&gt; osgi/start 84
+</pre>
+</div></div>
+
+<div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p> Use the id of your bundle</p></div></div>
+
+<p>The important thing to note here is that by default, web console will start an embedded broker and monitor it. So if you have a broker already running it will fail to start.</p>
+
+<p>Note that we have used <code>activemqweb</code> as a <code>WebApp-Context</code> while deploying the war, so the console will be available at <a shape="rect" class="external-link" href="http://localhost:8080/activemqweb" rel="nofollow">http://localhost:8080/activemqweb</a>. Visit this URL and administer your embedded broker.</p>
+
+<p>There a big chance that you don't want to monitor an embedded broker, but the broker you have started separately (in the OSGi runtime or elsewhere). To configure your web console to do that, you have to do the following. First, exit your OSGi runtime. Now you can edit the <code>etc/system.properties</code> file and add some configuration details. The following configuration snippet</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<pre class="brush: java; gutter: false; theme: Default" style="font-size:12px;">
+webconsole.type=properties
+webconsole.jms.url=tcp://localhost:61616
+webconsole.jmx.url=service:jmx:rmi:///jndi/rmi://localhost:1099/karaf-root
+webconsole.jmx.user=karaf
+webconsole.jmx.password=karaf
+</pre>
+</div></div>
+
+<p>should work fine with default broker started in the Karaf (ServiceMix). Adapt it to your specific needs.</p>
+
+<p>Now if you run the runtime (and the console bundle), you'll notice that the console will not start the broker and will try to use one defined with the system properties.</p>
+
+<p>Visit <a shape="rect" class="external-link" href="http://localhost:8080/activemqweb" rel="nofollow">http://localhost:8080/activemqweb</a> and enjoy.</p></div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overviewhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35985"><a shape="rect" href="overview.html">Overview</a></h3><ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="new-features.html">New Features</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="articles.html">Articles</a></li><li><a shape="rect" href="books.html">Books</a></li><li><a shape="rect" href="download.html">Download</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/licenses/">License</a></li></ul><h3 id="Navigation-Search">Search</h3><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<h3 id="Navigation-SubProjects">Sub Projects</h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://activemq.apache.org/artemis/">Artemis</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/apollo" title="ActiveMQ Apollo">Apollo</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li></ul><h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36130"><a shape="rect" href="community.html">Community</a></h3><ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" href="contributing.html">Contributing</a></li><li><a shape="rect" href="discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc.html">IRC</a></li><li><a shape="rect" class="external-link" href="http://javabot.evanchooly.com/logs/%23apache-activemq/today" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="security-advisories.html">Security Advisories</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li><li><a shape="rect" href="projects-using-activemq.html">Projects Using ActiveMQ</a></li><li><a shape="rect" href="users.html">Users</a></li><li><a shape="rect" href="team.html">Team</a></li><li><a shape="rect" href="thanks.html">Thanks</a></li></ul><h3 id="Navigation-Featureshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35883"><a shape="rect" href="features.html">Features</a></h3><ul class="alternate"><li><a shape="rect" href="advisory-message.html">Advisory Message</a></li><li><a shape="rect" href="clustering.html">Clustering</a></li><li><a shape="rect" href="cross-language-clients.html">Cross Language Clients</a></li><li><a shape="rect" href="enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li><a shape="rect" href="jmx.html">JMX</a></li><li><a shape="rect" href="jms-to-jms-bridge.html">JMS to JMS Bridge</a></li><li><a shape="rect" href="masterslave.html">MasterSlave</a></li><li><a shape="rect" href="message-groups.html">Message Groups</a></li><li><a shape="rect" href="networks-of-brokers.html">Networks of Brokers</a></li><li><a shape="rect" href="performance.html">Performance</a></li><li><a shape="rect" href="persistence.html">Persistence</a></li><li><a shape="rect" href="security.html">Security</a></li><li><a shape="rect" href="virtual-destinations.html">Virtual Destinations</a></li><li><a shape="rect" href="visualisation.html">Visualisation</a></li><li><a shape="rect" href="features.html">More ...</a></li></ul><h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=36167"><a shape="rect" href="connectivity.html">Connectivity</a></h3><ul class="alternate"><li><a shape="rect" href="ajax.html">Ajax</a></li><li><a shape="rect" href="amqp.html">AMQP</a></li><li><a shape="rect" href="axis-and-cxf-support.html">Axis and CXF Support</a></li><li><a shape="rect" href="c-integration.html">C Integration</a></li><li><a shape="rect" href="activemq-c-clients.html">C++</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">C# and .Net Integration</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a></li><li><a shape="rect" href="j2ee.html">J2EE</a></li><li><a shape="rect" href="jboss-integration.html">JBoss Integration</a></li><li><a shape="rect" class="external-link" href="http://docs.codehaus.org/display/JETTY/Integrating+with+ActiveMQ" rel="nofollow">Jetty</a></li><li><a shape="rect" href="jndi-support.html">JNDI Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/" title="NMS is the .Net Messaging API">NMS</a></li><li><a shape="rect" href="rest.html">REST</a></li><li><a shape="rect" href="rss-and-atom.html">RSS and Atom</a></li><li><a shape="rect" href="spring-support.html">Spring Support</a></li><li><a shape="rect" href="stomp.html">Stomp</a></li><li><a shape="rect" href="tomcat.html">Tomcat</a></li><li><a shape="rect" href="unix-service.html">Unix Service</a></li><li><a shape="rect" href="weblogic-integration.html">WebLogic Integration</a></li><li><a shape="rect" href="xmpp.html">XMPP</a></li><li><a shape="rect" href="connectivity.html">More ...</a></li></ul><h3 id="Navigation-UsingActiveMQ5https://cwiki.apache.org/confluence/pages/viewpage.action?pageId=71176"><a shape="rect" href="using-activemq-5.html">Using ActiveMQ 5</a></h3><ul class="alternate"><li><a shape="rect" href="version-5-getting-started.html">Getting Started</a></li><li><a shape="rect" href="version-5-initial-configuration.html">Initial Configuration</a></li><li><a shape="rect" href="version-5-run-broker.html">Running a Broker</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.html">Embedded Brokers</a></li><li><a shape="rect" href="activemq-command-line-tools-reference.html">Command Line Tools</a></li><li><a shape="rect" href="configuring-version-5-transports.html">Configuring Transports</a></li><li><a shape="rect" href="version-5-examples.html">Examples</a></li><li><a shape="rect" href="version-5-web-samples.html">Web Samples</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.html">Monitoring the Broker</a></li><li><a shape="rect" href="version-5-xml-configuration.html">Xml Configuration</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li><li><a shape="rect" href="using-activemq-5.html">More ...</a></li></ul><h3 id="Navigation-Toolshttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35912"><a shape="rect" href="tools.html">Tools</a></h3><ul class="alternate"><li><a shape="rect" href="web-console.html">Web Console</a></li><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li></ul><h3 id="Navigation-Supporthttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35919"><a shape="rect" href="support.html">Support</a></h3><ul class="alternate"><li><a shape="rect" class="external-link" href="http://issues.apache.org/jira/browse/AMQ">Issues</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Roadmap</a></li><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ?report=com.atlassian.jira.plugin.system.project:changelog-panel">Change log</a></li></ul><h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=35903"><a shape="rect" href="developers.html">Developers</a></h3><ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="developer-guide.html">Developer Guide</a></li><li><a shape="rect" href="becoming-a-committer.html">Becoming a committer</a></li><li><a shape="rect" href="code-overview.html">Code Overview</a></li><li><a shape="rect" href="wire-protocol.html">Wire Protocol</a></li><li><a shape="rect" href="release-guide.html">Release Guide</a></li></ul><h3 id="Navigation-Tests">Tests</h3><ul class="alternate"><li><a shape="rect" href="activemq-performance-module-users-manual.html">Maven2 Performance Plugin</a></li><li><a shape="rect" href="benchmark-tests.html">Benchmark Tests</a></li><li><a shape="rect" href="jmeter-system-tests.html">JMeter System Tests</a></li><li><a shape="rect" href="jmeter-performance-tests.html">JMeter Performance Tests</a></li><li><a shape="rect" href="integration-tests.html">Integration Tests</a></li></ul><h3 id="Navigation-ProjectReports">Project Reports</h3><ul class="alternate"><li><a shape="rect" href="junit-reports.html">JUnit Reports</a></li><li><a shape="rect" href="source-xref.html">Source XRef</a></li><li><a shape="rect" href="test-source-xref.html">Test Source XRef</a></li><li><a shape="rect" href="xml-reference.html">Xml Reference</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=119954">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>

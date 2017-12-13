@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!--
+
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html>
+<head>
+    <link href="http://activemq.apache.org/styles/site.css" rel="stylesheet" type="text/css"/>
+    <link href="http://activemq.apache.org/styles/type-settings.css" rel="stylesheet" type="text/css"/>
+    <script src="http://activemq.apache.org/styles/prototype.js" type="text/javascript"></script>
+    <script src="http://activemq.apache.org/styles/rico.js" type="text/javascript"></script>    
+    <script src="http://activemq.apache.org/styles/site.js" type="text/javascript"></script>
+    <style type="text/css">
+      .maincontent { overflow:hidden; }
+    </style>
+    <!--[if IE]>
+    <style type="text/css">
+      .maincontent { width:100%; }
+    </style>
+    <![endif]-->
+
+    
+    <title>
+    Apache ActiveMQ &#8482; -- Creating Distributions
+    </title>
+</head>
+<body>
+<div class="white_box">
+<div class="header">
+  <div class="header_l">
+    <div class="header_r">
+    </div>
+  </div>
+</div>
+<div class="content">
+  <div class="content_l">
+    <div class="content_r">
+      <div>
+
+<!-- Banner -->
+<p>
+	</p><div id="asf_logo">
+	<div id="activemq_logo">
+            <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="http://activemq.apache.org/">ActiveMQ</a>
+            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org">ASF</a>
+	</div>
+        </div>
+<p></p>
+        <div class="top_red_bar">
+          <div id="site-breadcrumbs">
+<a href="index.html">Index</a>&nbsp;&gt;&nbsp;<a href="developers.html">Developers</a>&nbsp;&gt;&nbsp;<a href="creating-distributions.html">Creating Distributions</a>
+          </div>
+          <div id="site-quicklinks">
+<p><a shape="rect" href="download.html">Download</a> | <a shape="rect" href="api.html">API</a> | <a shape="rect" href="source.html">Source</a> | <a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Forums</a> | <a shape="rect" href="support.html">Support</a></p>
+          </div>
+        </div>
+
+  <table border="0">
+  <tbody>
+        <tr>
+        <td valign="top" width="100%">
+<div class="wiki-content maincontent"><h2 id="CreatingDistributions-CreatingaDistributionofActiveMQ-CPP">Creating a Distribution of ActiveMQ-CPP</h2>
+
+<p>This should give you an idea of the steps involved with creating a new distribution of ActiveMQ-CPP.  This content was extracted from <a shape="rect" class="external-link" href="http://www.apache.org/dev/mirror-guide-bodewig.html">http://www.apache.org/dev/mirror-guide-bodewig.html</a>, so you may want to reference that for more information.</p>
+
+<h3 id="CreatingDistributions-ALittleBackgroundInfo...">A Little Background Info ...</h3>
+<p>Apache mirrors everything under /www.www.apache.org/dist.  We have had the infrastructure team add a directory under there for activemq.  All you need in order to write to this directory is to be a member of the activemq group.  If you're not, you'll have to create an infrastructure issue to get yourself added.  Under the dir activemq,  there is a directory activemq-cpp/source for the source distributions of ActiveMQ-CPP.</p>
+
+<p>Under the source dir, we just drop the archive files (*.zip, *.tar.gz, *.zip.asc, *.tar.gz.asc) for the release versions. (NOTE: After you add files here, you should wait about 24 hours before notifying the lists since it takes a while for all the mirrors to pick up the files).</p>
+
+<p>The links on our download pages reference an apache CGI script to handle the mirrors.  This is a quick and dirty way of doing this, but it works until we come up with a better way.  An example usage of the link is the url below:</p>
+
+<p><a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-1.1-src.zip">http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-1.1-src.zip</a></p>
+
+<p>The cgi script "closer.cgi" takes a file resource relative to www/www.apache.org/dist and generates a download page for it with the list of mirrors.</p>
+
+<p>To see this in action, go to the amq-cpp 1.1 download page here: <a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-cpp-11-release.html">http://activemq.apache.org/activemq-cpp-11-release.html</a></p>
+
+<p>... and click on one of the archives.  You'll be taken to a generic-looking download page.</p>
+
+<p>Like I said, this is a quick and dirty for now, but it works! <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5982/f2b47fb3d636c8bc9fd0b11c0ec6d0ae18646be7.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p>
+
+<h3 id="CreatingDistributions-Productversion,interfaceversionandpackagename">Product version, interface version and package name</h3>
+
+<p>The page <a shape="rect" href="activemq-cpp-product-version-number.html">ActiveMQ-CPP product version number</a> has been created to specify the way version numbers are used in the project, with some examples.</p>
+
+<p><a shape="rect" href="activemq-cpp-libtool-and-packaging-notes.html">ActiveMQ-CPP, libtool and packaging notes</a> discusses the way version numbers impact libtool and packaging, and make some recommendations for this project.</p>
+
+<h3 id="CreatingDistributions-CreatingaDistribution(step-by-step)">Creating a Distribution (step-by-step)</h3>
+<ul><li>Create a pre-release download page for your distribution.  This should have a disclaimer that the release is not yet official and should have a temporary link to a pre-release distribution.  For the pre-release, you do not need to have both zip and tar.gz, but a detached signature file (.asc) file should accompany any distribution.  Below is an example of the disclaimer that should appear at the top of the download page:</li></ul>
+
+
+<div class="confluence-information-macro confluence-information-macro-warning"><p class="title">The Release is still in progress</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p> 	You are previewing the release page for unreleased version of yadda. The download links on the page below may not work until it is officially released.</p>
+
+<p> 	Until the release is approved you could try the current source bundle:<br clear="none">
+ 	<a shape="rect" class="external-link" href="http://people.apache.org/~myaccount/yadda.zip">http://people.apache.org/~myaccount/yadda.zip</a></p></div></div>
+
+<p>Here is the Wiki Test for the above:</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>{warning:title=The Release is still in progress}
+ 	You are previewing the release page for unreleased version of yadda. The download links on the page below may not work until it is officially released.
+ 	 
+ 	Until the release is approved you could try the current source bundle:
+ 	[http://people.apache.org/~myaccount/yadda.zip]
+{warning}
+</pre>
+</div></div>
+
+<ul><li>Call a vote on the release of the distribution.  This email typically has <p>[VOTE]</p> in the subject line and should provide a link to the download page and the pre-release distribution.</li><li>Wait 3 days.  If there &gt;= 3 +1's and no -1's, you can proceed with the release.</li><li>Create all of the distributions of the source (*.zip, *.tar.gz).  Make sure that you remove the .svn directories from the directory before you create the archives.  On *nix, this can be done with the command:</li></ul>
+
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>rm -rf `find . -type d -name .svn`
+</pre>
+</div></div>
+
+<ul><li>Sign your distribution files, creating an asc file for both the tar and zip files, see this page <a shape="rect" class="external-link" href="http://www.apache.org/dev/release-signing.html">http://www.apache.org/dev/release-signing.html</a> for more information on release signing.</li></ul>
+
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>gpg --armor --output foo.tar.gz.asc --detach-sig foo.tar.gz
+gpg --armor --output foo.zip.asc --detach-sig foo.zip
+</pre>
+</div></div>
+
+<ul><li>Copy the distribution files to <strong>/www/www.apache.org/dist/activemq/activemq-cpp/source</strong> on minotaur.</li><li>Wait 24 hours for the mirrors to be updated with the distribution.</li><li>Update the links on the download page to reference your distribution through the CGI script.  This simply means that you precede the file names with the path <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/">http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/</a>.</li></ul>
+
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>i.e. http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-1.1-src.zip
+</pre>
+</div></div>
+
+<ul><li>Generate the Doxygen API and place it under /www/activemq.apache.org/cms/api_docs.</li><li>Add the link to the release API to the <a shape="rect" href="api.html">API</a> page.</li><li>Add a news item under the CMS space on the wiki about the release.</li><li>Send out an e-mail on both the dev and users list about the release.</li></ul>
+</div>
+        </td>
+        <td valign="top">
+          <div class="navigation">
+            <div class="navigation_top">
+              <div class="navigation_bottom">
+<h3 id="Navigation-Overview"><a shape="rect" href="index.html">Overview</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="index.html">Index</a></li><li><a shape="rect" href="news.html">News</a></li><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="tutorials.html">Tutorials</a></li><li><a shape="rect" href="api.html">API</a></li><li><a shape="rect" href="faq.html">FAQ</a></li><li><a shape="rect" href="download.html">Download</a></li></ul>
+
+
+<h3 id="Navigation-Connectivityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=51964"><a shape="rect" href="connectivity.html">Connectivity</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="stomp-support.html">Stomp</a></li><li><a shape="rect" href="openwire-support.html">OpenWire</a></li></ul>
+
+
+<h3 id="Navigation-UsingActiveMQ-CPPhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=51968"><a shape="rect" href="using-activemq-cpp.html">Using ActiveMQ-CPP</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="getting-started.html">Getting Started</a></li><li><a shape="rect" href="cms-api-overview.html">CMS API Overview</a></li><li><a shape="rect" href="example.html">Example</a></li><li><a shape="rect" href="configuring.html">Configuring</a></li></ul>
+
+
+<h3 id="Navigation-Search">Search</h3>
+
+<p></p><p>
+</p><div>
+<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
+<input type="hidden" name="ie" value="UTF-8">
+<input type="hidden" name="oe" value="UTF-8">
+  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
+  <input type="submit" name="btnG" value="Search">
+  <input type="hidden" name="domains" value="activemq.apache.org">
+  <input type="hidden" name="sitesearch" value="activemq.apache.org">
+</form>
+</div>
+<p></p>
+
+<h3 id="Navigation-Communityhttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45948"><a shape="rect" href="community.html">Community</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="support.html">Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></li><li><a shape="rect" class="external-link" href="http://servlet.uwyn.com/drone/log/hausbot/activemq" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="site.html">Site</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/team.html">Team</a></li></ul>
+
+
+
+<h3 id="Navigation-Developershttps://cwiki.apache.org/confluence/pages/viewpage.action?pageId=45950"><a shape="rect" href="developers.html">Developers</a></h3>
+
+<ul class="alternate"><li><a shape="rect" href="source.html">Source</a></li><li><a shape="rect" href="building.html">Building</a></li><li><a shape="rect" href="creating-distributions.html">Creating Distributions</a></li></ul>
+              </div>
+            </div>
+          </div>
+        </td>
+        </tr>
+  </tbody>
+        </table>
+        <div class="bottom_red_bar"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="black_box">
+<div class="footer">
+  <div class="footer_l">
+    <div class="footer_r">
+      <div>
+        <a href="http://activemq.apache.org/privacy-policy.html">Privacy Policy</a> -
+        (<a href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=52862">edit this page</a>)
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+<div class="design_attribution">
+&copy; 2004-2011 The Apache Software Foundation.
+<br/>          
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation.  All other marks mentioned may be trademarks or registered trademarks of their respective owners.
+<br/>
+<a href="http://hiramchirino.com">Graphic Design By Hiram</a>
+</div>
+
+<!-- delay the loading of large javascript files to the end so that they don't interfere with the loading of page content -->
+<span style="display: none">
+  <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+  </script>
+  <script type="text/javascript">
+    var pageTracker = _gat._getTracker("UA-1347593-1");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+  </script>
+</span>
+</body>
+</html>
