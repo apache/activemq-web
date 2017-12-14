@@ -1,0 +1,35 @@
+<div class="wiki-content maincontent"><h2 id="Apache.NMS.ActiveMQv1.5.0-NewandNoteworthy">New and Noteworthy</h2>
+
+<p>This release adds some great new features to the NMS ActiveMQ library and fixes several bugs found in the 1.4.0 release.</p>
+
+<h5 id="Apache.NMS.ActiveMQv1.5.0-Newinthisversion">New in this version</h5>
+
+<ul><li>New startupMaxReconnectAttempts option in the failover transport.</li><li>Fixed a memory leak in the Inactivity Monitoring code.</li><li>Fixed a bug that could cause the Failover to not work.</li><li>Fixed a bug that caused SSL Certs to not be loaded in some cases.</li><li>Several other bugfixes for issues found since v1.4.0 was released.</li><li>Added support for participation in .NET Distributed Transactions (MSDTC).</li><li>Added .NET 4.0 build.</li><li>Many more fixes and internal improvements.</li></ul>
+
+
+<h2 id="Apache.NMS.ActiveMQv1.5.0-APIDocumentation">API Documentation</h2>
+
+<p>Refer to the API for this release <a shape="rect" href="nms-api.xml">here</a></p>
+
+<h2 id="Apache.NMS.ActiveMQv1.5.0-Apache.NMS.ActiveMQClientDownloads">Apache.NMS.ActiveMQ Client Downloads</h2>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Download Link </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> PGP Signature File </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Version </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Apache.NMS.ActiveMQ Source code </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.0-src.zip">Apache.NMS.ActiveMQ-1.5.0-src.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.0-src.zip.asc">Apache.NMS.ActiveMQ-1.5.0-src.zip.asc</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1.5.0.2235 </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Apache.NMS.ActiveMQ Binary Assemblies </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.0-bin.zip">Apache.NMS.ActiveMQ-1.5.0-bin.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.0-bin.zip.asc">Apache.NMS.ActiveMQ-1.5.0-bin.zip.asc</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1.5.0.2235 </p></td></tr></tbody></table></div>
+
+
+<p><br clear="none" class="atl-forced-newline"></p>
+<div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p><strong>NOTE:</strong> Compatible with ActiveMQ Broker versions in the 4.X and 5.X family.</p>
+</div></div>
+
+<h2 id="Apache.NMS.ActiveMQv1.5.0-SVNTagCheckout">SVN Tag Checkout</h2>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+svn co https://svn.apache.org/repos/asf/activemq/activemq-dotnet/Apache.NMS.ActiveMQ/tags/1.5.0/
+]]></script>
+</div></div>
+
+<h2 id="Apache.NMS.ActiveMQv1.5.0-Changelog">Changelog</h2>
+
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311201&amp;styleName=Html&amp;version=12315640">release notes</a></p></div>
+

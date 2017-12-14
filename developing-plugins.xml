@@ -1,0 +1,37 @@
+<div class="wiki-content maincontent"><p>Apache ActiveMQ is based on the model of POJOs and <em>Dependency Injection</em>. If you are developing <a shape="rect" href="interceptors.xml">Interceptors</a> or additional components or plugins for ActiveMQ then the first thing you should do is develop the code as if you are writing any other Spring component, using dependency injection.</p><h3 id="DevelopingPlugins-DependencyInjection">Dependency Injection</h3><p>Some folks favour using constructor based injection as it removes the need to have a separate lifecycle <em>start()</em> method - others find using property based injection is a little more flexible and easier to map to XML configuration files. We'll leave that choice up to you. For complex to create objects you could consider writing a FactoryBean. For more details on writing POJOs with Spring see their <a shape="rect" class="external-link" href="http://www.springframework.org/documentation" rel="nofollow">documentation</a>.</p><h3 id="DevelopingPlugins-CustomXML">Custom XML</h3><p>With ActiveMQ you can use regular Spring.xml syntax to configure things. However to produce neater XML that is easier to read and edit we use <a shape="rect" class="external-link" href="http://geronimo.apache.org/xbean/">XBean</a> to autogenerate support for <a shape="rect" class="external-link" href="http://geronimo.apache.org/xbean/custom-xml.html">Custom XML</a>.</p><p>If you wish your POJO to have its own custom XML you may wish to follow the following source examples for working nicely with XBean. Basically you add an XBean annotation in the javadoc comments to tell XBean how to map the POJO to custom XML. This should look something like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[/**
+ * @org.apache.xbean.XBean element=&quot;foo&quot;
+ */
+public class MyExtension {
+...
+}
+]]></script>
+</div></div><p>You can omit the element configuration. For more details on the available annotation options see <a shape="rect" class="external-link" href="http://geronimo.apache.org/xbean/xbean-ant-task.html">here</a></p><p>If you are submitting your plugin to the ActiveMQ project then it will end up being included in the maven build step to create the XBean artifacts as part of the jar (in the META-INF/services area).</p><p>However if you are writing an external plugin to ActiveMQ then you will need to add the maven-xbean-plugin to your Maven 2 build. Refer to the <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-spring/pom.xml">activemq-spring/pom.xml</a> as an example of using this plugin.</p><h3 id="DevelopingPlugins-ConfiguringpluginswithoutcustomXML">Configuring plugins without custom XML</h3><p>If you want to configure plugins that does not implement custom XML, you can define plugins as "regular" Spring beans and reference them in broker's <code>plugins</code> attribute. For example,</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;broker useJmx=&quot;true&quot; xmlns=&quot;http://activemq.apache.org/schema/core&quot; plugins=&quot;#loggingPlugin&quot;&gt;
+ ...
+&lt;/broker&gt;
+
+&lt;bean id=&quot;loggingPlugin&quot; 
+      class=&quot;org.apache.activemq.broker.util.LoggingBrokerPlugin&quot;
+/&gt;
+
+]]></script>
+</div></div><p>Not that this mechanism will not work in case that you have some XBean plugins configured inside the <code>&lt;plugins/&gt;</code> tag. In that case you must define the plugin inside that tag as well (with the appropriate schema definition). For example,</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;plugins&gt;
+    &lt;simpleAuthenticationPlugin&gt;
+      &lt;users&gt;
+        &lt;authenticationUser username=&quot;system&quot; password=&quot;manager&quot;
+          groups=&quot;users,admins&quot;/&gt;
+        &lt;authenticationUser username=&quot;user&quot; password=&quot;password&quot;
+          groups=&quot;users&quot;/&gt;
+        &lt;authenticationUser username=&quot;guest&quot; password=&quot;password&quot; groups=&quot;guests&quot;/&gt;
+      &lt;/users&gt;
+    &lt;/simpleAuthenticationPlugin&gt;  
+    &lt;bean xmlns=&quot;http://www.springframework.org/schema/beans&quot; 
+          id=&quot;loggingPlugin&quot; 
+          class=&quot;org.apache.activemq.broker.util.LoggingBrokerPlugin&quot;
+    /&gt;
+&lt;/plugins&gt;  
+]]></script>
+</div></div><h3 id="DevelopingPlugins-Examples">Examples</h3><p>The easiest way to get a feel for how to extend ActiveMQ is maybe to look at some concrete examples of features and how those are implemented and configured. Here are some examples</p><ul><li><a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-spring/src/main/java/org/apache/activemq/xbean/XBeanBrokerService.java">XBeanBrokerService</a> deals with most of the core configuration of the &lt;broker&gt; tag in the XML</li><li><a shape="rect" href="security.xml">Security</a> has an <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/security/jaas-broker.xml">example</a> XML configuration file using the <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-broker/src/main/java/org/apache/activemq/security/AuthorizationPlugin.java">AuthorizationPlugin</a></li><li>The <a shape="rect" href="message-redelivery-and-dlq-handling.xml#MessageRedeliveryandDLQHandling-TheDiscardingDLQPlugin">Discarding DLQ Plugin</a> is used to discard messages from the DLQ.</li></ul></div>
+

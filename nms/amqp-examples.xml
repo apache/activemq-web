@@ -1,0 +1,2 @@
+<div class="wiki-content maincontent"><h1 id="AMQPExamples-HelloWorld.cs">HelloWorld.cs</h1><p>The source kit for the Apache.NMS.AMQP provider includes a HelloWorld project.</p><p>HelloWorld requires an AMQP 1.0 broker (either ActiveMQ or Qpidd) to be running on localhost:5672. Of course you may specify a different URI to select any broker.</p><h1 id="AMQPExamples-NUnittestcases">NUnit test cases</h1><p>Please refer to the <em>amqp-test</em> project test case source code for examples of acceptable values for this provider.</p><p>&#160;</p><p>&#160;</p></div>
+

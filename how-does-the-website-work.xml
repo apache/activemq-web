@@ -1,0 +1,9 @@
+<div class="wiki-content maincontent"><p>This website is actually rendered from the Wiki contents that you can <a shape="rect" href="how-do-i-edit-the-website.xml">edit</a>.  <br clear="none">
+When viewing a page on the static HTML website you can click on the <strong>edit</strong> link (bottom of the page) and you can edit the page. </p>
+
+<p>Other useful <a shape="rect" href="site.xml">Site links</a> are</p>
+
+<ul class="childpages-macro"><li><a shape="rect" href="banner.xml">Banner</a></li><li><a shape="rect" href="navigation.xml">Navigation</a></li><li><a shape="rect" href="quicklinks.xml">QuickLinks</a></li><li><a shape="rect" href="siteindex.xml">SiteIndex</a></li><li><a shape="rect" href="sitemap.xml">SiteMap</a></li></ul>
+
+<p>Note that it takes a little while to update the Apache site at <a shape="rect" class="external-link" href="http://activemq.apache.org/">http://activemq.apache.org/</a> due to caching. Though this site usually updates quickly: <a shape="rect" class="external-link" href="http://cwiki.apache.org/ACTIVEMQ/">http://cwiki.apache.org/ACTIVEMQ/</a></p></div>
+

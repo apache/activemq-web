@@ -1,0 +1,7 @@
+<div class="wiki-content maincontent">
+<p>We've now migrated our real time portfolio <a shape="rect" href="../../../ajax.xml">Ajax</a> demo to use the <a shape="rect" class="external-link" href="http://openrico.org/" rel="nofollow">OpenRico</a> library. Cool Beans!</p>
+
+<p>This means you can now use an off the self Ajax library such as Rico for the browser side, then use ActiveMQ as the message broker on the server side for handling your scalable asynchronous messaging.</p>
+
+<p>I'm sure we're only scratching the surface of the <a shape="rect" href="../../../ajax.xml">Ajax</a> possibilities as we start to integrate asynchronous messaging and real time eventing into web applications.</p></div>
+

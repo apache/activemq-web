@@ -1,0 +1,33 @@
+<div class="wiki-content maincontent"><h3 id="ZeroConfTransportReference-TheZeroConfTransport">The ZeroConf Transport</h3>
+
+<p>The ZeroConf transport works just like <a shape="rect" href="discovery-transport-reference.xml">Discovery Transport</a>, except that it uses a <a shape="rect" href="zeroconf.xml">ZeroConf</a> based discovery agent to locate the list of broker uris to connect to.</p>
+
+<h4 id="ZeroConfTransportReference-ConfigurationSyntax">Configuration Syntax</h4>
+
+<p><strong>zeroconf:serviceName?transportOptions</strong><br clear="none">
+or<br clear="none">
+<strong>zeroconf:serviceName</strong></p>
+
+
+<p>where <em>serviceName</em> is the Zeroconf service name; which seems to start with an underscore (_) and must end with a dot (.). So we can use this service name to distinguish development, UAT &amp; production brokers - or group them into domains etc.</p>
+
+<p>Note that to be able to use ZeroConf to find brokers, the brokers need to have <a shape="rect" href="discovery.xml">Discovery</a> enabled. To configure discovery in a Broker you should use the <a shape="rect" href="xml-configuration.xml">Xml Configuration</a>. Its basically something like...</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;broker name=&quot;foo&quot;&gt;
+  &lt;transportConnectors&gt;
+    &lt;transportConnector name=&quot;openwire&quot; uri=&quot;tcp://0.0.0.0:61616&quot; discoveryUri=&quot;zeroconf:_activemq_development. /&gt;
+  &lt;/transportConnectors&gt;
+  ...
+&lt;/broker&gt;
+]]></script>
+</div></div>
+
+<h5 id="ZeroConfTransportReference-ExampleclientURI">Example client URI</h5>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>zeroconf:_activemq_development.
+</pre>
+</div></div></div>
+

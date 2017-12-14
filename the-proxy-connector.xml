@@ -1,0 +1,32 @@
+<div class="wiki-content maincontent">
+<h2 id="TheProxyConnector-TheProxyConnector">The Proxy Connector</h2>
+
+<p>Many of the more advanced ActiveMQ features are implemented in the transports.  Sometimes it's desirable to accept one kind of ActiveMQ connection and establish a different kind of connection to another broker.  The Proxy Connector allows you to do that by accepting connection on one transport and establishing new connections using a different transport and then just proxying all the commands sent between the two transports.</p>
+
+
+<h3 id="TheProxyConnector-ExampleConfiguration">Example Configuration</h3>
+
+<p>If you wanted to accept normal connection on port 6001, but also wanted to expose port 6002 which in turn was proxied using the fanout transport, the following example is shows you how to do it!</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;beans xmlns=&quot;http://activemq.org/config/1.0&quot;&gt;
+  &lt;broker&gt;
+
+    &lt;persistenceAdapter&gt;
+      &lt;journaledJDBC dataDirectory=&quot;../data&quot;/&gt;
+    &lt;/persistenceAdapter&gt;
+
+    &lt;transportConnectors&gt;
+      &lt;transportConnector uri=&quot;tcp://localhost:6001&quot;/&gt;
+    &lt;/transportConnectors&gt;
+
+    &lt;proxyConnectors&gt;
+      &lt;proxyConnector bind=&quot;tcp://localhost:6002&quot; remote=&quot;fanout:static:(tcp://localhost:61616)&quot;/&gt;
+    &lt;/proxyConnectors&gt;
+
+  &lt;/broker&gt;
+&lt;/beans&gt;
+]]></script>
+</div></div></div>
+

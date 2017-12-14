@@ -1,0 +1,6 @@
+<div class="wiki-content maincontent"><p>In some environments clients can't create destinations and only administrators are allowed to do that using management consoles or APIs. This plugin allows users to export destinations created during the runtime of the broker and replicate that state on another broker.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: xml; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[        &lt;plugins&gt;
+            &lt;destinationsPlugin location=&quot;/workspace/destinations&quot;/&gt;
+        &lt;/plugins&gt;]]></script>
+</div></div><p>&#160;</p><p>The plugin saves all destinations to the file defined by the location property when it stops. If the property is not specified, broker data directory will be used and the file will be named <code>destinations</code> (<code>${ACTIVEMQ_HOME}/data/localhost/destinations</code> by default). If this file is present on the broker start, destinations listed in the file will be pre-created. The future improvements can include periodic export&#160;or on demand via management API.</p></div>
+

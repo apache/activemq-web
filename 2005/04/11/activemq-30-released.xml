@@ -1,0 +1,9 @@
+<div class="wiki-content maincontent">
+
+<p>We're pleased to announce the <a shape="rect" href="../../../download.xml">3.0 release</a> of ActiveMQ. Alot of tuning, testing and fixes have been incorporated into this release. A few notable new features are</p>
+
+<ul><li>a new 'discovery' transport <a shape="rect" href="../../../uri-protocols.xml">protocol</a> for a pure client-only peer network - a self discovering cluster which automatically finds the brokers available on the network (as opposed to the 'peer' protocol which is a complete peer based JMS network).</li><li>migrated from the org.activemq to org.activemq package name hierarchy</li><li>improved support for more JDBC databases for persistence</li><li>an optimised wire protocol (which is unfortunately not compatible with 2.x)</li></ul>
+
+
+<p>For more details please see the <a shape="rect" href="../../../activemq-30-release.xml">release notes</a></p></div>
+

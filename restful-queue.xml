@@ -1,0 +1,196 @@
+<div class="wiki-content maincontent"><h2 id="RESTfulQueue-RESTfulQueue">RESTful Queue</h2>
+
+<p>This document is intended to document the ideal RESTful interface to message queues in light of</p>
+
+<ul><li><a shape="rect" class="external-link" href="http://tech.groups.yahoo.com/group/rest-discuss/message/8955" rel="nofollow">the discussion on rest-discuss</a></li><li><a shape="rect" class="external-link" href="http://bitworking.org/projects/atom/draft-ietf-atompub-protocol-17.html" rel="nofollow">Atom Publishing Protocol</a> (APP)</li><li><a shape="rect" class="external-link" href="http://www.dehora.net/doc/httplr/draft-httplr-01.html" rel="nofollow">httplr</a></li></ul>
+
+
+<h3 id="RESTfulQueue-IssueswithQueuesandREST">Issues with Queues and REST</h3>
+
+<p>One of the main issues with making a truly RESTful API to a message queue is that a message queue is essentially a load balancer, so each consumer of a queue sees essentially a different queue; as only one consumer gets a copy of each message.</p>
+
+<p>Also if a consumer goes away, the messages that were associated with that consumer need to be re-assigned to another consumer. So the main tricky part really is the operation for a consumer to find out what messages it may consume.</p>
+
+<h3 id="RESTfulQueue-Queueadministration">Queue administration</h3>
+
+<p>This section deals with the general browsing and creation/deletion of queues.</p>
+
+<h4 id="RESTfulQueue-Browseavailablequeues">Browse available queues</h4>
+
+<p>To browse the queues, they are a hierarchial structure usually, so lets browse them like any APP collection</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+GET /queues
+--------------------&gt;
+
+200 OK
+Atom Feed with one entry per directory/category/queue
+&lt;--------------------
+]]></script>
+</div></div>
+
+<h4 id="RESTfulQueue-Browseaqueue'smessages">Browse a queue's messages</h4>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+GET /queues/uk/products/books/computers
+--------------------&gt;
+
+200 OK
+Atom Feed with one entry per pending message
+&lt;--------------------
+]]></script>
+</div></div>
+
+<p>Note that we could expose the queues as a tree, for example</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+GET /queues/uk/products
+--------------------&gt;
+
+200 OK
+Atom Feed with one entry per queue in uk.products.* together with any child catgory/directory
+&lt;--------------------
+]]></script>
+</div></div>
+
+<h4 id="RESTfulQueue-Creatingaqueue">Creating a queue</h4>
+
+<p>Creating a queue is typically idempotent; since really you are just creating a name that folks can post to.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+POST /queues
+--------------------&gt;
+
+201 OK
+Location: someUniqueUrlForTheNewQueueToBePostedTo
+&lt;--------------------
+]]></script>
+</div></div>
+
+<h4 id="RESTfulQueue-Deletingaqueue">Deleting a queue</h4>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+DELETE /queues/foo.bar
+--------------------&gt;
+
+200 OK
+&lt;--------------------
+]]></script>
+</div></div>
+
+<h3 id="RESTfulQueue-Sendtoqueue">Send to queue</h3>
+
+<p>Sending to queue is the usual APP-style double request; one to get the unique URI to post to and secondly to do the actual post...</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+POST /queues/foo.bar
+--------------------&gt;
+
+201 OK
+Location: someUniqueUrlForTheNewMessageToBePostedTo
+&lt;--------------------
+]]></script>
+</div></div>
+
+<p>The client can then repeatedly POST the mesage to someUniqueUrlForTheNewMessageToBePostedTo until it gets a 200 OK which avoids duplicates.</p>
+
+<h4 id="RESTfulQueue-Optionalalternativeforsinglerequest">Optional alternative for single request</h4>
+
+<p>If a smart client is capable of generating a system wide unique GUID (id) for the message, the server side could ignore duplicates. So posting to queue could be done without the double-request approach above</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+POST /queues/foo.bar?guid=clientGeneratedUniqueId
+--------------------&gt;
+
+200 OK
+&lt;--------------------
+]]></script>
+</div></div>
+
+
+<h3 id="RESTfulQueue-Consumingfromaqueue">Consuming from a queue</h3>
+
+<p>As described above, this is the tricky part of mapping message queues to REST. </p>
+
+<p>So we introduce a resource for a <em>subscription</em> to a queue. The subscription remains active until some timeout value - so a subscription is a sort of lease.</p>
+
+<p>When a subscription is created it can be given a variety of different pieces of data such as </p>
+<ul><li>the <a shape="rect" href="what-is-the-prefetch-limit-for.xml">prefetch buffer</a></li><li>what destinations it applies to (for example we could use wildcards)</li><li>whether a selector/filter is applied</li></ul>
+
+
+<h4 id="RESTfulQueue-Createasubscription">Create a subscription</h4>
+
+ <div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+POST /subscriptions
+--------------------&gt;
+
+201 OK
+Location: subscriptionUri
+&lt;--------------------
+]]></script>
+</div></div>
+
+<p>The actual subscription data could be form encoded key/value pairs.</p>
+
+<h4 id="RESTfulQueue-Deletingasubscription">Deleting a subscription</h4>
+
+<p>Good clients will delete subscriptions when they are no longer required; though they do timeout eventually.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+DELETE subscriptionUri
+--------------------&gt;
+
+200 OK
+&lt;--------------------
+]]></script>
+</div></div>
+
+<h4 id="RESTfulQueue-Consumingmessages">Consuming messages</h4>
+
+<p>You consume messages by browsing the subscription (like any APP resource) then DELETEing the message when you have finished processing it.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+GET subscriptionUri
+--------------------&gt;
+
+200 OK
+Atom Feed with one entry per message associated to this subscription
+&lt;--------------------
+]]></script>
+</div></div>
+
+<p>Then to acknowledge a particular message has been processed</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+DELETE messageUri
+--------------------&gt;
+
+200 OK
+&lt;--------------------
+]]></script>
+</div></div>
+
+<h2 id="RESTfulQueue-DeltaswithAPP">Deltas with APP</h2>
+
+<p>Almost all of the above could be just pure APP really. The only real difference is that each consumer has its own feed of messages which are to be consumed. </p>
+
+<p>In ActiveMQ's case, we use a <a shape="rect" href="what-is-the-prefetch-limit-for.xml">prefetch value per consumer</a> to define how many messages each consumer gets in its buffer, before messages must be acknowledged to get more messages.</p>
+
+<p>So the idea is that we have a per-consumer feed which is created; it can then be browsed (by anyone with sufficient karma).</p>
+
+
+
+
+</div>
+

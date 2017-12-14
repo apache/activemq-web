@@ -1,0 +1,19 @@
+<div class="wiki-content maincontent"><h3 id="ActiveMQExclusiveConsumers-ExclusiveConsumer">Exclusive Consumer</h3>
+
+<p>We have a new feature in version 4.x and above called Exclusive Consumer or Exclusive Queues which avoids the end user having to <em>pin</em> anything. The broker will pick a single MessageConsumer to get all the messages for a queue to ensure ordering. If that consumer fails, the broker will auto failover and choose another consumer.</p>
+
+<p>So the effect is a heterogeneous cluster where each client has the same setup and configuration; the broker is choosing one consumer to be the <em>master</em> and send all the messages to it in order until it dies; then you get immediate failover to another consumer.</p>
+
+<p>For those who've struggled with pinning NMS consumers in clusters you'll immediately realize how useful this is to making clustered, high available distributed services.</p>
+
+<h3 id="ActiveMQExclusiveConsumers-Example">Example</h3>
+
+<p>An Exclusive Consumer is created using <a shape="rect" href="activemq-uri-configuration.xml">ActiveMQ URI Configuration</a> as follows:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+var queue = session.GetQueue(&quot;TEST.QUEUE?consumer.exclusive=true&quot;);
+var consumer = session.CreateConsumer(queue);
+]]></script>
+</div></div></div>
+

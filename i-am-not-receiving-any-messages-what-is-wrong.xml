@@ -1,0 +1,15 @@
+<div class="wiki-content maincontent"><h3 id="Iamnotreceivinganymessages,whatiswrong-Iamnotreceivinganymessages-whatiswrong?">I am not receiving any messages - what is wrong?</h3>
+
+<p>A <em>very</em> common gotcha when working with JMS is forgetting to start the JMS connection, creating a consumer and not having it receive any messages. I myself have tripped up over this one many many times! <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p>
+
+<p>Make sure you call the <a shape="rect" class="external-link" href="http://java.sun.com/j2ee/1.4/docs/api/javax/jms/Connection.html#start()" rel="nofollow">start()</a> method on the JMS connection, otherwise messages will not be dispatched to your consumer.</p>
+
+<p>This is such a common gotcha that as of 4.2 onwards, ActiveMQ will now <a shape="rect" class="external-link" href="https://issues.apache.org/activemq/browse/AMQ-1253">log a warning if a message</a> is received shortly after the connection was created if the connection was not started (as its so easy to forget to do this part <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)">.  </p>
+
+<p>For more details see the discussion of the <strong>warnAboutUnstartedConnectionTimeout</strong> property on the <a shape="rect" href="connection-configuration-uri.xml">Connection Configuration URI</a></p>
+
+
+<h3 id="Iamnotreceivinganymessages,whatiswrong-Ifyouarecallingconnection.start()">If you are calling connection.start()</h3>
+
+<p>Another common gotcha is <a shape="rect" href="i-do-not-receive-messages-in-my-second-consumer.xml">due to another consumer grabbing the messages</a>. If its not that then please look at <a shape="rect" href="jmx.xml">JMX</a> or the <a shape="rect" href="web-console.xml">Web Console</a> to determine what consumers are available and their status. Then get some <a shape="rect" href="support.xml">Support</a> to help you resolve your issue.</p></div>
+

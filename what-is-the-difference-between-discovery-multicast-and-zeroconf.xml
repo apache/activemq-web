@@ -1,0 +1,43 @@
+<div class="wiki-content maincontent"><p>Discovery refers to either a client (producer or consumer) establishing a 'transport connector' to the broker or a broker establishing 'network connector' to another broker without explicit static configuration of broker (IP or hostname).</p>
+
+<p>The scheme 'multicast' refers to either listening for or advertising discovery events on a multicast address. zeroconf is similar to multicast, except for protocol specific to Apple's Rendezvous (bonjour).</p>
+
+<h3 id="Whatisthedifferencebetweendiscovery,multicastandzeroconf-Broker">Broker</h3>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+   &lt;networkConnectors&gt;
+     &lt;networkConnector name=&quot;default&quot; uri=&quot;multicast://default&quot;/&gt;
+   &lt;/networkConnectors&gt;
+]]></script>
+</div></div>
+
+<p>The above configuration in the broker xml file will make it automatically establish network connectors to other brokers that advertise themselves on the multicast address: when this broker gets a discovery event from another broker, the event has information that enables it to establish network connector to that broker.</p>
+
+<p>Self-advertisement is facilitated by the following config:</p>
+
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ 
+  &lt;transportConnectors&gt;
+      &lt;transportConnector name=&quot;default&quot; uri=&quot;tcp://localhost:61616&quot; discoveryUri=&quot;multicast://default&quot;/&gt;
+   &lt;/transportConnectors&gt;
+]]></script>
+</div></div>
+
+<h3 id="Whatisthedifferencebetweendiscovery,multicastandzeroconf-Client">Client</h3>
+
+<p>An example usage of discovery on the client side (using the transport 'discovery' that uses discovery agent) ...</p>
+
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+ &lt;transportConnectors&gt;
+      &lt;transportConnector name=&quot;default&quot; uri=&quot;discovery:(multicast://default)&quot;/&gt;
+   &lt;/transportConnectors&gt;
+]]></script>
+</div></div>
+
+<p>ps: discovery (which is a confusing name) is just like a 'reliable' transport such as <a shape="rect" href="failover-transport-reference.xml">failover</a>. If it is unable to connect to a broker, it will try another broker (assuming it<br clear="none">
+heard its advertisement over multicast).</p></div>
+

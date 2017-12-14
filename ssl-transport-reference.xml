@@ -1,0 +1,27 @@
+<div class="wiki-content maincontent"><h3 id="SSLTransportReference-TheSSLTransport">The SSL Transport</h3><p>The SSL transport allows clients to connect to a remote ActiveMQ broker using SSL over a TCP socket.</p><h4 id="SSLTransportReference-ConfigurationSyntax">Configuration Syntax</h4><p><strong>ssl://hostname:port?transportOptions</strong></p><h4 id="SSLTransportReference-TransportOptions">Transport Options</h4><p>The configuration options from <a shape="rect" href="tcp-transport-reference.xml">TCP</a> are relevant.</p><h4 id="SSLTransportReference-ExampleURI">Example URI</h4><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ssl://localhost:61616?trace=false
+</pre>
+</div></div><h4 id="SSLTransportReference-SSLServerSocketoptions">SSLServerSocket options</h4><p>From version 5.4 any <a shape="rect" class="external-link" href="http://java.sun.com/j2se/1.4.2/docs/api/javax/net/ssl/SSLServerSocket.html" rel="nofollow">SSLServerSocket</a> option may be set on a TransportConnection via <strong>?transport.XXX</strong>, for example:</p><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>ssl://localhost:61616?transport.enabledCipherSuites=SSL_RSA_WITH_RC4_128_SHA,SSL_DH_anon_WITH_3DES_EDE_CBC_SHA
+ssl://localhost:61616?transport.needClientAuth=true
+</pre>
+</div></div><p>&#160;</p><h4 id="SSLTransportReference-Clientconfiguration">Client configuration</h4><p>JMS clients can simply use the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/5.9.0/apidocs/org/apache/activemq/ActiveMQSslConnectionFactory.html">ActiveMQSslConnectionFactory</a> together with an ssl:// broker url as the following Spring configuration illustrates</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ 
+&lt;bean id=&quot;AMQJMSConnectionFactory&quot; class=&quot;org.apache.activemq.ActiveMQSslConnectionFactory&quot;&gt;
+  &lt;property name=&quot;trustStore&quot; value=&quot;/path/to/truststore.ts&quot; /&gt;
+  &lt;property name=&quot;trustStorePassword&quot; value=&quot;password&quot; /&gt;
+  &lt;property name=&quot;keyStore&quot; value=&quot;/path/to/keystore.ks&quot; /&gt;
+  &lt;property name=&quot;keyStorePassword&quot; value=&quot;password&quot; /&gt;
+  &lt;property name=&quot;brokerURL&quot; value=&quot;ssl://localhost:61616&quot; /&gt;
+  &lt;property name=&quot;userName&quot; value=&quot;admin&quot; /&gt; 
+  &lt;property name=&quot;password&quot; value=&quot;admin&quot; /&gt;
+&lt;/bean&gt; 
+]]></script>
+</div></div><p>Unless the broker's SSL transport is configured for transport.needClientAuth=true, the client won't need a keystore but requires a truststore in order to validate the broker's certificate.</p><p>Similar to the broker transport configuration you can pass on SSL transport options using <strong>?socket.XXX</strong>, such as</p><pre>ssl://localhost:61616?socket.enabledCipherSuites=SSL_RSA_WITH_RC4_128_SHA,SSL_DH_anon_WITH_3DES_EDE_CBC_SHA</pre><h4 id="SSLTransportReference-OtherLinks">Other Links</h4><ul><li><a shape="rect" href="how-do-i-use-ssl.xml">How do I use SSL</a></li></ul><p>You can also turn on SSL debug informations this way by adding:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[-Djavax.net.debug=ssl
+]]></script>
+</div></div><p>this way you can see what goes wrong and why you get connections closed.</p><div class="confluence-information-macro confluence-information-macro-warning"><p class="title">"Be careful with multicast discovery"</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>If your XML configuration file contains the following and you wish to use SSL</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[       &lt;networkConnector uri=&quot;multicast://default&quot;/&gt;
+]]></script>
+</div></div><p>Then you will currently need to comment that out.<br clear="none"> The reason is to prevent ActiveMQ atempting to connect to itself - if you do this with a self-signed<br clear="none"> certificate, you will get a constant spam of certificate_unknown<br clear="none"> stacktraces to the console, as the broker is not configured with the<br clear="none"> truststore,</p></div></div></div>
+

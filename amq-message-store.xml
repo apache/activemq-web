@@ -1,0 +1,76 @@
+<div class="wiki-content maincontent"><h2 id="AMQMessageStore-TheBasics">The Basics</h2>
+
+<p>This is the default storage for AcitveMQ 5 and above. The AMQ Message Store is an embeddable  transactional message storage solution that is extremely fast and reliable.<br clear="none">
+message commands are written to a transactional journal - which consists of rolling data logs - which means writing is extremely fast and the state of the store is easily recoverable.</p>
+
+<p>Messages themselves are persisted in the data logs of the journal - with references to their location being held by a reference store (by default Kaha) for fast retrevial.</p>
+
+<div class="sectionColumnWrapper"><div class="sectionMacro">
+<div class="sectionMacroRow"><div class="columnMacro" style="width:50%;min-width:50%;max-width:50%;">
+<p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" src="amq-message-store.data/amqstore.png" data-image-src="/confluence/download/attachments/69705/amqstore.png?version=1&amp;modificationDate=1193701758000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59670904" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="amqstore.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="69705" data-linked-resource-container-version="21"></span></p></div>
+<div class="columnMacro" style="width:50%;min-width:50%;max-width:50%;">
+<p><br clear="none" class="atl-forced-newline">
+<br clear="none" class="atl-forced-newline">
+<br clear="none" class="atl-forced-newline">
+References to messages are held in memory, and periodically inserted into the reference store to improve performance.
+<br clear="none" class="atl-forced-newline">
+<br clear="none" class="atl-forced-newline">
+The messages are stored in data logs, which are individual files, typically 32mb in size (though this is configurable, they can be larger if the size of a message is large than the file size). When all the messages in a data log have been successfully consumed, the data log file is marked as being ready to be deleted - or archived - which will happen at the next clean up period.</p></div>
+</div></div></div>
+
+<h2 id="AMQMessageStore-Configuration">Configuration</h2>
+
+<p>By default ActiveMQ will use the the AMQ Store - and its default settings. You can configure the properties of the AMQ Store however, by explictly defining its persistence adapter (amqPersistenceAdapter):</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+ &lt;broker brokerName=&quot;broker&quot; persistent=&quot;true&quot; useShutdownHook=&quot;false&quot;&gt;
+    &lt;persistenceAdapter&gt;
+      &lt;amqPersistenceAdapter directory=&quot;${activemq.base}/activemq-data&quot; maxFileLength=&quot;32mb&quot;/&gt;
+    &lt;/persistenceAdapter&gt;
+    &lt;transportConnectors&gt;
+      &lt;transportConnector uri=&quot;tcp://localhost:61616&quot;/&gt;
+    &lt;/transportConnectors&gt;
+  &lt;/broker&gt;
+]]></script>
+</div></div>
+
+<p>The above shows the configuration required to set the AMQ Store through its amqPersistenceAdapter - and explicity setting the directory and maxFileLength properties.</p>
+
+<h3 id="AMQMessageStore-AMQStoreProperties">AMQ Store Properties</h3>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Comments</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>directory</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>activemq-data</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the path to the directory to use to store the message store data and log files</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>useNIO</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>true</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>use NIO to write messages to the data logs</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>syncOnWrite</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>false</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>sync every write to disk</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>maxFileLength</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>32mb</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>a hint to set the maximum size of the message data logs</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>persistentIndex</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>true</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>use a persistent index for the message logs. If this is false, an in-memory structure is maintained</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>maxCheckpointMessageAddSize</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>4kb</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the maximum number of messages to keep in a transaction before automatically committing</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>cleanupInterval</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>30000</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>time (ms) before checking for a discarding/moving message data logs that are no longer used</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>indexBinSize</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>1024</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>default number of bins used by the index. The bigger the bin size - the better the relative performance of the index</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>indexKeySize</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>96</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the size of the index key - the key is the message id </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>indexPageSize</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>16kb</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the size of the index page - the bigger the page - the better the write performance of the index </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>directoryArchive</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>archive</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the path to the directory to use to store discarded data logs</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>archiveDataLogs</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>false</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if true data logs are moved to the archive directory instead of being deleted</p></td></tr></tbody></table></div>
+
+
+<h2 id="AMQMessageStore-DataStructure">Data Structure</h2>
+
+<p>In the data directory defined for the AMQ Store there is the following directory structure:</p>
+
+<div class="sectionColumnWrapper"><div class="sectionMacro">
+<div class="sectionMacroRow"><div class="columnMacro" style="width:50%;min-width:50%;max-width:50%;">
+<p><span class="confluence-embedded-file-wrapper image-left-wrapper"><img class="confluence-embedded-image image-left" src="amq-message-store.data/amqdir.png" data-image-src="/confluence/download/attachments/69705/amqdir.png?version=1&amp;modificationDate=1193927867000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59670910" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="amqdir.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="69705" data-linked-resource-container-version="21"></span></p></div>
+<div class="columnMacro" style="width:50%;min-width:50%;max-width:50%;">
+<h3 id="AMQMessageStore-Toplevel">Top level</h3>
+<p>the message broker's name is used to distinguish its directory of message data. By default, the broker name is local host.<br clear="none">
+Below this top level directory are the following sub directories:</p>
+
+<h3 id="AMQMessageStore-archive">archive</h3>
+<p>message data logs are moved here when they are discarded.<br clear="none">
+n.b. this directory only exists when the property archiveDataLogs is enabled</p>
+<h3 id="AMQMessageStore-journal">journal</h3>
+<p>Used to hold the message data logs</p>
+<h3 id="AMQMessageStore-kr-store">kr-store</h3>
+<p>The directory structure of the Kaha reference store (if used)</p>
+<h5 id="AMQMessageStore-data">data</h5>
+<p>The indexes used to reference the message data logs in the journal for fast retrieval</p>
+<h5 id="AMQMessageStore-state">state</h5>
+<p>The state of the store - i.e. names of durable subscribers - the reason for this is described in <a shape="rect" href="#AMQMessageStore-Recovery">Recovery</a></p>
+<h3 id="AMQMessageStore-tmp-storage">tmp-storage</h3>
+<p>use to hold data files for transient messages that may be stored on disk to alleviate memory consumption - e.g. non-persistent topic messages awaiting delivery to an active, but slow subscriber.</p></div></div></div></div>
+
+
+
+<h2 id="AMQMessageStore-Recovery">Recovery</h2>
+
+<p>If the message broker does not shutdown properly, then the reference store indexes are cleaned and the message data files (which contain messages/acknowledgements and transactional boundaries) are replayed to rebuild up the message store state. It is possbile to force automatic recovery if using the Kaha reference store (the default) by deleting the kr-store/state/ directory.</p></div>
+

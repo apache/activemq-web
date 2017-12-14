@@ -1,0 +1,9 @@
+<div class="wiki-content maincontent"><p>Active Groups is a dynamic collaboration framework so simplify message passing and shared state between members of the group. It is available in ActiveMQ 6.0</p>
+
+<p>Active Groups includes the following:</p>
+
+<ul><li>Dynamic membership information</li><li>broadcast messaging</li><li>point-to-point</li><li>in boxes</li><li>Distributed state (Map)</li><li>Map change listeners</li><li>write locks</li><li>lock expiration</li><li>optional state and lock removal when a member leaves</li><li>automatic state and lock replication and failover</li><li>configurable heartbeats</li></ul>
+
+
+<p>Active Groups is peer based collaboration only - though the underlying transport is JMS (which can be peer based too). Although any JMS provider can be used, ActiveGroups can use the membership information available through ActiveMQ to supplement its heart beat infrastructure.</p></div>
+

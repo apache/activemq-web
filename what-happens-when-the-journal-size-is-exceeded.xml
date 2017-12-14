@@ -1,0 +1,3 @@
+<div class="wiki-content maincontent">
+<p>If the "preferred" size is exceeded then the last log files keeps growing until the first log files can be overwritten.  When a log file is overwritten, it's size is reset to the "preferred" size.</p></div>
+

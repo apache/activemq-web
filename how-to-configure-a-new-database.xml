@@ -1,0 +1,46 @@
+<div class="wiki-content maincontent">
+<p>ActiveMQ explicity supports Derby, Axion, HSQL, Oracle, and SQLServer. Below are the steps on how to configure a new database.</p>
+
+<p>1. Modify activemq.xml found in the directory "activemq_home/conf" by editing or adding a JDBC DataSource Configuration.</p>
+
+<p>e.g.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+  &lt;bean id=&quot;mysql-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
+    &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+    &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost/activemq&quot;/&gt;
+    &lt;property name=&quot;username&quot; value=&quot;activemq&quot;/&gt;
+    &lt;property name=&quot;password&quot; value=&quot;activemq&quot;/&gt;
+    &lt;property name=&quot;poolPreparedStatements&quot; value=&quot;true&quot;/&gt;
+  &lt;/bean&gt;
+]]></script>
+</div></div>
+
+
+<p><strong>For AMQ 3.x</strong></p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;bean id=&quot;mssql-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
+    &lt;property name=&quot;driverClassName&quot;&gt;
+        &lt;value&gt;com.microsoft.jdbc.sqlserver.SQLServerDriver&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property name=&quot;url&quot;&gt;
+        &lt;value&gt;jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=activedb&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property name=&quot;username&quot;&gt;
+        &lt;value&gt;sa&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property name=&quot;password&quot;&gt;
+        &lt;value&gt;&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property name=&quot;poolPreparedStatements&quot;&gt;
+        &lt;value&gt;true&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+]]></script>
+</div></div>
+<p>2. Set the datasource reference to use the new jdbc configuration e.g &lt;jdbcPersistence dataSourceRef="mssql-ds"/&gt;</p>
+
+<p>3. Place the jdbc driver in the directory "activemq_home/lib/optional".</p></div>
+

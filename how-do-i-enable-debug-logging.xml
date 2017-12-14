@@ -1,0 +1,12 @@
+<div class="wiki-content maincontent"><h2 id="HowdoIenabledebuglogging-HowdoIenabledebuglogging?">How do I enable debug logging?</h2>
+
+<p>For background see <a shape="rect" href="how-do-i-change-the-logging.xml">How do I change the logging</a>.</p>
+
+<p>You can enable debug logging in ActiveMQ by adding the following line to the <code><strong>conf/log4j.properties</strong></code> file </p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+log4j.logger.org.apache.activemq=DEBUG
+]]></script>
+</div></div></div>
+

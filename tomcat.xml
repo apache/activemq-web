@@ -1,0 +1,69 @@
+<div class="wiki-content maincontent"><h4 id="Tomcat-ConfigurationissuesforTomcat7andlater">Configuration issues for Tomcat 7 and later</h4><div class="confluence-information-macro confluence-information-macro-warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Tomcat needs to be configured to ignore Jetty SCI annotations so that the Jetty WebSocket ServerContainerInitializer class is not inadvertently picked up by Tomcat. For more information on this problem see <a shape="rect" class="external-link" href="https://issues.apache.org/jira/browse/AMQ-6154">AMQ-6154</a> and <a shape="rect" class="external-link" href="https://wiki.apache.org/tomcat/HowTo/FasterStartUp">https://wiki.apache.org/tomcat/HowTo/FasterStartUp</a> and consult the Tomcat documentation for the version you are using to properly exclude the Jetty jar files from being scanned by Tomcat.</p></div></div><h2 id="Tomcat-Pre-integratedTomcatwithActiveMQ">Pre-integrated Tomcat with ActiveMQ</h2><p>Apache TomEE is a distribution of <a shape="rect" class="external-link" href="http://tomee.apache.org/tomcat-jms.html">Tomcat with fully integrated ActiveMQ</a>. All integration steps detailed here have already been done. The stack supports injection of Topic, Queue and ConnectionFactory references as well as transactional sending and delivery.</p><p>Something like the following works out of the box with no configuration:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[import javax.annotation.Resource;
+import javax.servlet.http.HttpServlet;
+import javax.jms.Topic;
+import javax.jms.Queue;
+import javax.jms.ConnectionFactory;
+
+public class MyServet extends HttpServlet {
+
+    @Resource(name = &quot;foo&quot;)
+    private Topic fooTopic;
+
+    @Resource(name = &quot;bar&quot;)
+    private Queue barQueue;
+
+    @Resource
+    private ConnectionFactory connectionFactory;
+]]></script>
+</div></div><h2 id="Tomcat-ManuallyintegratingTomcatandActiveMQ">Manually integrating Tomcat and ActiveMQ</h2><p>Note, manually integrating ActiveMQ with Tomcat does allow for Topic, Queue, and ConnectionFactory injection but does not support transactional sending and delivery.</p><p>You should go to Tomcat documentation and read JNDI Resources HOW-TO, especially part: Configure Tomcat's Resource Factory.</p><p>ActiveMQ has ready JNDI resource factory for all its administered objects: ConnectionFactory and destinations.</p><p>You must provide it as a parameter factory for your resources:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;Context ...&gt;
+  ...
+  &lt;Resource name=&quot;jms/ConnectionFactory&quot; auth=&quot;Container&quot;
+            type=&quot;org.apache.activemq.ActiveMQConnectionFactory&quot;/&gt;
+  &lt;ResourceParams name=&quot;jms/ConnectionFactory&quot;&gt;
+    &lt;parameter&gt;
+      &lt;name&gt;factory&lt;/name&gt;
+      &lt;value&gt;org.activemq.jndi.JNDIReferenceFactory&lt;/value&gt;
+    &lt;/parameter&gt;
+    &lt;parameter&gt;
+      &lt;name&gt;brokerURL&lt;/name&gt;
+      &lt;value&gt;vm://localhost&lt;/value&gt;
+    &lt;/parameter&gt;
+    &lt;parameter&gt;
+      &lt;name&gt;brokerName&lt;/name&gt;
+      &lt;value&gt;LocalActiveMQBroker&lt;/value&gt;
+    &lt;/parameter&gt;
+    &lt;parameter&gt;
+      &lt;name&gt;useEmbeddedBroker&lt;/name&gt;
+      &lt;value&gt;true&lt;/value&gt;
+    &lt;/parameter&gt;
+  &lt;/ResourceParams&gt;
+  ...
+&lt;/Context&gt;
+]]></script>
+</div></div><p>&#160;</p><p>If you are using Tomcat 5.5 or later then try this instead...</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;Context&gt;
+    ...
+  &lt;Resource name=&quot;jms/ConnectionFactory&quot; auth=&quot;Container&quot; type=&quot;org.apache.activemq.ActiveMQConnectionFactory&quot; description=&quot;JMS Connection Factory&quot;
+        factory=&quot;org.apache.activemq.jndi.JNDIReferenceFactory&quot; brokerURL=&quot;vm://localhost&quot; brokerName=&quot;LocalActiveMQBroker&quot;/&gt;
+    ....
+&lt;/Context&gt;
+]]></script>
+</div></div><p>&#160;</p><p>Also, don't forget to put ActiveMQ and dependent jars to tomcat shared lib directory.</p><h3 id="Tomcat-CreatingdestinationsinTomcat5.5orlater">Creating destinations in Tomcat 5.5 or later</h3><p>This is completely untested but should work <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;Context&gt;
+    ...
+  &lt;Resource name=&quot;jms/someTopic&quot; auth=&quot;Container&quot; type=&quot;org.apache.activemq.command.ActiveMQTopic&quot; description=&quot;my Topic&quot;
+        factory=&quot;org.apache.activemq.jndi.JNDIReferenceFactory&quot; physicalName=&quot;FOO.BAR&quot;/&gt;
+
+  &lt;Resource name=&quot;jms/aQueue&quot; auth=&quot;Container&quot; type=&quot;org.apache.activemq.command.ActiveMQQueue&quot; description=&quot;my Queue&quot;
+        factory=&quot;org.apache.activemq.jndi.JNDIReferenceFactory&quot; physicalName=&quot;FOO.BAR&quot;/&gt;
+    ....
+&lt;/Context&gt;
+]]></script>
+</div></div><div class="confluence-information-macro confluence-information-macro-information"><p class="title">JMX Tip when working with Tomcat</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>If you want to use JMX with Tomcat and then connect via JConsole to view the <a shape="rect" href="jmx.xml">JMX</a> MBeans of the server then set the following</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[CATALINA_OPTS=&quot;$CATALINA_OPTS -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=1099 \
+    -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.authenticate=false&quot;
+]]></script>
+</div></div></div></div></div>
+

@@ -1,0 +1,33 @@
+<div class="wiki-content maincontent"><h3 id="MulticastTransportReference-TheMulticastTransport">The Multicast Transport</h3>
+
+<p>The Multicast transport allows clients to connect to a remote ActiveMQ broker using multicast</p>
+
+<p>Note that by default Multicast is not reliable; datagrams can be lost so you should add a reliability layer to ensure the JMS contract can be implemented on a non-reliable transport.</p>
+
+<h4 id="MulticastTransportReference-ConfigurationSyntax">Configuration Syntax</h4>
+
+<p><strong>multicast://address:port?transportOptions</strong></p>
+
+<h5 id="MulticastTransportReference-TransportOptions">Transport Options</h5>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default Value </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> group </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> default </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> specify a unique group name that can segregate multicast traffic</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> minmumWireFormatVersion </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The minimum version wireformat that is allowed </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> trace </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Causes all commands that are sent over the transport to be logged </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> useLocalHost </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> true </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> When true, it causes the local machines name to resolve to "localhost". </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> datagramSize </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 4 * 1024 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Specifies the size of a datagram </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> timeToLive </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> -1 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The time to live of datagrams. Set greater than 1 to send packets beyond the local network. (<strong>NOTE:</strong> This won't work for IPv4 addresses without setting the property <code>java.net.preferIPv4Stack=true</code>. For more info see the <a shape="rect" class="external-link" href="http://java.sun.com/j2se/1.5.0/docs/guide/net/ipv6_guide/index.html" rel="nofollow">IPv6 User Guide for JDK</a>) </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> loopBackMode </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should loopback mode be used </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> default </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The name of the WireFormat to use </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat.* </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> All the properties with this prefix are used to configure the wireFormat. See <a shape="rect" href="configuring-wire-formats.xml">Configuring Wire Formats</a> for more information </p></td></tr></tbody></table></div>
+
+
+<h5 id="MulticastTransportReference-ExampleURIs">Example URIs</h5>
+
+<p>To use the default value of "multicast://239.255.2.3:6155" with a default multicast group name of "default" from <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/transport/discovery/multicast/MulticastDiscoveryAgent.html#DEFAULT_DISCOVERY_URI_STRING">MulticastDiscoveryAgent</a> use</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>multicast://default 
+</pre>
+</div></div>
+<p>To specify the IP address and port use</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>multicast://224.1.2.3:6255
+</pre>
+</div></div>
+<p>To specify a multicast group name other than the default name of "default" use</p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>multicast://224.1.2.3:6255?group=mygroupname
+</pre>
+</div></div></div>
+

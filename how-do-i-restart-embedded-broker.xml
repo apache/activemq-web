@@ -1,0 +1,43 @@
+<div class="wiki-content maincontent"><p>Pure restart of the embedded broker is not advisable, since it's state could be corrupted. Therefore, you're advised to instantiate the broker again before restarting it.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+BrokerService service = BrokerFactory.createBroker(&quot;xbean:activemq.xml&quot;);
+service.start();
+service.waitUntilStarted();
+
+service.stop();
+service.waitUntilStopped();
+
+service = BrokerFactory.createBroker(&quot;xbean:activemq.xml&quot;);
+service.start();
+]]></script>
+</div></div>
+
+<p>In 5.3 however, we allowed the force start of the broker that has been stopped for use cases that need this functionality. You can do it by using </p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+BrokerService.start(boolean force);
+]]></script>
+</div></div>
+
+<p>method.</p>
+
+<p>The following example demonstrates it.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+BrokerService service = BrokerFactory.createBroker(&quot;xbean:activemq.xml&quot;);
+service.start();
+service.waitUntilStarted();
+
+service.stop();
+service.waitUntilStopped();
+
+service.start(true);
+]]></script>
+</div></div>
+
+<p>However, it's better (more reliable) to instantiate the broker again if it is possible.</p></div>
+

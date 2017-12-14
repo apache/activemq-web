@@ -1,0 +1,4 @@
+<div class="wiki-content maincontent"><h6 id="GeneralBuildIssues-Errorduringconfigure:&quot;error:libpthreadnotfound!&quot;">Error during configure: "error: libpthread not found!"</h6>
+
+<p>Getting an error about libpthread not found even though its installed, in many cases indicates that the tool chain required to build the library isn't fully installed.&#160; One good place to start checking is to ensure that both 'gcc' and 'g+<span style="text-decoration: underline;">' are installed as the M4 configure macros that check for pthread related features uses 'g</span>+'. &#160; </p></div>
+

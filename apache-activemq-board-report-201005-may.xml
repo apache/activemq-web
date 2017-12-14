@@ -1,0 +1,22 @@
+<div class="wiki-content maincontent"><h1 id="ApacheActiveMQBoardReport-2010.05(May)-StatusreportfortheApacheActiveMQProject">Status report for the Apache ActiveMQ Project</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[Apologies for missing the April board report deadline.
+
+Community:
+ * The ActiveMQ project has had another very busy but quiet quarter.
+ * The development and user lists continue to stay vibrant.
+
+Development:
+ * Working towards an ActiveMQ 5.4 release.
+ 
+Releases:
+ * ActiveMQ 5.3.2
+ * ActiveMQ-CPP 3.1.2
+ * ActiveMQ 5.3.1
+ * ActiveMQ-CPP 3.1.1
+ * Apache.NMS.ActiveMQ v1.2.0
+ * Apache.NMS.Stomp v1.2.0
+ * Apache.NMS API 1.2.0
+
+]]></script>
+</div></div></div>
+

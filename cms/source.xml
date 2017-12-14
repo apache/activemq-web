@@ -1,0 +1,6 @@
+<div class="wiki-content maincontent"><p>The ActiveMQ-CPP client code is maintained in a Git repository.</p><h2 id="Source-WebBrowsingofGit">Web Browsing of Git</h2><p>To browse via the web:</p><div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p><a shape="rect" class="external-link" href="https://git-wip-us.apache.org/repos/asf?p=activemq-cpp.git">https://git-wip-us.apache.org/repos/asf?p=activemq-cpp.git</a></p>
+</div></div><h2 id="Source-CheckingoutfromGit">Checking out from Git</h2><div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p>git clone <a shape="rect" class="external-link" href="https://git-wip-us.apache.org/repos/asf/activemq-cpp.git">https://git-wip-us.apache.org/repos/asf/activemq-cpp.git</a></p>
+</div></div><p>Only project developers can commit to the Git tree via this method.</p><h3 id="Source-Branches">Branches</h3><p>We use the master for the next main release; then we use a branch for any bug fixes on the previous major release. You can look at a specific branch in Git.</p><h2 id="Source-Buildingthecode">Building the code</h2><p>To then build the code see <a shape="rect" href="building.xml">Building</a>.</p><p>&#160;</p></div>
+

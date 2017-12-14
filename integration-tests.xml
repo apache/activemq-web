@@ -1,0 +1,74 @@
+<div class="wiki-content maincontent">
+<p>The Integration Tests validate that ActiveMQ Resource Adapter operate correctly when deployed with a J2EE application running in an Application Server such as Apache Geronimo.</p>
+
+<h2 id="IntegrationTests-GettingReady">Getting Ready</h2>
+
+<p>The instructions on this page reference a few directories that you will need to substitute appropriate values for:</p>
+<ul><li><em>activemq-core</em> is where your ActiveMQ source code is located.</li><li><em>geronimo-home</em> is where your Geronimo home directory is located.</li></ul>
+
+
+<h2 id="IntegrationTests-BuildingtheActiveMQResourceAdapter">Building the ActiveMQ Resource Adapter</h2>
+
+<p>The ActiveMQ Resource Adapter allows a J2EE Application Server to provide transaction management, connection pooling and security to ActiveMQ connection when used by EJBs. The Resource Adapter is deployed in the client EAR that will be using the ActiveMQ.</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+cd activemq-ra
+maven rar:install-snapshot
+]]></script>
+</div></div>
+<p>&#160;</p>
+
+<p>&#160;</p>
+
+<h2 id="IntegrationTests-BuildingtheIntegrationTestEJBmodule">Building the Integration Test EJB module</h2>
+
+<p>The Integration Test EJB module provides a set of EJBs that the tests are run against.</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+cd systest/itests/ejb
+maven
+]]></script>
+</div></div>
+<p>&#160;</p>
+
+<p>&#160;</p>
+
+<h2 id="IntegrationTests-BuildingandDeployingtheIntegrationTestEARmodule">Building and Deploying the Integration Test EAR module</h2>
+
+<p>The EAR module packages up the Resource Adapter and the Integration Tests EJBs into a deployable EAR.</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+cd systest/itests/ear
+maven -Dgeronimo.home=geronimo-home
+]]></script>
+</div></div>
+<p>&#160;</p>
+
+<p>&#160;</p>
+
+<h2 id="IntegrationTests-StartingGeronimowiththeIntegrationTestEARconfiguration.">Starting Geronimo with the Integration Test EAR configuration.</h2>
+
+<p>In a seperate console, issue the following commands</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+cd geronimo-home
+java -jar bin/server.jar org/activemq/ear/itest
+]]></script>
+</div></div>
+<p>&#160;</p>
+
+<p>&#160;</p>
+
+<h2 id="IntegrationTests-BuildingandrunningtheIntegrationTests.">Building and running the Integration Tests.</h2>
+
+<p>The following builds and runs the integration tests:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+cd systest/itests/client
+maven
+]]></script>
+</div></div>
+<p>&#160;</p>
+
+<p>&#160;</p></div>
+

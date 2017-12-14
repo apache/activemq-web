@@ -1,0 +1,4 @@
+<div class="wiki-content maincontent"><h2 id="NewFeaturesin4.1-NewFeaturesinApacheActiveMQ4.1">New Features in Apache ActiveMQ 4.1</h2>
+
+<ul><li><a shape="rect" href="shared-file-system-master-slave.xml">Shared File System Master Slave</a></li><li><a shape="rect" href="jdbc-master-slave.xml">JDBC Master Slave</a></li><li><a shape="rect" href="virtual-destinations.xml">Virtual Destinations</a></li><li><a shape="rect" href="configure-startup-destinations.xml">Configure Startup Destinations</a></li><li><a shape="rect" href="structured-message-properties-and-mapmessages.xml">Structured Message Properties and MapMessages</a></li></ul></div>
+

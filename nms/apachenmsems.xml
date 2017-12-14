@@ -1,0 +1,4 @@
+<div class="wiki-content maincontent"><p>The Apache.NMS.EMS client provider for talking to TIBCO's EMS message broker.  To use this, you will need to following TIBCO's licensing requirements to acquire the TIBCO client assembly DLL.  NMS does not ship with the TIBCO client assembly.</p>
+
+<ul class="childpages-macro"><li><a shape="rect" href="ems-build-notes.xml">EMS Build Notes</a></li><li><a shape="rect" href="ems-downloads.xml">EMS Downloads</a></li><li><a shape="rect" href="ems-examples.xml">EMS Examples</a></li><li><a shape="rect" href="ems-faq.xml">EMS FAQ</a></li></ul></div>
+

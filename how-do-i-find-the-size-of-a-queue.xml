@@ -1,0 +1,15 @@
+<div class="wiki-content maincontent"><p>How do I check on the size of the queue? I know it's not JMS standard, but most JMS implementations have a way to do this.</p>
+
+<p>You can view the queue depth using the MBeans in ActiveMQ 5.x. Use any JMX management console to see the statistics. See <a shape="rect" href="how-can-i-monitor-activemq.xml">How can I monitor ActiveMQ</a>.</p>
+
+<p>You can also browse the contents of a queue using the JMS <a shape="rect" class="external-link" href="http://java.sun.com/j2ee/1.4/docs/api/javax/jms/QueueBrowser.html" rel="nofollow">QueueBrowser</a>.</p>
+
+<p>Or you can access statistics <a shape="rect" href="how-can-i-see-what-destinations-are-used.xml">programmatically</a></p>
+
+<p>Through the MBeans, you can monitor individual destinations including message statistics related to the destination. For example, you'll see the following attributes on a destination (Queue or Topic):</p>
+
+<ul><li>Enqueue Count - the total number of messages sent to the queue since the last restart</li><li>Dequeue Count - the total number of messages removed from the queue (ack'd by consumer) since last restart</li><li>Inflight Count - the number of messages sent to a consumer session and have not received an ack</li><li>Dispatch Count - the total number of messages sent to consumer sessions (Dequeue + Inflight)</li><li>Expired Count - the number of messages that were not delivered because they were expired</li></ul>
+
+
+<p>The "size of a queue" is also explicitly called out in an attribute "QueueSize." QueueSize is the total number of messages in the queue/store that have not been ack'd by a consumer. This can become confusing at times when compared to the Enqueue Count because the Enqueue Count is a count over a period of time (since the last broker restart) while the Queue Size is not dependent on a period of time but instead on the actual number of messages in the store. </p></div>
+

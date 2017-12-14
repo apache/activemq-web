@@ -1,0 +1,4 @@
+<div class="wiki-content maincontent"><p>The NMS Stomp client is a small lightweight .NET client that can send and receive messages from any <a shape="rect" class="external-link" href="http://stomp.codehaus.org/" rel="nofollow">Stomp</a> based message broker.  The NMS Stomp client currently supports the Stomp 1.0 protocol specification.  </p>
+
+<ul class="childpages-macro"><li><a shape="rect" href="stomp-advanced-features.xml">Stomp Advanced Features</a></li><li><a shape="rect" href="stomp-build-notes.xml">Stomp Build Notes</a></li><li><a shape="rect" href="stomp-downloads.xml">Stomp Downloads</a></li><li><a shape="rect" href="stomp-faq.xml">Stomp FAQ</a></li><li><a shape="rect" href="stomp-uri-configuration.xml">Stomp URI Configuration</a></li></ul></div>
+

@@ -1,0 +1,4 @@
+<div class="wiki-content maincontent"><p><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/">Apache NMS</a> is an API for messaging on the .Net platform in C# or VB.Net. Spring.Net offers several features to make it easier to work with .Net like the Spring Framework does for Java. Now the Spring.Messaging.Net library can be used to make it easier to work with NMS. For example it includes the NmsTemplate class (like the JmsTemplate class in Java) or the DefaultMessageListenerContainer.</p>
+
+<p>There is now a <a shape="rect" class="external-link" href="http://www.springframework.net/downloads/Spring.Messaging.Nms/" rel="nofollow">binary download of Spring.Messaging.NMS available</a>. Get it while its hot!</p></div>
+

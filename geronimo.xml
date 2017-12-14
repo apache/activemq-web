@@ -1,0 +1,217 @@
+<div class="wiki-content maincontent">
+<p>ActiveMQ is the default JMS provider in <a shape="rect" class="external-link" href="http://geronimo.apache.org">Apache Geronimo</a>.</p>
+
+<p>ActiveMQ can be used both as JMS Client and a JMS Broker. This short<br clear="none">
+article explains how to use it on a standalone client to access the<br clear="none">
+topics/queues setup on a remote Geronimo/ActiveMQ broker.</p>
+
+<p>1) Setup the queues and topics on the ActiveMQ Broker<br clear="none">
+If you're using a standalone ActiveMQ broker, then following the instructions on<br clear="none">
+ActiveMQ's website should be enough to setup everything.<br clear="none">
+However, if your ActiveMQ's  instance is embedded inside the J2EE Geronimo<br clear="none">
+Application Server, creating Queues and Topics is about deploying Resource<br clear="none">
+Adapters to your Geronimo server.<br clear="none">
+The following deployment descriptor can be used to deploy two topics and a<br clear="none">
+ConnectionFactory: weatherTopic and weatherRequestsTopic</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;connector xmlns=&quot;http://geronimo.apache.org/xml/ns/j2ee/connector&quot;
+    version=&quot;1.5&quot;
+    configId=&quot;weather/Topics&quot;
+    parentId=&quot;org/apache/geronimo/SystemJMS&quot;&gt;
+    &lt;resourceadapter&gt;
+        &lt;resourceadapter-instance&gt;
+            &lt;resourceadapter-name&gt;ActiveMQ RA&lt;/resourceadapter-name&gt;
+            &lt;config-property-setting name=&quot;ServerUrl&quot;&gt;tcp://localhost:61616&lt;/config-property-setting&gt;
+            &lt;config-property-setting name=&quot;UserName&quot;&gt;geronimo&lt;/config-property-setting&gt;
+            &lt;config-property-setting name=&quot;Password&quot;&gt;geronimo&lt;/config-property-setting&gt;
+            &lt;workmanager&gt;
+                &lt;gbean-link&gt;DefaultWorkManager&lt;/gbean-link&gt;
+            &lt;/workmanager&gt;
+        &lt;/resourceadapter-instance&gt;
+        &lt;outbound-resourceadapter&gt;
+            &lt;connection-definition&gt;
+
+&lt;connectionfactory-interface&gt;javax.jms.ConnectionFactory&lt;/connectionfactory-interface&gt;
+                &lt;connectiondefinition-instance&gt;
+                    &lt;name&gt;ConnectionFactory&lt;/name&gt;
+
+&lt;implemented-interface&gt;javax.jms.QueueConnectionFactory&lt;/implemented-interface&gt;
+
+&lt;implemented-interface&gt;javax.jms.TopicConnectionFactory&lt;/implemented-interface&gt;
+                    &lt;connectionmanager&gt;
+                        &lt;xa-transaction&gt;
+                            &lt;transaction-caching/&gt;
+                        &lt;/xa-transaction&gt;
+                        &lt;single-pool&gt;
+                            &lt;max-size&gt;10&lt;/max-size&gt;
+
+&lt;blocking-timeout-milliseconds&gt;5000&lt;/blocking-timeout-milliseconds&gt;
+                            &lt;match-one/&gt;
+                        &lt;/single-pool&gt;
+                    &lt;/connectionmanager&gt;
+                    &lt;global-jndi-name&gt;ConnectionFactory&lt;/global-jndi-name&gt;
+                    &lt;!--
+&lt;credential-interface&gt;javax.resource.spi.security.PasswordCredential&lt;/credential-interface&gt;
+--&gt;
+                &lt;/connectiondefinition-instance&gt;
+            &lt;/connection-definition&gt;
+        &lt;/outbound-resourceadapter&gt;
+    &lt;/resourceadapter&gt;
+    &lt;adminobject&gt;
+        &lt;adminobject-interface&gt;javax.jms.Topic&lt;/adminobject-interface&gt;
+
+&lt;adminobject-class&gt;org.codehaus.activemq.message.ActiveMQTopic&lt;/adminobject-class&gt;
+        &lt;adminobject-instance&gt;
+            &lt;message-destination-name&gt;weatherTopic&lt;/message-destination-name&gt;
+            &lt;config-property-setting
+name=&quot;PhysicalName&quot;&gt;weatherTopic&lt;/config-property-setting&gt;
+        &lt;/adminobject-instance&gt;
+    &lt;/adminobject&gt;
+    &lt;adminobject&gt;
+        &lt;adminobject-interface&gt;javax.jms.Topic&lt;/adminobject-interface&gt;
+
+&lt;adminobject-class&gt;org.codehaus.activemq.message.ActiveMQTopic&lt;/adminobject-class&gt;
+        &lt;adminobject-instance&gt;
+
+&lt;message-destination-name&gt;weatherRequestsTopic&lt;/message-destination-name&gt;
+            &lt;config-property-setting
+name=&quot;PhysicalName&quot;&gt;weatherRequestsTopic&lt;/config-property-setting&gt;
+        &lt;/adminobject-instance&gt;
+    &lt;/adminobject&gt;
+
+&lt;/connector&gt;
+]]></script>
+</div></div>
+
+<p>Then deploy it using Geronimo's deploy tool :</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+D:\geronimo&gt;java -jar bin\deployer.jar deploy d:\projects\weather\src\resources\
+geronimo-activemq.xml repository\activemq\rars\activemq-ra-3.1-SNAPSHOT.rar
+Username: system
+Password: manager
+Deployed weather/Topics
+]]></script>
+</div></div>
+
+<p>The geronimo.log file should now refer to these newly deployed Topics.</p>
+
+<p>2) Now that the queues are available server-side, what we want is access them<br clear="none">
+thanks to a standalone Client.<br clear="none">
+Usually, the process is the following one :</p>
+<ul><li>Contact the J2EE naming server (port 1099, RMI) to get an JNDI InitialContext.</li><li>The J2EE server automatically exposes the ConnectionFactory and the Topics<br clear="none">
+through JNDI, so the InitialContext allows you to retrieve both the<br clear="none">
+ConnectionFactory and the Topics</li><li>Once you have your Topics, you just use them..</li></ul>
+
+
+<p>However, ActiveMQ's JNDI Implementation does NOT talk to the naming server. It's<br clear="none">
+a stripped down version of a JNDI client that just allows to get Topics and<br clear="none">
+Queues directly from a JMS instance.<br clear="none">
+So, instead of supplying the naming server address, you have to supply the JMS<br clear="none">
+server address.<br clear="none">
+Most JNDI implementations use the java.naming.provider.url property to specify<br clear="none">
+the naming server's address. ActiveMQ uses the brokerURL one. Using the<br clear="none">
+java.naming.provider.url one instead will result in ActiveMQ trying to load the<br clear="none">
+whole Broker.</p>
+
+<p>3) So, now we have explained the process, let's detail the Spring way of doing<br clear="none">
+things :</p>
+
+<ul class="alternate"><li>Create a bootstrap.properties file that's available in your classpath<br clear="none">
+jms.connectionFactoryName=ConnectionFactory<br clear="none">
+jms.jndiProviderUrl=tcp://localhost:61616<br clear="none">
+jms.jndiContextFactory=org.activemq.jndi.ActiveMQInitialContextFactory</li></ul>
+
+
+<p>jms.weatherTopic=weatherTopic<br clear="none">
+jms.weatherRequestsTopic=weatherRequestsTopic</p>
+
+<ul class="alternate"><li>Now, in your Spring description file, declare the bean that will read<br clear="none">
+the properties from the bootstrap.properties file
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+    &lt;bean id=&quot;placeholderConfig&quot; 
+          class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;&gt;
+        &lt;property name=&quot;location&quot;&gt;&lt;value&gt;classpath:/bootstrap.properties&lt;/value&gt;&lt;/property&gt;
+    &lt;/bean&gt;
+]]></script>
+</div></div></li></ul>
+
+
+<ul class="alternate"><li>Create a JNDI template (A Spring-specific wrapper around the JNDI InitialContext
+ <div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+   &lt;bean id=&quot;jndiTemplate&quot; class=&quot;org.springframework.jndi.JndiTemplate&quot;&gt;
+        &lt;property name=&quot;environment&quot;&gt;
+            &lt;props&gt;
+                &lt;prop key=&quot;java.naming.factory.initial&quot;&gt;${jms.jndiContextFactory}&lt;/prop&gt;
+
+				&lt;!-- Specific to ActiveMQ --&gt;
+
+				&lt;!-- the address of the ActiveMQ broker --&gt;
+                &lt;prop key=&quot;brokerURL&quot;&gt;${jms.jndiProviderUrl}&lt;/prop&gt;
+				&lt;!-- Some Topics Registration, since we are using a fake JNDI implementation --&gt;
+                &lt;prop key=&quot;topic.${jms.weatherTopic}&quot;&gt;${jms.weatherTopic}&lt;/prop&gt;
+                &lt;prop key=&quot;topic.${jms.weatherRequestsTopic}&quot;&gt;${jms.weatherRequestsTopic}&lt;/prop&gt;
+			&lt;/props&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+]]></script>
+</div></div></li></ul>
+
+
+<ul class="alternate"><li>Retrieve the ConnectionFactory from the JNDI context</li></ul>
+
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+    &lt;bean id=&quot;internalJmsQueueConnectionFactory&quot;
+        class=&quot;org.springframework.jndi.JndiObjectFactoryBean&quot;&gt;
+        &lt;property name=&quot;jndiTemplate&quot;&gt;
+            &lt;ref bean=&quot;jndiTemplate&quot;/&gt;
+        &lt;/property&gt;
+        &lt;property name=&quot;jndiName&quot;&gt;
+            &lt;value&gt;${jms.connectionFactoryName}&lt;/value&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+]]></script>
+</div></div>
+
+<p>I'm not 100% sure, but I think that you can put any Factory Name, it will just<br clear="none">
+work. (In a scenario where the JNDI context actually contacts a naming server,<br clear="none">
+it should match the name of the deployed ConnectionFactory)</p>
+
+<ul class="alternate"><li>Get the Topics instances from the JNDI Context</li></ul>
+
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;bean id=&quot;weatherTopic&quot;
+		class=&quot;org.springframework.jndi.JndiObjectFactoryBean&quot;
+		singleton=&quot;true&quot;&gt;
+        &lt;property name=&quot;jndiTemplate&quot;&gt;
+            &lt;ref bean=&quot;jndiTemplate&quot;/&gt;
+        &lt;/property&gt;
+        &lt;property name=&quot;jndiName&quot;&gt;
+            &lt;value&gt;${jms.weatherTopic}&lt;/value&gt;
+        &lt;/property&gt;
+	&lt;/bean&gt;
+&lt;bean id=&quot;weatherRequestTopic&quot;
+		class=&quot;org.springframework.jndi.JndiObjectFactoryBean&quot;
+		singleton=&quot;true&quot;&gt;
+        &lt;property name=&quot;jndiTemplate&quot;&gt;
+            &lt;ref bean=&quot;jndiTemplate&quot;/&gt;
+        &lt;/property&gt;
+        &lt;property name=&quot;jndiName&quot;&gt;
+            &lt;value&gt;${jms.weatherRequestsTopic}&lt;/value&gt;
+        &lt;/property&gt;
+	&lt;/bean&gt;
+]]></script>
+</div></div>
+
+<ul class="alternate"><li>Now, you can reuse these Topics beans the way you want.</li></ul></div>
+

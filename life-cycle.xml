@@ -1,0 +1,59 @@
+<div class="wiki-content maincontent"><h2 id="LifeCycle-LifecycleofChannels">Life cycle of Channels</h2>
+
+<p>Blaze Channels are in one of five states:</p>
+
+<h3 id="LifeCycle-Constructed-theChannelisn'tinitializedorhasbeenshutDown">Constructed - the Channel isn't initialized or has been shutDown</h3>
+
+<h3 id="LifeCycle-initialized-">initialized - </h3>
+<p> you can explicitly initialize a Channel by invoking its init() method. At this point its Configuration is set</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+ BlazeChannelFactory factory = new BlazeChannelFactory();
+ BlazeChannel channel = factory.createChannel();
+ channel.init();
+]]></script>
+</div></div>
+
+<h3 id="LifeCycle-started-">started - </h3>
+<p> this will implicitly initialize the channel and start the Channel's underlying communication with its peers:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+ BlazeChannelFactory factory = new BlazeChannelFactory();
+ BlazeChannel channel = factory.createChannel();
+ channel.start();
+]]></script>
+</div></div>
+
+<h3 id="LifeCycle-stopped-">stopped - </h3>
+<p> this will stop communication - however you are able to re-start the channel at a latter point</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+ BlazeChannelFactory factory = new BlazeChannelFactory();
+ BlazeChannel channel = factory.createChannel();
+ channel.stop();
+ // do something else
+ ...
+ //re-start
+ channel.start();
+]]></script>
+</div></div>
+
+<h3 id="LifeCycle-shutdown">shut down</h3>
+<ul class="alternate"><li>this will implicitly call stop() - and de-construct the channel. It is possible to re-initialize the channel again - and it is recommend that to apply configuration changes to the channel - it be shut down and re-started - e.g.</li></ul>
+
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+ BlazeChannelFactory factory = new BlazeChannelFactory();
+ BlazeChannel channel = factory.createChannel();
+ channel.shutDown();
+ // change the congiguration
+ channel.getConfiguration().setBroadcastURI(&quot;tcp://localhost:60661&quot;);
+ //re-start
+ channel.start();
+]]></script>
+</div></div></div>
+

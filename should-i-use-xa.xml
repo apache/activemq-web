@@ -1,0 +1,45 @@
+<div class="wiki-content maincontent"><h2 id="ShouldIuseXA-ShouldIuseXAtransactions(twophasecommit?)">Should I use XA transactions (two phase commit?)</h2>
+
+<p>A common use of JMS is to consume messages from a queue or topic, process them using a database or EJB, then acknowledge / commit the message.</p>
+
+<p>If you are using more than one resource; e.g. reading a JMS message and writing to a database, you really should use XA - its purpose is to provide atomic transactions for multiple transactional resources. For example there is a small window from when you complete updating the database and your changes are committed up to the point at which you commit/acknowledge the message; if there is a network/hardware/process failure inside that window, the message will be redelivered and you may end up processing duplicates.</p>
+
+<p>The problem with XA is it can be a bit slow; as the XA protocol requires multiple syncs to disk to ensure it can always recover properly under every possible failure scenario. This adds significant cost (in terms of latency, performance, resources and complexity). Also quite a few EJB servers and databases don't actually properly support XA! <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p>
+
+<div class="confluence-information-macro confluence-information-macro-information"><p class="title">Be Careful</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>ActiveMQ does not currently support XA Transaction suspend / resume semantics.  </p></div></div> 
+
+<h3 id="ShouldIuseXA-AnalternativetoXA">An alternative to XA</h3>
+
+<p>So a good optimisation is to use regular JMS transactions - with no XA - and just perform some duplicate message detection in your code to check you have not already processed the message. </p>
+
+<p>For example you can use an <a shape="rect" class="external-link" href="http://activemq.apache.org/camel/idempotent-consumer.html">Idempotent Consumer</a> from the <a shape="rect" href="enterprise-integration-patterns.xml">Enterprise Integration Patterns</a> to solve this scenario.</p>
+
+<p>Or in pseudocode you could use something like the following...</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+onMessage
+try {
+  if I have not processed this message successfully before {
+    do some stuff in the database / with EJBs etc
+    jdbc.commit() (unless auto-commit is enabled on the JDBC)
+  }
+  jms.commit()
+}
+catch (Exception e) {
+  jms.rollback()
+}
+]]></script>
+</div></div>
+<p>This leads to <strong>much</strong> better performance since you are not performing many slow syncs to disk (per transaction!) for the XA protocol. The only downside with this approach is it means you have to use some application specific logic to detect if you've processed the message before or not. However its quite common that you'll have some way of detecting this. e.g. if the message contains a purchase order and version; have you stored that purchase order and version in the database yet?</p>
+
+<p>So provided the message has some kind of ID and version, you can often detect duplicates yourself and so not require to pay the performance cost of XA</p>
+
+<p>It may also be worth reading <a shape="rect" href="should-i-use-transactions.xml">Should I use transactions</a>.</p>
+
+<h3 id="ShouldIuseXA-Furtheroptimisation">Further optimisation</h3>
+
+<p>Performing duplicate detection can add a performance overhead. e.g. doing a database query to see if you've processed the purchase order before etc. Most of the time things will work; its only in rare circumstances (ilke if a server crashes mid-way processing some messages) that messages get redelivered.</p>
+
+<p>So you can use the <a shape="rect" class="external-link" href="http://java.sun.com/j2ee/1.4/docs/api/javax/jms/Message.html#getJMSRedelivered()" rel="nofollow">Message.getJMSRedelivered()</a> method to detect if a message has been redelivered and only if its been redelivered then perform the duplicate detection check.</p></div>
+

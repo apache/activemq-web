@@ -1,0 +1,10 @@
+<div class="wiki-content maincontent"><h2 id="Articles-ArticlesthatcovervariousNMSrelatedtopics.">Articles that cover various NMS related topics.</h2>
+
+<ul><li><a shape="rect" class="external-link" href="http://timbish.blogspot.com/2010/04/ussing-ssl-in-nmsactivemq.html" rel="nofollow">Using SSL with Apache.NMS.ActiveMQ</a></li><li><a shape="rect" class="external-link" href="http://remark.wordpress.com/articles/messaging-with-net-and-activemq/" rel="nofollow">Messaging with .NET and ActiveMQ</a></li><li><a shape="rect" class="external-link" href="http://remark.wordpress.com/articles/implementing-request-response-with-activemq-and-nms/" rel="nofollow">Implementing Request-Response with ActiveMQ and NMS</a></li><li><a shape="rect" class="external-link" href="http://remark.wordpress.com/articles/publish-subscribe-with-activemq-and-nms/" rel="nofollow">Publish-subscribe with ActiveMQ and NMS</a></li><li><a shape="rect" class="external-link" href="http://remark.wordpress.com/articles/transactional-message-processing-with-activemq-and-nms/" rel="nofollow">Transactional message processing with ActiveMQ and NMS</a></li></ul>
+
+
+<h2 id="Articles-OtherNMSrelatedcontent.">Other NMS related content.</h2>
+
+<p>While the NMS API is simple to use directly, you may want to take a look at <a shape="rect" class="external-link" href="http://springframework.net/" rel="nofollow">Spring.Net</a>,which offers various integration helper features similar to those in Spring for Java developers such as NmsTemplate and message listener containers etc.</p>
+<ul><li><a shape="rect" class="external-link" href="http://www.springframework.net/doc-latest/reference/html/messaging.html" rel="nofollow">Spring.Net Messaging Documentation</a></li><li><a shape="rect" class="external-link" href="http://www.springframework.net/doc-latest/reference/html/nms-quickstart.html" rel="nofollow">Spring.Net Messaging Examples</a></li></ul></div>
+

@@ -1,0 +1,31 @@
+<div class="wiki-content maincontent"><p>If you get an error like</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+java.lang.NoSuchMethodError:
+javax.jms.Session.createConsumer(Ljavax/jms/Destination;)Ljavax/jms/MessageConsumer;
+]]></script>
+</div></div>
+
+<p>or</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+java.lang.AbstractMethodError: 
+javax.jms.ConnectionFactory.createConnection()Ljavax/jms/Connection;
+]]></script>
+</div></div>
+
+<h3 id="java.lang.NoSuchMethodError-Fix">Fix</h3>
+
+<p>You probably have old JMS 1.0.2b versions of the JMS API on your classpath. This is because various methods were added in JMS 1.1 to work with destinations in a polymorphic way (such as to create a consumer from a Destination like the above stack trace).</p>
+
+<p>Please add the JMS 1.1 jars to your container/classpath and try again. </p>
+
+<div class="confluence-information-macro confluence-information-macro-note"><p class="title">Add to the correct ClassPath</p><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>If the JMS 1.0.2b classes come from your application server you may need to add the JMS 1.1 to your boot classpath to ensure that the JMS 1.1 classes take precedence to the container supplied classes</p></div></div>
+
+<p>Note that to a user of the JMS API, JMS 1.1 is completely backwards compatible. The only issue with upgrading to JMS 1.1 is that any JMS provider which implements only JMS 1.0.2b and does not implement JMS 1.1 will not work; however if you're using ActiveMQ you should be fine.</p>
+
+</div>
+

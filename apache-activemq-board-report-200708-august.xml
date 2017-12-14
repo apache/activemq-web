@@ -1,0 +1,23 @@
+<div class="wiki-content maincontent"><h1 id="ApacheActiveMQBoardReport-2007.08(August)-StatusreportfortheApacheActiveMQProject">Status report for the Apache ActiveMQ Project</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[July board report was missed in part due to a change in PMC chair.
+
+Community:
+ * The developer and user communities remain very active.
+ * New committer added: Albert Strasheim
+
+Development:
+ The CMS API has been extracted from the ActiveMQ CPP module and turned into 
+ an independently versioned module.  ActiveMQ 5.0 is starting to solidify and 
+ in all likelihood will be released within the next quarter.
+
+Brand New Releases:
+ * ActiveMQ CMS 1.0 - Defines an abstract messaging API for C++
+ * ActiveMQ Camel 1.0.0 - A routing and mediation engine
+
+Maintenance Releases:
+ * ActiveMQ CPP 2.0.1 - Updated to use the CMS 1.0 API
+ * ActiveMQ CMS 1.1 - Updated to build as a shared lib
+
+]]></script>
+</div></div></div>
+

@@ -1,0 +1,11 @@
+<div class="wiki-content maincontent">
+
+<p>We're proud to announce the new <a shape="rect" href="../../../activemq-20-release.xml">ActiveMQ 2.0 Release</a>. This is a major release including lots of new functionality and performance improvements. A more detailed list of changes is <a shape="rect" class="external-link" href="http://jira.codehaus.org/secure/BrowseProject.jspa?id=10520&amp;report=changelog" rel="nofollow">here</a>.</p>
+
+<p>This release includes</p>
+
+<ul><li>advisory messages so you can listen to the state of the message fabric</li><li>optimised wire format for higher throughput</li><li>improved persistence engine and closer integration with Apache Derby as the default implementation</li><li>chunking of large messages on transports (transport independent but particularly useful for UDP and multicast or for multiplexing over TCP)</li><li>new message compression support</li><li>full dead letter queue support</li><li>numerous improvements for distributed and remote destinations</li><li>various performance improvements</li><li>improved Message Driven POJO support via the JCA Container</li><li>improvements in the JCA Resource Adapter for easier integration into Geronimo, JBoss and WebLogic</li></ul>
+
+
+<p>This new 2.0 wire format is incompatible with previous releases, so when upgrading please be sure to upgrade across your system. The wire format should not change now for some time, certainly not until another major release.</p></div>
+

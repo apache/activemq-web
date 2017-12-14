@@ -1,0 +1,427 @@
+<div class="wiki-content maincontent">
+<h2>Space Index</h2>
+
+<p>
+<table class="grid" width="99%" cellspacing="0"><tr><td colspan="2" rowspan="1">
+         <table width="100%"><tr><td colspan="1" rowspan="1"><a shape="rect" href="#index-0-9">0-9</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-A">A</a> ... 84</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-B">B</a> ... 2</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-C">C</a> ... 1</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-D">D</a> ... 2</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-E">E</a> ... 5</td></tr><tr><td colspan="1" rowspan="1"><a shape="rect" href="#index-F">F</a> ... 1</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-G">G</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-H">H</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-I">I</a> ... 1</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-J">J</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-K">K</a> ... 0</td></tr><tr><td colspan="1" rowspan="1"><a shape="rect" href="#index-L">L</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-M">M</a> ... 4</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-N">N</a> ... 10</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-O">O</a> ... 1</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-P">P</a> ... 1</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-Q">Q</a> ... 1</td></tr><tr><td colspan="1" rowspan="1"><a shape="rect" href="#index-R">R</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-S">S</a> ... 13</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-T">T</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-U">U</a> ... 1</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-V">V</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-W">W</a> ... 3</td></tr><tr><td colspan="1" rowspan="1"><a shape="rect" href="#index-X">X</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-Y">Y</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-Z">Z</a> ... 0</td><td colspan="1" rowspan="1"><a shape="rect" href="#index-%21@%23%24">!@#$</a> ... 0</td><td colspan="1" rowspan="1">&#160;</td><td colspan="1" rowspan="1">&#160;</td></tr></table>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-0-9"></a>0-9</h4>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-A"></a>A</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+.NET+1.1.0+Release">ActiveMQ .NET 1.1.0 Release</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy The 1.1.0 release is a major milestone for the Apache NMS project. It is the first official release of the main Apache.NMS project, and all provider implementation projects. Following are some highlights of this release: Support for Fai</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+.NET+1.2.0+Release">ActiveMQ .NET 1.2.0 Release</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS client libraries and fixes several bugs found in the 1.1.0 release.  Some highlights for this release. Addition of ConnectionMeteData to the Connection API. Addition of QueueBrowser t</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+.NET+1.3.0+Release">ActiveMQ .NET 1.3.0 Release</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS client libraries and fixes several bugs found in the 1.2.0 release.  Some highlights for this release. Addition of QueueBrowser support to NMS.ActiveMQ Addition of SSL Support for NMS</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+.NET+1.4.0+Release">ActiveMQ .NET 1.4.0 Release</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS client libraries and fixes several bugs found in the 1.3.0 release.  Some highlights for this release. Improved URI handling in all NMS clients. Improved handling of Request Timeout s</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Advanced+Features">ActiveMQ Advanced Features</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The NMS.ActiveMQ client provides several features in addition to fully implementing the NMS API. The features are documented here.</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Advisory+Message+Examples">ActiveMQ Advisory Message Examples</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Async+Sends">ActiveMQ Async Sends</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Background Apache.NMS.ActiveMQ supports sending messages to a broker in sync or async mode. The mode used has a huge impact in the latency of the send call. Since latency is typically a huge factor in the throughput that can achieved by producer, using as</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Build+Notes">ActiveMQ Build Notes</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Consumer+Dispatch+Async">ActiveMQ Consumer Dispatch Async</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Overview In AMQ4 onwards, the choice of a broker performing synchronous or asynchronous dispatch to a consumer has become more configurable. It is now configured as a default value on the connection URI, Connection and ConnectionFactory together with bein</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Consumer+Features">ActiveMQ Consumer Features</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Consumer+Priority">ActiveMQ Consumer Priority</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Background As well as having a pluggable dispatch policy (e.g. round robin etc), we now support consumer priorities. This allows us to weight consumers to optimise network hops. For example, you typically want a broker to send messages to regular NMS cons</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Delay+and+Schedule+Message+Feature">ActiveMQ Delay and Schedule Message Feature</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">ActiveMQ from version 5.4 has an optional persistent scheduler built into the ActiveMQ message broker. It is enabled by setting the broker schedulerSupport attribute to true in the xml configuration. An ActiveMQ client can take advantage of a delayed deli</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Destination+Features">ActiveMQ Destination Features</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Destination+Management">ActiveMQ Destination Management</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The Apache.NMS.ActiveMQ client provides some additional features beyond the standard NMS API.  One such feature is the ability to delete a given destination on the Broker.  This can be useful during testing when you want to start the test with a destinati</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Destination+Options">ActiveMQ Destination Options</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Background Destination Options are a way to provide extended configuration options to a NMS consumer without having to extend the NMS API. The options are encoded using URL query syntax in the destination name that the consumer is created on. Consumer Opt</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Downloads">ActiveMQ Downloads</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Description Release Date NMS API Rev Apache.NMS.ActiveMQ v1.7.2 04/07/2016 v1.7.1 Apache.NMS.ActiveMQ v1.7.1 10/05/2015 v1.7.1 Apache.NMS.ActiveMQ v1.7.0 01/16/2015 v1.7.0 Apache.NMS.ActiveMQ v1.6.5 02/05/2015 v1.6.0 Apache.NMS.ActiveMQ v1.6.4 09/14/2014 </div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Enumerate+Destination+using+Advisory+Messages">ActiveMQ Enumerate Destination using Advisory Messages</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Enumerating Available Destinations using Advisory Messages This example shows you how to consume Advisory Messages from the Broker to enumerate various destination types. /* * Licensed to the Apache Software Foundation (ASF) under one or more * contributo</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Examples">ActiveMQ Examples</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Exclusive+Consumers">ActiveMQ Exclusive Consumers</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Exclusive Consumer We have a new feature in version 4.x and above called Exclusive Consumer or Exclusive Queues which avoids the end user having to pin anything. The broker will pick a single MessageConsumer to get all the messages for a queue to ensure o</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+FAQ">ActiveMQ FAQ</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Message+Dispatching+Features">ActiveMQ Message Dispatching Features</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Message+Features">ActiveMQ Message Features</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Mirrored+Queues">ActiveMQ Mirrored Queues</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Mirrored Queues</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Retroactive+Consumers">ActiveMQ Retroactive Consumers</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Background A retroactive consumer is just a regular NMS consumer who indicates that at the start of a subscription every attempt should be used to go back in time and send any old messages (or the last message sent on that topic) that the consumer may hav</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+URI+Configuration">ActiveMQ URI Configuration</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Configuring NMS.ActiveMQ All configuration is achieved via URI-encoded parameters, either on the connection or destinations. Through the URIs, you can configure virtually every facet of your NMS.ActiveMQ client. The tables below show the comprehensive set</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Virtual+Destinations">ActiveMQ Virtual Destinations</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Virtual Destinations</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/ActiveMQ+Wildcards">ActiveMQ Wildcards</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Wildcards</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/AMQP+Build+Notes">AMQP Build Notes</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Default build Executing nant in the project home directory will produce two builds: Debug/Release .NET 2.0 x86 in the \net-2.0 folder built with Visual Studio 2008 Debug/Release .NET 4.0 x86 in the \net-4.0 folder built with Visual Studio 2010 Your build </div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/AMQP+Downloads">AMQP Downloads</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/AMQP+Examples">AMQP Examples</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">HelloWorld.cs The source kit for the Apache.NMS.AMQP provider includes a HelloWorld project. HelloWorld requires an AMQP 1.0 broker (either ActiveMQ or Qpidd) to be running on localhost:5672. Of course you may specify a different URI to select any broker.</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/AMQP+FAQ">AMQP FAQ</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS">Apache.NMS</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">An Overview of NMS The NMS API (.Net Message Service API) providers a standard .NET interface to Messaging Systems. There could be multiple implementations to different providers (including MSMQ). The NMS API This allows you to build .NET applications in </div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+1.5.0+Release">Apache.NMS 1.5.0 Release</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS client libraries and fixes several bugs found in the 1.4.0 release.  Some highlights for this release. NMS API New Optional .NET Transaction Specific Connection classes that allow a c</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+ActiveMQ+v1.1.0">Apache.NMS ActiveMQ v1.1.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy The 1.1.0 release is a major milestone for the Apache NMS project. It is the first official release of the main Apache.NMS.ActiveMQ project, and all provider implementation projects. Following are some highlights of this release: Suppor</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+API+v1.1.0">Apache.NMS API v1.1.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy The 1.1.0 release is a major milestone for the Apache NMS project. It is the first official release of the main Apache.NMS project, and all provider implementation projects. Following are some highlights of this release: Improved API Do</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+API+v1.2.0">Apache.NMS API v1.2.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS API and fixes several bugs found in the 1.1.0 release.  Some highlights for this release. Addition of IConnectionMeteData to the Connection API. Addition of IQueueBrowser to the Sessi</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+API+v1.3.0">Apache.NMS API v1.3.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS API and fixes several bugs found in the 1.2.0 release.  Some highlights for this release. Improved API Documentation. Many new Unit Tests added to the Test Suite. Many bug fixes. API </div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+API+v1.4.0">Apache.NMS API v1.4.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS API and fixes several bugs found in the 1.3.0 release.  Some highlights for this release. Improved URI handling in all NMS clients. Added a new SetBytes method to IMapMessage. Added a</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+API+v1.5.0">Apache.NMS API v1.5.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS API. NMS API Updates New Optional .NET Transaction Specific Connection classes that allow a client to offer support for operations within MS .NET Distributed Transactions. API Documen</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+API+v1.5.1">Apache.NMS API v1.5.1</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is a bugfix release of the NMS API there are no API changes in this release. NMS fixes Fixes a bug that can cause the Message properties object to marshal to a byte array that is much larger than needed which adds unwanted overhead</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+API+v1.6.0">Apache.NMS API v1.6.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is a major release of the NMS API which adds some new APIs and fixes some minor bugs in the NMS API libraries common code. Added Recover method to ISession. Added new events to ISession for Transaction begin, commit and rollback. A</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+API+v1.7.0">Apache.NMS API v1.7.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is a major release of the NMS API which adds some new APIs and fixes some minor bugs in the NMS API libraries common code. Added IDisposable as a base of IDestination. Added some improvements to the Unit tests framework. Added some</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+API+v1.7.1">Apache.NMS API v1.7.1</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">  New and Noteworthy This is a minor release of the NMS API which adds a few minor fixes for NMS Providers operating in MSDTC Transactions. API Documentation Refer to the API for this release here Download Here Description Download Link PGP Signature File</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+EMS+v1.1.0">Apache.NMS EMS v1.1.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy The 1.1.0 release is a major milestone for the Apache NMS EMS client. It is the first official release of the main Apache.NMS project, and all provider implementation projects. Following are some highlights of this release: Improved API</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS+MSMQ+v1.1.0">Apache.NMS MSMQ v1.1.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy The 1.1.0 release is a major milestone for the Apache NMS MSMQ client. It is the first official release of the main Apache.NMS project, and all provider implementation projects. Following are some highlights of this release: Improved AP</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ">Apache.NMS.ActiveMQ</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The ActiveMQ NMS client is a .NET client that communicates with the ActiveMQ broker using its native Openwire protocol. This client supports advanced features such as Failover, Discovery, SSL, and Message Compression. This section of the NMS site provides</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.2.0">Apache.NMS.ActiveMQ v1.2.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS ActiveMQ library and fixes several bugs found in the 1.1.0 release.  Some highlights for this release. Addition of ConnectionMeteData to the Connection API. Addition of QueueBrowser t</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.3.0">Apache.NMS.ActiveMQ v1.3.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS ActiveMQ library and fixes several bugs found in the 1.2.0 release.  Some highlights for this release. Addition of QueueBrowser support Addition of SSL Support Improvements to the Fai</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.4.0">Apache.NMS.ActiveMQ v1.4.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS ActiveMQ library and fixes several bugs found in the 1.3.0 release.  Some highlights for this release. Improved URI handling in all NMS clients. Improved handling of Request Timeout s</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.4.1">Apache.NMS.ActiveMQ v1.4.1</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS.ActiveMQ library and fixes several bugs found in the 1.3.0 release.  Some highlights for this release. Improved URI handling. Many bug fixes. API Refer to the API for this release her</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.5.0">Apache.NMS.ActiveMQ v1.5.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS ActiveMQ library and fixes several bugs found in the 1.4.0 release. New in this version New startupMaxReconnectAttempts option in the failover transport. Fixed a memory leak in the In</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.5.1">Apache.NMS.ActiveMQ v1.5.1</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS.ActiveMQ API. NMS API Updates Many fixes for the MS Distributed Transaction support along with other minor bug fixes for issues found since the initial v1.5.0 release. API Documentati</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.5.2">Apache.NMS.ActiveMQ v1.5.2</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new fixes to the NMS.ActiveMQ API. NMS.ActiveMQ Updates This release focuses on performance and stability fixes to the ActiveMQ provider. No new features were added in this release. See the release notes bel</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.5.3">Apache.NMS.ActiveMQ v1.5.3</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new fixes to the NMS.ActiveMQ API. NMS.ActiveMQ Updates This release focuses on stability fixes to the ActiveMQ provider. No new features were added in this release. See the release notes below for a list of</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.5.4">Apache.NMS.ActiveMQ v1.5.4</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new fixes to the NMS.ActiveMQ API. NMS.ActiveMQ Updates This release focuses on stability fixes to the ActiveMQ provider. No new features were added in this release. See the release notes below for a list of</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.5.5">Apache.NMS.ActiveMQ v1.5.5</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new fixes to the NMS.ActiveMQ API. Sending to non-existent temp queue causes consumer to shutdown Consumers frequently fail to reconnect after broker outage/failover. FailoverTransport doesn't trigger a reco</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.5.6">Apache.NMS.ActiveMQ v1.5.6</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new fixes to the NMS.ActiveMQ API. Adds compression support to the ObjectMessage payload Fixes an issue in Message marshaling when tight-marshaling is enabled. NMS.ActiveMQ Updates This release focuses on st</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.6.0">Apache.NMS.ActiveMQ v1.6.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features and fixes to the NMS.ActiveMQ API. NMS.ActiveMQ Updates This release adds several new features to the ActiveMQ client and fixes many bugs that have been reported since the last release. Adds sup</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.6.1">Apache.NMS.ActiveMQ v1.6.1</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is a bugfix release for the NMS.ActiveMQ client library. Along with some bug fixes though we've also added support for better discovery transport agents and we now support HTTP discovery using the ActiveMQ broker's HTTP discovery r</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.6.2">Apache.NMS.ActiveMQ v1.6.2</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">  New and Noteworthy This is a bugfix release for the NMS.ActiveMQ client library. Along with some bug fixes though we've also added support for better discovery transport agents and we now support HTTP discovery using the ActiveMQ broker's HTTP discovery</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.6.3">Apache.NMS.ActiveMQ v1.6.3</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is a bugfix release that addresses a few stability issues and improves the handling of Message Consumer instances that operate inside of Sessions in Transacted mode. API Documentation Refer to the API for this release here Download</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.6.4">Apache.NMS.ActiveMQ v1.6.4</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is a bugfix release that addresses a few stability issues and improves the handling of Message Consumer instances that operate inside of Sessions in Transacted mode as well as some fixes for potential deadlocks that could occur dur</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.6.5">Apache.NMS.ActiveMQ v1.6.5</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is a small bugfix release that corrects an issue found in the OpenWire tight marshal code that can cause a connection to fail, also a fix for an incorrect redelivery count on some messages was applied. API Documentation Refer to th</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.7.0">Apache.NMS.ActiveMQ v1.7.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is the first release of the Apache.NMS.ActiveMQ 1.7.0 line.  This release is based on the Apache.NMS API v1.7.0 and includes several fixes and updates over the 1.6.x line.  The DotNetZlib dependency has been updated to the latest r</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.7.1">Apache.NMS.ActiveMQ v1.7.1</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is a bugfix release of the Apache.NMS.ActiveMQ 1.7.x line.  This release is based on the Apache.NMS API v1.7.1 and includes several fixes and updates over the 1.7.0 release.  A fix for an issue where the client could falsely filter</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.ActiveMQ+v1.7.2">Apache.NMS.ActiveMQ v1.7.2</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is a bugfix release of the Apache.NMS.ActiveMQ 1.7.x line.  This release is based on the Apache.NMS API v1.7.1 and includes several fixes and updates over the 1.7.1 release.  API Documentation Refer to the API for this release here</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.AMQP">Apache.NMS.AMQP</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The Apache NMS AMQP client provides an NMS layer on top of the Apache Qpid messaging client API. AMQP 1.0 support is provided by Apache Qpid Proton. AMQP Build Notes AMQP Downloads AMQP Examples AMQP FAQ    </div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.EMS">Apache.NMS.EMS</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The Apache.NMS.EMS client provider for talking to TIBCO's EMS message broker. To use this, you will need to following TIBCO's licensing requirements to acquire the TIBCO client assembly DLL. NMS does not ship with the TIBCO client assembly.</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.MQTT">Apache.NMS.MQTT</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The Apache.NMS.MQTT client provider for using the publish-subscribe pattern over a lightweight protocol on top of TCP/IP.</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.MSMQ">Apache.NMS.MSMQ</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The Apache.NMS.MSMQ client provides an NMS layer on top of the MSMQ messaging API.</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.Stomp">Apache.NMS.Stomp</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The NMS Stomp client is a small lightweight .NET client that can send and receive messages from any Stomp http://stomp.codehaus.org/ based message broker. The NMS Stomp client currently supports the Stomp 1.0 protocol specification.</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.Stomp+v1.2.0">Apache.NMS.Stomp v1.2.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This is the first official release of the NMS Stomp client library. This library implements much of the NMS API although some features aren't possible due to limitations in the Stomp protocol. API Refer to the API for this release here </div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.Stomp+v1.3.0">Apache.NMS.Stomp v1.3.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS Stomp library and fixes several bugs found in the 1.2.0 release.  Some highlights for this release. Addition of SSL Support Improvements to the Failover Transport. Improved API Docume</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.Stomp+v1.4.0">Apache.NMS.Stomp v1.4.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS Stomp library and fixes several bugs found in the 1.3.0 release.  Some highlights for this release. Improved URI handling in all NMS clients. Improved handling of Request Timeout sett</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.Stomp+v1.5.0">Apache.NMS.Stomp v1.5.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS Stomp client library and fixes several bugs found in the 1.4.0 release. New in this release: Support for the current changes in the Stomp 1.1 draft specification. Improved Inactivity </div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.Stomp+v1.5.1">Apache.NMS.Stomp v1.5.1</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy This release adds some great new features to the NMS client libraries and fixes several bugs found in the 1.4.0 release.  Some highlights for this release. New in this release. Fixed a memory leak in the Inactivity Monitoring code. Fixe</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.Stomp+v1.5.2">Apache.NMS.Stomp v1.5.2</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy The release focuses on performance and stability fixes for issues found in the 1.5.1 release as well as addressing a compatibility issue found when connecting to Stomp v1.1 compliant brokers. API Documentation Refer to the API for this </div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.Stomp+v1.5.3">Apache.NMS.Stomp v1.5.3</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy The release focuses on performance and stability fixes for issues found in the 1.5.2 release as well as addressing a compatibility issue found when connecting to Stomp v1.1 compliant brokers. Additionally some improvements in fail-over </div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.Stomp+v1.5.4">Apache.NMS.Stomp v1.5.4</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy The release includes a fix for exceptions that were being seen on Windows OS's configured with Non-US culture settings. API Documentation Refer to the API for this release here Apache.NMS.Stomp Client Downloads Description Download Link</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.WCF">Apache.NMS.WCF</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">NMS provider for use with the Windows Communication Framework (WCF).</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.WCF+v1.1.0">Apache.NMS.WCF v1.1.0</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">New and Noteworthy The 1.1.0 release is a major milestone for the Apache NMS project. It is the first official release of the main Apache.NMS project, and all provider implementation projects. API Refer to the API for this release here Download Here Descr</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Apache.NMS.XMS">Apache.NMS.XMS</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The Apache.NMS.XMS client provider for talking to IBM's WebSphere MQ Series message broker. To use this, you will need to following IBM's licensing requirements to acquire the MQSeries client assembly DLL. NMS does not ship with the MQSeries client assemb</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Are+there+more+FAQ+Entries">Are there more FAQ Entries</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Are there more FAQ Entries? Yes, see the ActiveMQ Main FAQ http://activemq.apache.org/faq.html</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Articles">Articles</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Articles that cover various NMS related topics. Using SSL with Apache.NMS.ActiveMQ http://timbish.blogspot.com/2010/04/ussing-ssl-in-nmsactivemq.html Messaging with .NET and ActiveMQ http://remark.wordpress.com/articles/messaging-with-net-and-activemq/ Im</div>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-B"></a>B</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Banner">Banner</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">&lt;div id="asf_logo"&gt; &lt;div id="activemq_logo"&gt; &lt;a style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href=""&gt;ActiveMQ&lt;/a&gt; &lt;a style="float:right; width:210px;display:bl</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Building">Building</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Building NMS Currently our main build tool for NMS is NAnt http://nant.sourceforge.net/. Install Mono http://www.mono-project.com On some operating systems (e.g. OS X), you may need to point the PKG_CONFIG_PATH environment variable at the mono packages ex</div>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-C"></a>C</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Community">Community</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-D"></a>D</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Developers">Developers</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Download</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Download">Download</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Apache.NMS Project Downloads Here you can Download the Apache.NMS API for .NET and the various Apache.NMS Provider Libraries such as Apache.NMS.ActiveMQ. Releases that are marked as in-progress won't be directly downloadable however there may be a SNAPSHO</div>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-E"></a>E</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/EMS+Build+Notes">EMS Build Notes</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/EMS+Downloads">EMS Downloads</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Description Release Date NMS API Rev Apache.NMS EMS v1.1.0 07/12/2009 v1.1.0</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/EMS+Examples">EMS Examples</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/EMS+FAQ">EMS FAQ</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Examples">Examples</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Examples The following example gives a brief demonstration for connecting, sending and receiving a message using NMS. using System; using Apache.NMS; using Apache.NMS.Util; namespace Apache.NMS.ActiveMQ.Test { public class TestMain { public static void Ma</div>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-F"></a>F</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/FAQ">FAQ</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">General Questions Using NMS FAQ NMS FAQ Using NMS.ActiveMQ FAQ ActiveMQ FAQ Using NMS.Stomp FAQ Using NMS.MSMQ FAQ Using NMS.EMS FAQ Using NMS.WCF FAQ</div>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-G"></a>G</h4>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-H"></a>H</h4>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-I"></a>I</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-homepage" title="Home page">Home page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Index">Index</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Welcome to the Apache NMS project, the .NET Messaging API. NMS API Overview The NMS API This allows you to build .NET applications in C#, VB, or any other .NET language, using a single API to connect to multiple different providers using a JMS style API. </div>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-J"></a>J</h4>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-K"></a>K</h4>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-L"></a>L</h4>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-M"></a>M</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/MSMQ+Build+Notes">MSMQ Build Notes</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/MSMQ+Downloads">MSMQ Downloads</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Description Release Date NMS API Rev Apache.NMS MSMQ v1.1.0 07/12/2009 v1.1.0</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/MSMQ+Examples">MSMQ Examples</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/MSMQ+FAQ">MSMQ FAQ</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-N"></a>N</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Navigation">Navigation</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Overview Home FAQ Download Using NMS NMS Overview Getting Started NMS API Reference ActiveMQ Stomp MSMQ Tibco EMS WCF Search &lt;form action="http://www.google.com/cse" id="cse-search-box"&gt; &lt;div&gt; &lt;input type="hidden" name="cx" value="007878419884033443453:m5</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/NMS">NMS</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Getting Started with NMS The NMS API provides your client with a common API model for working with Message Oriented Middleware, but to make use of the API you need to download one of the NMS Provider libraries. The NMS Providers libraries are what makes i</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/NMS+API">NMS API</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The NMS documentation has been generated using Microsoft's Sandcastle http://sandcastle.codeplex.com/ open source product. The Sandcastle Styles http://sandcastlestyles.codeplex.com/ project was used to enhance the output generated from the current releas</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/NMS+API+Downloads">NMS API Downloads</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Description Release Date Apache.NMS API v1.7.1 09/04/2015 Apache.NMS API v1.7.0 01/08/2015 Apache.NMS API v1.6.0 05/24/2013 Apache.NMS API v1.5.1 07/06/2012 Apache.NMS API v1.5.0 01/10/2011 Apache.NMS API v1.4.0 09/10/2010 Apache.NMS API v1.3.0 05/14/2010</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/NMS+Examples">NMS Examples</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">This is where you will find examples of how to use the NMS API. These examples demonstrate using the NMS API generically and are limited to features exposed directly through the API model. For examples covering more advanced features of a specific NMS Pro</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/NMS+FAQ">NMS FAQ</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/NMS+Providers">NMS Providers</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">NMS Providers An NMS Provider is a .NET Assembly that provides an implementation of the NMS API that provides connectivity with a particular Messaging Service or an implementation of a standard Messaging Protocol. Currently, the following providers are av</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/NMS+Simple+Asynchronous+Consumer+Example">NMS Simple Asynchronous Consumer Example</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">The sample shows how to create an NMS Consumer to consume messages asynchronously. /* * Licensed to the Apache Software Foundation (ASF) under one or more * contributor license agreements. See the NOTICE file distributed with * this work for additional in</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/NMS+Simple+Synchornous+Consumer+Example">NMS Simple Synchornous Consumer Example</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">This example shows how to create and use an NMS Consumer to consume messages synchronously. /* * Licensed to the Apache Software Foundation (ASF) under one or more * contributor license agreements. See the NOTICE file distributed with * this work for addi</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/NMS+URI+Configuration">NMS URI Configuration</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Configuring NMS When working with the generic NMS API NMSConnectionFactory class you must choose via the URI which NMS provider you actually wish to use. This page documents the uri syntax and available options for the NMS providers. Connection URI Parame</div>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-O"></a>O</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Overview">Overview</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-P"></a>P</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Privacy+Policy">Privacy Policy</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Information about your use of this website is collected using server access logs and a tracking cookie. The collected information consists of the following: The IP address from which you access the website; The type of browser and operating system you use</div>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-Q"></a>Q</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/QuickLinks">QuickLinks</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Download | API | Source | Forums http://activemq.apache.org/discussion-forums.html | Support http://activemq.apache.org/support.html</div>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-R"></a>R</h4>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-S"></a>S</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Should+I+pool+connections">Should I pool connections</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Should I pool connections? The Java documentation talks about how to use JMS efficiently http://activemq.apache.org/how-do-i-use-jms-efficiently.html. So when using .NET should you worry about pooling? Its worth thinking about - but it depends a little on</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Site">Site</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/SiteIndex">SiteIndex</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">{index}{index}</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/SiteMap">SiteMap</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Index</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Source">Source</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Web Browsing of Git repositories Browse the source tree of each of the NMS projects directly: https://git-wip-us.apache.org/repos/asf/activemq-nms-api.git https://git-wip-us.apache.org/repos/asf/activemq-nms-openwire.git https://git-wip-us.apache.org/repo</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Stomp+Advanced+Features">Stomp Advanced Features</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Stomp+Build+Notes">Stomp Build Notes</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Stomp+Delayed+and+Scheduled+Message+Feature">Stomp Delayed and Scheduled Message Feature</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">This documentation only applies when the Stomp client is connected to an ActiveMQ Broker v5.4 and above. ActiveMQ Delay and Schedule Message Feature</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Stomp+Downloads">Stomp Downloads</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Description Release Date NMS API Rev Apache.NMS.Stomp v1.5.4 10/26/2013 v1.5.1 Apache.NMS.Stomp v1.5.3 08/30/2012 v1.5.1 Apache.NMS.Stomp v1.5.2 11/19/2011 v1.5.0 Apache.NMS.Stomp v1.5.1 01/31/2011 v1.5.0 Apache.NMS.Stomp v1.5.0 01/14/2011 v1.5.0 Apache.N</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Stomp+FAQ">Stomp FAQ</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Stomp+Message+Features">Stomp Message Features</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Stomp+URI+Configuration">Stomp URI Configuration</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Configuring NMS.Stomp All configuration is achieved via URI-encoded parameters, either on the connection or destinations. Through the URIs, you can configure virtually every facet of your NMS.Stomp client. The tables below show the comprehensive set of pa</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Support">Support</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Getting Help If you are experiencing problems using NMS then please first try the FAQ. If you cannot find your issue then report your problem to our Issue Tracker http://issues.apache.org/activemq/browse/AMQNET You may also find it useful to discuss your </div>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-T"></a>T</h4>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-U"></a>U</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/Using+NMS">Using NMS</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Using NMS Getting Started API Reference Examples ActiveMQ URI Configuration</div>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-V"></a>V</h4>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-W"></a>W</h4>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/WCF+Downloads">WCF Downloads</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">Description Release Date NMS API Rev Apache.NMS.WCF v1.1.0 07/12/2009 v1.1.0</div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/WCF+Examples">WCF Examples</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px"></div>
+                             <span class="icon aui-icon aui-icon-small aui-iconfont-page-default" title="Page">Page:</span>                 <a shape="rect" href="https://cwiki.apache.org/confluence/display/NMS/What+is+NMS">What is NMS</a>
+        <br clear="none">
+             <div class="smalltext" style="margin: 0 0 0 36px">What is NMS? NMS is the open source .Net Messaging API. This allows you to build .Net applications in C# or VB to a single API which can then be used to connect to multiple different Message Brokers.</div>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-X"></a>X</h4>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-Y"></a>Y</h4>
+        </td></tr><tr valign="top"><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-Z"></a>Z</h4>
+        </td><td colspan="1" rowspan="1"><h4 style="margin-top: 0px"><a shape="rect" name="index-%21@%23%24"></a>!@#$</h4>
+        </td></tr></table>
+</p></div>
+

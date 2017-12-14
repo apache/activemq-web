@@ -1,0 +1,28 @@
+<div class="wiki-content maincontent">
+<h2 id="ActiveMQ2.0Release-NewandNoteworthy">New and Noteworthy</h2>
+
+<p>This is a major release including lots of new functionality and performance improvements:</p>
+
+<p>This release includes</p>
+
+<ul><li>advisory messages so you can listen to the state of the message fabric</li><li>optimised wire format for higher throughput</li><li>improved persistence engine and closer integration with Apache Derby as the default implementation</li><li>chunking of large messages on transports (transport independent but particularly useful for UDP and multicast or for multiplexing over TCP)</li><li>new message compression support</li><li>full dead letter queue support</li><li>numerous improvements for distributed and remote destinations</li><li>various performance improvements</li><li>improved Message Driven POJO support via the JCA Container</li><li>improvements in the JCA Resource Adapter for easier integration into Geronimo, JBoss and WebLogic</li></ul>
+
+
+<p>This new 2.0 wire format is incompatible with previous releases, so when upgrading please be sure to upgrade across your system. The wire format should not change now for some time, certainly not until another major release.</p>
+
+<h2 id="ActiveMQ2.0Release-DownloadHere">Download Here</h2>
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Download</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-release-2.0.zip" rel="nofollow">activemq-release-2.0.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-release-2.0-src.zip" rel="nofollow">activemq-release-2.0-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-release-2.0.tar.gz" rel="nofollow">activemq-release-2.0.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>[activemq-release-2.0-src.tar.gz</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>http://dist.codehaus.org/activemq/distributions/activemq-release-2.0-src.tar.gz <br clear="none">
+]</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in gz package</p></td></tr></tbody></table></div>
+
+
+<h2 id="ActiveMQ2.0Release-Changelog">Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11420&amp;styleName=Html&amp;projectId=10520&amp;Create=Create" rel="nofollow">release notes</a></p>
+
+<div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
+</div>
+
+
+
+<p>You may also want to look at <a shape="rect" href="activemq-15-release.xml">the previous Changelog</a></p></div>
+

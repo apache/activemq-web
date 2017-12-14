@@ -1,0 +1,24 @@
+<div class="wiki-content maincontent"><h1 id="IntegratingApacheActiveMQwithGlassfish-General">General</h1><p>See this article for a description of how to connect Glassfish 3 to an ActiveMQ 5 broker, and consume messages using a Message Driven Bean: <a shape="rect" class="external-link" href="http://geertschuring.wordpress.com/2012/04/20/how-to-connect-glassfish-3-to-activemq-5/" rel="nofollow">http://geertschuring.wordpress.com/2012/04/20/how-to-connect-glassfish-3-to-activemq-5/</a></p><h1 id="IntegratingApacheActiveMQwithGlassfish-Glassfish4.1">Glassfish 4.1</h1><p>&#160;</p><ol><li>Add resource adapter<br clear="none"><ol><li>Download the resource-adapter file suitable to your broker version:<br clear="none"><a shape="rect" class="external-link" href="http://repo1.maven.org/maven2/org/apache/activemq/activemq-rar/" rel="nofollow">http://repo1.maven.org/maven2/org/apache/activemq/activemq-rar/</a></li><li><p>Deploy the&#160; resource adapter with the name "activemq-rar"</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: bash; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[bin/asadmin deploy --type rar --name activemq-rar /tmp/activemq-rar-5.11.1.rar]]></script>
+</div></div></li><li><p>Configure resource adapter <br clear="none">(Failover Setup)</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: bash; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[bin/asadmin create-resource-adapter-config   \
+  --property ServerUrl=&#39;failover\:(tcp\://broker-c1.foobar.local\:61616,tcp\://broker-c2.foobar.local\:61616,tcp\://broker-c3.foobar.local\:61616)?initialReconnectDelay\=2000&amp;jms.useCompression\=true&#39;:UserName=&#39;admin&#39;:Password=&#39;admin&#39; activemq-rar]]></script>
+</div></div></li></ol></li><li><p>&#160;Create connector connection pool</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: bash; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[bin/asadmin create-connector-connection-pool \
+  --raname activemq-rar \
+  --connectiondefinition javax.jms.ConnectionFactory \
+  --ping true --isconnectvalidatereq true \
+  jms/myConnectionPool]]></script>
+</div></div></li><li><p>Create a connector resource (JNDI-Mapping for connection pool)</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: bash; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[bin/asadmin create-connector-resource \
+  --poolname jms/myConnectionPool \
+  jms/myConnectionFactory]]></script>
+</div></div></li><li><p>Configure JNDI mapping for a queue</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: bash; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[bin/asadmin create-admin-object \
+	  --raname activemq-rar \
+  --restype javax.jms.Queue \
+  --property PhysicalName=MY.MAGIC.OUT \
+  jms/queue/MY.MAGIC.OUT
+]]></script>
+</div></div></li><li>Deploy your message driven beans and use the configured jndi names</li></ol></div>
+

@@ -1,0 +1,12 @@
+<div class="wiki-content maincontent"><h2 id="Whatisthedifferencebetweenpersistentandnon-persistentdelivery-Whatisthedifferencebetweenpersistentandnon-persistentdelivery?">What is the difference between persistent and non-persistent delivery?</h2>
+
+<p>ActiveMQ supports both persistent and non-persistent delivery. As per the JMS specification, the default delivery mode is persistent. The persistence flag is set on the MessageProducer for all messages using the setDeliveryMode. It can also be specified on a per message basis using the long form of the send method. Persistence is a property of a an individual message.</p>
+
+<p>The main difference is that if you are using persistent delivery, messages are persisted to disk/database so that they will survive a broker restart. When using non-persistent delivery, if you kill a broker then you will lose all in-transit messages.</p>
+
+<p>The effect of this difference is that persistent messaging is usually slower than non-persistent delivery, particularly when not using <a shape="rect" href="async-sends.xml">Async Sends</a>.</p>
+
+<h3 id="Whatisthedifferencebetweenpersistentandnon-persistentdelivery-Seealso">See also</h3>
+
+<ul><li><a shape="rect" href="async-sends.xml">Async Sends</a></li><li><a shape="rect" href="how-do-i-disable-persistence.xml">How do I disable persistence</a></li></ul></div>
+

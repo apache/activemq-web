@@ -1,0 +1,16 @@
+<div class="wiki-content maincontent"><h2 id="LoadTestingwithCamel-LoadTestingwithCamel">Load Testing with Camel</h2>
+
+<p>It is preferable at the time of writing to check out the source of ActiveMQ and Camel and perform local builds first.</p>
+
+<p>Then run a broker either via the <strong>bin/activemq</strong> script or you could be untar/unzip the <strong>assembly/target/apache-activemq</strong>.tar.gz* file first then run its <strong>bin/activemq</strong> script.</p>
+
+<p>Now to run a load test type</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+activemq/activemq-camel-loadtest&gt; mvn test -Dtest=LocalBrokerParallelProducerLoadTest
+]]></script>
+</div></div>
+
+<p>If you want to tinker with the configuration of ActiveMQ and Camel then edit the LocalBrokerParallelProducerLoadTest-context.xml file.</p></div>
+

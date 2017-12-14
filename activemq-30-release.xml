@@ -1,0 +1,24 @@
+<div class="wiki-content maincontent">
+<h2 id="ActiveMQ3.0Release-NewandNoteworthy">New and Noteworthy</h2>
+
+<p>This new release includes the following</p>
+
+<ul><li>a new 'discovery' transport <a shape="rect" href="uri-protocols.xml">protocol</a> for a pure client-only peer network - a self discovering cluster which automatically finds the brokers available on the network (as opposed to the 'peer' protocol which is a complete peer based JMS network).</li><li>migrated from the org.activemq to org.activemq package name hierarchy</li><li>improved support for more JDBC databases for persistence</li><li>an optimised wire protocol (which is unfortunately not compatible with 2.x)</li><li>more test cases and fixes of the <a shape="rect" href="jca-container.xml">JCA Container</a></li><li>various performance enhancements and bug fixes</li></ul>
+
+
+
+<h2 id="ActiveMQ3.0Release-DownloadHere">Download Here</h2>
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Download</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.0.zip" rel="nofollow">activemq-3.0.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.0-src.zip" rel="nofollow">activemq-3.0-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.0.tar.gz" rel="nofollow">activemq-3.0.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.0-src.tar.gz" rel="nofollow">activemq-3.0-src.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in gz package</p></td></tr></tbody></table></div>
+
+
+<h2 id="ActiveMQ3.0Release-Changelog">Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11500&amp;styleName=Html&amp;projectId=10520&amp;Create=Create" rel="nofollow">release notes</a></p>
+
+<div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
+</div>
+
+
+
+<p>You may also want to look at <a shape="rect" href="activemq-21-release.xml">the previous Changelog</a></p></div>
+

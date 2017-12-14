@@ -1,0 +1,45 @@
+<div class="wiki-content maincontent"><div style="padding-right:20px;float:left;margin-left:-20px;">
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="activemq-500-release.data/activemq-5.x-box-reflection.png" data-image-src="/confluence/download/attachments/72278/activemq-5.x-box-reflection.png?version=1&amp;modificationDate=1207832700000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59671794" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="activemq-5.x-box-reflection.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="72278" data-linked-resource-container-version="14"></span></p></div>
+
+
+<div style="min-height:200px">
+
+<h2 id="ActiveMQ5.0.0Release-NewFeaturesin5.0">New Features in 5.0</h2>
+
+<p>In the 5.0 release of Apache ActiveMQ there are the following new features:</p>
+
+<ul><li><a shape="rect" href="amq-message-store.xml">AMQ Message Store</a> (Faster Persistence!)</li><li><a shape="rect" href="message-cursors.xml">Message Cursors</a> (To handle very large number of stored messages)</li><li><a shape="rect" href="blob-messages.xml">Blob Messages</a></li><li><a shape="rect" href="command-agent.xml">Command Agent</a></li><li><a shape="rect" href="enterprise-integration-patterns.xml">Enterprise Integration Patterns</a> via <a shape="rect" class="external-link" href="http://activemq.apache.org/camel/">Camel Integration</a></li><li><a shape="rect" href="logging-a-warning-if-you-forget-to-start-a-connection.xml">Logging a warning if you forget to start a Connection</a></li><li><a shape="rect" href="message-transformation.xml">Message Transformation</a></li><li><a shape="rect" href="mirrored-queues.xml">Mirrored Queues</a></li><li><a shape="rect" href="producer-flow-control.xml">Producer Flow Control</a></li></ul>
+
+<h2 id="ActiveMQ5.0.0Release-GettingtheBinaryDistributions">Getting the Binary Distributions</h2>
+
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Download Link</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Windows Distribution</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.0.0/apache-activemq-5.0.0.zip">apache-activemq-5.0.0.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.0.0/apache-activemq-5.0.0.zip.asc">apache-activemq-5.0.0.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Unix/Linux/Cygwin Distribution</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.0.0/apache-activemq-5.0.0.tar.gz">apache-activemq-5.0.0.tar.gz</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.0.0/apache-activemq-5.0.0.tar.gz.asc">apache-activemq-5.0.0.tar.gz.asc</a></p></td></tr></tbody></table></div>
+
+
+<div class="confluence-information-macro confluence-information-macro-information"><p class="title">Do not use Safari to download, the above URLs use redirection</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>The above URLs use the Apache Mirror system to redirect you to a suitable mirror for your download. Some users have experienced issues with some versions of browsers (e.g. some Safari browsers). If the download doesn't seem to work for you from the above URL then try using <a shape="rect" class="external-link" href="http://www.mozilla.com/en-US/firefox/" rel="nofollow">FireFox</a></p></div></div>
+
+<h2 id="ActiveMQ5.0.0Release-GettingtheBinariesusingMaven2">Getting the Binaries using Maven 2</h2>
+
+<p>To use this release in your maven project, the proper dependency configuration that you should use in your <a shape="rect" class="external-link" href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html">Maven POM</a> is:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;dependency&gt;
+  &lt;groupId&gt;org.apache.activemq&lt;/groupId&gt;
+  &lt;artifactId&gt;activemq-core&lt;/artifactId&gt;
+  &lt;version&gt;5.0.0&lt;/version&gt;
+&lt;/dependency&gt;
+]]></script>
+</div></div>
+</div>
+
+
+<h2 id="ActiveMQ5.0.0Release-GettingtheSourceCode">Getting the Source Code</h2><h3 id="ActiveMQ5.0.0Release-SourceDistributions">Source Distributions</h3><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Download Link</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Source for Windows</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.0.0/apache-activemq-5.0.0-src.zip">apache-activemq-5.0.0-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.0.0/apache-activemq-5.0.0-src.zip.asc">apache-activemq-5.0.0-src.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Source for Unix/Linux/Cygwin</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.0.0/apache-activemq-5.0.0-src.tar.gz">apache-activemq-5.0.0-src.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.0.0/apache-activemq-5.0.0-src.tar.gz.asc">apache-activemq-5.0.0-src.tar.gz.asc</a></p></td></tr></tbody></table></div><h3 id="ActiveMQ5.0.0Release-SVNTagCheckout">SVN Tag Checkout</h3><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[svn co http://svn.apache.org/repos/asf/activemq/tags/activemq-5.0.0
+]]></script>
+</div></div><h2 id="ActiveMQ5.0.0Release-Changelog">Changelog</h2><p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11712&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p><p></p><div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Data cannot be retrieved due to an unexpected error
+</div>
+<p>Also see the previous <a shape="rect" href="activemq-411-release.xml">ActiveMQ 4.1.1 Release</a></p></div>
+

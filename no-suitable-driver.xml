@@ -1,0 +1,13 @@
+<div class="wiki-content maincontent"><h3 id="Nosuitabledriver-Symptoms">Symptoms</h3>
+
+<p>I get an exception saying <strong>No suitable driver</strong> when initialising the JDBC driver.</p>
+
+<h3 id="Nosuitabledriver-Reason">Reason</h3>
+
+<p>ActiveMQ tries to auto-detect the JDBC driver so that it can deduce the ultimate database's SQL dialect. Some JDBC drivers are not yet auto-recognised. Here's <a shape="rect" href="jdbc-support.xml">how to configure the language adapater class to use or to provide us with details of your driver so we can add support for it to ActiveMQ</a>.</p>
+
+<h3 id="Nosuitabledriver-See">See</h3>
+
+<ul><li><a shape="rect" href="jdbc-support.xml">JDBC Support</a></li><li><a shape="rect" href="persistence.xml">Persistence</a></li><li><a shape="rect" href="how-to-configure-a-new-database.xml">How to configure a new database</a></li></ul>
+</div>
+

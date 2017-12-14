@@ -1,0 +1,134 @@
+<div class="wiki-content maincontent"><h2 id="JDBCMasterSlave-JDBCMasterSlave">JDBC Master Slave</h2>
+
+<p>First supported in ActiveMQ version 4.1</p>
+
+<p>If you are using pure JDBC and not using the high performance journal then you are generally relying on your database as your single point of failure and persistence engine. If you do not have really high performance requirements this approach can make a lot of sense as you have a single persistence engine to backup and manage etc.</p>
+
+<h3 id="JDBCMasterSlave-Startup">Startup</h3>
+
+<p>When using just JDBC as the data source you can use a Master Slave approach, running as many brokers as you wish as this diagram shows. On startup one master grabs an exclusive lock in the broker database - all other brokers are slaves and pause waiting for the exclusive lock.</p>
+
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="jdbc-master-slave.data/Startup.png" data-image-src="/confluence/download/attachments/35908/Startup.png?version=1&amp;modificationDate=1153463898000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3244" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Startup.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35908" data-linked-resource-container-version="19"></span></p>
+
+<p>Clients should be using the <a shape="rect" href="failover-transport-reference.xml">Failover Transport</a> to connect to the available brokers. e.g. using a URL something like the following</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+failover:(tcp://broker1:61616,tcp://broker2:61616,tcp://broker3:61616)
+]]></script>
+</div></div>
+
+<p>Only the master broker starts up its transport connectors and so the clients can only connect to the master.</p>
+
+<h3 id="JDBCMasterSlave-Masterfailure">Master failure</h3>
+
+<p>If the master looses connection to the database or looses the exclusive lock then it immediately shuts down. If a master shuts down or fails, one of the other slaves will grab the lock and so the topology switches to the following diagram</p>
+
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="jdbc-master-slave.data/MasterFailed.png" data-image-src="/confluence/download/attachments/35908/MasterFailed.png?version=1&amp;modificationDate=1153463898000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3264" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="MasterFailed.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35908" data-linked-resource-container-version="19"></span></p>
+
+<p>One of the other other slaves immediately grabs the exclusive lock on the database to them commences becoming the master, starting all of its transport connectors.</p>
+
+<p>Clients loose connection to the stopped master and then the failover transport tries to connect to the available brokers - of which the only one available is the new master.</p>
+
+<h3 id="JDBCMasterSlave-Masterrestart">Master restart</h3>
+
+<p>At any time you can restart other brokers which join the cluster and start as slaves waiting to become a master if the master is shutdown or a failure occurs. So the following topology is created after a restart of an old master...</p>
+
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="jdbc-master-slave.data/MasterRestarted.png" data-image-src="/confluence/download/attachments/35908/MasterRestarted.png?version=1&amp;modificationDate=1153463898000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3252" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="MasterRestarted.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35908" data-linked-resource-container-version="19"></span></p>
+
+<h3 id="JDBCMasterSlave-ConfiguringJDBCMasterSlave">Configuring JDBC Master Slave</h3>
+
+<p>By default if you use the <strong>&lt;jdbcPersistenceAdapter/&gt;</strong> to avoid the high performance journal you will be using JDBC Master Slave by default. You just need to run more than one broker and point the client side URIs to them to get master/slave. This works because they both try an acquire an exclusive lock on a shared table in the database and only one will succeed.</p>
+
+<p>The following example shows how to configure the ActiveMQ broker in JDBC Master Slave mode</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;beans&gt;
+
+  &lt;!-- Allows us to use system properties as variables in this configuration file --&gt;
+  &lt;bean class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;/&gt;
+  
+  &lt;broker xmlns=&quot;http://activemq.apache.org/schema/core&quot;&gt;
+
+    &lt;destinationPolicy&gt;
+      &lt;policyMap&gt;&lt;policyEntries&gt;
+        
+          &lt;policyEntry topic=&quot;FOO.&gt;&quot;&gt;
+            &lt;dispatchPolicy&gt;
+              &lt;strictOrderDispatchPolicy /&gt;
+            &lt;/dispatchPolicy&gt;
+            &lt;subscriptionRecoveryPolicy&gt;
+              &lt;lastImageSubscriptionRecoveryPolicy /&gt;
+            &lt;/subscriptionRecoveryPolicy&gt;
+          &lt;/policyEntry&gt;
+
+      &lt;/policyEntries&gt;&lt;/policyMap&gt;
+    &lt;/destinationPolicy&gt;
+  
+  
+    &lt;persistenceAdapter&gt;
+        &lt;jdbcPersistenceAdapter dataDirectory=&quot;${activemq.base}/activemq-data&quot;/&gt;
+
+        &lt;!-- 
+        &lt;jdbcPersistenceAdapter dataDirectory=&quot;activemq-data&quot; dataSource=&quot;#oracle-ds&quot;/&gt;
+        --&gt; 
+    &lt;/persistenceAdapter&gt;
+  
+    &lt;transportConnectors&gt;
+       &lt;transportConnector name=&quot;default&quot; uri=&quot;tcp://localhost:61616&quot;/&gt;
+    &lt;/transportConnectors&gt;
+    
+  &lt;/broker&gt;
+  
+  &lt;!--  This xbean configuration file supports all the standard spring xml configuration options --&gt;
+  
+  &lt;!-- Postgres DataSource Sample Setup --&gt;
+  &lt;!-- 
+  &lt;bean id=&quot;postgres-ds&quot; class=&quot;org.postgresql.ds.PGPoolingDataSource&quot;&gt;
+    &lt;property name=&quot;serverName&quot; value=&quot;localhost&quot;/&gt;
+    &lt;property name=&quot;databaseName&quot; value=&quot;activemq&quot;/&gt;
+    &lt;property name=&quot;portNumber&quot; value=&quot;0&quot;/&gt;
+    &lt;property name=&quot;user&quot; value=&quot;activemq&quot;/&gt;
+    &lt;property name=&quot;password&quot; value=&quot;activemq&quot;/&gt;
+    &lt;property name=&quot;dataSourceName&quot; value=&quot;postgres&quot;/&gt;
+    &lt;property name=&quot;initialConnections&quot; value=&quot;1&quot;/&gt;
+    &lt;property name=&quot;maxConnections&quot; value=&quot;10&quot;/&gt;
+  &lt;/bean&gt;
+  --&gt;
+  
+  &lt;!-- MySql DataSource Sample Setup --&gt;
+  &lt;!-- 
+  &lt;bean id=&quot;mysql-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
+    &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+    &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost/activemq?relaxAutoCommit=true&quot;/&gt;
+    &lt;property name=&quot;username&quot; value=&quot;activemq&quot;/&gt;
+    &lt;property name=&quot;password&quot; value=&quot;activemq&quot;/&gt;
+    &lt;property name=&quot;poolPreparedStatements&quot; value=&quot;true&quot;/&gt;
+  &lt;/bean&gt;
+  --&gt;  
+   
+  &lt;!-- Oracle DataSource Sample Setup --&gt;
+  &lt;!--
+  &lt;bean id=&quot;oracle-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
+    &lt;property name=&quot;driverClassName&quot; value=&quot;oracle.jdbc.driver.OracleDriver&quot;/&gt;
+    &lt;property name=&quot;url&quot; value=&quot;jdbc:oracle:thin:@localhost:1521:AMQDB&quot;/&gt;
+    &lt;property name=&quot;username&quot; value=&quot;scott&quot;/&gt;
+    &lt;property name=&quot;password&quot; value=&quot;tiger&quot;/&gt;
+    &lt;property name=&quot;poolPreparedStatements&quot; value=&quot;true&quot;/&gt;
+  &lt;/bean&gt;
+  --&gt;
+      
+  &lt;!-- Embedded Derby DataSource Sample Setup --&gt;
+  &lt;!-- 
+  &lt;bean id=&quot;derby-ds&quot; class=&quot;org.apache.derby.jdbc.EmbeddedDataSource&quot;&gt;
+    &lt;property name=&quot;databaseName&quot; value=&quot;derbydb&quot;/&gt;
+    &lt;property name=&quot;createDatabase&quot; value=&quot;create&quot;/&gt;
+  &lt;/bean&gt;
+  --&gt;  
+
+&lt;/beans&gt;
+]]></script>
+</div></div>
+</div>
+

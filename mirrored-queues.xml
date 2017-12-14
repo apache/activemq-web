@@ -1,0 +1,40 @@
+<div class="wiki-content maincontent"><h2 id="MirroredQueues-MirroredQueues">Mirrored Queues</h2>
+
+<p>Queues provide an excellent reliable and high performance <a shape="rect" href="how-does-a-queue-compare-to-a-topic.xml">load balancing mechanism</a>. Each message placed on a queue can only be successfully processed by a single consumer. This is a good thing! <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)">. However sometimes you want to monitor what messages flow between the producers and consumers on a queue. </p>
+
+<p>To do this you can use <a shape="rect" href="virtual-destinations.xml">Virtual Destinations</a> to setup a virtual Queue which forwards the message to multiple physical queues. However enabling this for every single queue in your system can be painful.</p>
+
+<p>So to make it easy to monitor queues, we have added a feature we call <em>Mirrored Queues</em>. Mirrored Queues are kinda like a zero-configuration <a shape="rect" class="external-link" href="http://activemq.apache.org/camel/wire-tap.html">Wire Tap</a> on all of your queues inside your Message Broker.</p>
+
+<h3 id="MirroredQueues-Example">Example</h3>
+
+<p>For example imagine we have a number of producers sending to queue <strong>Foo.Bar</strong> and consumers consuming from queue <strong>Foo.Bar</strong> and we want to monitor or view activity. </p>
+
+<p>If you enable Mirrored Queues then by default you can subscribe to the topic <strong>VirtualTopic.Mirror.Foo.Bar</strong> and receive all the messages that are sent to the queue <strong>Foo.Bar</strong>. Since its a topic as many consumers can subscribe to this topic as are required.</p>
+
+<p>If you want you can use this feature with <a shape="rect" href="virtual-destinations.xml">Virtual Topics</a>; so that you can define a logical consumer; say called A. Then you can subscribe to the queue <strong>Consumer.A.VirtualTopic.Mirror.Foo.Bar</strong> to receive all the messages sent to queue <strong>Foo.Bar</strong> for the consumer A. You can then run multiple instances of this consumer who can then load balance among each other.</p>
+
+<p>This combination of Mirrored Queues and <a shape="rect" href="virtual-destinations.xml">Virtual Destinations</a> can be extremely useful for monitoring transaction flows; for example with <a shape="rect" class="external-link" href="http://activemq.apache.org/camel/bam.html">Business Activity Monitoring (BAM)</a>.</p>
+
+<h3 id="MirroredQueues-HowMirroredQueueswork">How Mirrored Queues work</h3>
+
+<p>When enabled, mirrored queues causes every message sent to a queue to also be sent to a topic of a similar name; so that folks who are interested in watching message exchanges on a queue can consume from the mirrored queue topic.</p>
+
+<p>When coupled with <a shape="rect" href="virtual-destinations.xml">Virtual Topics</a> on this topic as described in the above example, you can actually end up creating new queues which are mirrors of a given queue dynamically at runtime!</p>
+
+<h3 id="MirroredQueues-EnablingMirroredQueues">Enabling Mirrored Queues</h3>
+
+<p>By default Mirrored Queues is disabled; as enabling it will cause a virtual topic to be created for each queue you use.</p>
+
+<p>To enable Mirrored Queues, set the <strong>useMirroredQueues</strong> property on <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/broker/BrokerService.html">BrokerService</a> or add the following inside the &lt;broker&gt; element in the <a shape="rect" href="xml-configuration.xml">Xml Configuration</a>:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+    &lt;destinationInterceptors&gt;
+        &lt;mirroredQueue copyMessage = &quot;true&quot; postfix=&quot;.qmirror&quot; prefix=&quot;&quot;/&gt;
+    &lt;/destinationInterceptors&gt;
+]]></script>
+</div></div>
+
+<p>This would make a topic named "*.qmirror" for each queue on your Broker.</p></div>
+

@@ -1,0 +1,52 @@
+<div class="wiki-content maincontent">
+
+<p>For Windows XP:</p>
+
+<p>1. Download AIO (Asynchronous IO for Java) from IBM (<a shape="rect" class="external-link" href="http://www.alphaworks.ibm.com/tech/aio4j" rel="nofollow">http://www.alphaworks.ibm.com/tech/aio4j</a>).</p>
+
+<p>2. Unzip the downloaded file and copy the following files: </p>
+
+<ul><li>ibmaio.dll</li><li>ibmaio-1.0.jar</li></ul>
+
+
+<p>3. Place ibmaio.dll into Windows System32 folder. (You may need to restart afterwards for this to take effect)</p>
+
+<p>4. Include ibmaio-1.0.jar in the classpath.</p>
+
+<p>5. Edit ActiveMQ's configuration file (<strong>activemq.xml</strong>, found in the conf folder). Look the following snippet:
+<br clear="none" class="atl-forced-newline"></p>
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;!-- ==================================================================== --&gt;
+&lt;!-- ActiveMQ Broker Configuration --&gt;
+&lt;!-- ==================================================================== --&gt;
+&lt;broker&gt;
+ &lt;connector&gt;
+  &lt;tcpServerTransport uri="tcp://localhost:61616" backlog="1000" useAsyncSend="true" maxOutstandingMessages="50"/&gt;
+ &lt;/connector&gt;
+    .
+    .
+&lt;/broker&gt;   
+</pre>
+</div></div>  
+<p><br clear="none" class="atl-forced-newline"></p>
+
+<p>   Change the connector settings, change <strong>tcpServerTransport</strong> to <strong>serverTransport</strong> and remove the unneeded parameters): 
+<br clear="none" class="atl-forced-newline"></p>
+ <div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;connector&gt;
+ &lt;serverTransport uri="activeio:aio://&lt;ip address&gt;:&lt;port&gt;" /&gt;
+&lt;/connector&gt;
+ </pre>
+</div></div>
+<p><br clear="none" class="atl-forced-newline"></p>
+
+<p>    Example:
+<br clear="none" class="atl-forced-newline"></p>
+ <div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>    
+&lt;connector&gt;
+ &lt;serverTransport uri="activeio:aio://192.168.0.162:61616" /&gt;
+&lt;/connector&gt;
+ </pre>
+</div></div></div>
+

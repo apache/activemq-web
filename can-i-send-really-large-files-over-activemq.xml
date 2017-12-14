@@ -1,0 +1,10 @@
+<div class="wiki-content maincontent"><h2 id="CanIsendreallylargefilesoverActiveMQ-CanIsendreallylargefilesoverActiveMQ">Can I send really large files over ActiveMQ</h2>
+
+<p>The answer is yes. </p>
+
+<p>If you are using ActiveMQ 4.2 or later we highly recommend you use <a shape="rect" href="blob-messages.xml">Blob Messages</a> which implements an out of band transport of the messages; it allows the files to be hosted on external http/ftp sites if required and can support either direct publisher &lt;-&gt; subscriber communication or publisher -&gt; broker/file server -&gt; consumer messaging.</p>
+
+<p>For 4.1 or ealier large file transfer is achieved using <a shape="rect" href="jms-streams.xml">JMS Streams</a>. </p>
+
+<p>Normally the JMS API expects the entire JMS messsage to reside in the client side memory; however using <a shape="rect" href="blob-messages.xml">Blob Messages</a> or <a shape="rect" href="jms-streams.xml">JMS Streams</a> allows you to send and receive arbitrarily large files with very low RAM overhead.</p></div>
+

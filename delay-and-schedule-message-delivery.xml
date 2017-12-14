@@ -1,0 +1,36 @@
+<div class="wiki-content maincontent"><p>ActiveMQ from version <strong>5.4</strong> has an optional persistent scheduler built into the ActiveMQ message broker. It is enabled by setting the broker <strong>schedulerSupport</strong> attribute to true in the <a shape="rect" href="xml-configuration.xml">Xml Configuration</a>. <br clear="none"> An ActiveMQ client can take advantage of a delayed delivery by using the following message properties:</p><div class="confluence-information-macro confluence-information-macro-note"><p class="title">Check your Message Properties</p><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>The message property <code>scheduledJobId&#160;</code>is reserved for use by the Job Scheduler. If this property is set before sending, the message will be sent immediately and not scheduled. Also, <span>after a scheduled message is received, the property </span><span><code>scheduledJobId</code>&#160;will be set on the received message so </span>keep this in mind if using something like a Camel Route which might automatically copy properties over when re-sending a message.</p></div></div><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>type</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>AMQ_SCHEDULED_DELAY</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>long</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The time in milliseconds that a message will wait before being scheduled to be delivered by the broker</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>AMQ_SCHEDULED_PERIOD</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>long</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The time in milliseconds to wait after the start time to wait before scheduling the message again</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>AMQ_SCHEDULED_REPEAT</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>int</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The number of times to repeat scheduling a message for delivery</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>AMQ_SCHEDULED_CRON</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>String</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Use a Cron entry to set the schedule</p></td></tr></tbody></table></div><p>For the connivence of Java JMS clients - there's an interface with the property names used for scheduling at <em><strong>org.apache.activemq.ScheduledMessage</strong></em>.</p><p>For example, to have a message scheduled for delivery in 60 seconds - you would need to set the <em>AMQ_SCHEDULED_DELAY</em> property:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[        MessageProducer producer = session.createProducer(destination);
+        TextMessage message = session.createTextMessage(&quot;test msg&quot;);
+        long time = 60 * 1000;
+        message.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, time);
+        producer.send(message);
+]]></script>
+</div></div><p>You can set a message to wait with an initial delay, and the repeat delivery 10 times, waiting 10 seconds between each re-delivery:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[        MessageProducer producer = session.createProducer(destination);
+        TextMessage message = session.createTextMessage(&quot;test msg&quot;);
+        long delay = 30 * 1000;
+        long period = 10 * 1000;
+        int repeat = 9;
+        message.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, delay);
+        message.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, period);
+        message.setIntProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, repeat);
+        producer.send(message);
+]]></script>
+</div></div><p>You can also use <a shape="rect" class="external-link" href="http://en.wikipedia.org/wiki/Cron" rel="nofollow">CRON</a> to schedule a message, for example, if you want a message scheduled to be delivered every hour, you would need to set the CRON entry to be - <em>0 * * * *</em> - e.g.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[        MessageProducer producer = session.createProducer(destination);
+        TextMessage message = session.createTextMessage(&quot;test msg&quot;);
+        message.setStringProperty(ScheduledMessage.AMQ_SCHEDULED_CRON, &quot;0 * * * *&quot;);
+        producer.send(message);
+]]></script>
+</div></div><p>CRON scheduling takes priority over using message delay - however, if a repeat and period is set with a CRON entry, the ActiveMQ scheduler will schedule delivery of the message for every time the CRON entry fires. Easier to explain with an example. Supposing that you want a message to be delivered 10 times, with a one second delay between each message - and you wanted this to happen every hour - you'd do this:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[        MessageProducer producer = session.createProducer(destination);
+        TextMessage message = session.createTextMessage(&quot;test msg&quot;);
+        message.setStringProperty(ScheduledMessage.AMQ_SCHEDULED_CRON, &quot;0 * * * *&quot;);
+        message.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_DELAY, 1000);
+        message.setLongProperty(ScheduledMessage.AMQ_SCHEDULED_PERIOD, 1000);
+        message.setIntProperty(ScheduledMessage.AMQ_SCHEDULED_REPEAT, 9);
+        producer.send(message);
+
+]]></script>
+</div></div></div>
+

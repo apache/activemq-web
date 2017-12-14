@@ -1,0 +1,8 @@
+<div class="wiki-content maincontent">
+<p>This new release includes the following</p>
+
+<ul><li>Improved <a shape="rect" class="external-link" href="http://stomp.codehaus.org/" rel="nofollow">Stomp</a> 1.0 support to make it easy to create cross language clients such as for C, C#, Python, Ruby, Perl and Pike.</li><li>Ajax support now uses OpenRico as the default Ajax library</li><li>the Resource Adaptor now supports batching</li><li>demand based store and forward in networks</li><li>support for Informix JDBC</li><li>updated DTD for the latest Spring</li><li>various performance enhancements and bug fixes</li></ul>
+
+
+<p>For more details please see the <a shape="rect" href="../../../activemq-32-release.xml">Release Notes</a></p></div>
+

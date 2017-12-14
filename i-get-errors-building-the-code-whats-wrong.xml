@@ -1,0 +1,13 @@
+<div class="wiki-content maincontent">
+<p>We currently use a multi-project maven build system, which can be a little fragile. If you are ever having problems building we suggest you try the following in the root <em>activemq</em> directory</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+mvn clean
+rm -rf ~/.m2/repository
+mvn
+]]></script>
+</div></div>
+
+<p>You may also want to <a shape="rect" href="how-do-i-build-but-disable-the-unit-tests.xml">disable the unit tests</a></p></div>
+

@@ -1,0 +1,4 @@
+<div class="wiki-content maincontent"><p>JMSExpiration on a message is set by the MessageProducer in JMS - either via</p>
+
+<ul><li><a shape="rect" class="external-link" href="http://java.sun.com/j2ee/1.4/docs/api/javax/jms/MessageProducer.html#setTimeToLive(long)" rel="nofollow">producer.setTimeToLive()</a></li><li><a shape="rect" class="external-link" href="http://java.sun.com/j2ee/1.4/docs/api/javax/jms/MessageProducer.html#send(javax.jms.Destination,%20javax.jms.Message,%20int,%20int,%20long)" rel="nofollow">producer.send(Destination, Message, int, int, long)</a></li></ul></div>
+

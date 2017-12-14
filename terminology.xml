@@ -1,0 +1,60 @@
+<div class="wiki-content maincontent"><p>Questions on Message Orientated Middleware and ActiveMQ terminology</p>
+
+<ul class="childpages-macro"><li><a shape="rect" href="dr.xml">DR</a></li><li><a shape="rect" href="ha.xml">HA</a></li><li><a shape="rect" href="latency.xml">Latency</a></li><li><a shape="rect" href="mom.xml">MOM</a></li><li><a shape="rect" href="qos.xml">QoS</a></li><li><a shape="rect" href="seda.xml">SEDA</a></li><li><a shape="rect" href="throughput.xml">Throughput</a></li></ul>
+
+<h3 id="Terminology-StoreandForward">Store and Forward</h3>
+
+<p>brokers receive messages, store them locally and forwards the message to a recipient (in this case another broker) when it is able to do so. The message is only deleted once its been sucessfully delivered.</p>
+
+<h3 id="Terminology-Reliablemessaging">Reliable messaging</h3>
+
+<p>Best efforts are made to deliver a message whilst the system (broker/cluster/network) is running.</p>
+
+<h3 id="Terminology-Guaranteed">Guaranteed</h3>
+
+<p>No matter what happens to the physical network connections or the destination service the message will be delivered to the receiptant - provided there is no catastraphic loss to the persistent data store of a broker along the message(s) route. This means a message could be lost if there was a catastrophic failure to a broker's activemq data disk.</p>
+
+<h3 id="Terminology-FaultTolerance">Fault Tolerance</h3>
+
+<p>Unexpected failures never lead to lost or corrupted data - for a messaging system - there are additional caveats for corrupted data - message ordering and once and only once message delivery.</p>
+
+<h3 id="Terminology-NetworkOrphan">Network Orphan</h3>
+
+<p>A broker can become isolated from other brokers in the cluster due to an network outage. The broker and it's connected clients may not be able to detect if the loss of other brokers in the cluster is due to the broker(or their machines) or simply a router/cable problem. This is a big issue for clustering, as it has the potential to create corrupted data exchanges when the network is re-established.</p>
+
+<h3 id="Terminology-Clustering">Clustering</h3>
+
+<p>multiple brokers are used to provide a single logical service. <br clear="none">
+There are three reasons for using clustering:</p>
+
+<h5 id="Terminology-Increasedcapacity">Increased capacity</h5>
+<p>This is load balancing - this is currently achived by networking brokers together - this won't change in ActiveMQ 4.0 (see below).</p>
+
+<h5 id="Terminology-GeographicalDistribution">Geographical Distribution</h5>
+
+<p>Again this is achived in ActiveMQ by broker networks.</p>
+
+<h5 id="Terminology-HighAvailability">High Availability</h5>
+
+<p>The guarenteed maximum amount of downtime that will not be exceeded:</p>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Uptime</p></th><td colspan="1" rowspan="1" class="confluenceTd"><p> Average Down time </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> implications </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>95% </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 8 hours a week </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> System will be offline for nightly backups a broker loss could result in loss of all messages since last back-up</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>99%</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1.5 hours a week</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> system maybe offline for backup or maintenance</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>99.9%</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 40 mins/month</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> all back-ups done online</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>99.999% </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 5 mins/year</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> full redundancy</p></td></tr></tbody></table></div>
+
+
+<h5 id="Terminology-Architecturebasics">Architecture basics</h5>
+
+<p>Clusters can be either based around shared storage (shared database or disk) or shared nothing (every broker has their own private storage). There is also two basic mechanisms used for message integrity for failure scenarios:</p>
+
+<h6 id="Terminology-Master/Slave">Master/Slave</h6>
+
+<p>A broker has a standby replacement - another broker that is kept in step by the cluster that will take over in the event of a broker failure.</p>
+
+<h6 id="Terminology-Synchronous">Synchronous</h6>
+
+<p>Every broker is kept exactly in-step with message exchanges across the entire cluster. This is the most secure for failure scenrios, but suffers from performance problems because it the responsibility of the cluster to ensure that messages are fully replicated across every node. This results in higher latency and increased traffic. In practice, it is unsual to have more than 2 brokers in such a cluster, because the performance degradation is directly related to the number of brokers in the cluster.</p>
+
+<h6 id="Terminology-Hybrid">Hybrid</h6>
+
+<p>A fully synchronous cluster, but it is the responsibility of the client (not the brokers) to ensure every broker is kept up to date. This has advantages for performance, but is complicated by the additional exchange between client and broker(s) to ensure that only one broker does the message dispatching for a client.</p>
+</div>
+

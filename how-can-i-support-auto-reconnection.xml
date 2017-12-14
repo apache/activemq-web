@@ -1,0 +1,19 @@
+<div class="wiki-content maincontent"><h2 id="HowcanIsupportautoreconnection-HowcanIsupportautoreconnection?">How can I support auto reconnection?</h2>
+
+<p>Networks are unreliable and sockets do get dropped from time to time (it could be a network glitch, dodgy router, firewall, or someone could even just restart a broker).</p>
+
+<p>You often want a JMS client to automatically handle the fact that the connection to the broker was lost such that the JMS client either reconnnects to the same broker when it becomes available, or reconnects to another broker in the cluster.</p>
+
+<p>Its easy to perform auto-reconnection. In Apache ActiveMQ using the <a shape="rect" href="failover-transport-reference.xml">failover transport</a> in which the JMS client (connection) will automatically reconnect to the broker if there is a socket exception. </p>
+
+<p>Just use the following connection URI (setting the brokerURL in the ActiveMQConnectionFactory)</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+failover:tcp://host:port 
+]]></script>
+</div></div>
+
+
+<p>You can use a list of URIs to specify which machines to connect to and use discovery to find the brokers to connect to. More details on this see <a shape="rect" href="configuring-transports.xml">Configuring Transports</a></p></div>
+

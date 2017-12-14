@@ -1,0 +1,14 @@
+<div class="wiki-content maincontent"><h2 id="ZeroConf-ZeroConf">ZeroConf</h2>
+
+<p><a shape="rect" class="external-link" href="http://www.zeroconf.org/" rel="nofollow">ZeroConf</a> is a standard service discovery mechanism. ZeroConf is used on Apple's OS X; which used to call it Rendezvous but now calls it Bonjour.</p>
+
+<div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>Support for <a shape="rect" href="zeroconf.xml">ZeroConf</a> is <strong>deprecated</strong> and scheduled to be removed from ActiveMQ 5.8 onwards.</p></div></div>
+
+<p>We use the <a shape="rect" class="external-link" href="http://jmdns.sf.net/" rel="nofollow">jmDNS</a> project to implement the Zeroconf specification to detect services. This means other Zeroconf<br clear="none">
+based tools can be used in conjunction with this discovery agent.</p>
+
+<p>You can use ZeroConf with ActiveMQ's <a shape="rect" href="discovery.xml">Discovery</a> mechanism. For more details see</p>
+
+<ul><li><a shape="rect" href="discovery.xml">Discovery</a></li><li><a shape="rect" href="zeroconf-transport-reference.xml">ZeroConf Transport Reference</a></li></ul></div>
+

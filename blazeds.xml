@@ -1,0 +1,52 @@
+<div class="wiki-content maincontent"><h2 id="BlazeDS-BlazeDS">BlazeDS</h2>
+
+<p>You may also want to check out the <a shape="rect" class="external-link" href="http://mmartinsoftware.blogspot.com/2008/05/simplified-blazeds-and-jms.html" rel="nofollow">Simplified BlazeDS and JMS article</a> by <a shape="rect" class="external-link" href="http://mmartinsoftware.blogspot.com/" rel="nofollow">Michael Martin</a>.</p>
+
+<p>Using the dynamicQueues feature of the <a shape="rect" href="jndi-support.xml">JNDI Support</a> Ryan Gardner created thisworking BlazeDS messaging-config.xml file:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;service id=&quot;message-service&quot; class=&quot;flex.messaging.services.MessageService&quot;&gt;
+
+   &lt;adapters&gt;
+       &lt;adapter-definition id=&quot;actionscript&quot; class=&quot;flex.messaging.services.messaging.adapters.ActionScriptAdapter&quot; default=&quot;true&quot; /&gt;
+       &lt;adapter-definition id=&quot;jms&quot; class=&quot;flex.messaging.services.messaging.adapters.JMSAdapter&quot;/&gt;
+   &lt;/adapters&gt;
+
+   &lt;default-channels&gt;
+               &lt;channel ref=&quot;my-streaming-amf&quot;/&gt;
+               &lt;channel ref=&quot;my-polling-amf&quot;/&gt;
+   &lt;/default-channels&gt;
+
+  &lt;destination id=&quot;inbound-sms-destination&quot;&gt;
+
+   &lt;properties&gt;
+   &lt;jms&gt;
+     &lt;destination-type&gt;Topic&lt;/destination-type&gt;
+     &lt;message-type&gt;javax.jms.TextMessage&lt;/message-type&gt;
+     &lt;connection-factory&gt;topicConnectionFactory&lt;/connection-factory&gt;
+     &lt;destination-jndi-name&gt;dynamicTopics/SMSReturnMessages&lt;/destination-jndi-name&gt;
+
+     &lt;delivery-mode&gt;NON_PERSISTENT&lt;/delivery-mode&gt;
+     &lt;message-priority&gt;DEFAULT_PRIORITY&lt;/message-priority&gt;
+     &lt;acknowledge-mode&gt;AUTO_ACKNOWLEDGE&lt;/acknowledge-mode&gt;
+     &lt;initial-context-environment&gt;
+       &lt;property&gt;
+         &lt;name&gt;Context.INITIAL_CONTEXT_FACTORY&lt;/name&gt;
+         &lt;value&gt;org.apache.activemq.jndi.ActiveMQInitialContextFactory&lt;/value&gt;
+       &lt;/property&gt;
+       &lt;property&gt;
+         &lt;name&gt;Context.PROVIDER_URL&lt;/name&gt;
+         &lt;value&gt;vm://localhost&lt;/value&gt;
+
+       &lt;/property&gt;
+     &lt;/initial-context-environment&gt;
+   &lt;/jms&gt;
+   &lt;/properties&gt;
+   &lt;adapter ref=&quot;jms&quot;/&gt;
+   &lt;/destination&gt;
+&lt;/service&gt;
+]]></script>
+</div></div></div>
+

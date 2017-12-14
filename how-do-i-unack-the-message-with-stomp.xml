@@ -1,0 +1,57 @@
+<div class="wiki-content maincontent"><p>There is no explicit "unack" command in Stomp. Once the client receives the message it cannot be marked as "unconsumed" and sent to another subscriber (or redelivered to the same subscriber again). It's up to your application (or Stomp client) to handle failed processing of received messages and implement "message redelivery".</p>
+
+<p>Stomp transactions are often mistakenly considered to be a solution for this use case. But that's not the case, since transactions are only related to sending messages and acknowledgments. If you start a transaction, send a message ack in a transaction and finally abort it, the message will not be redelivered again. It just means that broker will not send any more messages to the client if the prefetch limit is reached.</p>
+
+<p>Take a look at the following example:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+StompConnection connection = new StompConnection();
+connection.open(&quot;localhost&quot;, 61613);
+		
+connection.connect(&quot;system&quot;, &quot;manager&quot;);
+		
+connection.send(&quot;/queue/test&quot;, &quot;message 1&quot;);
+connection.send(&quot;/queue/test&quot;, &quot;message 2&quot;);
+connection.send(&quot;/queue/test&quot;, &quot;message 3&quot;);
+		
+HashMap&lt;String, String&gt; headers = new HashMap&lt;String, String&gt;();
+headers.put(&quot;activemq.prefetchSize&quot;, &quot;1&quot;);
+connection.subscribe(&quot;/queue/test&quot;, &quot;client&quot;, headers);
+		
+connection.begin(&quot;tx1&quot;);
+StompFrame frame = connection.receive();
+System.out.println(frame.getBody());
+connection.ack(frame, &quot;tx1&quot;);
+connection.abort(&quot;tx1&quot;);
+		
+connection.begin(&quot;tx2&quot;);
+connection.ack(frame, &quot;tx2&quot;);        //sending the ack again
+frame = connection.receive();
+System.out.println(frame.getBody());
+connection.ack(frame, &quot;tx2&quot;);
+connection.commit(&quot;tx2&quot;);
+		
+connection.begin(&quot;tx3&quot;);
+frame = connection.receive();
+System.out.println(frame.getBody());
+connection.ack(frame, &quot;tx3&quot;);
+connection.commit(&quot;tx3&quot;);
+]]></script>
+</div></div>
+
+<p>This simple application will print </p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+message 1
+message 2
+message 3
+]]></script>
+</div></div>
+
+<p>Since the transaction <code>tx1</code> has been aborted, we needed to acknowledge that message again in <code>tx2</code> in order to be able to receive the next message (since the prefetch size used is 1).</p>
+
+<p>Also take a look at these pages for more info:</p>
+<ul><li><a shape="rect" class="external-link" href="http://activemq.apache.org/stomp/stomp10/additional.html#transaction_handling">http://activemq.apache.org/stomp/stomp10/additional.html#transaction_handling</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/what-is-the-prefetch-limit-for.html">http://activemq.apache.org/what-is-the-prefetch-limit-for.html</a></li></ul></div>
+

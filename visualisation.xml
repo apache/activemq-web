@@ -1,0 +1,28 @@
+<div class="wiki-content maincontent"><p>Inspired greatly by <a shape="rect" class="external-link" href="http://www.enterpriseintegrationpatterns.com/talks.html" rel="nofollow">Gregor and Erik's great talk at TSSJS 2006</a> we've started to add some visualisation plugins into Apache ActiveMQ.</p>
+
+<h3 id="Visualisation-Connectionvisualisation">Connection visualisation</h3>
+
+<p>There is a <strong>&lt;connectionDotFilePlugin/&gt;</strong> broker plugin which generates a <a shape="rect" class="external-link" href="http://www.graphviz.org/" rel="nofollow">DOT file</a> such as <a shape="rect" class="external-link" href="visualisation.data/ActiveMQConnections.dot" rel="nofollow">this example</a> representing the connections, sessions, producers, consumers and the destinations they are using.</p>
+
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="visualisation.data/ActiveMQConnections.png" data-image-src="/confluence/download/attachments/36195/ActiveMQConnections.png?version=1&amp;modificationDate=1143546333000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3285" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ActiveMQConnections.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="36195" data-linked-resource-container-version="15"></span></p>
+
+<h3 id="Visualisation-Destinationvisualisation">Destination visualisation</h3>
+
+<p>There is a <strong>&lt;destinationDotFilePlugin/&gt;</strong> broker plugin which generates a <a shape="rect" class="external-link" href="http://www.graphviz.org/" rel="nofollow">DOT file</a> such as <a shape="rect" class="external-link" href="visualisation.data/ActiveMQDestinations.dot" rel="nofollow">this example</a> whenever a destination is created or destroyed in the broker. You can then turn this dot file into a nicely rendered image such as the one below.</p>
+
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-thumbnail" src="visualisation.thumbs/ActiveMQDestinations.png" data-image-src="/confluence/download/attachments/36195/ActiveMQDestinations.png?version=1&amp;modificationDate=1143412917000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3239" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="ActiveMQDestinations.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="36195" data-linked-resource-container-version="15"></span></p>
+
+<h2 id="Visualisation-AnoteforOSXusers">A note for OS X users</h2>
+
+<p>If you are using OS X then you can open the DOT file using <a shape="rect" class="external-link" href="http://www.pixelglow.com/graphviz/" rel="nofollow">graphviz</a> which will then automatically re-render if it changes, so you end up with a real time graphical representation of the topic and queue hierarchies.</p>
+
+<p>Also if you want to edit the layout a little before adding it to a wiki to distribute to your team, open the DOT file with <a shape="rect" class="external-link" href="http://www.omnigroup.com/applications/omnigraffle/" rel="nofollow">OmniGraffle</a> then just edit away <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p>
+
+<h2 id="Visualisation-VisualisationWishList">Visualisation Wish List</h2>
+
+<p>There are so many different things we could visualise; our only limitation is our imagination. So if you have any ideas for what we could visualise please add something to our <a shape="rect" href="visualisation-wish-list.xml">Visualisation Wish List</a></p>
+
+<h1 id="Visualisation-ExternalOpenSourceTools">External Open Source Tools</h1>
+
+<ul><li><a shape="rect" class="external-link" href="http://hawt.io/" rel="nofollow">hawtio</a> is an open source HTML5 web application for working with Apache ActiveMQ and Apache Camel. It lets you create topics/queues, browse queues or send messages to destinations as well as visualising Camel routes and working with Camel endpoints along with viewing logs and metric charting etc.</li><li><a shape="rect" class="external-link" href="https://github.com/fusesource/fuseide" rel="nofollow">Fuse IDE</a> is an open source set of eclipse plugins for working with Apache ActiveMQ and Apache Camel. Its got tooling for runtime browsing of queues, creating topics/queues. You can drag and drop messages to/from ActiveMQ destinations and Camel endpoints</li></ul></div>
+

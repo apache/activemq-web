@@ -1,0 +1,23 @@
+<div class="wiki-content maincontent">
+<h2 id="ActiveMQ1.2Release-NewandNoteworthy">New and Noteworthy</h2>
+<p>This release represents a major increase in functionality; the new features in this release are:-</p>
+
+<ul><li>heaps of bug fixes and new test cases</li></ul>
+
+
+
+<h2 id="ActiveMQ1.2Release-DownloadHere">Download Here</h2>
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Download</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-release-1.2.zip" rel="nofollow">activemq-release-1.2.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-release-1.2-src.zip" rel="nofollow">activemq-release-1.2-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-release-1.2.tar.gz" rel="nofollow">activemq-release-1.2.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>[activemq-release-1.2-src.tar.gz</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>http://dist.codehaus.org/activemq/distributions/activemq-release-1.2-src.tar.gz <br clear="none">
+]</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in gz package</p></td></tr></tbody></table></div>
+
+
+<h2 id="ActiveMQ1.2Release-Changelog">Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11120&amp;styleName=Html&amp;projectId=10520&amp;Create=Create" rel="nofollow">release notes</a></p>
+
+<div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
+</div>
+
+
+<p>You may also want to look at <a shape="rect" href="activemq-11-release.xml">the previous Changelog</a></p></div>
+

@@ -1,0 +1,10 @@
+<div class="wiki-content maincontent">
+
+
+<p>QoS is a MOM abbreviation of the term <em>Quality of Service</em>. There are many different kinds of messaging with different qualities of service such as</p>
+
+<ul><li>topics versus queues</li><li>durable messaging versus <em>reliable</em> (some buffering takes place but if a consumer is down long enough the messages are discarded)</li><li>message timeout</li></ul>
+
+
+<p>etc.</p></div>
+

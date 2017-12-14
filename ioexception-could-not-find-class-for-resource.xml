@@ -1,0 +1,24 @@
+<div class="wiki-content maincontent"><p>If you get an exception looking like this</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+Reason:  java.io.exception : could not find class for resource: META-INF/services/org/apache/activemq/transport/tcp
+]]></script>
+</div></div>
+<p>&#160;</p>
+
+<h3 id="IOException-couldnotfindclassforresource-Cause">Cause</h3>
+
+<p>You are probably using the ActiveMQ source code without using the resources</p>
+
+<h3 id="IOException-couldnotfindclassforresource-Quickfix">Quick fix</h3>
+
+<p>Try one of these</p>
+<ul><li>use one of the distribution jars for ActiveMQ</li><li>use Maven to run your program</li><li>try adding activemq/src/conf to your classpath</li></ul>
+
+
+<h3 id="IOException-couldnotfindclassforresource-Background">Background</h3>
+
+<p>Then it means that the files in META-INF/services could not be found on the classpath. These files are used to support loose coupling on ActiveMQ with the transport protocols (e.g. to avoid a classpath dependency on JXTA) and to allow dynamic protocol enhancement without a change to the core.</p>
+
+<p>So we're using the META-INF/services files as a way of coupling a protocol used in URL connections to a Java class name.</p></div>
+

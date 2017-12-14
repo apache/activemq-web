@@ -1,0 +1,2 @@
+<div class="wiki-content maincontent"><p>We've finally released version 1.0 of the CMS (C++ Messaging Service) API.  This is the JMS-like API for C++ applications implemented by ActiveMQ-CPP.  The hope is that more and more C++ application will start moving toward a common API for messaging.  You can download CMS 1.0 <a shape="rect" href="../../../../cms/cms-api-10-release.xml">here</a></p></div>
+

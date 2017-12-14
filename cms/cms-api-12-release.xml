@@ -1,0 +1,31 @@
+<div class="wiki-content maincontent"><h2 id="CMSAPI1.2Release-NewandNoteworthy">New and Noteworthy</h2>
+
+<p>This is a minor release of the C++ Messaging Service (CMS).  This release is was done as part of releasing ActiveMQ-CPP 2.1.1 and contains the following updates:</p>
+<ul><li>Made read methods of BytesMessage const so that asynchronous consumers (onMessage) don't have to use const_cast.</li></ul>
+
+
+<h2 id="CMSAPI1.2Release-API">API</h2>
+
+<p>Check out the API for this release <a shape="rect" class="external-link" href="http://activemq.apache.org/cms/api_docs/cms-1.2">here</a></p>
+
+<h2 id="CMSAPI1.2Release-DownloadHere">Download Here</h2>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Download Link </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> PGP Signature file of download </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Windows </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/cms-1.2-src.zip">cms-1.2-src.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/cms-1.2-src.zip.asc">cms-1.2-src.zip.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Unix </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/cms-1.2-src.tar.gz">cms-1.2-src.tar.gz</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/cms-1.2-src.tar.gz.asc">cms-1.2-src.tar.gz.asc</a> </p></td></tr></tbody></table></div>
+
+
+<h2 id="CMSAPI1.2Release-SVNTagCheckout">SVN Tag Checkout</h2>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+svn co https://svn.apache.org/repos/asf/activemq/activemq-cpp/tags/cms-1.2/
+]]></script>
+</div></div>
+
+<h2 id="CMSAPI1.2Release-Changelog">Changelog</h2>
+
+<p>The following issues were resolved as part of the <a shape="rect" href="activemq-cpp-211-release.xml">ActiveMQ-CPP 2.1.1 Release</a><br clear="none">
+</p><div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Data cannot be retrieved due to an unexpected error
+</div>
+&#160;</div>
+

@@ -1,0 +1,42 @@
+<div class="wiki-content maincontent">
+<h3 id="ConfiguringBrokers-Overview">Overview</h3>
+
+<p>In ActiveMQ 4, we are using a new xml format to configure the broker.</p>
+
+
+<h3 id="ConfiguringBrokers-Syntax">Syntax</h3>
+
+<p>The following xsd describes the syntax of the broker configuration file.</p>
+
+<p><a shape="rect" href="configuring-brokers.data/activemq-4.0.xsd?version=1&amp;modificationDate=1133701454000&amp;api=v2" data-linked-resource-id="3253" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="activemq-4.0.xsd" data-linked-resource-content-type="application/octet-stream" data-linked-resource-container-id="36158" data-linked-resource-container-version="6">activemq-4.0.xsd</a></p>
+
+<p>And here is the reference documentation for that xsd file.</p>
+
+<p><a shape="rect" href="configuring-brokers.data/activemq-4.0.xsd.html?version=1&amp;modificationDate=1133701442000&amp;api=v2" data-linked-resource-id="3286" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="activemq-4.0.xsd.html" data-nice-type="HTML Document" data-linked-resource-content-type="text/html" data-linked-resource-container-id="36158" data-linked-resource-container-version="6">activemq-4.0.xsd.html</a></p>
+
+<h3 id="ConfiguringBrokers-Example">Example</h3>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;beans xmlns=&quot;http://activemq.org/config/1.0&quot;&gt;
+
+  &lt;broker useJmx=&quot;true&quot;&gt;
+  
+    &lt;persistenceAdapter&gt;
+      &lt;journaledJDBC journalLogFiles=&quot;5&quot; dataDirectory=&quot;../data&quot;/&gt;
+    &lt;/persistenceAdapter&gt;
+  
+    &lt;transportConnectors&gt;
+      &lt;transportConnector uri=&quot;discovery:tcp://localhost:61616&quot;/&gt;
+    &lt;/transportConnectors&gt;
+    
+    &lt;networkConnectors&gt;
+      &lt;networkConnector uri=&quot;multicast&quot;/&gt;
+    &lt;/networkConnectors&gt;
+    
+  &lt;/broker&gt;
+  
+&lt;/beans&gt;
+]]></script>
+</div></div></div>
+

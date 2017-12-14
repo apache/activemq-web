@@ -1,0 +1,19 @@
+<div class="wiki-content maincontent"><h1 id="ApacheActiveMQBoardReport-2007.10(October)-StatusreportfortheApacheActiveMQProject">Status report for the Apache ActiveMQ Project</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[Community:
+ * The developer and user communities remain very active.
+ * The Camel project, NMS project, and recent release candidate for ActiveMQ 
+   5.0 have generated much mailing list activity. 
+ * A code grant has been submitted for an NMS implementation that access 
+   Tibco EMS. (JIRA issue AMQNET-68)
+
+Development:
+ * We are starting to produce ActiveMQ 5.0.0 release candidates so a release 
+   is now eminent. 
+ * Camel 1.2.0 is also producing release candidates.
+
+Releases:
+ * ActiveMQ Camel 1.1.0 - A routing and mediation engine
+ * ActiveMQ CPP 2.1 - A C++ client to ActiveMQ that implements the CMS API
+]]></script>
+</div></div></div>
+

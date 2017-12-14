@@ -1,0 +1,5 @@
+<div class="wiki-content maincontent">
+<p>Craig has a <a shape="rect" class="external-link" href="http://jroller.com/page/habuma/20051011" rel="nofollow">great post</a> which describes how XBean can really help provide a <a shape="rect" class="external-link" href="http://docs.codehaus.org/display/XB/Custom+XML" rel="nofollow">customized XML language</a> with Spring XML configuration extensibility. We're really happy with it so far and have moved away from XSLT and custom DOM processing to the simpler XBean model in ActiveMQ and <a shape="rect" class="external-link" href="http://jencks.org" rel="nofollow">Jencks</a> with <a shape="rect" class="external-link" href="http://servicemix.org" rel="nofollow">ServiceMix</a> to follow suit real soon now.</p>
+
+<p>Whats cool is we've just about got a working XBean Ant task to auto-generate the configuration, the XSD and HTML documentaiton now. e.g. here's the <a shape="rect" class="external-link" href="http://codehaus.org/~jstrachan/servicemix.xsd.html" rel="nofollow">current</a> ServiceMix generated documentation.</p></div>
+

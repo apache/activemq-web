@@ -1,0 +1,18 @@
+<div class="wiki-content maincontent">
+<h3 id="HowdoIuseActiveMQusinginJVMmessaging-ForActiveMQ3.x/4.x">For ActiveMQ 3.x/4.x</h3>
+
+
+<p>To use pure in-memory messaging you just need to set the broker URL to be</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+vm://localhost
+]]></script>
+</div></div>
+<p>&#160;</p>
+
+<p>Actually you can use any text after <em>vm://</em> so that you can segment multiple logical JMS brokers within the same JVM and classloader, using the name to distinguish between them.</p>
+
+<p>There is an example of how to do this along with a description of the available protocols in the <a shape="rect" href="uri-protocols.xml">Protocols overview</a>.</p>
+
+<p>Also see: <a shape="rect" href="how-should-i-use-the-vm-transport.xml">how to optimise the VM transport</a></p></div>
+

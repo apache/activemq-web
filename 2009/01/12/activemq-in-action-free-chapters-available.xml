@@ -1,0 +1,15 @@
+<div class="wiki-content maincontent"><p><span class="confluence-embedded-file-wrapper image-right-wrapper"><img class="confluence-embedded-image confluence-external-resource image-right" src="http://www.manning.com/snyder/snyder_cover150.jpg" data-image-src="http://www.manning.com/snyder/snyder_cover150.jpg"></span></p>
+
+<p><em>ActiveMQ in Action</em> is a thorough, practical guide to implementing message-oriented systems in Java using ActiveMQ. The book lays out the core of ActiveMQ in clear language, starting with the anatomy of a JMS message and moving quickly through connectors, message persistence, authentication and authorization. With the basics well in hand, you move into interesting examples of ActiveMQ at work, following a running Stock Portfolio application. You'll integrate ActiveMQ with containers like Geronimo and JBoss and learn to tie into popular Java-based technologies like Spring Framework.</p>
+
+<p>Along the way, you'll pick up best practices forged out of the deep experience the authors bring to the book. You'll learn to integrate with non-Java technologies and explore advanced topics like broker topologies and configuration and performance tuning.</p>
+
+<p>Additionally, the book will introduce readers to using Apache Camel with Apache ActiveMQ as a way to easily utilize the Enterprise Integration Patterns.</p>
+
+<p>This book is perfect for:</p>
+
+<ul><li>High-level designers of loosely-coupled distributed systems that follow a Service Oriented Architecture (SOA)</li><li>Software developers creating applications that use the ActiveMQ message broker</li><li>System administrators that must maintain a software system based on the ActiveMQ message broker</li></ul>
+
+
+<p><a shape="rect" class="external-link" href="http://www.manning.com/affiliate/idevaffiliate.php?id=1063_140" rel="nofollow">Grab your copy of ActiveMQ in Action now!</a> </p></div>
+

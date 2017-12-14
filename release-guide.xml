@@ -1,0 +1,108 @@
+<div class="wiki-content maincontent"><p>How to create and announce an ActiveMQ release. This release is based on <a shape="rect" class="external-link" href="http://maven.apache.org/developers/release/apache-release.html">General guide for releasing Maven-based project at Apache </a>, so be sure to check it out before continuing and meet all prerequisites.</p><h2 id="ReleaseGuide-Maven2Setup">Maven 2 Setup</h2><p>Before you deploy anything to the maven repository using Maven 2, you should configure your ~/.m2/settings.xml file<br clear="none"> so that the file permissions of the deployed artifacts are group writeable. If you do not do this, other developers will not able to overwrite your SNAPSHOT releases with newer versions.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;settings&gt;
+  ...
+  &lt;servers&gt;
+
+    &lt;server&gt;
+      &lt;id&gt;apache.snapshots.https&lt;/id&gt;
+      &lt;username&gt;dejanb&lt;/username&gt;
+    &lt;/server&gt;
+    &lt;!-- To publish a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.website&lt;/id&gt;
+      &lt;username&gt;dejanb&lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+    &lt;!-- To stage a release of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.releases.https&lt;/id&gt;
+      &lt;username&gt;dejanb&lt;/username&gt;
+    &lt;/server&gt;
+    &lt;!-- To stage a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;stagingSite&lt;/id&gt; &lt;!-- must match hard-coded repository identifier in site:stage-deploy --&gt;
+      &lt;username&gt;dejanb&lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+
+  &lt;/servers&gt;
+  ...
+&lt;/settings&gt;
+]]></script>
+</div></div><p>It is also essential that you configure your umask to 2 on people.apache.org for non-interactive login. If your shell is tcsh you can edit .cshrc to include</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[umask 2
+]]></script>
+</div></div><p>Other shell initialization files may interfere with this setting but if this is the only umask setting it appears to work. Instructions for other shells would be welcome.</p><h3 id="ReleaseGuide-Additionallocalconfigurationforusingreleaseandstagingplugins.">Additional local configuration for using release and staging plugins.</h3><p>To effectively use the release and staging plugins you need some information about where the staging will happen and signing information for gpg. Your ~/.m2/settings.xml should contain a profile like this:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;settings&gt;
+    &lt;profiles&gt;
+        &lt;profile&gt;
+          &lt;id&gt;apache-release&lt;/id&gt;
+          &lt;properties&gt;
+             &lt;gpg.passphrase&gt;secretPhrase&lt;/gpg.passphrase&gt;
+         &lt;/properties&gt;
+        &lt;/profile&gt;
+    &lt;/profiles&gt;
+ ...
+&lt;/settings&gt;
+]]></script>
+</div></div><h2 id="ReleaseGuide-CreatingtheActiveMQRelease">Creating the ActiveMQ Release</h2><p>The release plugin will prompt for a release version, tag and next release version. Use a three digit release version of the form: 5.x.x and for the tag use a string of the form: activemq-5.x.x. The next version string should use the two digit from: 5.x-SNAPSHOT as this can be consistent for future SNAPSHOT releases.</p><ol><li><p>Verify the to-be-released version identifier exists in the <a shape="rect" class="external-link" href="https://git-wip-us.apache.org/repos/asf?p=activemq.git;a=blob;f=activemq-spring/src/main/resources/META-INF/spring.schemas;hb=HEAD">META-INF/spring.schemas</a> mappings file AND&#160;<a shape="rect" class="external-link" href="https://git-wip-us.apache.org/repos/asf?p=activemq.git;a=blob;f=activemq-osgi/src/main/resources/META-INF/spring.schemas;hb=HEAD">activemq-osgi/src/main/resources/META-INF/spring.schemas</a> file, if not add it and commit. It should contain:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[http\://activemq.apache.org/schema/core/activemq-core-${pom.version}.xsd=activemq.xsd]]></script>
+</div></div></li><li><p>Verify headers with <a shape="rect" class="external-link" href="http://incubator.apache.org/rat/apache-rat-plugin/usage.html">rat</a></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[mvn -e apache-rat:check
+grep -e &#39; !?????&#39; target/rat.txt -- will show any files without licenses
+]]></script>
+</div></div></li><li><p>Do a release dry run to check for problems</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[mvn release:prepare -DdryRun=true
+]]></script>
+</div></div><p>Check that you are happy with the results. The poms for the proposed tags will be in pom.xml.tag. When you like the results, clean up:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[mvn release:clean
+]]></script>
+</div></div></li><li><p>Prepare the release</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[mvn release:prepare
+]]></script>
+</div></div><p>This will create the tag in git and leave various stuff around locally to direct the perform phase.</p></li><li><p>Make a local copy of the release configuration in case something goes wrong</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[cd ..
+cp -r activemq-release activemq-release-prepared
+cd activemq-release
+]]></script>
+</div></div></li><li><p>Perform the release to the staging repo</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[mvn release:perform
+]]></script>
+</div></div><p>This uses both the activemq release profile which directs building source jars, javadoc jars, and signing everything, and also the settings release profile that says where to<br clear="none"> put stuff and how to sign it.</p></li><li>Close the staging repository<br clear="none"> Quote from the <a shape="rect" class="external-link" href="http://maven.apache.org/developers/release/apache-release.html">Maven release guide for Apache projects</a><blockquote><p>Login to <a shape="rect" class="external-link" href="https://repository.apache.org">https://repository.apache.org</a> using your Apache LDAP credentials. Click on "Staging". Then click on "maven" in the list of repositories. In the panel below you should see an open repository that is linked to your username and ip. Right click on this repository and select "Close". This will close the repository from future deployments and make it available for others to view. If you are staging multiple releases together, skip this step until you have staged everything. Enter the name and version of the artifact being released in the "Description" field and then click "Close". This will make it easier to identify it later.</p></blockquote>See the image in the original guide for more info.</li><li>Verify staged artifacts<br clear="none"> Quote from the <a shape="rect" class="external-link" href="http://maven.apache.org/developers/release/apache-release.html">original guide</a><blockquote><p>If you click on your repository, a tree view will appear below. You can then browse the contents to ensure the artifacts are as you expect them. Pay particular attention to the existence of *.asc (signature) files. If the you don't like the content of the repository, right click your repository and choose "Drop". You can then rollback your release and repeat the process.<br clear="none"> Note the repository URL, you will need this in your vote email.</p></blockquote></li><li><p>Build the site from the tag that release:perform checked out into target/checkout in the previous step.<br clear="none"> Note that the -Prelease profile is needed to specify the profile in settings.xml that configures the staging location.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[cd target/checkout
+mvn site -Prelease]]></script>
+</div></div></li><li><p>Populate the Javadocs site in svn</p><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>svn co https://svn.apache.org/repos/infra/websites/production/activemq/content
+cd content/maven
+mkdir &lt;version&gt;
+#copy over apidocs folder that was created by the site plugin to &lt;version&gt;/apidocs
+svn add &lt;version&gt;
+svn rm apidocs
+ln -s &lt;version&gt;/apidocs apidocs
+svn add apidocs
+# and commit once it looks good.</pre>
+</div></div></li><li><p>Stage the official release artifacts in the SVN dist dev area for folks to test and vote on, using the helper script already in the repo:</p><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>svn co https://dist.apache.org/repos/dist/dev/activemq/activemq/
+cd activemq
+./prepare-release.sh &lt;nexus-staging-repo-url&gt; &lt;version&gt;
+# Example: ./prepare-release.sh https://repository.apache.org/content/repositories/orgapacheactivemq-1149 5.15.1
+svn add &lt;version&gt;
+and commit once it looks good.</pre>
+</div></div></li><li>Call a vote on the dev list, listing the great new features of the release.</li></ol><h2 id="ReleaseGuide-Afterthevotepasses">After the vote passes</h2><ol><li>Promote the release (i.e. release the staging repository): login to<span style="color: rgb(112,112,112);">&#160;</span><a shape="rect" class="external-link" href="https://repository.apache.org/">https://repository.apache.org</a>, navigate to the staging repository&#160;and click the "release" button.&#160;</li><li><p>Copy the staged release files from the SVN dist dev folder to the SVN dist release folder: <a shape="rect" class="external-link" href="https://dist.apache.org/repos/dist/release/activemq/">https://dist.apache.org/repos/dist/release/activemq/</a></p><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>svn cp -m "add files for activemq-&lt;version&gt;" https://dist.apache.org/repos/dist/dev/activemq/activemq/&lt;version&gt; https://dist.apache.org/repos/dist/release/activemq/&lt;version&gt;
+# Example: svn cp -m "add files for activemq-5.15.1" https://dist.apache.org/repos/dist/dev/activemq/activemq/5.15.1 https://dist.apache.org/repos/dist/release/activemq/5.15.1</pre>
+</div></div></li><li><p>Populate the schema site in svn</p><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>svn co https://svn.apache.org/repos/infra/websites/production/activemq/content
+cd content/schema/core
+curl --remote-name-all https://repository.apache.org/content/repositories/releases/org/apache/activemq/activemq-spring/&lt;version&gt;/activemq-spring-&lt;version&gt;{-schema.html,.xsd}{.asc,.asc.md5,.asc.sha1,.sha1,.md5,}
+for i in activemq-spring-5.9.0*; do mv -- "$i" "${i//spring/core}"; done;
+svn add activemq-core-5.9.0*
+svn rm activemq-core.xsd
+ln -s activemq-core-5.9.0.xsd activemq-core.xsd
+svn add activemq-core.xsd
+# and commit once it looks good.
+</pre>
+</div></div></li><li>Continue with the Announcing section below</li><li>Created a in progress wiki page for the next release</li><li>Remove any releases from the dist site that are no longer supported and update the wiki page for that release to point to the archives for downloads.</li></ol><h2 id="ReleaseGuide-AnnouncingtheActiveMQRelease">Announcing the ActiveMQ Release</h2><ol><li>Perform a release in JIRA and create a new release version in JIRA.<ol><li>Move unresolved issues to the next release first, in a bulk (do not send email) update</li><li>You might also want to search for resolved/closed issues with no fix version just in case</li></ol></li><li>Create a download page for the release in the WIKI similar like the <a shape="rect" href="activemq-530-release.xml">ActiveMQ 5.3.0 Release</a>; also update the main <a shape="rect" href="download.xml">Download</a> page as appropriate</li><li>Update the <a shape="rect" href="xml-reference.xml">Xml Reference</a> page with a link to the HTML and XSD</li><li>Update latest release link on home page</li><li>Change the links for the prior release to reference the archive (at&#160;<a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/">http://archive.apache.org/dist/activemq/</a>); otherwise, users will not be able to locate the older release for download</li><li>Update <a shape="rect" href="quicklinks.xml">QuickLinks</a> and <a shape="rect" href="javadocs.xml">JavaDocs</a> pages</li><li>Mail the <a shape="rect" class="external-link" href="mailto:dev@activemq.codehaus.org" rel="nofollow">dev</a> &amp; <a shape="rect" class="external-link" href="mailto:user@activemq.codehaus.org" rel="nofollow">user</a> lists</li><li><a shape="rect" class="external-link" href="http://cwiki.apache.org/confluence/pages/viewrecentblogposts.action?key=ACTIVEMQ">Post</a> a news entry on the WIKI</li><li>tweet</li><li>Have a beer! <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></li></ol></div>
+

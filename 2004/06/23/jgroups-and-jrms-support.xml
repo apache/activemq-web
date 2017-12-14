@@ -1,0 +1,7 @@
+<div class="wiki-content maincontent">
+
+
+<p>For users who want reliable multicast support when messaging, ActiveMQ now supports both <a shape="rect" class="external-link" href="http://www.jgroups.org/" rel="nofollow">JGroups</a> and <a shape="rect" class="external-link" href="http://www.experimentalstuff.com/Technologies/JRMS/" rel="nofollow">JRMS</a> as pluggable <a shape="rect" href="../../../uri-protocols.xml">transport protocols</a>.</p>
+
+<p>Code is available in CVS and the latest snapshot jar.</p></div>
+

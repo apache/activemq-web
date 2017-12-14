@@ -1,0 +1,92 @@
+<div class="wiki-content maincontent"><h2 id="MessageCursors-MessageCursors">Message Cursors</h2>
+
+<p>A common problem in previous versions of ActiveMQ was <a shape="rect" href="my-producer-blocks.xml">running out of RAM buffer</a> when using non-persistent messaging.</p>
+
+<p>Beginning with ActiveMQ 5.0.0, there is a new memory model that allows messages to be paged in from storage when space is available (using Store cursors for persistent messages).</p>
+
+<p>Releases prior to 5.0 kept references in memory for all the messages that could be dispatched to an active Durable Topic Consumer or a Queue. While a reference itself is not large, it does impose a limit on the maximum number of messages that can be pending delivery.</p>
+
+<p>A typical approach for messaging systems dispatching persistent messages is to pull them in batches from long term storage when a client is ready to consume them, using a cursor to maintain the next to dispatch position. This is a robust and very scalable approach, but not the most performant for cases when the consumer(s) can keep up with the producer(s) of messages.</p>
+
+<p>ActiveMQ 5.0 takes a hybrid approach, allowing messages to pass from producer to consumer directly (after the messages have been persisted), but switches back to using cursors if the consumer(s) fall behind.</p>
+
+<p>When Message Consumers are both active and fast - keeping up with the Message Producer(s) - messages are stored and then passed to a dispatch queue in the broker associated with the Consumer: <span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="message-cursors.data/DispatchFastConsumers.png" data-image-src="/confluence/download/attachments/48811/DispatchFastConsumers.png?version=1&amp;modificationDate=1193437635000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59670893" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DispatchFastConsumers.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="48811" data-linked-resource-container-version="16"></span><br clear="none">
+If a Consumer becomes active after messages are pending from the store for it, or it's slower than the producer, then messages are paged in to the dispatch queue from a pending cursor: <span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="message-cursors.data/DispatchSlowConsumers.png" data-image-src="/confluence/download/attachments/48811/DispatchSlowConsumers.png?version=1&amp;modificationDate=1193437656000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59670895" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="DispatchSlowConsumers.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="48811" data-linked-resource-container-version="16"></span></p>
+
+<h3 id="MessageCursors-TypesofCursor">Types of Cursor</h3>
+
+<p>The default message cursor type in ActiveMQ 5.0&#160;is Store based. &#160;It behaves as above. There are two&#160;additional&#160;types of cursor that could be used: <strong>VM Cursor</strong> and <strong>File based Cursor</strong>, described below.</p>
+
+<h4 id="MessageCursors-VMCursor">VM Cursor</h4>
+
+<p>The VM Cursor is how ActiveMQ 4.x works: references to a message are held in memory, and passed to the dispatch queue when needed. This can be very fast, but also has the downside of not being able to handle very slow consumers or consumers that have been inactive for a long time: <span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="message-cursors.data/VMCursor.png" data-image-src="/confluence/download/attachments/48811/VMCursor.png?version=1&amp;modificationDate=1193439154000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59670900" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="VMCursor.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="48811" data-linked-resource-container-version="16"></span></p>
+
+<h4 id="MessageCursors-FilebasedCursor">File based Cursor</h4>
+
+<p>The File based Cursor is dervied from the VM Cursor. &#160;When memory in the broker reaches its limit, it can page messages to temporary files on disk. This type of cursor can be used when the message store might be relatively slow, but consumers are generally fast. By buffering to disk, it allows the message broker to handle message bursts from producers without resorting to paging in from slow storage: <span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="message-cursors.data/FileCursor.png" data-image-src="/confluence/download/attachments/48811/FileCursor.png?version=1&amp;modificationDate=1193438877000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59670898" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="FileCursor.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="48811" data-linked-resource-container-version="16"></span></p>
+
+<h4 id="MessageCursors-PagingforNon-PersistentMessages">Paging for Non-Persistent Messages</h4>
+
+<p>The store based cursor also handles cursors for non-persistent messages, which are not stored in the message store. Non-persistent messages are passed directly to the cursor, so the store based cursor embeds a file based cursor just for these types of messages: <span class="confluence-embedded-file-wrapper image-center-wrapper"><img class="confluence-embedded-image image-center" src="message-cursors.data/NonPersistentMsgs.png" data-image-src="/confluence/download/attachments/48811/NonPersistentMsgs.png?version=1&amp;modificationDate=1193445319000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59670902" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="NonPersistentMsgs.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="48811" data-linked-resource-container-version="16"></span></p>
+
+<h3 id="MessageCursors-ConfiguringCursors">Configuring Cursors</h3>
+
+<p>By default, Store based cursors are used, but it is possible to configure different cursors depending on the destination.</p>
+
+<h4 id="MessageCursors-Topicsubscribers">Topic subscribers</h4>
+
+<p>For Topics there is a dispatch queue and pending cursor for every subscriber. &#160;It's possible to configure different policies for durable subscribers and transient subscribers - e.g:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;destinationPolicy&gt;
+      &lt;policyMap&gt;
+        &lt;policyEntries&gt;
+          &lt;policyEntry topic=&quot;org.apache.&gt;&quot; producerFlowControl=&quot;false&quot; memoryLimit=&quot;1mb&quot;&gt;
+            &lt;dispatchPolicy&gt;
+              &lt;strictOrderDispatchPolicy /&gt;
+            &lt;/dispatchPolicy&gt;
+            &lt;deadLetterStrategy&gt;
+              &lt;individualDeadLetterStrategy  topicPrefix=&quot;Test.DLQ.&quot; /&gt;
+            &lt;/deadLetterStrategy&gt;
+            &lt;pendingSubscriberPolicy&gt;
+            	&lt;vmCursor /&gt;
+            &lt;/pendingSubscriberPolicy&gt;
+            &lt;pendingDurableSubscriberPolicy&gt;
+                &lt;vmDurableCursor/&gt;
+            &lt;/pendingDurableSubscriberPolicy&gt;
+          &lt;/policyEntry&gt;
+        &lt;/policyEntries&gt;
+      &lt;/policyMap&gt;
+&lt;/destinationPolicy&gt;
+]]></script>
+</div></div>
+<p>Valid Subscriber types are&#160;<strong><em>vmCursor</em></strong> and <strong><em>fileCursor.</em></strong>&#160;The default is the store based cursor.<br clear="none">
+Valid Durable Subscriber cursor types are&#160;<strong><em>storeDurableSubscriberCursor</em></strong>, <strong><em>vmDurableCursor</em></strong> and <strong><em>fileDurableSubscriberCursor.</em></strong>&#160;The default is the store based cursor</p>
+
+<h4 id="MessageCursors-Queues">Queues</h4>
+
+<p>For Queues there is a single dispatch Queue and pending Queue for every destination, so configuration is slightly different:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;destinationPolicy&gt;
+      &lt;policyMap&gt;
+        &lt;policyEntries&gt;
+          &lt;policyEntry queue=&quot;org.apache.&gt;&quot;&gt;
+            &lt;deadLetterStrategy&gt;
+              &lt;individualDeadLetterStrategy queuePrefix=&quot;Test.DLQ.&quot;/&gt;
+            &lt;/deadLetterStrategy&gt;
+            &lt;pendingQueuePolicy&gt;
+            	&lt;vmQueueCursor /&gt;
+            &lt;/pendingQueuePolicy&gt;
+          &lt;/policyEntry&gt;
+        &lt;/policyEntries&gt;
+      &lt;/policyMap&gt;
+ &lt;/destinationPolicy&gt;
+]]></script>
+</div></div>
+<p>Valid Queue cursor types are <strong><em>storeCursor</em></strong>, <strong><em>vmQueueCursor</em></strong> and <strong><em>fileQueueCursor.</em></strong>&#160;The default is the store based cursor</p>
+
+<h3 id="MessageCursors-SeeAlso">See Also</h3>
+
+<ul><li><a shape="rect" href="producer-flow-control.xml">Producer Flow Control</a></li></ul></div>
+

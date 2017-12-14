@@ -1,0 +1,172 @@
+<div class="wiki-content maincontent">
+
+
+<h2 id="OutboundCommunication-INLINEConfiguringaSessionBeantosendmessagestoActiveMQ">Configuring a Session Bean to send messages to ActiveMQ</h2>
+<p>In the attached <a shape="rect" href="outbound-communication.data/activemq-jboss-test.zip?version=3&amp;modificationDate=1117021355000&amp;api=v2" data-linked-resource-id="3278" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="activemq-jboss-test.zip" data-nice-type="Zip Archive" data-linked-resource-content-type="application/zip" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">example application</a>, the three MDBs use the <code>SenderEJB</code> to send JMS messages to an ActiveMQ queue.  In this example, I will be explaining how to:</p>
+<ol><li>Configure and deploy an ActiveMQ <code>Queue</code> to JBoss</li><li>Configure and deploy an ActiveMQ <code>QueueConnectionFactory</code> to JBoss</li><li>Configure an EJB, deployed to JBoss, to reference the above two.</li></ol>
+
+
+<h3 id="OutboundCommunication-TheBean">The Bean</h3>
+<p>In the <a shape="rect" href="outbound-communication.data/ejb-jar.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3249" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="ejb-jar.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">ejb-jar.xml</a> deployment descriptor, the <code>SenderEJB</code> is declared as follows:<br clear="none">
+<span class="confluence-anchor-link" id="OutboundCommunication-ejbSenderEJB"></span></p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>ejb-jar.xml &#8211; session bean declaration</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ 
+&lt;session&gt;
+   ...
+   &lt;ejb-name&gt;SenderEJB&lt;/ejb-name&gt;
+   ...
+   &lt;ejb-class&gt;com.panacya.platform.service.bus.sender.SenderBean&lt;/ejb-class&gt;
+   ...
+   &lt;resource-ref&gt;
+      &lt;res-ref-name&gt;jms/MyQueueConnectionFactory&lt;/res-ref-name&gt;
+      &lt;res-type&gt;javax.jms.QueueConnectionFactory&lt;/res-type&gt;
+      ...
+   &lt;/resource-ref&gt;
+   &lt;message-destination-ref&gt;
+      &lt;message-destination-ref-name&gt;jms/LogQueue&lt;/message-destination-ref-name&gt;
+      &lt;message-destination-type&gt;javax.jms.Queue&lt;/message-destination-type&gt;
+      ...
+      &lt;message-destination-link&gt;LoggingQueue&lt;/message-destination-link&gt;
+   &lt;/message-destination-ref&gt;
+&lt;/session&gt;
+]]></script>
+</div></div>
+
+<p>The <code>jms/MyQueueConnectionFactory</code> is the JNDI name the <code>SenderEJB</code> will use to lookup a <code>javax.jms.QueueConnectionFactory</code>.  We will configure it to point to an ActiveMQ <code>QueueConnectionFactory</code>.</p>
+
+<p>The <code>jms/LogQueue</code> is the JNDI name the <code>SenderEJB</code> will use to lookup the <code>javax.jms.Queue</code> it will send messages to.  We use the <code>message-destination-link</code> element to refer to the <code>LoggingQueue</code> which is declared in the <code>assembly-descriptor</code> section of the <a shape="rect" href="outbound-communication.data/ejb-jar.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3249" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="ejb-jar.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">ejb-jar.xml</a> deployment descriptor as: <br clear="none">
+<span class="confluence-anchor-link" id="OutboundCommunication-ejbLoggingQueue"></span></p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>ejb-jar.xml &#8211; assembly descriptor section</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ 
+&lt;assembly-descriptor&gt;
+   ...
+   &lt;message-destination&gt;
+      &lt;message-destination-name&gt;LoggingQueue&lt;/message-destination-name&gt;
+   &lt;/message-destination&gt;
+   ...
+&lt;/assembly-descriptor&gt;
+]]></script>
+</div></div>
+
+<p>This is a standard EJB deployment descriptor, nothing special.  </p>
+
+<h3 id="OutboundCommunication-TheConnector">The Connector</h3>
+<p>The <code>resource-ref</code> element <a shape="rect" href="#OutboundCommunication-ejbSenderEJB">shown above</a>, will be linked to the following element in the <a shape="rect" class="external-link" href="http://activemq.codehaus.org/checkout/activemq/modules/ra/src/rar/META-INF/ra.xml" rel="nofollow">ra.xml</a> file, which is contained within the <a shape="rect" href="jboss-integration.xml#JBossIntegration-rarfile">activemq-ra-1.2.rar</a> file:<br clear="none">
+<span class="confluence-anchor-link" id="OutboundCommunication-raQueueConnectionFactory"></span></p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>ra.xml &#8211; The QueueConnectionFactory</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;outbound-resourceadapter&gt;
+   ...
+   &lt;connection-definition&gt;
+      ...
+      &lt;connectionfactory-interface&gt;javax.jms.QueueConnectionFactory&lt;/connectionfactory-interface&gt;
+      &lt;connectionfactory-impl-class&gt;org.activemq.ra.ActiveMQConnectionFactory&lt;/connectionfactory-impl-class&gt;
+      &lt;connection-interface&gt;javax.jms.QueueConnection&lt;/connection-interface&gt;
+      ...
+   &lt;/connection-definition&gt;
+   ...
+&lt;/outbound-resourceadapter&gt;
+]]></script>
+</div></div>
+
+<p>The <code>message-destination</code> element <a shape="rect" href="#OutboundCommunication-ejbLoggingQueue">shown above</a>, will be linked to the following element in the <a shape="rect" class="external-link" href="http://activemq.codehaus.org/checkout/activemq/modules/ra/src/rar/META-INF/ra.xml" rel="nofollow">ra.xml</a> file:<br clear="none">
+<span class="confluence-anchor-link" id="OutboundCommunication-raQueue"></span></p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>ra.xml &#8211; The Queue</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;adminobject&gt;
+   &lt;adminobject-interface&gt;javax.jms.Queue&lt;/adminobject-interface&gt;
+   &lt;adminobject-class&gt;org.activemq.message.ActiveMQQueue&lt;/adminobject-class&gt;
+   &lt;config-property&gt;
+      &lt;config-property-name&gt;PhysicalName&lt;/config-property-name&gt;
+      &lt;config-property-type&gt;java.lang.String&lt;/config-property-type&gt;
+   &lt;/config-property&gt;
+&lt;/adminobject&gt;
+]]></script>
+</div></div>
+
+<h3 id="OutboundCommunication-TheGlue">The Glue</h3>
+<p>In JBoss, connecting the resources needed by the <a shape="rect" href="outbound-communication.data/ejb-jar.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3249" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="ejb-jar.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">ejb-jar.xml</a> file to resources provided by the <a shape="rect" class="external-link" href="http://activemq.codehaus.org/checkout/activemq/modules/ra/src/rar/META-INF/ra.xml" rel="nofollow">ra.xml</a> file involves two additional files:</p>
+<ol><li><strong><a shape="rect" href="outbound-communication.data/panacya-jms-ds.xml?version=5&amp;modificationDate=1117021448000&amp;api=v2" data-linked-resource-id="3271" data-linked-resource-version="5" data-linked-resource-type="attachment" data-linked-resource-default-alias="panacya-jms-ds.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">panacya-jms-ds.xml</a></strong> - This is a JBoss data source file.  It specifies which connector objects JBoss should instantiate and where in JNDI JBoss should place those objects.</li><li><strong><a shape="rect" href="outbound-communication.data/jboss.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3251" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="jboss.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">jboss.xml</a></strong> - This is a JBoss deployment descriptor which is contained within the <a shape="rect" href="jboss-integration.xml#JBossIntegration-ejbjarfile">panacya-mdb-test-1.0.jar</a> file.  It links resources needed by the EJBs to the JNDI names of resources available in JBoss.</li></ol>
+
+
+<h5 id="OutboundCommunication-panacya-jms-ds.xml&#8211;TheJBossDataSourceFile"><a shape="rect" href="outbound-communication.data/panacya-jms-ds.xml?version=5&amp;modificationDate=1117021448000&amp;api=v2" data-linked-resource-id="3271" data-linked-resource-version="5" data-linked-resource-type="attachment" data-linked-resource-default-alias="panacya-jms-ds.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">panacya-jms-ds.xml</a> &#8211; <em>The JBoss Data Source File</em></h5>
+<p>This first snippet configures the <code>QueueConnectionFactory</code>, <a shape="rect" href="#OutboundCommunication-raQueueConnectionFactory">declared above</a>, and places it in JNDI at <code>activemq/QueueConnectionFactory</code>:<br clear="none">
+<span class="confluence-anchor-link" id="OutboundCommunication-dsQueueConnectionFactory"></span></p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>panacya-jms-ds.xml &#8211; The QueueConnectionFactory</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;tx-connection-factory&gt;
+   &lt;jndi-name&gt;activemq/QueueConnectionFactory&lt;/jndi-name&gt;
+   &lt;xa-transaction/&gt;
+   &lt;rar-name&gt;activemq-ra-1.2-SNAPSHOT.rar&lt;/rar-name&gt;
+   &lt;connection-definition&gt;javax.jms.QueueConnectionFactory&lt;/connection-definition&gt;
+   &lt;security-domain-and-application&gt;JmsXARealm&lt;/security-domain-and-application&gt;
+&lt;/tx-connection-factory&gt;
+]]></script>
+</div></div>
+
+<p>This second snippet configures the <code>Queue</code>, <a shape="rect" href="#OutboundCommunication-raQueue">declared above</a>, and places it in JNDI at <code>activemq/queue/outbound</code>:<br clear="none">
+<span class="confluence-anchor-link" id="OutboundCommunication-dsQueue"></span></p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>panacya-jms-ds.xml &#8211; The Queue</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;mbean code=&quot;org.jboss.resource.deployment.AdminObject&quot; name=&quot;activemq.queue:name=outboundQueue&quot;&gt;
+   &lt;attribute name=&quot;JNDIName&quot;&gt;activemq/queue/outbound&lt;/attribute&gt;
+   &lt;depends optional-attribute-name=&quot;RARName&quot;&gt;jboss.jca:service=RARDeployment,name=&#39;activemq-ra-1.2-SNAPSHOT.rar&#39;&lt;/depends&gt;
+   &lt;attribute name=&quot;Type&quot;&gt;javax.jms.Queue&lt;/attribute&gt;
+   &lt;attribute name=&quot;Properties&quot;&gt;
+      PhysicalName=queue.outbound
+   &lt;/attribute&gt;
+&lt;/mbean&gt;
+]]></script>
+</div></div>
+
+<p>In the <a shape="rect" href="outbound-communication.data/panacya-jms-ds.xml?version=5&amp;modificationDate=1117021448000&amp;api=v2" data-linked-resource-id="3271" data-linked-resource-version="5" data-linked-resource-type="attachment" data-linked-resource-default-alias="panacya-jms-ds.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">panacya-jms-ds.xml</a> file section shown above, the value of the <code>Properties</code> element is set to <code>PhysicalName=queue.outbound</code>.  This value is the physical name of the ActiveMQ destination the <code>SenderEJB</code> will be sending messages to and not a JNDI name.  In other words, the value of the <code>PhysicalName</code> property has no meaning to JBoss.  It is purely an ActiveMQ setting. </p>
+
+<h5 id="OutboundCommunication-jboss.xml&#8211;TheJBossDeploymentDescriptor"><a shape="rect" href="outbound-communication.data/jboss.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3251" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="jboss.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">jboss.xml</a> &#8211; <em>The JBoss Deployment Descriptor</em></h5>
+<p>This first snippet links the <code><a shape="rect" href="#OutboundCommunication-ejbSenderEJB">jms/MyQueueConnectionFactory</a></code> JNDI name used by the <code>SenderEJB</code> to the resource name <code>queuefactoryref</code> which is local to the <a shape="rect" href="outbound-communication.data/jboss.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3251" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="jboss.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">jboss.xml</a> file: <br clear="none">
+<span class="confluence-anchor-link" id="OutboundCommunication-jbossQueuefactoryref"></span></p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>jboss.xml &#8211; The QueueConnectionFactory for the SenderEJB</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;enterprise-beans&gt;
+   &lt;session&gt;
+      &lt;ejb-name&gt;SenderEJB&lt;/ejb-name&gt;
+      &lt;resource-ref&gt;
+         &lt;res-ref-name&gt;jms/MyQueueConnectionFactory&lt;/res-ref-name&gt;
+         &lt;resource-name&gt;queuefactoryref&lt;/resource-name&gt;
+      &lt;/resource-ref&gt;
+   &lt;/session&gt;
+   ...
+&lt;/enterprise-beans&gt;
+]]></script>
+</div></div>
+
+<p>This second snippet links the local <code>queuefactoryref</code> name to the global JNDI name <code>java:/activemq/QueueConnectionFactory</code> which was <a shape="rect" href="#OutboundCommunication-dsQueueConnectionFactory">declared above</a>: <br clear="none">
+<span class="confluence-anchor-link" id="OutboundCommunication-jbossQueueConnectionFactory"></span></p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>jboss.xml &#8211; Linking queuefactoryref to the global JNDI namespace</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;resource-managers&gt;
+   &lt;resource-manager&gt;
+      &lt;res-name&gt;queuefactoryref&lt;/res-name&gt;
+      &lt;res-jndi-name&gt;java:/activemq/QueueConnectionFactory&lt;/res-jndi-name&gt;
+   &lt;/resource-manager&gt;
+   ...
+&lt;/resource-managers&gt;
+]]></script>
+</div></div>
+
+<p>This third snippet links the <code>LoggingQueue</code>, which was <a shape="rect" href="#OutboundCommunication-ejbLoggingQueue">declared</a> in the <code>assembly-descriptor</code> section of the <a shape="rect" href="outbound-communication.data/ejb-jar.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3249" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="ejb-jar.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">ejb-jar.xml</a>, to the global JNDI name <code>activemq/queue/outbound</code> which was <a shape="rect" href="#OutboundCommunication-dsQueue">declared above</a>: <br clear="none">
+<span class="confluence-anchor-link" id="OutboundCommunication-jbossQueue"></span></p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>jboss.xml &#8211; Linking LoggingQueue to the global JNDI namespace</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;assembly-descriptor&gt;
+   &lt;message-destination&gt;
+      &lt;message-destination-name&gt;LoggingQueue&lt;/message-destination-name&gt;
+      &lt;jndi-name&gt;activemq/queue/outbound&lt;/jndi-name&gt;
+   &lt;/message-destination&gt;
+&lt;/assembly-descriptor&gt;
+]]></script>
+</div></div>
+
+<p>The above example highlights the key configuration settings needed to enable EJBs deployed in JBoss to send JMS messages to an ActiveMQ destination.  </p>
+
+<p>You can try the above example, plus a few more, by downloading the <a shape="rect" href="outbound-communication.data/activemq-jboss-test.zip?version=3&amp;modificationDate=1117021355000&amp;api=v2" data-linked-resource-id="3278" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="activemq-jboss-test.zip" data-nice-type="Zip Archive" data-linked-resource-content-type="application/zip" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">activemq-jboss-test.zip</a> file which contains the complete sample project.</p></div>
+

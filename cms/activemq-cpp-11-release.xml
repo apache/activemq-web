@@ -1,0 +1,32 @@
+<div class="wiki-content maincontent"><h2 id="ActiveMQ-CPP1.1Release-NewandNoteworthy">New and Noteworthy</h2>
+
+<p>This version fixes several bugs and adds a few new features.</p>
+<ul><li>Updated interface for cms::BytesMessage - more JMS-like.</li><li>Updated the MessageProducer interface to add multiple versions of the send method</li><li>Fixed several memory leaks</li><li>Now run on linux, win32, OS X, and Solaris</li><li>Persistence is fixed</li><li>Fixed deadlocks when closing a connection</li><li>Fixed message expiration</li></ul>
+
+
+<div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p><strong>NOTE:</strong> Compatable with ActiveMQ Broker version &gt;= 4.0.2</p>
+</div></div>
+
+<h2 id="ActiveMQ-CPP1.1Release-DownloadHere">Download Here</h2>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Download Link </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> PGP Signature file of download </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Windows </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-1.1-src.zip">activemq-cpp-1.1-src.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-1.1-src.zip.asc">activemq-cpp-1.1-src.zip.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Unix </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-1.1-src.tar.gz">activemq-cpp-1.1-src.tar.gz</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-1.1-src.tar.gz.asc">activemq-cpp-1.1-src.tar.gz.asc</a> </p></td></tr></tbody></table></div>
+
+
+<h2 id="ActiveMQ-CPP1.1Release-SVNTagCheckout">SVN Tag Checkout</h2>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+svn co https://svn.apache.org/repos/asf/activemq/activemq-cpp/tags/activemq-cpp-1.1/
+]]></script>
+</div></div>
+
+<h2 id="ActiveMQ-CPP1.1Release-Changelog">Changelog</h2>
+
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="https://issues.apache.org/activemq/secure/ReleaseNote.jspa?projectId=11000&amp;styleName=Html&amp;version=11804">release notes</a></p>
+
+<p></p><div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Data cannot be retrieved due to an unexpected error
+</div>
+&#160;</div>
+

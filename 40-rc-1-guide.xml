@@ -1,0 +1,40 @@
+<div class="wiki-content maincontent">
+<h1 id="id-4.0RC1Guide-ActiveMQ4.0-RC-1ReleaseGuide">ActiveMQ 4.0-RC-1 Release Guide</h1>
+
+
+<h2 id="id-4.0RC1Guide-GeneralReleaseInformation">General Release Information</h2>
+
+<ul><li><a shape="rect" class="external-link" href="http://jira.activemq.org/jira/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel" rel="nofollow">Current RoadMap</a></li><li><a shape="rect" href="release-guide.xml">Release Guide</a></li><li><a shape="rect" class="external-link" href="http://wiki.apache.org/incubator/SigningReleases">Signing Releases</a></li><li><a shape="rect" class="external-link" href="http://apache.org/dev/mirrors.html">Apache Mirror Guidelines</a></li></ul>
+
+<h2 id="id-4.0RC1Guide-ReleaseManager">Release Manager</h2>
+
+<p><strong>Hiram Chirino</strong></p>
+
+<h2 id="id-4.0RC1Guide-Specialissues">Special issues</h2>
+
+<p>We are still in the Incubator so need to ensure that all the proper disclaimers are in place and that the artifacts are all properly named <strong>incubator-activemq</strong>.</p>
+
+<h2 id="id-4.0RC1Guide-OpenIssuesHoldinguptheRelease">Open Issues Holding up the Release</h2>
+<div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
+</div>
+<div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Macro params are invalid
+</div>
+
+
+<h2 id="id-4.0RC1Guide-IssuesResolvedforthisRelease">Issues Resolved for this Release</h2>
+<div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
+</div>
+<div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Macro params are invalid
+</div>
+
+
+<h2 id="id-4.0RC1Guide-HowtoHelp">How to Help</h2>
+
+<p>Everyone in the ActiveMQ community can help with releases; users, developers, commmiters are all encouraged to test out a release and post any comments to the <a shape="rect" href="mailing-lists.xml">activemq-dev@ mailing list</a> or create a <a shape="rect" class="external-link" href="https://issues.apache.org/activemq/browse/AMQ">JIRA</a> issue.</p>
+
+<p>ActiveMQ is available in both source and binary distributions.  See <a shape="rect" href="getting-started.xml">Getting Started</a>.</p></div>
+

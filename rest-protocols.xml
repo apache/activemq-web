@@ -1,0 +1,69 @@
+<div class="wiki-content maincontent"><p>There are many ways to map JMS to REST...</p>
+
+<h2 id="RESTprotocols-Crappynon-REST">Crappy non-REST</h2>
+
+<p>Send via </p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+POST /queue/Destination
+]]></script>
+</div></div>
+
+<p>Consume</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+GET /queue/Destination
+]]></script>
+</div></div>
+
+<p>This is bad as the GET is not idempotent. We can add a user ID or use a cookie</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+GET /queue/Destination?jsessionId=....
+]]></script>
+</div></div>
+
+<p>though a caching proxy may keep returning the same message</p>
+
+<h2 id="RESTprotocols-SimpleRESTusing1atatimedelivery">Simple REST using 1 at a time delivery</h2>
+
+<p>Subscribe via</p>
+
+<p>POST /subscribe/consumerId/Destination<br clear="none">
+POST /unsubscribe/consumerId/Destination</p>
+
+<p>Then get messges via</p>
+
+<p>POST /nextMessageForMe/consumerId</p>
+
+<p>If you want to acknowledge messages you then</p>
+
+<p>POST /ack/consumerId/messageId</p>
+
+<h2 id="RESTprotocols-BatchmessageREST">Batch message REST</h2>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+POST lockNextMessage/consumerId?max=10 
+]]></script>
+</div></div>
+
+<p>-&gt; give back up to 10 message URLs</p>
+
+<p>GET message/consumerId/messageId</p>
+
+<p>acknowledge them via</p>
+
+<p>DELETE /consumerId/messages/messageId</p>
+
+<h3 id="RESTprotocols-Furtheroptions...">Further options...</h3>
+
+<p>You can include ACK messages inside the POST; so the 2nd POST could include the ACKs - also you could return the batch of messages as well.</p>
+
+
+
+</div>
+

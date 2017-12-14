@@ -1,0 +1,95 @@
+<div class="wiki-content maincontent"><p>ActiveMQ implements a RESTful API to messaging which allows any web capable device to publish or consume messages using a regular HTTP POST or GET.</p><p>If you are interested in messaging directly from web browsers you might wanna check out our <a shape="rect" href="ajax.xml">Ajax</a> or <a shape="rect" href="websockets.xml">WebSockets</a> support or try <a shape="rect" href="web-samples.xml">running the REST examples</a></p><h2 id="REST-MappingofRESTtoJMS">Mapping of REST to JMS</h2><p>To publish a message use a HTTP POST. To consume a message use HTTP DELETE or GET.</p><p>ActiveMQ has a Servlet that takes care of the integration between HTTP and the ActiveMQ dispatcher.</p><p><span style="color: rgb(255,153,0);">NOTE: The example below requires servlet mapping on the URL. For posting without the servlet mapping, see examples further down.</span></p><p>You can map a URI to the servlet and then use the relative part of the URI as the topic or queue name. e.g. you could HTTP POST to</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[http://www.acme.com/orders/input
+]]></script>
+</div></div><p>which would publish the contents of the HTTP POST to the orders.input queue on JMS.&#160;</p><p>Similarly you could perform a HTTP DELETE GET on the above URL to read from the same queue. In this case we will map the MessageServlet from ActiveMQ to the URI</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[http://www.acme.com/queue
+]]></script>
+</div></div><p>and configure it to accept the URI as a queue destination. We can do similar things to support topic destinations too.</p><p>We can use the HTTP session to denote a unique publisher or consumer.</p><p>Note that strict REST requires that GET be a read only operation; so strictly speaking we should not use GET to allow folks to consume messages. Though we allow this as it simplifies HTTP/DHTML/Ajax integration somewhat.</p><p>For a more cleaner mapping of a simple transfer protocol to different languages, you might wish to take a look at <a shape="rect" href="stomp.xml">Stomp</a>.</p><h2 id="REST-Defaultconfiguration">Default configuration</h2><p>Until version 5.8, REST API was part of the <a shape="rect" href="web-samples.xml">Web Samples</a> and was mapped to <a shape="rect" class="external-link" href="http://localhost:8161/demo/message" rel="nofollow">http://localhost:8161/demo/message</a> url. From 5.8 onwards, the API is available by default at <a shape="rect" class="external-link" href="http://localhost:8161/api/message" rel="nofollow">http://localhost:8161/api/message</a> url. Also, starting with 5.8, web server is secured by default (see <a shape="rect" href="web-console.xml">Web Console</a> for more information), so have that in mind when trying to use it. Examples below will assume new api location and secured web server.</p><h3 id="REST-Producing">Producing</h3><p>You can produce by sending a POST request to the server, like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[curl -u admin:admin -d &quot;body=message&quot; http://localhost:8161/api/message/TEST?type=queue]]></script>
+</div></div><p>&#160;</p><p><span style="color: rgb(255,153,0);">NOTE: If&#160;no type parameter is specified, the default is to create a &#160;topic. To change the default to queue,&#160;initialize &#160;the servlet &#160;with an init param&#160;in the&#160;<code>webapps/demo/WEB-INF/web.xml</code></span></p><p><span style="color: rgb(255,153,0);">As shown below:</span></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;servlet&gt;
+  &lt;servlet-name&gt;MessageServlet&lt;/servlet-name&gt;  
+  &lt;servlet-class&gt;org.apache.activemq.web.MessageServlet&lt;/servlet-class&gt;
+  &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+  &lt;init-param&gt;
+     &lt;param-name&gt;topic&lt;/param-name&gt;
+     &lt;param-value&gt;false&lt;/param-value&gt;
+  &lt;/init-param&gt;
+&lt;/servlet&gt;]]></script>
+</div></div><h4 class="p1" id="REST-AlternateProducingSyntax"><span class="s1">Alternate Producing Syntax</span></h4><p class="p1"><span class="s1">An alternative syntax for posting is supported, using the destination URL-encoded parameter; here are some examples:</span>&#160;</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[# Send to queue orders.input:
+curl -XPOST -d &quot;body=message&quot; http://admin:admin@localhost:8161/api/message?destination=queue://orders.input
+ 
+# Send to topic orders.input:
+curl -XPOST -d &quot;body=message&quot; http://admin:admin@localhost:8161/api/message?destination=topic://orders.input]]></script>
+</div></div><h3 id="REST-Timeouts">Timeouts</h3><p>When reading from a queue we might not have any messages. We can use a timeout query parameter to indicate how long we are prepared to wait for a message to arrive. This allows us to poll or block until a message arrives.</p><p>Couple this with HTTP 1.1 keep-alive sockets and pipeline processing we can have efficient access to JMS over HTTP.</p><p>Obviously if your client is Java then using ActiveMQ's JMS API is the fastest and most efficient way to work with the message broker; however, if you are not using Java or prefer the simplicity of HTTP then it should be fairly efficient, especially if your HTTP client supports keep-alive sockets and pipeline processing.</p><h4 class="p1" id="REST-Consuming"><span style="font-size: 16.0px;line-height: 1.5625;">Consuming</span></h4><p>When consuming messages using the REST API, you have to keep session alive between GET requests, or you'll create a separate consumer for every request and due to prefetch limit your succeeding call will hang.</p><p>For example, you can use <code>wget</code> to consume messages, like this:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[wget --user admin --password admin --save-cookies cookies.txt --load-cookies cookies.txt --keep-session-cookies  http://localhost:8161/api/message/TEST1?type=queue
+]]></script>
+</div></div><p>Also, if you plan to have multiple consumer using REST, it's advisable to set prefetch size to 1 so all consumers have an equal chance of getting the message. You can do that by passing a special parameter to the <code>MessageServlet</code></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[    &lt;servlet&gt;
+        &lt;servlet-name&gt;MessageServlet&lt;/servlet-name&gt;       
+        &lt;servlet-class&gt;org.apache.activemq.web.MessageServlet&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+        &lt;init-param&gt;
+                &lt;param-name&gt;destinationOptions&lt;/param-name&gt;
+                &lt;param-value&gt;consumer.prefetchSize=1&lt;/param-value&gt;
+        &lt;/init-param&gt;
+    &lt;/servlet&gt;
+]]></script>
+</div></div><p>in the <code>webapps/demo/WEB-INF/web.xml</code></p><h4 class="p1" id="REST-AlternateConsumingSyntax"><span class="s1">Alternate Consuming Syntax</span></h4><p class="p1"><span class="s1">As with producing, an alternative syntax for consuming messages is also supported, using the destination URL-encoded parameter; here are some examples:</span>&#160;</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[# Send to queue orders.input:
+curl -XGET http://admin:admin@localhost:8161/api/message?destination=queue://orders.input
+ 
+# Send to topic orders.input:
+curl -XGET http://admin:admin@localhost:8161/api/message?destination=topic://orders.input]]></script>
+</div></div><h4 class="p1" id="REST-Consumingwithoutsessions"><span style="font-size: 16.0px;line-height: 1.5625;">Consuming without sessions</span></h4><p>Since 5.2.0 you can use <code>clientId</code> parameter to avoid storing actual JMS consumer in the request session. When using this approach, you don't need to keep sessions alive between requests, you just need to use the same <code>clientId</code> every time.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[wget --user admin --password admin http://localhost:8161/api/message/test?type=queue&amp;clientId=consumerA
+]]></script>
+</div></div><p>Every such call will use the same JMS consumer and deliver messages send to it by the broker.</p><p>In 5.4.1 it's also possible to unsubscribe the client. It's done by sending a POST call with <code>clientId</code> and <code>action=unsubscribe</code> parameters to the server, like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[http://localhost:8161/demo/message/test?clientId=consumerA&amp;action=unsubscribe]]></script>
+</div></div><h3 id="REST-Consumingwithselectors">Consuming with selectors</h3><p>As of ActiveMQ 5.4.0, you can use selectors when consuming using REST protocol. To do that, just specify the appropriate header with selector. To define a selector for the consumer, you have to provide it in an appropriate HTTP header. By default selector header name is <code>selector</code>, so the following example</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[wget  --user admin --password admin --save-cookies cookies.txt --load-cookies cookies.txt --keep-session-cookies  --header=&quot;selector: test=2&quot; http://localhost:8161/api/message/test?type=queue
+]]></script>
+</div></div><p>should consume only messages that have <code>test</code> property set to <code>2</code>.</p><p>You can change the name of the selector header using the <code>org.apache.activemq.selectorName</code> Servlet context property in <code>WEB-INF/web.xml</code>, such as</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[    &lt;context-param&gt;
+        &lt;param-name&gt;org.apache.activemq.selectorName&lt;/param-name&gt;
+        &lt;param-value&gt;activemq-selector&lt;/param-value&gt;
+    &lt;/context-param&gt;
+]]></script>
+</div></div><p>For more info, take a look at <a shape="rect" class="external-link" href="http://fisheye6.atlassian.com/browse/activemq/trunk/activemq-web-demo/src/test/java/org/apache/activemq/web/RestTest.java?r=HEAD" rel="nofollow">RestTest</a></p><h3 id="REST-ConsumingwithOneShotConsumers">Consuming with One Shot Consumers</h3><p>One shot consumption allows a REST call to receive a single message and then immediately close the associated consumer.</p><p>All of the examples so far lead to the servlet creating and holding on to consumers of the destination across multiple HTTP requests. Without care, these consumers could easily lead to confusion as messages are dispatched to them but then sit unused because the consuming HTTP session, or clientId, fails to connect to continue requesting the messages. One way around that problem is the use of one-shot consumers. &#160;Simple add the&#160;<code>?oneShot=true</code> option and the consumer is removed once the consumption completes; as follows:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[curl -XGET http://admin:admin@localhost:8161/api/message?destination=queue://orders.input&amp;oneShot=true]]></script>
+</div></div><p>Note that interrupting the call while the consumer is waiting for a message, the consumer may remain until the server times out the HTTP request, or until a message finally arrives.</p><h3 id="REST-ContentTypes">Content Types</h3><p>By default messages are sent to the consumers with <code>text/xml</code> content type. Your REST-based application may expect JSON response instead of XML one. In that case, you can configure the servlet to send responses back by adding something like this</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[    &lt;servlet&gt;
+        &lt;servlet-name&gt;MessageServlet&lt;/servlet-name&gt;
+        &lt;servlet-class&gt;org.apache.activemq.web.MessageServlet&lt;/servlet-class&gt;
+        &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+        &lt;init-param&gt;
+                &lt;param-name&gt;defaultContentType&lt;/param-name&gt;
+                &lt;param-value&gt;application/json&lt;/param-value&gt;
+        &lt;/init-param&gt; 
+    &lt;/servlet&gt;
+]]></script>
+</div></div><p>to your <code>WEB-INF/web.xml</code>.</p><p>A default content type can also be overridden using request headers. Specifying <code>xml=true</code> or <code>json=true</code> URL parameter you'll get a response with the desired content type.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[wget --user admin --password admin http://localhost:8161/api/message/TEST?type=queue\&amp;clientId=A\&amp;json=true]]></script>
+</div></div><h3 id="REST-Security">Security</h3><p>Since 5.7.0 release REST API can connect to the secured brokers. The API uses basic authentication header format to get username and password information.</p><p>For example, with curl you can do something like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[curl -u system:manager -d &quot;body=message&quot; http://localhost:8161/demo/message/TEST?type=queue]]></script>
+</div></div><p>Also, you might want to enable <code>ssl</code> for your connections. To do that, just uncomment SecureConnector in <code>conf/jetty.xml</code></p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[                &lt;bean id=&quot;SecureConnector&quot; class=&quot;org.eclipse.jetty.server.ssl.SslSelectChannelConnector&quot;&gt;
+                    &lt;property name=&quot;port&quot; value=&quot;8162&quot; /&gt;
+                    &lt;property name=&quot;keystore&quot; value=&quot;file:${activemq.conf}/broker.ks&quot; /&gt;
+                    &lt;property name=&quot;password&quot; value=&quot;password&quot; /&gt;
+                &lt;/bean&gt;]]></script>
+</div></div><h2 id="REST-RestManagement">Rest Management</h2><p>Starting with version 5.8 we provide a REST management API for the broker. Using <a shape="rect" class="external-link" href="http://www.jolokia.org/" rel="nofollow">Jolokia</a> JMX-HTTP bridge it's possible to access all broker metrics (like memory usage) and execute management operations (like purging queues) using REST API. By default the management API is exposed at <a shape="rect" class="external-link" href="http://localhost:8161/api/jolokia/" rel="nofollow">http://localhost:8161/api/jolokia/</a> URL. So you can for example get basic broker data with</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[wget --user admin --password admin --auth-no-challenge http://localhost:8161/api/jolokia/read/org.apache.activemq:type=Broker,brokerName=localhost]]></script>
+</div></div><p>or to be more specific, total consumer count with</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[wget --user admin --password admin --auth-no-challenge http://localhost:8161/api/jolokia/read/org.apache.activemq:type=Broker,brokerName=localhost/TotalConsumerCount]]></script>
+</div></div><p>For more information on Jolokia protocol, see its reference manual. An API like this makes it easy to script monitoring and management operations against the broker, see also&#160;<a shape="rect" href="how-can-i-monitor-activemq.xml">How can I monitor ActiveMQ</a>?</p><h2 id="REST-Gotcha'sandothertrivia">Gotcha's and other trivia</h2><ol><li>Missing "body" parameter</li></ol><p style="margin-left: 90.0px;">In the curl POST examples above, the use of "body=..." is critical. If this is not specified in front of the message body contents, the web servlet will attempt to read the body from the request (rather than from the -d parameter), and this will result in the following exception:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[java.lang.IllegalStateException: STREAMED
+at org.eclipse.jetty.server.Request.getReader(Request.java:898)
+at org.apache.activemq.web.MessageServletSupport.getPostedMessageBody(MessageServletSupport.java:347)
+at org.apache.activemq.web.MessageServlet.doPost(MessageServlet.java:126)
+...]]></script>
+</div></div><p style="margin-left: 90.0px;">However, one option in this case would be to specify the content type explicitly:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[curl -u admin:admin -d &quot;hello world $(date)&quot; -H &quot;Content-Type: text/plain&quot; -XPOST http://localhost:8161/api/message?destination=queue://abc.def]]></script>
+</div></div></div>
+

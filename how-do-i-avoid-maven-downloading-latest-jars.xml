@@ -1,0 +1,15 @@
+<div class="wiki-content maincontent">
+<p>You can use the -o switch (for offline mode) to avoid maven auto-downloading new snapshot jars (e.g. the Geronimo jars at the time of writing).</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+maven -o
+]]></script>
+</div></div>
+<p>or to run a server  go to the \assembly module and run</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+maven -o server
+]]></script>
+</div></div></div>
+

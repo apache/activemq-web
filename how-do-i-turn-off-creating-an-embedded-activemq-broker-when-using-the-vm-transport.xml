@@ -1,0 +1,2 @@
+<div class="wiki-content maincontent"><p>You can turn off auto creation by setting the create property on the VM Transport to false:</p><p>ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory("vm://localhost?create=false");</p></div>
+

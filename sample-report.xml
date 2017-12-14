@@ -1,0 +1,73 @@
+<div class="wiki-content maincontent"><h2 id="samplereport-PerformanceTestReportTemplate">Performance Test Report Template</h2>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>&lt;testResult&gt;
+  &lt;property name='systemSettings'&gt;
+    &lt;props&gt;
+      &lt;prop key='java.runtime.name'&gt;Java(TM) 2 Runtime Environment, Standard Edition&lt;/prop&gt;
+      &lt;prop key='java.vm.version'&gt;1.4.2_10-b03&lt;/prop&gt;
+                     .
+                     .
+                     .
+      &lt;prop key='os.arch'&gt;x86&lt;/prop&gt;
+      &lt;prop key='os.name'&gt;Windows XP&lt;/prop&gt;
+      &lt;prop key='sun.cpu.isalist'&gt;pentium i486 i386&lt;/prop&gt;
+    &lt;/props&gt;
+  &lt;/property&gt;
+
+  &lt;property name='testProperties'&gt;
+    &lt;props&gt;
+      &lt;prop key='sysTest.numClients'&gt;5&lt;/prop&gt;
+                     .
+                     .
+                     .
+      &lt;prop key='sysTest.destDistro'&gt;all&lt;/prop&gt;
+      &lt;prop key='sysTest.totalDests'&gt;2&lt;/prop&gt;
+    &lt;/props&gt;
+  &lt;/property&gt;
+
+  &lt;property name='performanceData'&gt;
+    &lt;list&gt;
+      &lt;value index='0' clientName='TestProducer0'&gt;1035&lt;/value&gt;
+      &lt;value index='0' clientName='TestProducer3'&gt;255&lt;/value&gt;
+      &lt;value index='0' clientName='TestProducer4'&gt;727&lt;/value&gt;
+      &lt;value index='0' clientName='TestProducer2'&gt;347&lt;/value&gt;
+      &lt;value index='0' clientName='TestProducer1'&gt;527&lt;/value&gt;
+      &lt;value index='1' clientName='TestProducer0'&gt;947&lt;/value&gt;
+      &lt;value index='1' clientName='TestProducer3'&gt;615&lt;/value&gt;
+      &lt;value index='1' clientName='TestProducer4'&gt;712&lt;/value&gt;
+      &lt;value index='1' clientName='TestProducer2'&gt;864&lt;/value&gt;
+      &lt;value index='1' clientName='TestProducer1'&gt;187&lt;/value&gt;
+                     .
+                     .
+                     .
+      &lt;value index='171' clientName='TestProducer0'&gt;1364&lt;/value&gt;
+      &lt;value index='171' clientName='TestProducer3'&gt;395&lt;/value&gt;
+      &lt;value index='171' clientName='TestProducer4'&gt;716&lt;/value&gt;
+      &lt;value index='171' clientName='TestProducer2'&gt;377&lt;/value&gt;
+      &lt;value index='171' clientName='TestProducer1'&gt;515&lt;/value&gt;
+    &lt;/list&gt;
+  &lt;/property&gt;
+
+  &lt;property name='perfSummary'&gt;
+    &lt;props&gt;
+      &lt;prop key='SystemTotalTP'&gt;552114&lt;/prop&gt;
+      &lt;prop key='SystemTotalClients'&gt;5&lt;/prop&gt;
+      &lt;prop key='SystemAveTP'&gt;3209.9651162790697&lt;/prop&gt;
+      &lt;prop key='SystemAveEMMTP'&gt;3161.9651162790697&lt;/prop&gt;
+      &lt;prop key='SystemAveClientTP'&gt;641.9930232558139&lt;/prop&gt;
+      &lt;prop key='SystemAveClientEMMTP'&gt;632.3930232558139&lt;/prop&gt;
+      &lt;prop key='MinClientTP'&gt;clientName=TestProducer4,value=36&lt;/prop&gt;
+      &lt;prop key='MaxClientTP'&gt;clientName=TestProducer4,value=1764&lt;/prop&gt;
+      &lt;prop key='MinClientTotalTP'&gt;clientName=TestProducer1,value=107409&lt;/prop&gt;
+      &lt;prop key='MaxClientTotalTP'&gt;clientName=TestProducer0,value=116751&lt;/prop&gt;
+      &lt;prop key='MinClientAveTP'&gt;clientName=TestProducer1,value=624.4709302325581&lt;/prop&gt;
+      &lt;prop key='MaxClientAveTP'&gt;clientName=TestProducer0,value=678.7848837209302&lt;/prop&gt;
+      &lt;prop key='MinClientAveEMMTP'&gt;clientName=TestProducer1,value=615.2732558139535&lt;/prop&gt;
+      &lt;prop key='MaxClientAveEMMTP'&gt;clientName=TestProducer0,value=668.9418604651163&lt;/prop&gt;
+    &lt;/props&gt;
+  &lt;/property&gt;
+&lt;/testResult&gt;
+</pre>
+</div></div></div>
+

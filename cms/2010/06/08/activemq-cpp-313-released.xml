@@ -1,0 +1,2 @@
+<div class="wiki-content maincontent"><p>A new bug fix release of ActiveMQ-CPP was released: v3.1.3.  This version incorporates a fix that affects users on Windows who might experience a thread deadlock.  If you are on Windows we highly recommend that you grab the 3.1.3 source bundle.  </p></div>
+

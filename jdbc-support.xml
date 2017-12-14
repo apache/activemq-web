@@ -1,0 +1,32 @@
+<div class="wiki-content maincontent"><p>We support a range of SQL databases for message persistence such as</p><ul><li>Apache Derby</li><li>Axion</li><li>DB2</li><li>HSQL</li><li>Informix</li><li>MaxDB</li><li>MySQL</li><li>Oracle</li><li>Postgresql</li><li><a shape="rect" href="sqlserver.xml">SQLServer</a></li><li><a shape="rect" href="sybase.xml">Sybase</a></li></ul><p>as well as a number of generic JDBC providers.</p><h3 id="JDBCSupport-Auto-discoveryofyourJDBCprovider">Auto-discovery of your JDBC provider</h3><p>We try to auto-detect from the JDBC driver which JDBCAdapter to use via these <a shape="rect" class="external-link" href="https://git-wip-us.apache.org/repos/asf?p=activemq.git;a=tree;f=activemq-jdbc-store/src/main/resources/META-INF/services/org/apache/activemq/store/jdbc">config files</a> and the return string from the JDBC driver.</p><p>If you have a JDBC database which we don't support then please let us know what JDBC driver string you're getting and <a shape="rect" href="discussion-forums.xml">drop us a note</a> or raise an issue in our <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ">support database</a> and we'll fix it pretty quickly.</p><p>If your database is not in the above list it is normally a matter of tweaking the StatementProvider to ensure that the JDBCMessageStore uses the right flavour of SQL. So normally most databases support one of these providers...</p><ul><li>org.activemq.store.jdbc.adapter.BlobJDBCAdapter</li><li>org.activemq.store.jdbc.adapter.BytesJDBCAdapter</li><li>org.activemq.store.jdbc.adapter.DefaultJDBCAdapter</li><li>org.activemq.store.jdbc.adapter.ImageJDBCAdapter</li></ul><p>You can explicitly specify the JDBC adaptor using its xbean identifier, inside the activemq.xml...</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;jdbcPersistenceAdapter adapter=&quot;postgresql-jdbc-adapter&quot;/&gt;
+]]></script>
+</div></div><h3 id="JDBCSupport-CustomizingtheSQLDDL">Customizing the SQL DDL</h3><p>You can confiugure the various SQL datatypes - such as column sizes and so forth - using the statements element</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[  &lt;broker useJmx=&quot;false&quot;&gt;
+
+    &lt;persistenceAdapter&gt;
+      &lt;journaledJDBC useJournal=&quot;false&quot;&gt;
+        &lt;statements&gt;
+          &lt;statements stringIdDataType =&quot;VARCHAR(128)&quot;/&gt;
+        &lt;/statements&gt;
+      &lt;/journaledJDBC&gt;
+    &lt;/persistenceAdapter&gt;
+
+  &lt;/broker&gt;
+]]></script>
+</div></div><p>For more info on what attributes can be set on the statements element, see the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/store/jdbc/Statements.html">Statements class</a>. All the settable bean properties can be used as attributes of the &lt;statements&gt; element.</p><h3 id="JDBCSupport-UsingMySQL">Using MySQL</h3><p>If you are using MySQL then you should set the <strong>relaxAutoCommit</strong> flag to be true. e.g.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[  &lt;bean id=&quot;mysql-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
+    &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
+    &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost/activemq?relaxAutoCommit=true&quot;/&gt;
+    &lt;property name=&quot;username&quot; value=&quot;activemq&quot;/&gt;
+    &lt;property name=&quot;password&quot; value=&quot;activemq&quot;/&gt;
+    &lt;property name=&quot;poolPreparedStatements&quot; value=&quot;true&quot;/&gt;
+  &lt;/bean&gt;
+]]></script>
+</div></div><p>To see this in action see the <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/assembly/src/release/conf/activemq.xml">default configuration file</a></p><h3 id="JDBCSupport-ForAMQ3.x">For AMQ 3.x</h3><p>In 3.x you can specify the adapter as follows</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;jdbcPersistence adapterClass=&quot;org.activemq.store.jdbc.adapter.ImageBasedJDBCAdaptor&quot;&gt;
+    ...
+&lt;/jdbcPersistence&gt;
+]]></script>
+</div></div></div>
+

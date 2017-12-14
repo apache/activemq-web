@@ -1,0 +1,14 @@
+<div class="wiki-content maincontent">
+<p>It was often a bit harder than it might be to configure an ActiveMQ broker inside a Spring XML configuration file. We've just added a simple Spring FactoryBean to make this process much simpler...</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+  &lt;!-- lets deploy an embedded broker in this spring.xml --&gt;
+  &lt;bean id=&quot;broker&quot; class=&quot;org.activemq.spring.BrokerFactoryBean&quot;&gt;
+    &lt;property name=&quot;config&quot; value=&quot;classpath:foo/bar/broker.xml&quot;/&gt;
+  &lt;/bean&gt;
+]]></script>
+</div></div>
+
+<p>See <a shape="rect" href="../../../how-do-i-embed-a-broker-inside-a-connection.xml">more detail</a> or try the <a shape="rect" href="../../../spring-support.xml">Spring Support</a></p></div>
+

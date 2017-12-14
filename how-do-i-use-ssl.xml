@@ -1,0 +1,61 @@
+<div class="wiki-content maincontent"><h3 id="HowdoIuseSSL-SettinguptheKeyandTrustStores">Setting up the Key and Trust Stores</h3><p>Also see <a shape="rect" class="external-link" href="http://jakarta.apache.org/tomcat/tomcat-5.5-doc/ssl-howto.html">Tomcat's SSL instructions</a> for more info. The following was provided by Colin Kilburn. Thanks Colin!</p><div class="confluence-information-macro confluence-information-macro-information"><p class="title">ActiveMQ uses dummy credentials by default</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>ActiveMQ includes key and trust stores that reference a dummy self signed cert. When you create a broker certificate and stores for your installation, either overwrite the values in the conf directory or delete the existing dummy key and trust stores so they cannot interfere)</p></div></div><ol><li><p>Using keytool, create a certificate for the broker:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[keytool -genkey -alias broker -keyalg RSA -keystore broker.ks
+]]></script>
+</div></div></li><li><p>Export the broker's certificate so it can be shared with clients:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[keytool -export -alias broker -keystore broker.ks -file broker_cert
+]]></script>
+</div></div></li><li><p>Create a certificate/keystore for the client:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[keytool -genkey -alias client -keyalg RSA -keystore client.ks]]></script>
+</div></div></li><li><p>Create a truststore for the client, and import the broker's certificate. This establishes that the client "trusts" the broker:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[keytool -import -alias broker -keystore client.ts -file broker_cert]]></script>
+</div></div></li></ol><h3 id="HowdoIuseSSL-StartingtheBroker">Starting the Broker</h3><h4 id="HowdoIuseSSL-Usingthejavax.net.ssl.*SystemProperties">Using the javax.net.ssl.* System Properties</h4><p>Before starting the broker's VM set the ACTIVEMQ_SSL_OPTS&#160;environment variable so that it knows to use the broker keystore. &#160;(note that in previous versions of ActiveMQ this property was called SSL_OPTS in some scripts. &#160;As of v5.12.0 all scripts use ACTIVEMQ_SSL_OPTS)</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[export ACTIVEMQ_SSL_OPTS = -Djavax.net.ssl.keyStore=/path/to/broker.ks -Djavax.net.ssl.keyStorePassword=password
+]]></script>
+</div></div><h4 id="HowdoIuseSSL-UsingSpringtoconfigureSSLforaBrokerinstance">Using Spring to configure SSL for a Broker instance</h4><p>Sometimes the use of javax.net.ssl.* system properties is not appropriate as they effect all SSL users in a JVM. ActiveMQ 5.2.x adds an &lt;sslContext&gt; element to the &lt;amq:broker&gt; that allows a broker specific set of SSL properties to be configured.</p><p>The SslContext <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/java/org/apache/activemq/transport/tcp/SslContextBrokerServiceTest.java">test case</a> validates starting an SSL transport listener using the configuration specified in the broker Xbean. The SslContext element is added to the broker as follows:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans
+  &lt;amq:broker useJmx=&quot;false&quot; persistent=&quot;false&quot;&gt;
+
+    &lt;amq:sslContext&gt;
+      &lt;amq:sslContext
+      		keyStore=&quot;broker.ks&quot; keyStorePassword=&quot;password&quot;
+      		trustStore=&quot;client.ks&quot; trustStorePassword=&quot;password&quot;/&gt;
+    &lt;/amq:sslContext&gt;
+
+    &lt;amq:transportConnectors&gt;
+      &lt;amq:transportConnector uri=&quot;ssl://localhost:61616&quot; /&gt;
+    &lt;/amq:transportConnectors&gt;
+
+  &lt;/amq:broker&gt;
+&lt;/beans&gt;
+]]></script>
+</div></div><p>The SslContext is used to configure the <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-client/src/main/java/org/apache/activemq/transport/tcp/SslTransportFactory.java">SslTransportFactory</a> for that broker. Full details of the configuration options available can be seen in the <a shape="rect" class="external-link" href="http://activemq.apache.org/schema/core/activemq-core-5.2-SNAPSHOT.xsd">schema definition</a> or in the accessors of <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-spring/src/main/java/org/apache/activemq/spring/SpringSslContext.java">org.apache.activemq.spring.SpringSslContext</a></p><h3 id="HowdoIuseSSL-StartingtheClient">Starting the Client</h3><p>When starting the client's VM, specify the following system properties:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[javax.net.ssl.keyStore=/path/to/client.ks
+javax.net.ssl.keyStorePassword=password
+javax.net.ssl.trustStore=/path/to/client.ts
+]]></script>
+</div></div><div class="confluence-information-macro confluence-information-macro-warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>In Linux, do not use absolute path to keystore. By default, keytool uses ~/.keystore, but in some setups passing -Djavax.net.ssl.keyStore=/home/account/.keystore to Java VM does not work. This is not ActiveMQ specific but good to keep in mind anyway.</p></div></div><h3 id="HowdoIuseSSL-Clientcertificates">Client certificates</h3><p>If you want to verify client certificates, you need to take a few extra steps:</p><ol><li><p>Export the client's certificate so it can be shared with broker:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[keytool -export -alias client -keystore client.ks -file client_cert
+]]></script>
+</div></div></li><li><p>Create a truststore for the broker, and import the client's certificate. This establishes that the broker "trusts" the client:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[keytool -import -alias client -keystore broker.ts -file client_cert]]></script>
+</div></div></li><li><p>Add</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[-Djavax.net.ssl.trustStore=/path/to/broker.ts]]></script>
+</div></div><p>to ACTIVEMQ_SSL_OPTS</p></li><li><p>Instruct ActiveMQ to require client authentication by setting the following in activemq.xml:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[  &lt;transportConnectors&gt;
+    &lt;transportConnector name=&quot;ssl&quot; uri=&quot;ssl://localhost:61617?needClientAuth=true&quot; /&gt;
+  &lt;/transportConnectors&gt;]]></script>
+</div></div></li></ol><h3 id="HowdoIuseSSL-Certificaterevocation">Certificate revocation</h3><p>Starting with version <strong>5.12</strong>, you can define certificate revocation list (CRL) path on ssl context, so that invalid certificates can revoked</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: xml; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[    &lt;sslContext&gt;
+        &lt;sslContext keyStore=&quot;org/apache/activemq/security/broker1.ks&quot;
+                    keyStorePassword=&quot;password&quot;
+                    trustStore=&quot;org/apache/activemq/security/activemq-revoke.jks&quot;
+                    trustStorePassword=&quot;password&quot;
+                    crlPath=&quot;org/apache/activemq/security/activemq-revoke.crl&quot;/&gt;
+    &lt;/sslContext&gt;]]></script>
+</div></div><p>This list is static and loaded on broker startup.</p><p>Starting with version <strong>5.14.0</strong>, you can also enable more advanced&#160;Online Certificate Status Protocol (OCSP) protocol. For that you need to configure a location for the<code> java.security</code> configuration extension by setting appropriate system properties (in <code>${ACTIVEMQ_HOME}/bin/env</code>) like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ACTIVEMQ_SSL_OPTS=&quot;-Djava.security.properties=$ACTIVEMQ_CONF/java.security&quot;]]></script>
+</div></div><p>Then you need to configure OCSP responder properties in <code>java.security</code> file like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ocsp.enable=true
+ocsp.responderURL=http://ocsp.example.net:80]]></script>
+</div></div><p>A demo of the broker configuration working with OCSP responder can be found at&#160;<a shape="rect" class="external-link" href="https://github.com/dejanb/sslib" rel="nofollow">https://github.com/dejanb/sslib</a></p><h3 id="HowdoIuseSSL-WorkingAroundJava7SSLBugs">Working Around Java 7 SSL Bugs</h3><p>As noted by issue AMQ-5970, it seems some versions of Java 7 have problems with SSL sessions that need to use the Diffie-Hellman cypher suite. If you run into this issue, just copy the Bouncy Castle bcprov-jdk15on-148.jar to ActiveMQ's lib directory and restart your broker.</p><h3 id="HowdoIuseSSL-Usefullinks">Useful links</h3><p>These links might also help</p><ul><li><a shape="rect" class="external-link" href="http://java.sun.com/j2se/1.4.2/docs/guide/security/jsse/JSSERefGuide.html#CreateKeystore" rel="nofollow">Sun's JSSE guide</a></li><li><a shape="rect" class="external-link" href="https://search.thawte.com/support/ssl-digital-certificates/index?page=content&amp;id=SO10061" rel="nofollow">Thawte SSL Troubleshooting Tips</a></li></ul></div>
+

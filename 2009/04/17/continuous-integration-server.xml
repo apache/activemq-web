@@ -1,0 +1,15 @@
+<div class="wiki-content maincontent"><p>ActiveMQ has been added to <a shape="rect" class="external-link" href="http://hudson.dev.java.net/" rel="nofollow">Hudson continuous-integration server</a> instance at Apache <a shape="rect" class="external-link" href="http://hudson.zones.apache.org/hudson/job/ActiveMQ/">http://hudson.zones.apache.org/hudson/job/ActiveMQ/</a>. Now you can have more insight into test runs and snapshot builds. Hudson will also send failure reports to our dev mailing list, making us address them promptly.<br clear="none">
+As a part of this change, the snapshots location and Maven repository has changed. If you're using ActiveMQ snapshots in your projects, be sure to add the following repository to your Maven configuration:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;repositories&gt;
+  &lt;repository&gt;
+    &lt;id&gt;hudson.snapshots&lt;/id&gt;
+    &lt;url&gt;https://repository.apache.org/content/repositories/snapshots/&lt;/url&gt;
+    &lt;releases&gt;
+      &lt;enabled&gt;false&lt;/enabled&gt;
+    &lt;/releases&gt;
+  &lt;/repository&gt;
+&lt;/repositories&gt;]]></script>
+</div></div></div>
+

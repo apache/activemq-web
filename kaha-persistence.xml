@@ -1,0 +1,41 @@
+<div class="wiki-content maincontent"><h2 id="KahaPersistence-KahaPersistence">Kaha Persistence</h2>
+
+<p>Kaha Peristence is a storage solution written especially for message persistence and is part of the ActiveMQ project. It's tuned to provide optimal performance for typical message usage patterns, which involves writing/reading and discarding messages that are persisted very quickly.</p>
+
+<p>Data stored in Kaha is appended to data logs - the log files are discarded once there is no longer interest in the data contained in the log.</p>
+
+<h3 id="KahaPersistence-ConfiguringKahaPersistence">Configuring Kaha Persistence</h3>
+
+<p>In the broker XML specify the persistence adaptor to be Kaha e.g.</p>
+
+<p>ActiveMQ 5.0 and above:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+ &lt;broker brokerName=&quot;broker&quot; persistent=&quot;true&quot; useShutdownHook=&quot;false&quot;&gt;
+    &lt;transportConnectors&gt;
+      &lt;transportConnector uri=&quot;tcp://localhost:61616&quot;/&gt;
+    &lt;/transportConnectors&gt;
+    &lt;persistenceAdapter&gt;
+      &lt;kahaPersistenceAdapter directory=&quot;activemq-data&quot; maxDataFileLength=&quot;33554432&quot;/&gt;
+    &lt;/persistenceAdapter&gt;
+  &lt;/broker&gt;
+]]></script>
+</div></div>
+
+
+<p>ActiveMQ 4.1 and earlier:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+ &lt;broker brokerName=&quot;broker&quot; persistent=&quot;true&quot; useShutdownHook=&quot;false&quot;&gt;
+    &lt;transportConnectors&gt;
+      &lt;transportConnector uri=&quot;tcp://localhost:61616&quot;/&gt;
+    &lt;/transportConnectors&gt;
+    &lt;persistenceAdapter&gt;
+      &lt;kahaPersistenceAdapter dir=&quot;activemq-data&quot; maxDataFileLength=&quot;33554432&quot;/&gt;
+    &lt;/persistenceAdapter&gt;
+  &lt;/broker&gt;
+]]></script>
+</div></div></div>
+

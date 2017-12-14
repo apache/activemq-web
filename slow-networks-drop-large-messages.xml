@@ -1,0 +1,41 @@
+<div class="wiki-content maincontent"><div class="confluence-information-macro confluence-information-macro-note"><p class="title">Note</p><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p> This article only applies to older versions of ActiveMQ, i.e. 5.3 and 5.4.0. From 5.4.2 onwards this issue has been adressed in the bugs <a shape="rect" class="external-link" href="https://issues.apache.org/jira/browse/AMQ-2511">AMQ-2511</a> and <a shape="rect" class="external-link" href="https://issues.apache.org/jira/browse/AMQ-2088">AMQ-2088</a>. </p></div></div>
+<p>You may experience problems sending large messages using networks across slow links.</p>
+
+<p>The symptoms are usually that the network connection will be dropped and continuously re-established.</p>
+
+<p>This problem arises because the ActiveMQ message broker continuously checks for activity on a socket, and whilst building a large message in the TCP socket buffer, the <a shape="rect" href="activemq-inactivitymonitor.xml">inactivity</a> monitor will time out - see <a shape="rect" href="configuring-wire-formats.xml">Configuring Wire Formats</a> and the <a shape="rect" href="tcp-transport-reference.xml">TCP Transport Reference</a>.<br clear="none">
+The <a shape="rect" href="activemq-inactivitymonitor.xml">inactivity monitor</a> uses an activity flag that is only updated after a message is received (in case the connection is not idle).<br clear="none">
+The monitor then clears the activity flag, waits the timeout amount and peeks at the activity flag. If it's still cleared, then we assume the connection was inactive. When the connection is NOT in use, a keep alive message is sent. But in case the connection is in use because of a larger message being sent/received, no keep alive will be sent and the activity flag will not be updated. That can lead to inactivity timeouts.<br clear="none">
+Ideally the activity flag would get cleared every time a few bytes arrive from the network... but right now it is only cleared when an entire message is assembled.</p>
+
+<p>You can either set the wireFormat.maxInactivityDuration property to a high value - or disable it (set it to zero) to work around this issue.</p>
+
+<p>e.g. configure your network connection like this:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+
+&lt;beans xmlns=&quot;http://activemq.org/config/1.0&quot;&gt;
+
+  &lt;broker brokerName=&quot;receiver&quot;&gt;
+    &lt;transportConnectors&gt;
+      &lt;transportConnector uri=&quot;tcp://localhost:62002&quot;/&gt;
+    &lt;/transportConnectors&gt;
+
+    &lt;networkConnectors&gt;
+      &lt;networkConnector uri=&quot;static:(tcp://somehost:62001?wireFormat.maxInactivityDuration=0)&quot;/&gt;
+    &lt;/networkConnectors&gt;
+
+    &lt;persistenceAdapter&gt;
+      &lt;memoryPersistenceAdapter/&gt;
+    &lt;/persistenceAdapter&gt;
+  &lt;/broker&gt;
+
+&lt;/beans&gt;
+]]></script>
+</div></div>
+
+<h3 id="Slownetworksdroplargemessages-Seealso">See also</h3>
+<p><a shape="rect" href="activemq-inactivitymonitor.xml">ActiveMQ InactivityMonitor</a></p></div>
+

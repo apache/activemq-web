@@ -1,0 +1,11 @@
+<div class="wiki-content maincontent"><h2 id="HowcanImonitortheconnectionwiththebroker-HowcanImonitortheconnectionwiththebroker">How can I monitor the connection with the broker</h2>
+
+<p>You can monitor the status of the connection with the broker via the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/ActiveMQConnection.html#addTransportListener%28org.apache.activemq.transport.TransportListener">addTransportListener() method on the ActiveMQConnection</a>. </p>
+
+<p>This method takes a <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/transport/TransportListener.html">TransportListener</a> which is notified as the connection is established &amp; dropped. It also allows you to work with the <a shape="rect" href="failover-transport-reference.xml">Failover Transport</a> yet still know the status of the connection.</p>
+
+
+<h3 id="HowcanImonitortheconnectionwiththebroker-SeeAlso">See Also</h3>
+
+<ul><li><a shape="rect" href="how-can-i-monitor-activemq.xml">How can I monitor ActiveMQ</a></li></ul></div>
+

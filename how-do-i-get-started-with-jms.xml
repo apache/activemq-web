@@ -1,0 +1,6 @@
+<div class="wiki-content maincontent"><h2 id="HowdoIgetstartedwithJMS-HowdoIgetstartedwithJMS">How do I get started with JMS</h2>
+
+<p>Your best way to get started understanding the JMS API is <a shape="rect" class="external-link" href="http://java.sun.com/j2ee/1.4/docs/tutorial/doc/JMS.html#wp84181" rel="nofollow">Sun's JMS tutorial</a>.</p>
+
+<p>Alternatively you could stick to writing business level POJOs and hide the middleware via <a shape="rect" class="external-link" href="http://activemq.apache.org/camel/">Apache Camel</a> which hides the JMS API from you letting you focus on your business logic via the <a shape="rect" class="external-link" href="http://activemq.apache.org/camel/bean-integration.html">Bean Integration</a> </p></div>
+

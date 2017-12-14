@@ -1,0 +1,7 @@
+<div class="wiki-content maincontent"><p>When you build the ActiveMQ-CPP library using the GNU AutoTools the Configure script will automatically search for OpenSSL on your system and enable support for it in the code if its found.  The search might fail if you have installed OpenSSL in a non-standard location in which case you can tell the configure script where to look using the <em>with-openssl</em> option, see below for an example.</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>./configure --with-openssl=/opt/special/openssl
+</pre>
+</div></div></div>
+

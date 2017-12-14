@@ -1,0 +1,39 @@
+<div class="wiki-content maincontent"><p>Although ObjectMessage usage is generally discouraged, as it introduces coupling of class paths between producers and consumers, ActiveMQ supports them as part of the JMS specification.</p><h2 id="ObjectMessage-Security">Security</h2><p>ObjectMessage objects depend on Java serialization of marshal/unmarshal object payload. This process is generally considered unsafe as malicious payload can exploit the host system. That's why starting with versions <strong>5.12.2</strong> and&#160;<strong>5.13.0</strong>, ActiveMQ enforces users to explicitly whitelist packages that can be exchanged using ObjectMessages.</p><p>If you need to exchange object messages, you need to add packages your applications are using. You can do that with by using&#160;<code>org.apache.activemq.SERIALIZABLE_PACKAGES</code>&#160;system property, interpreted by the broker and the activemq client library. You can add this system property to <code>ACTIVEMQ_OPTS</code> variable in <code>${ACTIVEMQ_HOME}/bin/env</code> script.</p><p>For example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[-Dorg.apache.activemq.SERIALIZABLE_PACKAGES=java.lang,javax.security,java.util,org.apache.activemq,org.fusesource.hawtbuf,com.thoughtworks.xstream.mapper,com.mycompany.myapp]]></script>
+</div></div><p>will add <code>com.mycompany.myapp</code> package to the list of trusted packages. Note that other packages listed here are enabled by default as they are necessary for the regular broker work. In case you want to shortcut this mechanism, you can allow all packages to be trusted by using <code>*</code> wildcard, like</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[-Dorg.apache.activemq.SERIALIZABLE_PACKAGES=*]]></script>
+</div></div><h3 id="ObjectMessage-Clients">Clients</h3><p>On the client side, you need to have this same mechanism as malicious code can be deserialized on <code>ObjectMessage.getObject()</code> call, compromising your application's environment. You can use the same configuration mechanism on the broker and configure trusted classes using system properties. However, this is usually not convenient in the client applications, so in <strong>5.12.2</strong> and&#160;<strong>5.13.1</strong> we introduced additional configuration mechanism using <code>ActiveMQConnectionFactory</code>. There are two additional methods defined:</p><ul><li>The <code>setTrustedPackages()</code> method allows you to set the list of trusted packages you want to be to unserialize, like</li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(&quot;tcp://localhost:61616&quot;);
+factory.setTrustedPackages(new ArrayList(Arrays.asList(&quot;org.apache.activemq.test,org.apache.camel.test&quot;.split(&quot;,&quot;))));]]></script>
+</div></div><ul><li>The&#160;<code>setTrustAllPackages()</code> allows you to turn off security check and trust all classes. It's useful for testing purposes.</li></ul><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(&quot;tcp://localhost:61616&quot;);
+factory.setTrustAllPackages(true);]]></script>
+</div></div><p>You can set the same properties in Camel context like:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[    &lt;bean id=&quot;connectionFactory&quot; class=&quot;org.apache.activemq.spring.ActiveMQConnectionFactory&quot;&gt;
+        &lt;property name=&quot;brokerURL&quot; value=&quot;tcp://localhost:61616&quot;/&gt;
+        &lt;property name=&quot;trustedPackages&quot;&gt;
+            &lt;list&gt;
+				&lt;value&gt;org.apache.activemq.test&lt;/value&gt;
+                &lt;value&gt;org.apache.camel.test&lt;/value&gt;
+            &lt;/list&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;jmsConfig&quot; class=&quot;org.apache.camel.component.jms.JmsConfiguration&quot;&gt;
+        &lt;property name=&quot;connectionFactory&quot; ref=&quot;connectionFactory&quot;/&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;activemq&quot; class=&quot;org.apache.activemq.camel.component.ActiveMQComponent&quot;&gt;
+        &lt;property name=&quot;configuration&quot; ref=&quot;jmsConfig&quot;/&gt;
+    &lt;/bean&gt;]]></script>
+</div></div><p>or</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[    &lt;bean id=&quot;connectionFactory&quot; class=&quot;org.apache.activemq.spring.ActiveMQConnectionFactory&quot;&gt;
+        &lt;property name=&quot;brokerURL&quot; value=&quot;tcp://localhost:61616&quot;/&gt;
+		&lt;property name=&quot;trustAllPackages&quot; value=&quot;true&quot;/&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;jmsConfig&quot; class=&quot;org.apache.camel.component.jms.JmsConfiguration&quot;&gt;
+        &lt;property name=&quot;connectionFactory&quot; ref=&quot;connectionFactory&quot;/&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;activemq&quot; class=&quot;org.apache.activemq.camel.component.ActiveMQComponent&quot;&gt;
+        &lt;property name=&quot;configuration&quot; ref=&quot;jmsConfig&quot;/&gt;
+    &lt;/bean&gt;]]></script>
+</div></div><p>This configuration will override system properties if they are set.</p></div>
+

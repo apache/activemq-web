@@ -1,0 +1,43 @@
+<div class="wiki-content maincontent"><p>ActiveBlaze provides infrastructure for fast, reliable peer to peer messaging to meet the demands of high performance and collaborative applications.<br clear="none">
+Using the basic building block of a Channel, there exists a functional hierarchy used for different problem domains, each one a super-set of the previous one.</p>
+
+<p>The BlazeChannel supports broadcasting on Topics - either using reliable multicast or point-cast.</p>
+
+<p>To use a BlazeChannel create one from the a factory:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+import org.apache.activeblaze.*;
+...
+BlazeChannelFactory factory = new BlazeChannelFactory();
+BlazeChannel sender = factory.createChannel();
+//start the channel and send a message
+sender.start();
+
+String destination = &quot;foo.bar&quot;;
+BlazeMessage msg = new BlazeMessage(&quot;test payload&quot;);
+sender.broadcast(destination,msg);
+//shutdown the sender
+sender.shutDown();
+]]></script>
+</div></div>
+
+<p>You can similarly subscribe to Topic messages by using a listener</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+BlazeChannel receiver = factory.createChannel();
+receiver.start();
+
+//add a listener
+
+receiver.addBlazeTopicMessageListener(destination, new BlazeMessageListener() {
+            public void onMessage(BlazeMessage msg) {
+                System.out.println(&quot;Got a msg: &quot; + msg);
+            }
+        });
+
+receiver.shutDown();
+]]></script>
+</div></div></div>
+

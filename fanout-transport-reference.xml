@@ -1,0 +1,51 @@
+<div class="wiki-content maincontent"><h3 id="FanoutTransportReference-TheFanoutTransport">The Fanout Transport</h3>
+
+<p>The Fanout transport layers reconnect and replication logic on top of any of the other transports. It utilizes the <a shape="rect" href="discovery-transport-reference.xml">Discovery</a> transport to discover brokers and replicates commands to those brokers.</p>
+
+<h4 id="FanoutTransportReference-ConfigurationSyntax">Configuration Syntax</h4>
+
+<p><strong>fanout:(discoveryURI)?transportOptions</strong><br clear="none">
+or<br clear="none">
+<strong>fanout:discoveryURI</strong></p>
+
+<h5 id="FanoutTransportReference-TransportOptions">Transport Options</h5>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Option Name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Default Value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>initialReconnectDelay</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>10</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>How long to wait before the first reconnect attempt</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>maxReconnectDelay</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>30000</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The maximum amount of time we ever wait between reconnect attempts</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>useExponentialBackOff</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>true</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Should an exponential backoff be used btween reconnect attempts</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>backOffMultiplier</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>2</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The exponent used in the exponential backoff attempts</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>maxReconnectAttempts</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>0</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>If not 0, then this is the maximum number of reconnect attempts before an error is sent back to the client</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>fanOutQueues</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>false</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>If set to 'true', commands are replicated to queues as well as topics</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>minAckCount</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>2</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The minimum number of brokers to which connections must be established</p></td></tr></tbody></table></div>
+
+
+
+<p>The 'fanOutQueues' option is specific to the fanout transport. By default, the fanout does not replicate commands to queues; only topics. Therefore, if you'd like to fanout a message send command to multiple queues on multiple brokers, you'll have to set this option to 'true'.</p>
+
+<p>By default, a client's fanout transport waits for connections to be established to 2 brokers, or the number of static TCP URIs configured (if more than 2). Until this number of connections is established, the client's call to Connection.createSession() does not return. For example, a producer that uses the fanout connector listed below will wait until 2 brokers are running, and connections are established to those two brokers. </p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+fanout:(multicast://default)
+]]></script>
+</div></div>
+<p>Another example would be a producer using the following fanout connector. </p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+fanout:(static:(tcp://localhost:61629,tcp://localhost:61639,tcp://localhost:61649))
+]]></script>
+</div></div>
+<p>In this case, three broker connections are needed. However, this required number of connections can be overridden by using the minAckCount transport option. For example, this fanout connector allows the producer to run after connecting to just one broker.</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+fanout:(multicast://default)?minAckCount=1
+]]></script>
+</div></div>
+
+<div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Warning</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>It is not recommended that you use the fanout URI for consumers. Also, if a producer fans out across multiple brokers, who happen to be inter-connected, then there is a very high likelihood that a consumer on one of those brokers will get duplicate messages.</p></div></div>
+
+
+<h5 id="FanoutTransportReference-ExampleURI">Example URI</h5>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>fanout:(static:(tcp://localhost:61616,tcp://remotehost:61616))?initialReconnectDelay=100
+</pre>
+</div></div>
+
+<div class="confluence-information-macro confluence-information-macro-information"><p class="title">Applying parameters to discovered transports</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>Because the Discovery transport is utilized for broker discovery, transport parameters are applied to discovered brokers.  See <a shape="rect" href="discovery-transport-reference.xml">Discovery Transport Reference</a>.</p></div></div></div>
+

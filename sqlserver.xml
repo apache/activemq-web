@@ -1,0 +1,67 @@
+<div class="wiki-content maincontent"><h2 id="SQLServer-SQLServer">SQL Server</h2>
+
+
+<h3 id="SQLServer-SQLServer2000Drivers">SQL Server 2000 Drivers&#160;</h3>
+
+<p>Here is an example of a configuration for SQLServer kindly supplied by Ning Li</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;persistenceAdapter&gt;
+     &lt;journaledJDBC journalLogFiles=&quot;5&quot;
+dataDirectory=&quot;../activemq-data&quot; dataSource=&quot;#mssql-ds&quot;&gt;
+      &lt;adapter&gt;&lt;imageBasedJDBCAdaptor/&gt;&lt;/adapter&gt;
+     &lt;/journaledJDBC&gt;
+&lt;/persistenceAdapter&gt;
+
+
+ &lt;bean id=&quot;mssql-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;
+destroy-method=&quot;close&quot;&gt;
+   &lt;property name=&quot;driverClassName&quot;
+value=&quot;com.microsoft.jdbc.sqlserver.SQLServerDriver&quot;/&gt;
+   &lt;property name=&quot;url&quot; value=&quot;jdbc:microsoft:sqlserver://HOSTNAME
+\\INSTANCE;DataBaseName=DBNAME&quot;/&gt;
+   &lt;property name=&quot;username&quot; value=&quot;sa&quot;/&gt;
+   &lt;property name=&quot;password&quot; value=&quot;password&quot;/&gt;
+ &lt;/bean&gt;
+]]></script>
+</div></div>
+<p>Information about the Microsoft SqlServer 2000 drivers can be found <a shape="rect" class="external-link" href="http://support.microsoft.com/kb/313100/" rel="nofollow">here</a></p>
+
+<h3 id="SQLServer-SQLServer2005Drivers">SQL Server 2005 Drivers</h3>
+
+<p>Here is an example of the configuration for Microsoft SQL Server 2005 drivers</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;persistenceAdapter&gt;
+  &lt;journaledJDBC journalLogFiles=&quot;5&quot; dataDirectory=&quot;../activemq-data&quot; dataSource=&quot;#mssql-ds&quot;&gt;
+    &lt;adapter&gt;&lt;imageBasedJDBCAdaptor/&gt;&lt;/adapter&gt;
+  &lt;/journaledJDBC&gt;
+&lt;/persistenceAdapter&gt;
+
+&lt;bean id=&quot;mssql-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
+  &lt;property name=&quot;driverClassName&quot; value=&quot;com.microsoft.sqlserver.jdbc.SQLServerDriver&quot;/&gt;
+  &lt;property name=&quot;url&quot; value=&quot;jdbc:sqlserver://HOST:PORT;databaseName=DBNAME;user=USER;password=PASSWORD&quot;/&gt;
+  &lt;property name=&quot;username&quot; value=&quot;USER&quot;/&gt;
+  &lt;property name=&quot;password&quot; value=&quot;PASSWORD&quot;/&gt;
+&lt;/bean&gt;
+]]></script>
+</div></div>
+<p>Information about the Microsoft SqlServer 2005 drivers can be found <a shape="rect" class="external-link" href="http://msdn.microsoft.com/data/ref/jdbc/" rel="nofollow">here</a></p>
+
+<h3 id="SQLServer-jTDSDrivers">jTDS Drivers</h3>
+
+<p>Here's an example of the configuration for the jTDS drivers:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;bean id=&quot;mssql-ds&quot; class=&quot;net.sourceforge.jtds.jdbcx.JtdsDataSource&quot;&gt;
+   &lt;property name=&quot;serverName&quot; value=&quot;SERVERNAME&quot;/&gt;
+   &lt;property name=&quot;portNumber&quot; value=&quot;PORTNUMBER&quot;/&gt;
+   &lt;property name=&quot;databaseName&quot; value=&quot;DATABASENAME&quot;/&gt;
+   &lt;property name=&quot;user&quot; value=&quot;USER&quot;/&gt;
+   &lt;property name=&quot;password&quot; value=&quot;PASSWORD&quot;/&gt;
+ &lt;/bean&gt;
+]]></script>
+</div></div>
+<p>A note about the jTDS Drivers: Using both the JtdsDataSource and the DBCP BasicDataSource seem to result in client connection starvation on Windows. The JtdsDataSource is better behaved, though, i.e. it doesn't throw an exception. There is mileage in upping the maximum number of client ports and dropping the Tcp wait delay down to 30 seconds. Use RegEdit to add the following values:</p>
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Type </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Key </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Value </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> TcpTimedWaitDelay </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> DWORD </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\ Services\TCPIP\Parameters </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 30 (Decimal) </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Reduces the time a connection spends in TIME_WAIT to 30 seconds </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> MaxUserPort </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> DWORD </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\ Services\TCPIP\Parameters </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 32768 (Decimal) </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Increases the number of ports a client application can use to 32768 </p></td></tr></tbody></table></div></div>
+

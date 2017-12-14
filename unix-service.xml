@@ -1,0 +1,2 @@
+<div class="wiki-content maincontent"><p>This page contained a very basic procedure to create a unix service for activemq.</p><p>Due to the fact that ActiveMQ contains a very functional init script - this is not needed anymore.</p><p>&#160;</p><p><strong>Review the documentation of the init script: <a shape="rect" href="unix-shell-script.xml">Unix Shell Script</a></strong></p></div>
+

@@ -1,0 +1,16 @@
+<div class="wiki-content maincontent"><p>Typically in Apache ActiveMQ we <a shape="rect" href="how-do-i-create-new-destinations.xml">create destinations on demand</a> as clients start to use them. However sometimes users want to be able to configure which destinations are available on startup explicitly in the <a shape="rect" href="xml-configuration.xml">Xml Configuration</a>.</p><parameter ac:name="title">4.1 Feature</parameter><rich-text-body><p>Note this feature is available from 4.1 onwards. If you try this XML on older versions of ActiveMQ you will get an exception about the 'destinations' property not being writable.</p></rich-text-body><h3 id="ConfigureStartupDestinations-Example">Example</h3><p>The following <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-core/src/test/resources/org/apache/activemq/broker/destinations-on-start.xml">example</a> shows how you can configure a number of destinations to be available at startup.<plain-text-body>
+&lt;broker xmlns="http://activemq.apache.org/schema/core"&gt;
+
+    &lt;destinations&gt;
+
+      &lt;queue physicalName="FOO.BAR" /&gt;
+
+      &lt;topic physicalName="SOME.TOPIC" /&gt;
+
+    &lt;/destinations&gt;
+
+  &lt;/broker&gt;
+
+
+</plain-text-body></p></div>
+

@@ -1,0 +1,4 @@
+<div class="wiki-content maincontent"><h2 id="ActiveMQC++Clients-ActiveMQC++Integration">ActiveMQ C++ Integration</h2>
+
+<p><a shape="rect" class="external-link" href="http://activemq.apache.org/cms/">CMS</a> is an easy-to-use JMS 1.1-like API. Our implementation of CMS is called ActiveMQ-CPP, the architecture for which supports pluggable transport protocols, very much like the ActiveMQ broker itself.</p></div>
+

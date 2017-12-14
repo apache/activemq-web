@@ -1,0 +1,7 @@
+<div class="wiki-content maincontent">
+
+
+<p>How many messages can we process per second. </p>
+
+<p>Normally <a shape="rect" href="mom.xml">MOM</a> style applications focus on asynchronous messaging and <a shape="rect" href="seda.xml">SEDA</a> style architectures which aim for massive throughput numbers at the cost of some <a shape="rect" href="latency.xml">Latency</a></p></div>
+

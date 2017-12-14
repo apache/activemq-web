@@ -1,0 +1,7 @@
+<div class="wiki-content maincontent">
+
+
+<p>The new <a shape="rect" href="../../../activemq-15-release.xml">1.5</a> release is out, hot on the heels of <a shape="rect" href="../../../activemq-14-release.xml">1.4</a> and <a shape="rect" href="../../../activemq-13-release.xml">1.3</a>. Get it while its hot! <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p>
+
+<p>We now have integrated support for Geronimo, Spring and now JBoss 4 (thanks for all the hard work Michael!). We should just drop into any other J2EE 1.4 container, thanks to JCA 1.5...</p></div>
+

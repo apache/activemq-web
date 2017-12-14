@@ -1,0 +1,10 @@
+<div class="wiki-content maincontent"><p>The Apache ActiveMQ team is proud to announce the release of Apache ActiveMQ 5.9.0.</p>
+
+<p>This release addresses over 200 issues and introduces some significant improvements, for example:</p>
+<ul><li>New hawtio web console</li><li>Replicated leveldb message store</li><li>Runtime configuration</li></ul>
+
+
+<p>Full details and download link can be found in the <a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-590-release.html">release page</a></p>
+
+<p>A big thanks to everyone who contributed to this release.</p></div>
+

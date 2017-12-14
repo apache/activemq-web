@@ -1,0 +1,10 @@
+<div class="wiki-content maincontent">
+
+<p>The new <a shape="rect" href="../../../activemq-21-release.xml">ActiveMQ 2.1 Release</a> is out which includes full support for the high performance journal. </p>
+
+<p>Our default persistence mechanism is now the journal for short term persistence and then JDBC (via Apache Derby by default) for long term storage. The journal is regularly checkpointed with the database which gives great high performance while still providing good resiliancy (messages are on disk, not in RAM like some other providers do).</p>
+
+<p>This new release also includes a number of performance enhancements in both durable and non durable messaging as well as a number of bug fixes.</p>
+
+<p>You can get the release from the usual <a shape="rect" href="../../../download.xml">Download</a> page.</p></div>
+

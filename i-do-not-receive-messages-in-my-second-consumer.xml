@@ -1,0 +1,26 @@
+<div class="wiki-content maincontent"><h3 id="Idonotreceivemessagesinmysecondconsumer-Scenario">Scenario</h3>
+
+<ul><li>You send 100 messages to a queue.</li><li>Start consumer A, it receives the message</li><li>You start another consumer B, it doesn't receive any messages.</li><li>You kill A.</li><li>Consumer B receives messages now, why?</li></ul>
+
+
+<h3 id="Idonotreceivemessagesinmysecondconsumer-Answer">Answer</h3>
+
+<p>This is to do with <a shape="rect" href="what-is-the-prefetch-limit-for.xml">prefetch buffers</a>.</p>
+
+<p>ActiveMQ will try and deliver a number of messages to each consumer as soon as possible to achieve maximum throughput. That means that each consumer typically has 100-1000 messages in RAM ready to be processed so that there is no latency waiting for another message to arrive under periods of high throughput of messages.</p>
+
+<p>The problem is, if consumer A is set with a prefetch value of &gt;= 100 then it will receive all of the messages before consumer B starts. Then when B starts there are actually no messages available to be dispatched to B (since they are all dispatched to A) until either</p>
+
+<ul><li>new messages are sent to the queue</li><li>consumer A stops or its JVM dies</li></ul>
+
+
+<p>The solution to this problem is to configure the pre-fetch value to something smaller - such as 1, start the consumers together or publish the messages after the consumers have started.</p>
+
+<p>You can also <a shape="rect" href="how-do-i-change-dispatch-policy.xml">change the dispatch policy</a> to ensure round robin dispatch.</p>
+
+<p>To help diagnose these kinds of issues, try <a shape="rect" href="jmx.xml">JMX</a> or the <a shape="rect" href="web-console.xml">Web Console</a></p>
+
+<h3 id="Idonotreceivemessagesinmysecondconsumer-Seealso">See also</h3>
+
+<ul><li><a shape="rect" href="how-do-i-change-dispatch-policy.xml">How do I change dispatch policy</a></li><li><a shape="rect" href="jmx.xml">JMX</a></li><li><a shape="rect" href="web-console.xml">Web Console</a></li></ul></div>
+

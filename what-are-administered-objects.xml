@@ -1,0 +1,15 @@
+<div class="wiki-content maincontent"><h2 id="Whatareadministeredobjects-Whatareadministeredobjects?">What are administered objects?</h2>
+
+<p>Administered objects refers to objects that are configured in <a shape="rect" href="jndi-support.xml">JNDI</a> and then accessed by a JMS client. So they are simply client-side objects typically either a ConnectionFactory or a Destination (such as a Queue or Topic).</p>
+
+<p>Note that administered objects are only used for JNDI. JNDI can then be used as a level of indirection between the JNDI API and the concrete API of the JMS provider. So looking up objects in JNDI avoids you having a runtime dependency on ActiveMQ. Given that we are only talking about one ConnectionFactory object and a few Destination objects, this is not a huge big deal though <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p>
+
+<p>Often folks get very confused with JNDI. e.g. in RMI / EJB scenarios JNDI provides client side proxies; this is not the case with JMS, as the JMS client is the client side proxy to the broker.</p>
+
+<p>An alternative approach to creating administered objects in JNDI is to just use the <a shape="rect" href="spring-support.xml">Spring Support</a> and let dependency injection be an alternative to JNDI.</p>
+
+<h3 id="Whatareadministeredobjects-SeeAlso">See Also</h3>
+
+<ul><li><a shape="rect" href="how-do-i-create-new-destinations.xml">How do I create new destinations</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.xml">How do I embed a Broker inside a Connection</a></li><li><a shape="rect" href="how-does-connectionfactory-relate-to-the-broker.xml">How does ConnectionFactory relate to the Broker</a></li></ul>
+</div>
+

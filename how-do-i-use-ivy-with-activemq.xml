@@ -1,0 +1,44 @@
+<div class="wiki-content maincontent">
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;ivyconf&gt;
+        &lt;!--loads properties file as ivy variables, 0..n--&gt;
+        &lt;properties file=&quot;${ivy.conf.dir}/ivyconf-file.properties&quot; /&gt;
+        &lt;!--configures ivy with some defaults, 0..1--&gt;
+        &lt;conf defaultResolver=&quot;localChain&quot; checkUpToDate=&quot;false&quot; /&gt;
+
+        &lt;!--typedef:defines new types in ivy--&gt;
+        &lt;!--latest-strategies: defines latest strategies--&gt;
+        &lt;!--conflict-managers: defines conflicts managers--&gt;
+
+        &lt;!--defines dependency resolvers--&gt;
+        &lt;resolvers&gt;
+             &lt;chain name=&quot;localChain&quot; returnFirst=&quot;false&quot;&gt;
+                 &lt;filesystem name=&quot;internal&quot; latest=&quot;latest-revision&quot;&gt;
+                        &lt;ivy     
+pattern=&quot;${repository.dir}/[organisation]/[module]/[type]s/ivy-[revision].xml&quot; /&gt;
+                        &lt;artifact
+pattern=&quot;${repository.dir}/[organisation]/[module]/[type]s/[artifact]-[revision].[ext]&quot; /&gt;
+                &lt;/filesystem&gt;
+                &lt;ivyrep name=&quot;ivyrep&quot;/&gt;
+             &lt;/chain&gt;
+             &lt;ibiblio name=&quot;ibiblio&quot;
+pattern=&quot;[organisation]/jars/[module]-[revision].[ext]&quot;/&gt;
+        &lt;/resolvers&gt;
+
+        &lt;!--defines rules between modules and dependency resolvers--&gt;
+        &lt;modules&gt;
+                &lt;module organisation=&quot;verticon&quot; name=&quot;.*&quot;
+resolver=&quot;internal&quot; /&gt;
+                &lt;module organisation=&quot;mandarax&quot; name=&quot;.*&quot;
+resolver=&quot;internal&quot; /&gt;
+                &lt;module organisation=&quot;geronimo-spec&quot; name=&quot;.*&quot;
+resolver=&quot;ibiblio&quot; /&gt;
+                &lt;module organisation=&quot;tomcat&quot; name=&quot;.*&quot;
+resolver=&quot;ibiblio&quot; /&gt;
+        &lt;/modules&gt;
+
+&lt;/ivyconf&gt;
+]]></script>
+</div></div></div>
+

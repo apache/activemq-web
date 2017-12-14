@@ -1,0 +1,9 @@
+<div class="wiki-content maincontent"><h2 id="HowdoesConnectionFactoryrelatetotheBroker-HowdoesConnectionFactoryrelatetotheBroker?">How does ConnectionFactory relate to the Broker?</h2>
+
+<p>The ConnectionFactory is a JMS specification client side interface for creating connections to a JMS broker. The Broker is a service on the network or <a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.xml">embedded in the same JVM</a> which provides the message provider. So think of the ConnectionFactory as the client API for sending and receiving messages and the broker is a server side implementation.</p>
+
+<h3 id="HowdoesConnectionFactoryrelatetotheBroker-SeeAlso">See Also</h3>
+
+<ul><li><a shape="rect" href="how-do-i-create-new-destinations.xml">How do I create new destinations</a></li><li><a shape="rect" href="how-do-i-embed-a-broker-inside-a-connection.xml">How do I embed a Broker inside a Connection</a></li><li><a shape="rect" href="what-are-administered-objects.xml">What are administered objects</a></li></ul>
+</div>
+

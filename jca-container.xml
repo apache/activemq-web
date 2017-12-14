@@ -1,0 +1,42 @@
+<div class="wiki-content maincontent"><div class="confluence-information-macro confluence-information-macro-information"><p class="title">The JCA Container is moving</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>We will continune to support the ActiveMQ JCA Container up until ActiveMQ 3.1.</p>
+
+<p>After that point we will be moving to <a shape="rect" class="external-link" href="http://jencks.codehaus.org/" rel="nofollow">Jencks</a> which is a migration of the ActiveMQ codebase together with code <a shape="rect" class="external-link" href="http://geronimo.apache.org">Geronimo</a> and from some other contributors.</p>
+
+<p>Jencks is completely logically equivalent to the ActiveMQ JCA Container and migrating to it is pretty simple (mostly just a class name change for the JCA container) - though the benefits of Jencks are that it supports full XA recovery and works well with Geronimo's TransactionManager and WorkManager.</p>
+
+<p>So we do recommend you migrate to <a shape="rect" class="external-link" href="http://jencks.codehaus.org/" rel="nofollow">Jencks</a> whenever its easy for you to do so; projects such as <a shape="rect" class="external-link" href="http://lingo.codehaus.org/" rel="nofollow">Lingo</a> and <a shape="rect" class="external-link" href="http://servicemix.org/" rel="nofollow">ServiceMix</a> already have and it was an easy migration.</p></div></div>
+<p>We have a lightweight, easily embeddable Spring based JCA container which allows us to provide MDB like functionality inside any Java application without requiring a full EJB container.</p>
+
+<p>This allows us to support <em>message driven pojos</em> using dependency injection for efficient JMS consumption together with pooling of the pojos using lightweight containers rather than relying on EJB.</p>
+
+<p>The JCA container also makes it easy to programatically at runtime create new message driven pojos rather than relying on the fixed deployment-time only option with EJB.</p>
+
+<h2 id="JCAContainer-Example">Example</h2>
+
+<p>Here is <a shape="rect" class="external-link" href="http://docs.codehaus.org/download/attachments/23776/spring.xml" rel="nofollow">an example</a> of the Spring XML to deploy a pojo (EchoBean) on an inbound JMS subscription, on a topic in this particular example.</p>
+
+<p>Firstly we can create as many JCAContainer instances as we need; currently we create one per JCA <a shape="rect" href="resource-adapter.xml">Resource Adapter</a> (i.e. JMS provider). The JCAContainer also uses a WorkManager which is JCA speak for a bunch of thread pools. We can share the WorkManager across JCAContainer instances or create one per JCAContainer.</p>
+
+<p>Once we have a JCAContainer we can add as many JCAConnector instances to it, via the <strong>addConnector</strong> factory method, each one representing a JMS subscription and providing a pool of POJOs to process the message. The subscription details are specified by an activationSpec property which is a bean typically dependent on the JMS provider; this allows providers to add new extensions while leaving your application code pure JMS.</p>
+
+<p>Notice that the regular Spring pooling mechanism, the <strong>targetSource</strong> property, is used to pool the actual POJO and that Spring uses Dependency Injection to construct instances of the POJO.</p>
+
+<p><strong>Note</strong> you must set the <strong>singleton</strong> flag to false for the POJOs if they are not thread safe.</p>
+
+<h2 id="JCAContainer-Requirements">Requirements</h2>
+
+<p>To be able to use the JCA container, you just need the following jars on your classpath</p>
+<ul><li><a shape="rect" href="initial-configuration.xml">required ActiveMQ jars</a> if you are using ActiveMQ as your JMS provider - or your provider's jars if not</li><li>activemq-container.jar</li><li>spring.jar</li><li>J2EE.jar (for the JCA APIs). If you are inside Tomcat, it doesn't like j2ee.jar on the classpath, so use the individual jars from Geronimo - e.g. geronimo-spec-j2ee-connector-*.jar for the JCA APIs</li><li>commons-collections.jar</li><li>commons-pool.jar</li><li>aopalliance.jar (a temporary dependency introduced by Spring's use of the TargetSource, we should be able to remove this dependency later on).</li></ul>
+
+
+<p><strong>Note</strong> the classes and resources in activemq-container.jar are not included in activemq.jar</p>
+
+<p>To use the JCA Container please use the 2.x code release. Several problems were found and fixed with the 1.x branch of code.</p>
+
+<h2 id="JCAContainer-Thingstowatch">Things to watch</h2>
+
+<p>By default the ActiveMQ <a shape="rect" href="resource-adapter.xml">Resource Adapter</a>  will try to connect to a remote broker (ie. tcp://localhost:61616).  Also if you want to set how the broker is configured via XML then try the <em>brokerXmlConfig</em> property.</p>
+
+<p><em>Note:</em> In AMQ 3.x the default behavior is the ActiveMQ resource adapter will create an embedded broker</p></div>
+

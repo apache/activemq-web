@@ -1,0 +1,50 @@
+<div class="wiki-content maincontent">
+<h3 id="JMeterSystemTests-JMeterSystemTests">JMeter System Tests</h3>
+<p>You can use JMeter to test your ActiveMQ Server. Please refer to the JMeter site for detailed instructions on using this software.<br clear="none">
+The Test would check for duplicate messages and the order of messages received.</p>
+
+
+<h3 id="JMeterSystemTests-BuildingaTestPlan">Building a Test Plan</h3>
+
+<p>For a Producer System Test Sampler<br clear="none">
+1. Add a Thread Group.<br clear="none">
+2. Add the producer sampler "Producer System Test Sampler" from the Sampler menu.<br clear="none">
+3. Go to the Thread Group element and set the Number of Threads, Ramp-Up Period and Loop Count to 1.</p>
+
+<p>For a Consumer Sampler<br clear="none">
+1. Add the consumer sampler "Consumer System Test Sampler" from the Sampler menu.<br clear="none">
+2. Highlight te Consumer Sampler then right click to add the consumer listener "View Producer System Test Results" from the Listener menu.</p>
+
+
+<h3 id="JMeterSystemTests-TheJMeterSystemTestModuleisconsistof:">The JMeter System Test Module is consist of:</h3>
+<p>1. JMeter Producer System Test Sampler</p>
+
+<ul class="alternate"><li>A JMeter Sampler tells JMeter to send requests to the server. Pluggable Samplers allow unlimited testing capabilities.</li></ul>
+
+
+<ul class="alternate"><li>The Producer System Test Sampler will send messages to an ActiveMQ Server.</li></ul>
+
+
+
+<p>The Producer System Test Sampler has the following parameters:</p>
+
+<ul class="alternate"><li>Server URL - defines the server url i.e. tcp://localhost:61616</li><li>No. of Producer - The number of Producer that would be sending the message.</li><li>No. of Subject - The number of Subject that would be created then send. Note that the number of Subject should be less than or equal to the No. of Producer.</li><li>Number of Message - The number of the messages to send.</li><li>Delivery Mode - Default is Non-Persistent.</li><li>Messaging Domain - Default is Topic</li></ul>
+
+
+<p>2. JMeter Consumer System Test Sampler</p>
+
+<p>    The Consumer Sampler has the following parameters:</p>
+
+<ul class="alternate"><li>Server URL - defines the server url i.e. tcp://localhost:61616</li><li>No. of Consumer - The number of Consumer that would be sending the message.</li><li>No. of Subject - The number of Subject that would be created then send. Note that the number of Subject should be less than or equal to the No. of Consumer.</li><li>Delivery Mode - Default is non-Durable.</li><li>Messaging Domain - Default is Topic.</li></ul>
+
+
+<p>3. JMeter Producer System Test Listener</p>
+
+<ul class="alternate"><li>Listeners provide access to the information JMeter gathers about the test cases while JMeter runs.</li><li>The Producer System Test Listener would provide the Consumer Identifier, Producer Name, Message and Message Count.</li></ul>
+
+
+<ul class="alternate"><li>Consumer Identifier - Identifies the Consumer that received the message.</li><li>Producer Name - Producer name that send the message.</li><li>Message - The message body received.</li><li>Message Count - The number of messages received.</li></ul>
+
+
+</div>
+

@@ -1,0 +1,155 @@
+<div class="wiki-content maincontent"><h3 id="JMSandJDBCoperationsinonetransaction-JMSandJDBCoperationsinonetransactionwithSpring/Jencks/ActiveMQ">JMS and JDBC operations in one transaction with Spring/Jencks/ActiveMQ</h3>
+
+<p>Spring beans:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;beans&gt;
+    &lt;!-- ActiveMQ Broker --&gt;
+    &lt;bean id=&quot;broker&quot; class=&quot;org.apache.activemq.broker.BrokerService&quot; init-method=&quot;start&quot; destroy-method=&quot;stop&quot;&gt;
+        &lt;property name=&quot;persistent&quot; value=&quot;false&quot;/&gt;
+        &lt;property name=&quot;transportConnectorURIs&quot;&gt;
+            &lt;list&gt;
+                &lt;value&gt;tcp://localhost:5000&lt;/value&gt;
+            &lt;/list&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;!-- Geronimo Transaction Manager --&gt;
+    &lt;bean id=&quot;transactionContextManager&quot; class=&quot;org.jencks.factory.TransactionContextManagerFactoryBean&quot;/&gt;
+    &lt;bean id=&quot;geronimo&quot; class=&quot;org.jencks.factory.GeronimoTransactionManagerFactoryBean&quot;/&gt;
+    &lt;bean id=&quot;geronimoTransactionManager&quot; class=&quot;org.springframework.transaction.jta.JtaTransactionManager&quot;&gt;
+        &lt;property name=&quot;userTransaction&quot; ref=&quot;geronimo&quot; /&gt;
+    &lt;/bean&gt;
+
+    &lt;!-- Jencks Connection Manager --&gt;
+    &lt;bean id=&quot;connectionManager&quot; class=&quot;org.jencks.factory.ConnectionManagerFactoryBean&quot;&gt;
+        &lt;property name=&quot;transactionSupport&quot;&gt;
+            &lt;bean class=&quot;org.jencks.factory.XATransactionFactoryBean&quot;&gt;
+                &lt;property name=&quot;useTransactionCaching&quot; value=&quot;true&quot;/&gt;
+                &lt;property name=&quot;useThreadCaching&quot; value=&quot;false&quot;/&gt;
+            &lt;/bean&gt;
+        &lt;/property&gt;
+        &lt;property name=&quot;poolingSupport&quot;&gt;
+            &lt;bean class=&quot;org.jencks.factory.SinglePoolFactoryBean&quot;&gt;
+                &lt;property name=&quot;maxSize&quot; value=&quot;2&quot;/&gt;
+                &lt;property name=&quot;minSize&quot; value=&quot;1&quot;/&gt;
+                &lt;property name=&quot;blockingTimeoutMilliseconds&quot; value=&quot;60&quot;/&gt;
+                &lt;property name=&quot;idleTimeoutMinutes&quot; value=&quot;60&quot;/&gt;
+                &lt;property name=&quot;matchOne&quot; value=&quot;true&quot;/&gt;
+                &lt;property name=&quot;matchAll&quot; value=&quot;true&quot;/&gt;
+                &lt;property name=&quot;selectOneAssumeMatch&quot; value=&quot;true&quot;/&gt;
+            &lt;/bean&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+
+    &lt;!-- ActiveMQ Connection --&gt;
+    &lt;bean id=&quot;jmsResourceAdapter&quot; class=&quot;org.apache.activemq.ra.ActiveMQResourceAdapter&quot; depends-on=&quot;broker&quot;&gt;
+        &lt;property name=&quot;serverUrl&quot;&gt;
+            &lt;value&gt;tcp://localhost:5000&lt;/value&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;jmsManagedConnectionFactory&quot; class=&quot;org.apache.activemq.ra.ActiveMQManagedConnectionFactory&quot;&gt;
+        &lt;property name=&quot;resourceAdapter&quot; ref=&quot;jmsResourceAdapter&quot;/&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;jmsConnectionFactory&quot; class=&quot;org.springframework.jca.support.LocalConnectionFactoryBean&quot;&gt;
+        &lt;property name=&quot;managedConnectionFactory&quot; ref=&quot;jmsManagedConnectionFactory&quot;/&gt;
+        &lt;property name=&quot;connectionManager&quot; ref=&quot;connectionManager&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;!-- Tranql JDBC Connection --&gt;
+    &lt;!--
+    &lt;bean id=&quot;tranqlManagedConnectionFactory&quot; class=&quot;org.jencks.tranql.XAPoolDataSourceMCF&quot;&gt;
+        &lt;property name=&quot;driverName&quot; value=&quot;org.postgresql.Driver&quot;/&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:postgresql://ats-manager/activemq&quot;/&gt;
+        &lt;property name=&quot;user&quot; value=&quot;activemq&quot;/&gt;
+    &lt;/bean&gt;
+    &lt;bean id=&quot;tranqlDataSource&quot; class=&quot;org.springframework.jca.support.LocalConnectionFactoryBean&quot;&gt;
+        &lt;property name=&quot;managedConnectionFactory&quot; ref=&quot;tranqlManagedConnectionFactory&quot;/&gt;
+        &lt;property name=&quot;connectionManager&quot; ref=&quot;connectionManager&quot;/&gt;
+    &lt;/bean&gt;
+    --&gt;
+
+    &lt;!-- Enhydra JDBC Connection --&gt;
+    &lt;bean id=&quot;enhydraDataSource&quot; class=&quot;org.enhydra.jdbc.pool.StandardXAPoolDataSource&quot; destroy-method=&quot;shutdown&quot;&gt;
+        &lt;property name=&quot;dataSource&quot;&gt;
+            &lt;bean class=&quot;org.enhydra.jdbc.standard.StandardXADataSource&quot; destroy-method=&quot;shutdown&quot;&gt;
+                &lt;property name=&quot;transactionManager&quot; ref=&quot;geronimo&quot; /&gt;
+                &lt;property name=&quot;driverName&quot; value=&quot;org.postgresql.Driver&quot; /&gt;
+                &lt;property name=&quot;url&quot; value=&quot;jdbc:postgresql://ats-manager/activemq&quot; /&gt;
+            &lt;/bean&gt;
+        &lt;/property&gt;
+        &lt;property name=&quot;user&quot; value=&quot;activemq&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;bean id=&quot;jencksJCAContainer&quot; class=&quot;org.jencks.JCAContainer&quot;&gt;
+        &lt;property name=&quot;bootstrapContext&quot;&gt;
+            &lt;bean class=&quot;org.jencks.factory.BootstrapContextFactoryBean&quot;&gt;
+                &lt;property name=&quot;threadPoolSize&quot; value=&quot;25&quot;/&gt;
+            &lt;/bean&gt;
+        &lt;/property&gt;
+        &lt;property name=&quot;resourceAdapter&quot; ref=&quot;jmsResourceAdapter&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;bean id=&quot;inboundConnector&quot; class=&quot;org.jencks.JCAConnector&quot;&gt;
+        &lt;property name=&quot;jcaContainer&quot; ref=&quot;jencksJCAContainer&quot; /&gt;
+        &lt;property name=&quot;activationSpec&quot;&gt;
+            &lt;bean class=&quot;org.apache.activemq.ra.ActiveMQActivationSpec&quot;&gt;
+                &lt;property name=&quot;destination&quot; value=&quot;messages.input&quot;/&gt;
+                &lt;property name=&quot;destinationType&quot; value=&quot;javax.jms.Queue&quot;/&gt;
+            &lt;/bean&gt;
+        &lt;/property&gt;
+        &lt;property name=&quot;transactionManager&quot; ref=&quot;geronimo&quot;/&gt;
+        &lt;property name=&quot;ref&quot; value=&quot;echoBean&quot;/&gt;
+    &lt;/bean&gt;
+
+    &lt;bean id=&quot;echoBean&quot; class=&quot;transactions.EchoBean&quot;&gt;
+        &lt;property name=&quot;jdbcTemplate&quot;&gt;
+            &lt;bean class=&quot;org.springframework.jdbc.core.JdbcTemplate&quot;&gt;
+                &lt;property name=&quot;dataSource&quot; ref=&quot;enhydraDataSource&quot;/&gt;
+            &lt;/bean&gt;
+        &lt;/property&gt;
+        &lt;property name=&quot;jmsTemplate&quot;&gt;
+            &lt;bean class=&quot;org.springframework.jms.core.JmsTemplate&quot;&gt;
+                &lt;property name=&quot;connectionFactory&quot; ref=&quot;jmsConnectionFactory&quot;/&gt;
+            &lt;/bean&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
+]]></script>
+</div></div>
+<p>Java code:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+public class EchoBean implements MessageListener {
+
+    private Log log = LogFactory.getLog(getClass());
+
+    private JdbcTemplate jdbcTemplate;
+    private JmsTemplate jmsTemplate;
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public void setJmsTemplate(JmsTemplate jmsTemplate) {
+        this.jmsTemplate = jmsTemplate;
+    }
+
+    public void onMessage(Message message) {
+        log.debug(message);
+        if (message instanceof TextMessage) {
+            try {
+                String messageText = ((TextMessage)message).getText();
+                log.debug(&quot;execute JMS operation&quot;);
+                jmsTemplate.convertAndSend(&quot;messages.ouptut&quot;, messageText);
+                log.debug(&quot;execute JDBC operation&quot;);
+                jdbcTemplate.execute(&quot;insert into t1 values(&#39;&quot;+messageText+&quot;&#39;)&quot;);
+            } catch (JMSException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+]]></script>
+</div></div></div>
+

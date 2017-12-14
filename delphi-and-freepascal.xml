@@ -1,0 +1,14 @@
+<div class="wiki-content maincontent"><h1 id="DelphiandFreePascal-DelphiandFreePascalClient">Delphi and FreePascal Client</h1>
+<p>Habari ActiveMQ Client is a library for Delphi(tm) and Free Pascal. With Habari, applications can connect to Apache ActiveMQ servers, subscribe to queues and topics, send and receive messages and objects, and work with transactions.</p>
+
+<h3 id="DelphiandFreePascal-SupportedCommunicationLibraries">Supported Communication Libraries</h3>
+<ul><li>Internet Direct (Indy) 10.2</li><li>Synapse</li><li>OverByte ICS V6 (limited feature set)</li><li>TClientSocket (limited feature set)</li></ul>
+
+
+<h3 id="DelphiandFreePascal-ProjectStatus">Project Status</h3>
+<p>Habari ActiveMQ Client 1.0 has been released on March 5, 2008. Demo applications, API documentation and source code examples are available for download. <br clear="none">
+The API documentation is available at <a shape="rect" class="external-link" href="http://www.mikejustin.com/habari/docs/html/index.html" rel="nofollow">http://www.mikejustin.com/habari/docs/html/index.html</a></p>
+
+<h3 id="DelphiandFreePascal-ProjectHomePage">Project Home Page</h3>
+<p><a shape="rect" class="external-link" href="http://www.mikejustin.com/" rel="nofollow">http://www.mikejustin.com/</a></p></div>
+

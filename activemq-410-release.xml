@@ -1,0 +1,41 @@
+<div class="wiki-content maincontent"><div style="padding-right:20px;float:left;margin-left:-20px;">
+<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-external-resource" src="http://activemq.apache.org/activemq-410-release.data/activemq-4.1-box-reflection.png" data-image-src="http://activemq.apache.org/activemq-410-release.data/activemq-4.1-box-reflection.png"></span></p></div>
+
+
+
+
+<div style="min-height:200px">
+<h2 id="ActiveMQ4.1.0Release-NewandNoteworthy">New and Noteworthy</h2>
+
+<p>This is release contains several major enhancements such as:</p>
+
+<ul><li>Virtual Destinations</li><li>JDBC based Master/Slave locking</li><li>XMPP/Jabber Support - ActiveMQ can now send and receive message from a XMPP network.</li><li>enhanced SSL support</li><li>Improved STOMP support</li></ul>
+
+
+<p>It also contains a slew of bug fixes that are tracked in the change log.</p>
+
+<h2 id="ActiveMQ4.1.0Release-DownloadHere">Download Here</h2>
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Download Link</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary for Windows</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.zip">apache-activemq-4.1.0-incubator.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.zip.asc">incubator-activemq-4.1.0.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary for Unix/Linux/Cygwin</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.tar.gz">apache-activemq-4.1.0-incubator.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.tar.gz.asc">incubator-activemq-4.1.0.tar.gz.asc</a></p></td></tr></tbody></table></div>
+
+</div>
+
+
+
+
+<h2 id="ActiveMQ4.1.0Release-SVNTagCheckout">SVN Tag Checkout</h2>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+svn co https://svn.apache.org/repos/asf/activemq/tags/activemq-4.1.0 
+]]></script>
+</div></div>
+
+<h2 id="ActiveMQ4.1.0Release-Changelog">Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11691&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p>
+
+<div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
+</div>
+
+
+<p>Also see the previous <a shape="rect" href="activemq-402-release.xml">ActiveMQ 4.0.2 Release</a></p></div>
+

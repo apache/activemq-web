@@ -1,0 +1,5 @@
+<div class="wiki-content maincontent">
+
+
+<p>For easy configuration, ActiveMQ supports a configurable URL to denote the connection mechanism to other clients. There is an example of how to do this along with a description of the available protocols in the <a shape="rect" href="uri-protocols.xml">Protocols overview</a></p></div>
+

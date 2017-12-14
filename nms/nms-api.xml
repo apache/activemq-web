@@ -1,0 +1,8 @@
+<div class="wiki-content maincontent"><p>The NMS documentation has been generated using <a shape="rect" class="external-link" href="http://sandcastle.codeplex.com/" rel="nofollow">Microsoft's Sandcastle</a> open source product.  The <a shape="rect" class="external-link" href="http://sandcastlestyles.codeplex.com/" rel="nofollow">Sandcastle Styles</a> project was used to enhance the output generated from the current release of Sandcastle.</p>
+
+<h2 id="NMSAPI-NMSAPI1.6.0">NMS API 1.6.0</h2>
+
+<h3 id="NMSAPI-MSDNStyleFormatting">MSDN Style Formatting</h3>
+
+<ul><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/msdoc/1.6.0/vs2005/Output/html/N_Apache_NMS.htm">Apache.NMS Namespace</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/msdoc/1.6.0/vs2005/Output/html/N_Apache_NMS_Util.htm">Apache.NMS.Util Namespace</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/nms/msdoc/1.6.0/vs2005/Output/html/N_Apache_NMS_Policies.htm">Apache.NMS.Policies Namespace</a></li></ul></div>
+

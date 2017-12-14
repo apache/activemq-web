@@ -1,0 +1,159 @@
+<div class="wiki-content maincontent"><h3 id="ActiveMQEnumerateDestinationusingAdvisoryMessages-EnumeratingAvailableDestinationsusingAdvisoryMessages">Enumerating Available Destinations using Advisory Messages</h3>
+
+<p>This example shows you how to consume Advisory Messages from the Broker to enumerate various destination types.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the &quot;License&quot;); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+using System;
+using Apache.NMS;
+using Apache.NMS.Util;
+using Apache.NMS.ActiveMQ;
+using Apache.NMS.ActiveMQ.Commands;
+
+namespace AdvisoryExample
+{
+    class AdvisoryExample
+    {
+        private IConnection connection;
+        private ISession session;
+
+        public const String QUEUE_ADVISORY_DESTINATION = &quot;ActiveMQ.Advisory.Queue&quot;;
+        public const String TOPIC_ADVISORY_DESTINATION = &quot;ActiveMQ.Advisory.Topic&quot;;
+        public const String TEMPQUEUE_ADVISORY_DESTINATION = &quot;ActiveMQ.Advisory.TempQueue&quot;;
+        public const String TEMPTOPIC_ADVISORY_DESTINATION = &quot;ActiveMQ.Advisory.TempTopic&quot;;
+
+        public const String ALLDEST_ADVISORY_DESTINATION = QUEUE_ADVISORY_DESTINATION + &quot;,&quot; +
+                                                           TOPIC_ADVISORY_DESTINATION + &quot;,&quot; +
+                                                           TEMPQUEUE_ADVISORY_DESTINATION + &quot;,&quot; +
+                                                           TEMPTOPIC_ADVISORY_DESTINATION;
+
+        AdvisoryExample()
+        {
+            IConnectionFactory factory = new ConnectionFactory();
+
+            connection = factory.CreateConnection();
+            connection.Start();
+            session = connection.CreateSession();
+        }
+
+        void EnumerateQueues()
+        {
+            Console.WriteLine(&quot;Listing all Queues on Broker:&quot;);
+
+            IDestination dest = session.GetTopic(QUEUE_ADVISORY_DESTINATION);
+
+            using(IMessageConsumer consumer = session.CreateConsumer(dest))
+            {
+                IMessage advisory;
+
+                while((advisory = consumer.Receive(TimeSpan.FromMilliseconds(2000))) != null)
+                {
+                    ActiveMQMessage amqMsg = advisory as ActiveMQMessage;
+
+                    if(amqMsg.DataStructure != null)
+                    {
+                        DestinationInfo info = amqMsg.DataStructure as DestinationInfo;
+                        if(info != null)
+                        {
+                            Console.WriteLine(&quot;   Queue: &quot; + info.Destination.ToString() );
+                        }
+                    }
+                }
+            }
+            Console.WriteLine(&quot;Listing Complete.&quot;);
+        }
+
+        void EnumerateTopics()
+        {
+            Console.WriteLine(&quot;Listing all Topics on Broker:&quot;);
+
+            IDestination dest = session.GetTopic(TOPIC_ADVISORY_DESTINATION);
+
+            using(IMessageConsumer consumer = session.CreateConsumer(dest))
+            {
+                IMessage advisory;
+
+                while((advisory = consumer.Receive(TimeSpan.FromMilliseconds(2000))) != null)
+                {
+                    ActiveMQMessage amqMsg = advisory as ActiveMQMessage;
+
+                    if(amqMsg.DataStructure != null)
+                    {
+                        DestinationInfo info = amqMsg.DataStructure as DestinationInfo;
+                        if(info != null)
+                        {
+                            Console.WriteLine(&quot;   Topic: &quot; + info.Destination.ToString() );
+                        }
+                    }
+                }
+            }
+            Console.WriteLine(&quot;Listing Complete.&quot;);
+        }
+
+        void EnumerateDestinations()
+        {
+            Console.WriteLine(&quot;Listing all Destinations on Broker:&quot;);
+
+            IDestination dest = session.GetTopic(ALLDEST_ADVISORY_DESTINATION);
+
+            using(IMessageConsumer consumer = session.CreateConsumer(dest))
+            {
+                IMessage advisory;
+
+                while((advisory = consumer.Receive(TimeSpan.FromMilliseconds(2000))) != null)
+                {
+                    ActiveMQMessage amqMsg = advisory as ActiveMQMessage;
+
+                    if(amqMsg.DataStructure != null)
+                    {
+                        DestinationInfo info = amqMsg.DataStructure as DestinationInfo;
+                        if(info != null)
+                        {
+                            string destType = info.Destination.IsTopic ? &quot;Topic&quot; : &quot;Qeue&quot;;
+                            destType = info.Destination.IsTemporary ? &quot;Temporary&quot; + destType : destType;
+                            Console.WriteLine(&quot;   &quot; + destType + &quot;: &quot; + info.Destination.ToString() );
+                        }
+                    }
+                }
+            }
+            Console.WriteLine(&quot;Listing Complete.&quot;);
+        }
+
+        void ShutDown()
+        {
+            session.Close();
+            connection.Close();
+        }
+
+        public static void Main (string[] args)
+        {
+            AdvisoryExample ex = new AdvisoryExample();
+
+            ex.EnumerateQueues();
+            ex.EnumerateTopics();
+            ex.EnumerateDestinations();
+            ex.ShutDown();
+        }
+    }
+}
+
+]]></script>
+</div></div></div>
+

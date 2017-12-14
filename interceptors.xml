@@ -1,0 +1,108 @@
+<div class="wiki-content maincontent"><p>ActiveMQ has a sophisticated <em>interceptor stack</em> so that you can attach whatever functionality you require into the broker in an easy way without complicating all of the other broker code. This has really helped us keep the code clean and modular while offering powerful extension points.</p><p>For an example of the kinds of things you can do with interceptors see the following pages</p><ul><li><a shape="rect" href="logging-interceptor.xml">Logging Interceptor</a></li><li><a shape="rect" href="security.xml">Security</a></li><li><a shape="rect" href="visualisation.xml">Visualisation</a></li><li><a shape="rect" href="timestampplugin.xml">TimeStamp on the Broker</a></li><li><a shape="rect" href="statisticsplugin.xml">Get Statistics via Messages</a></li><li><a shape="rect" href="destinations-plugin.xml">Destinations Plugin</a></li></ul><h3 id="Interceptors-Howpluginswork">How plugins work</h3><p>A plugin is an instance of the interface <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/BrokerPlugin.html">BrokerPlugin</a> which allows a plugin to add itself into the broker interceptor chain, typically using the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/BrokerFilter.html">BrokerFilter</a> as a base class to allow only certain operations to be customized.</p><p>The object that implements the BrokerPlugin interface is called out as a plugin in the message broker's XML configuration file (see example below). Your plugin can then optionally reference other beans that are defined in the XML file.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot; xmlns:amq=&quot;http://activemq.org/config/1.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans 
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://activemq.org/config/1.0 
+http://activemq.apache.org/schema/activemq-core.xsd http://activemq.apache.org/camel/schema/spring  http://activemq.apache.org/camel/schema/spring/camel-spring.xsd&quot;&gt;
+
+&lt;!-- Allows us to use system properties as variables in this configuration file --&gt;
+&lt;bean  class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot; /&gt;
+
+ &lt;broker xmlns=&quot;http://activemq.org/config/1.0&quot; brokerName=&quot;localhost&quot; dataDirectory=&quot;${activemq.base}/data&quot; plugins=&quot;#myPlugin&quot;&gt;
+
+   &lt;!-- The transport connectors ActiveMQ will listen to --&gt;
+   &lt;transportConnectors&gt;
+     &lt;transportConnector name=&quot;openwire&quot; uri=&quot;tcp://localhost:61616&quot; /&gt;
+   &lt;/transportConnectors&gt;
+
+  &lt;/broker&gt;
+
+  &lt;bean id=&quot;myPlugin&quot; class=&quot;org.myorg.MyPlugin&quot;&gt;
+             &lt;!-- You can reference one or more Spring beans in this file --&gt;
+             &lt;property name=&quot;myMgr&quot; ref=&quot;myManager&quot;/&gt;		 
+  &lt;/bean&gt;
+
+  &lt;bean id=&quot;myManager&quot; class=&quot;org.myorg.MyManager&quot;&gt;
+             &lt;property name=&quot;fooList&quot;&gt;
+	      &lt;list&gt;
+		&lt;value&gt;foo&lt;/value&gt;
+                &lt;value&gt;foo2&lt;/value&gt;
+	     &lt;/list&gt;
+            &lt;/property&gt;
+ &lt;/bean&gt;
+
+&lt;/beans&gt;
+
+]]></script>
+</div></div><p>You can also define plugins from within the &lt;plugin&gt; element as this example illustrates.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot; xmlns:amq=&quot;http://activemq.org/config/1.0&quot;
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot; xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://activemq.org/config/1.0 
+http://activemq.apache.org/schema/activemq-core.xsd http://activemq.apache.org/camel/schema/spring
+http://activemq.apache.org/camel/schema/spring/camel-spring.xsd&quot;&gt;
+
+ &lt;!-- Allows us to use system properties as variables in this configuration file --&gt;
+ &lt;bean  class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot; /&gt;
+
+ &lt;broker xmlns=&quot;http://activemq.org/config/1.0&quot; brokerName=&quot;localhost&quot; dataDirectory=&quot;${activemq.base}/data&quot;&gt;
+
+  &lt;!-- The transport connectors ActiveMQ will listen to --&gt;
+  &lt;transportConnectors&gt;
+     &lt;transportConnector name=&quot;openwire&quot; uri=&quot;tcp://localhost:61616&quot; /&gt;
+  &lt;/transportConnectors&gt;
+
+  &lt;plugins&gt;
+      &lt;bean xmlns=&quot;http://www.springframework.org/schema/beans&quot; id=&quot;myPlugin&quot; class=&quot;org.myorg.MyPlugin&quot;/&gt;    
+  &lt;/plugins&gt;
+
+ &lt;/broker&gt;
+ 
+&lt;/beans&gt;
+
+]]></script>
+</div></div><p>At startup, the main or core broker calls your plugin's installPlugin() method. This method creates and returns an object that typically extends <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/BrokerFilter.html">BrokerFilter</a>.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[import org.apache.activemq.broker.Broker;
+import org.apache.activemq.broker.BrokerPlugin;
+
+public class MyPlugin implements BrokerPlugin {	
+        
+        public Broker installPlugin(Broker broker) throws Exception {            
+             return new MyBroker(broker);
+        }	
+
+}
+]]></script>
+</div></div><p>The BrokerFilter class is a convenience class that implements the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/Broker.html">Broker</a> interface. This interface defines all the main operations (e.g., addConnection, addSession, etc.) that your implementation can intercept. The class that extends BrokerFilter overrides any of the methods that are defined in the Broker interface so that it can intercept the corresponding core engine's operations. Here's an example of a class that extends BrokerFilter and intercepts/overrides the addConnection() and addSession() Broker methods/operations.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[import org.apache.activemq.broker.Broker;
+import org.apache.activemq.broker.BrokerFilter;
+import org.apache.activemq.broker.ConnectionContext;
+import org.apache.activemq.command.ConnectionInfo;
+
+public class MyBroker extends BrokerFilter {
+    
+     public MyBroker(Broker next) {
+        super(next);                
+    }
+
+    public void addConnection(ConnectionContext context, ConnectionInfo info) 
+            throws Exception {       
+        
+         // Your code goes here 
+
+        // Then call your parent
+        super.addConnection(context, info);
+    }   
+
+    public void addSession(ConnectionContext context, SessionInfo info) 
+            throws Exception {       
+        
+         //  Your code goes here...
+
+         // Then call your parent
+         super.addSession(context, info);
+    }	
+}
+
+
+
+]]></script>
+</div></div><p>For more details see <a shape="rect" href="developing-plugins.xml">Developing Plugins</a></p></div>
+

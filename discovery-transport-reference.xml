@@ -1,0 +1,42 @@
+<div class="wiki-content maincontent"><h3 id="DiscoveryTransportReference-TheDiscoveryTransport">The Discovery Transport</h3>
+
+<p>The Discovery transport works just like the <a shape="rect" href="failover-transport-reference.xml">Failover</a> transport, except that it uses a discovery agent to locate the list of uri to connect to.  The Discovery transport is also used by the <a shape="rect" href="fanout-transport-reference.xml">Fanout</a> transport for discovering brokers to send a fanout message to.</p>
+
+<h4 id="DiscoveryTransportReference-ConfigurationSyntax">Configuration Syntax</h4>
+
+<p><strong>discovery:(discoveryAgentURI)?transportOptions</strong><br clear="none">
+or<br clear="none">
+<strong>discovery:discoveryAgentURI</strong></p>
+
+<p>Note that to be able to use <a shape="rect" href="discovery.xml">Discovery</a> to find brokers, the brokers need to have the multicast discovery agent enabled on the broker. </p>
+
+<p>To configure discovery in a Broker you should use the <a shape="rect" href="xml-configuration.xml">Xml Configuration</a>. Here is an <a shape="rect" class="external-link" href="http://svn.apache.org/viewvc/activemq/trunk/activemq-core/src/test/resources/org/apache/activemq/usecases/receiver-discovery.xml?view=co">example</a> of using discovery. Its basically something like the following (see the <strong>discoveryUri</strong>)</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+&lt;broker name=&quot;foo&quot;&gt;
+  &lt;transportConnectors&gt;
+    &lt;transportConnector uri=&quot;tcp://localhost:0&quot; discoveryUri=&quot;multicast://default&quot;/&gt;
+  &lt;/transportConnectors&gt;
+
+  ...
+&lt;/broker&gt;
+]]></script>
+</div></div>
+
+
+<h5 id="DiscoveryTransportReference-TransportOptions">Transport Options</h5>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Option Name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Default Value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>reconnectDelay</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>10</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>How long to wait for discovery</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>initialReconnectDelay</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>10</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>How long to wait before the first reconnect attempt to a discovered url</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>maxReconnectDelay</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>30000</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The maximum amount of time we ever wait between reconnect attempts</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>useExponentialBackOff</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>true</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Should an exponential backoff be used btween reconnect attempts</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>backOffMultiplier</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>2</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The exponent used in the exponential backoff attempts</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>maxReconnectAttempts</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>0</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>If not 0, then this is the maximum number of reconnect attempts before an error is sent back to the client</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>group</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>default</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> an identifier for the group to partition multi cast traffic among collaborating peers; the group forms part of the shared identity of a discovery datagram (since 5.2) </p></td></tr></tbody></table></div>
+
+
+<h5 id="DiscoveryTransportReference-ExampleURI">Example URI</h5>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>discovery:(multicast://default)?initialReconnectDelay=100
+</pre>
+</div></div>
+
+<div class="confluence-information-macro confluence-information-macro-information"><p class="title">Applying parameters to discovered transports</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>From 5.4, transport parameters in the URI will also be applied to discovered transports if they are prefixed with <code>discovered.</code>; For example, adding the <code>discovered.connectionTimeout</code> parameter to the URI will apply the parameter to every discovered <a shape="rect" href="tcp-transport-reference.xml">TCP</a> transport, even though this parameter is not a Discovery transport option.</p></div></div></div>
+

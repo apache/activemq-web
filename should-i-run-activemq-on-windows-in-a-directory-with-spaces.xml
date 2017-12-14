@@ -1,0 +1,6 @@
+<div class="wiki-content maincontent"><h2 id="ShouldIrunActiveMQonWindowsinadirectorywithspaces-ShouldIrunActiveMQonWindowsinadirectorywithspaces">Should I run ActiveMQ on Windows in a directory with spaces</h2>
+
+<p>No.</p>
+
+<p>Its not a good idea to install and run application in paths on Windows which have spaces.</p></div>
+

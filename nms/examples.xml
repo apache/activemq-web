@@ -1,0 +1,194 @@
+<div class="wiki-content maincontent"><h2 id="Examples-Examples">Examples</h2><p>The following example gives a brief demonstration for connecting, sending and receiving a message using NMS.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Sync NMS Example</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[using System;
+using Apache.NMS;
+using Apache.NMS.Util;
+
+namespace Apache.NMS.ActiveMQ.Test
+{
+public class TestMain
+{
+    public static void Main(string[] args)
+    {
+        // Example connection strings:
+        //    activemq:tcp://activemqhost:61616
+        //    stomp:tcp://activemqhost:61613
+        //    ems:tcp://tibcohost:7222
+        //    msmq://localhost
+
+        Uri connecturi = new Uri(&quot;activemq:tcp://activemqhost:61616&quot;);
+        
+        Console.WriteLine(&quot;About to connect to &quot; + connecturi);
+
+        // NOTE: ensure the nmsprovider-activemq.config file exists in the executable folder.
+        IConnectionFactory factory = new NMSConnectionFactory(connecturi);
+
+        using(IConnection connection = factory.CreateConnection())
+        using(ISession session = connection.CreateSession())
+        {
+             // Examples for getting a destination:
+             //
+             // Hard coded destinations:
+             //    IDestination destination = session.GetQueue(&quot;FOO.BAR&quot;);
+             //    Debug.Assert(destination is IQueue);
+             //    IDestination destination = session.GetTopic(&quot;FOO.BAR&quot;);
+             //    Debug.Assert(destination is ITopic);
+             //
+             // Embedded destination type in the name:
+             //    IDestination destination = SessionUtil.GetDestination(session, &quot;queue://FOO.BAR&quot;);
+             //    Debug.Assert(destination is IQueue);
+             //    IDestination destination = SessionUtil.GetDestination(session, &quot;topic://FOO.BAR&quot;);
+             //    Debug.Assert(destination is ITopic);
+             //
+             // Defaults to queue if type is not specified:
+             //    IDestination destination = SessionUtil.GetDestination(session, &quot;FOO.BAR&quot;);
+             //    Debug.Assert(destination is IQueue);
+             //
+             // .NET 3.5 Supports Extension methods for a simplified syntax:
+             //    IDestination destination = session.GetDestination(&quot;queue://FOO.BAR&quot;);
+             //    Debug.Assert(destination is IQueue);
+             //    IDestination destination = session.GetDestination(&quot;topic://FOO.BAR&quot;);
+             //    Debug.Assert(destination is ITopic);
+
+            IDestination destination = SessionUtil.GetDestination(session, &quot;queue://FOO.BAR&quot;);
+            Console.WriteLine(&quot;Using destination: &quot; + destination);
+
+            // Create a consumer and producer
+            using(IMessageConsumer consumer = session.CreateConsumer(destination))
+            using(IMessageProducer producer = session.CreateProducer(destination))
+            {
+                // Start the connection so that messages will be processed.
+                connection.Start();
+                producer.DeliveryMode = MsgDeliveryMode.Persistent;
+
+                // Send a message
+                ITextMessage request = session.CreateTextMessage(&quot;Hello World!&quot;);
+                request.NMSCorrelationID = &quot;abc&quot;;
+                request.Properties[&quot;NMSXGroupID&quot;] = &quot;cheese&quot;;
+                request.Properties[&quot;myHeader&quot;] = &quot;Cheddar&quot;;
+
+                producer.Send(request);
+
+                // Consume a message
+                ITextMessage message = consumer.Receive() as ITextMessage;
+                if(message == null)
+                {
+                    Console.WriteLine(&quot;No message received!&quot;);
+                }
+                else
+                {
+                    Console.WriteLine(&quot;Received message with ID:   &quot; + message.NMSMessageId);
+                    Console.WriteLine(&quot;Received message with text: &quot; + message.Text);
+                }
+            }
+        }
+    }
+}
+}
+]]></script>
+</div></div><h3 id="Examples-Asynchronousconsumption">Asynchronous consumption</h3><p>You have the choice of synchronously pulling messages via the Receive() methods as shown above, or you can use the asynchronous approach demonstrated in the following example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Async NMS Example</b></div><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[using System;
+using System.Threading;
+using Apache.NMS;
+using Apache.NMS.Util;
+
+namespace Apache.NMS.ActiveMQ.Test
+{
+
+public class TestMain
+{
+
+    protected static AutoResetEvent semaphore = new AutoResetEvent(false);
+    protected static ITextMessage message = null;
+    protected static TimeSpan receiveTimeout = TimeSpan.FromSeconds(10);
+
+    public static void Main(string[] args)
+    {
+        // Example connection strings:
+        //    activemq:tcp://activemqhost:61616
+        //    stomp:tcp://activemqhost:61613
+        //    ems:tcp://tibcohost:7222
+        //    msmq://localhost
+
+        Uri connecturi = new Uri(&quot;activemq:tcp://activemqhost:61616&quot;);
+        
+        Console.WriteLine(&quot;About to connect to &quot; + connecturi);
+
+        // NOTE: ensure the nmsprovider-activemq.config file exists in the executable folder.
+
+        IConnectionFactory factory = new NMSConnectionFactory(connecturi);
+
+        using(IConnection connection = factory.CreateConnection())
+        using(ISession session = connection.CreateSession())
+        {
+            // Examples for getting a destination:
+            //
+            // Hard coded destinations:
+            //    IDestination destination = session.GetQueue(&quot;FOO.BAR&quot;);
+            //    Debug.Assert(destination is IQueue);
+            //    IDestination destination = session.GetTopic(&quot;FOO.BAR&quot;);
+            //    Debug.Assert(destination is ITopic);
+            //
+            // Embedded destination type in the name:
+            //    IDestination destination = SessionUtil.GetDestination(session, &quot;queue://FOO.BAR&quot;);
+            //    Debug.Assert(destination is IQueue);
+            //    IDestination destination = SessionUtil.GetDestination(session, &quot;topic://FOO.BAR&quot;);
+            //    Debug.Assert(destination is ITopic);
+            //
+            // Defaults to queue if type is not specified:
+            //    IDestination destination = SessionUtil.GetDestination(session, &quot;FOO.BAR&quot;);
+            //    Debug.Assert(destination is IQueue);
+            //
+            // .NET 3.5 Supports Extension methods for a simplified syntax:
+            //    IDestination destination = session.GetDestination(&quot;queue://FOO.BAR&quot;);
+            //    Debug.Assert(destination is IQueue);
+            //    IDestination destination = session.GetDestination(&quot;topic://FOO.BAR&quot;);
+            //    Debug.Assert(destination is ITopic);
+
+            IDestination destination = SessionUtil.GetDestination(session, &quot;queue://FOO.BAR&quot;);
+
+            Console.WriteLine(&quot;Using destination: &quot; + destination);
+
+            // Create a consumer and producer
+            using(IMessageConsumer consumer = session.CreateConsumer(destination))
+            using(IMessageProducer producer = session.CreateProducer(destination))
+            {
+                // Start the connection so that messages will be processed.
+                connection.Start();
+                producer.Persistent = true;
+                producer.RequestTimeout = receiveTimeout;
+                consumer.Listener += new MessageListener(OnMessage);
+
+                // Send a message
+                ITextMessage request = session.CreateTextMessage(&quot;Hello World!&quot;);
+                request.NMSCorrelationID = &quot;abc&quot;;
+                request.Properties[&quot;NMSXGroupID&quot;] = &quot;cheese&quot;;
+                request.Properties[&quot;myHeader&quot;] = &quot;Cheddar&quot;;
+
+                producer.Send(request);
+
+                // Wait for the message
+                semaphore.WaitOne((int) receiveTimeout.TotalMilliseconds, true);
+                if(message == null)
+                {
+                    Console.WriteLine(&quot;No message received!&quot;);
+                }
+                else
+                {
+                    Console.WriteLine(&quot;Received message with ID:   &quot; + message.NMSMessageId);
+                    Console.WriteLine(&quot;Received message with text: &quot; + message.Text);
+                }
+            }
+        }
+    }
+
+    protected static void OnMessage(IMessage receivedMsg)
+    {
+        message = receivedMsg as ITextMessage;
+        semaphore.Set();
+    }
+}
+}
+
+]]></script>
+</div></div><p>The above uses a C# <strong>delegate</strong> so that the OnMessage() method will be called whenever a message arrives.</p><p>Note that the threading contract is similar to that of JMS - messages are dispatched for a single session's consumers in one thread at once. Consumers in different sessions can process messages concurrently, but consumers in the same session are guarenteed to be called by only one thread at a time (e.g., if you have 3 consumers on a session, then only one of the consumers will be called concurrently).</p></div>
+

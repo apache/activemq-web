@@ -1,0 +1,7 @@
+<div class="wiki-content maincontent"><p>In some cases you may not want to build in support for OpenSSL, since the Autotools script do this automatically we have provided a means to disable this, just add the <em>disable-ssl</em> options to your configure and no SSL support will be added:</p>
+
+<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>./configure --disable-ssl
+</pre>
+</div></div></div>
+

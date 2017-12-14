@@ -1,0 +1,11 @@
+<div class="wiki-content maincontent"><p>You follow these steps</p>
+
+<ol><li>Create a durable topic subscription</li><li>Kill the consumer</li><li>Publish some messages to the topic</li><li>Restart the subscriber</li></ol>
+
+
+<p>But you don't receive the messages?</p>
+
+<h3 id="WhydoInotreceivemessagesonmydurabletopicsubscription-Fix">Fix</h3>
+
+<p>To be able to deliver messages to offline durable topic subscribers you must mark the message as being persistent. To do this set the PERSISTENT_DELIVERY mode on the MessageProducer as described <a shape="rect" href="how-do-i-make-messages-durable.xml">here</a>.</p></div>
+

@@ -1,0 +1,104 @@
+<div class="wiki-content maincontent"><h3 id="Index-DownloadActiveMQ5.15.2Today!" style="text-align: center;"><a shape="rect" href="download.xml">Download ActiveMQ 5.15.2 Today!</a></h3><p><a shape="rect" class="external-link" href="http://activemq.apache.org/">Apache ActiveMQ</a> &#8482; is the most popular and powerful open source messaging and <a shape="rect" href="enterprise-integration-patterns.xml">Integration Patterns</a> server.</p><p>Apache ActiveMQ is fast, supports many <a shape="rect" href="cross-language-clients.xml">Cross Language Clients and Protocols</a>, comes with easy to use <a shape="rect" href="enterprise-integration-patterns.xml">Enterprise Integration Patterns</a> and many <a shape="rect" href="features.xml">advanced features</a> while fully supporting <a shape="rect" class="external-link" href="http://java.sun.com/products/jms/" rel="nofollow">JMS 1.1</a> and J2EE 1.4. Apache ActiveMQ is released under the <a shape="rect" class="external-link" href="http://www.apache.org/">Apache</a> <a shape="rect" class="external-link" href="http://www.apache.org/licenses/LICENSE-2.0.html">2.0 License</a></p><p>Grab yourself a <a shape="rect" href="download.xml">Download</a>, try our <a shape="rect" href="getting-started.xml">Getting Started Guide</a>, surf our <a shape="rect" href="faq.xml">FAQ</a> or start <a shape="rect" href="contributing.xml">Contributing</a> and join us on our <a shape="rect" href="discussion-forums.xml">Discussion Forums</a>.</p><h3 id="Index-Features">Features</h3><p></p><ul><li>Supports a variety of <a shape="rect" href="cross-language-clients.xml">Cross Language Clients and Protocols</a> from Java, C, C++, C#, Ruby, Perl, Python, PHP<ul><li><a shape="rect" href="openwire.xml">OpenWire</a> for high performance clients in Java, C, C++, C#</li><li><a shape="rect" href="stomp.xml">Stomp</a> support so that clients can be written easily in C, Ruby, Perl, Python, PHP, ActionScript/Flash, Smalltalk to talk to ActiveMQ as well as any other popular Message Broker</li><li><a shape="rect" href="amqp.xml">AMQP</a> v1.0 support</li><li><a shape="rect" href="mqtt.xml">MQTT</a> v3.1 support allowing for connections in an IoT environment.</li></ul></li><li>full support for the <a shape="rect" href="enterprise-integration-patterns.xml">Enterprise Integration Patterns</a> both in the JMS client and the Message Broker</li><li>Supports many <a shape="rect" href="features.xml">advanced features</a> such as <a shape="rect" href="message-groups.xml">Message Groups</a>, <a shape="rect" href="virtual-destinations.xml">Virtual Destinations</a>, <a shape="rect" href="wildcards.xml">Wildcards</a> and <a shape="rect" href="composite-destinations.xml">Composite Destinations</a></li><li>Fully supports JMS 1.1 and J2EE 1.4 with support for transient, persistent, transactional and XA messaging</li><li><a shape="rect" href="spring-support.xml">Spring Support</a> so that ActiveMQ can be easily embedded into Spring applications and configured using Spring's XML configuration mechanism</li><li>Tested inside popular J2EE servers such as <a shape="rect" class="external-link" href="http://tomee.apache.org/">TomEE</a>, <a shape="rect" class="external-link" href="http://geronimo.apache.org/">Geronimo</a>, JBoss, GlassFish and WebLogic<ul><li>Includes <a shape="rect" href="resource-adapter.xml">JCA 1.5 resource adaptors</a> for inbound &amp; outbound messaging so that ActiveMQ should auto-deploy in any J2EE 1.4 compliant server</li></ul></li><li>Supports pluggable <a shape="rect" href="uri-protocols.xml">transport protocols</a> such as <a shape="rect" href="how-do-i-use-activemq-using-in-jvm-messaging.xml">in-VM</a>, TCP, SSL, NIO, UDP, multicast, JGroups and JXTA transports</li><li>Supports very fast <a shape="rect" href="persistence.xml">persistence</a> using JDBC along with a high performance journal</li><li>Designed for high performance clustering, client-server, peer based communication</li><li><a shape="rect" href="rest.xml">REST</a> API to provide technology agnostic and language neutral web based API to messaging</li><li><a shape="rect" href="ajax.xml">Ajax</a> to support web streaming support to web browsers using pure DHTML, allowing web browsers to be part of the messaging fabric</li><li><a shape="rect" href="axis-and-cxf-support.xml">CXF and Axis Support</a> so that ActiveMQ can be easily dropped into either of these web service stacks to provide reliable messaging</li><li>Can be used as an in memory JMS provider, ideal for <a shape="rect" href="how-to-unit-test-jms-code.xml">unit testing JMS</a></li></ul><h3 id="Index-News">News</h3><p>    
+
+    
+        
+</p><div class="blog-post-listing">
+            <div class="logo-heading-block">
+            <span class="logoBlock">
+                <a shape="rect" class="userLogoLink" href="https://cwiki.apache.org/confluence/display/~cshannon">
+               <img class="userLogo logo" src="/images/confluence/icons/profilepics/default.png" alt="User icon: cshannon" title="cshannon">
+           </a>            </span>
+            <span class="blogHeading">
+                <a shape="rect" class="blogHeading" href="2017/10/23/apache-activemq-5152-released.xml">Apache ActiveMQ 5.15.2 Released</a>
+                </span><div class="page-metadata not-personal">    <a shape="rect" class="url fn confluence-userlink" href="https://cwiki.apache.org/confluence/display/~cshannon">Christopher L. Shannon</a> posted on Oct 23, 2017</div>
+            
+        </div>
+    
+    <div class="wiki-content">
+        <p><span style="color: rgb(34,34,34);">The ActiveMQ team is pleased to announce the release of&#160;</span><a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-5152-release.html">ActiveMQ 5.15.2</a></p><p><span style="color: rgb(34,34,34);">A big thanks to everyone who contributed to this release.</span></p><p><span style="color: rgb(34,34,34);">We look forward to your feedback.</span></p>
+    </div>
+    
+        
+    </div>
+    
+        
+<div class="blog-post-listing">
+            <div class="logo-heading-block">
+            <span class="logoBlock">
+                <a shape="rect" class="userLogoLink" href="https://cwiki.apache.org/confluence/display/~cshannon">
+               <img class="userLogo logo" src="/images/confluence/icons/profilepics/default.png" alt="User icon: cshannon" title="cshannon">
+           </a>            </span>
+            <span class="blogHeading">
+                <a shape="rect" class="blogHeading" href="2017/07/06/apache-activemq-5150-released.xml">Apache ActiveMQ 5.15.0 Released</a>
+                </span><div class="page-metadata not-personal">    <a shape="rect" class="url fn confluence-userlink" href="https://cwiki.apache.org/confluence/display/~cshannon">Christopher L. Shannon</a> posted on Jul 06, 2017</div>
+            
+        </div>
+    
+    <div class="wiki-content">
+        <p><span style="color: rgb(34,34,34);">The ActiveMQ team is pleased to announce the release of&#160;</span><a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-5150-release.html">ActiveMQ 5.15.0</a></p><p><span style="color: rgb(34,34,34);">A big thanks to everyone who contributed to this release.</span></p><p><span style="color: rgb(34,34,34);">We look forward to your feedback.</span></p>
+    </div>
+    
+        
+    </div>
+    
+        
+<div class="blog-post-listing">
+            <div class="logo-heading-block">
+            <span class="logoBlock">
+                <a shape="rect" class="userLogoLink" href="https://cwiki.apache.org/confluence/display/~dejanb">
+               <img class="userLogo logo" src="/images/confluence/icons/profilepics/default.png" alt="User icon: dejanb" title="dejanb">
+           </a>            </span>
+            <span class="blogHeading">
+                <a shape="rect" class="blogHeading" href="2017/04/17/apache-activemq-5145-released.xml">Apache ActiveMQ 5.14.5 Released</a>
+                </span><div class="page-metadata not-personal">    <a shape="rect" class="url fn confluence-userlink" href="https://cwiki.apache.org/confluence/display/~dejanb">Dejan Bosanac</a> posted on Apr 17, 2017</div>
+            
+        </div>
+    
+    <div class="wiki-content">
+        <p>The ActiveMQ team is pleased to announce the release of <a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-5145-release.html">ActiveMQ 5.14.5</a><br clear="none">A big thanks to everyone who contributed to this release.<br clear="none">We look forward to your feedback.</p>
+    </div>
+    
+        
+    </div>
+    
+        
+<div class="blog-post-listing">
+            <div class="logo-heading-block">
+            <span class="logoBlock">
+                <a shape="rect" class="userLogoLink" href="https://cwiki.apache.org/confluence/display/~cshannon">
+               <img class="userLogo logo" src="/images/confluence/icons/profilepics/default.png" alt="User icon: cshannon" title="cshannon">
+           </a>            </span>
+            <span class="blogHeading">
+                <a shape="rect" class="blogHeading" href="2017/03/03/apache-activemq-5144-released.xml">Apache ActiveMQ 5.14.4 Released</a>
+                </span><div class="page-metadata not-personal">    <a shape="rect" class="url fn confluence-userlink" href="https://cwiki.apache.org/confluence/display/~cshannon">Christopher L. Shannon</a> posted on Mar 03, 2017</div>
+            
+        </div>
+    
+    <div class="wiki-content">
+        <p><span style="color: rgb(34,34,34);">The ActiveMQ team is pleased to announce the release of&#160;</span><a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-5144-release.html">ActiveMQ 5.14.4</a></p><p><span style="color: rgb(34,34,34);">A big thanks to everyone who contributed to this release.</span></p><p><span style="color: rgb(34,34,34);">We look forward to your feedback.</span></p>
+    </div>
+    
+        
+    </div>
+    
+        
+<div class="blog-post-listing">
+            <div class="logo-heading-block">
+            <span class="logoBlock">
+                <a shape="rect" class="userLogoLink" href="https://cwiki.apache.org/confluence/display/~cshannon">
+               <img class="userLogo logo" src="/images/confluence/icons/profilepics/default.png" alt="User icon: cshannon" title="cshannon">
+           </a>            </span>
+            <span class="blogHeading">
+                <a shape="rect" class="blogHeading" href="2016/12/09/apache-activemq-5142-released.xml">Apache ActiveMQ 5.14.2 Released</a>
+                </span><div class="page-metadata not-personal">    <a shape="rect" class="url fn confluence-userlink" href="https://cwiki.apache.org/confluence/display/~cshannon">Christopher L. Shannon</a> posted on Dec 09, 2016</div>
+            
+        </div>
+    
+    <div class="wiki-content">
+        <p><span style="color: rgb(34,34,34);">The ActiveMQ team is pleased to announce the release of&#160;</span><a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-5142-release.html">ActiveMQ 5.14.2</a></p><p><span style="color: rgb(34,34,34);">A big thanks to everyone who contributed to this release.</span></p><p><span style="color: rgb(34,34,34);">We look forward to your feedback.</span></p>
+    </div>
+    
+        
+    </div>
+    <h3 id="Index-MoreNews">More News</h3><ul><li><a shape="rect" href="news.xml">Get all the latest Apache ActiveMQ News Here!</a></li></ul></div>
+

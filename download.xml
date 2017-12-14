@@ -1,0 +1,11 @@
+<div class="wiki-content maincontent"><h2 id="Download-LatestReleases">Latest Releases</h2><div class="sectionColumnWrapper"><div class="sectionMacro"><div class="sectionMacroRow"><div class="columnMacro" style="width:20%;min-width:20%;max-width:20%;"><div style="padding-right:20px;float:left;"><p>&#160;</p></div>
+
+
+</div><div class="columnMacro" style="width:80%;min-width:80%;max-width:80%;"><div style="min-height:200px"><p>The latest stable release is the <a shape="rect" href="activemq-5152-release.xml">ActiveMQ 5.15.2 Release</a></p></div>
+
+
+</div></div></div></div><h2 id="Download-Gettingpastreleases">Getting past releases</h2><p>See the <a shape="rect" href="download-archives.xml">Download Archives</a> for all time releases.</p><p></p><h2 id="Download-ReleasesInProgress">Releases In Progress</h2>
+
+<p>The following releases are currently in progress</p>
+<h2 id="Download-MavenRepositories">Maven Repositories</h2><p>All ActiveMQ releases are available from the <a shape="rect" class="external-link" href="https://repository.apache.org/content/repositories/releases/org/apache/activemq/">Maven central repository</a>.</p><p>&#160;</p></div>
+

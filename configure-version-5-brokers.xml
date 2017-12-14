@@ -1,0 +1,105 @@
+<div class="wiki-content maincontent"><h3 id="Configureversion5Brokers-Overview">Overview</h3><p>There is an updates XML syntax for configuring message brokers - <a shape="rect" class="external-link" href="http://activemq.apache.org/schema/core/activemq-core-5.0-SNAPSHOT.xsd">see here</a></p><p>So we decided that using XML would make this configuration much easier. we use <a shape="rect" class="external-link" href="http://xbean.org/" rel="nofollow">XBean</a> to perform the XML configuration.</p><p>For details of the XML see the <a shape="rect" href="xml-reference.xml">Xml Reference</a></p><div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Be careful with broker names and URIs</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Make sure you do not use any strange characters in the names of brokers as they are converted to URIs which <a shape="rect" class="external-link" href="http://java.sun.com/j2se/1.4.2/docs/api/java/net/URI.html" rel="nofollow">do not allow things like underscores</a> in them etc.</p></div></div><h2 id="Configureversion5Brokers-Examples">Examples</h2><p>The default ActiveMQ configuration: <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/assembly/src/release/conf/activemq.xml">current default config</a>.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans
+  xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd&quot;&gt;
+    &lt;!-- Allows us to use system properties as variables in this configuration file --&gt;
+    &lt;bean class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;&gt;
+        &lt;property name=&quot;locations&quot;&gt;
+            &lt;value&gt;file:${activemq.conf}/credentials.properties&lt;/value&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+   &lt;!-- Allows accessing the server log --&gt;
+    &lt;bean id=&quot;logQuery&quot; class=&quot;io.fabric8.insight.log.log4j.Log4jLogQuery&quot;
+          lazy-init=&quot;false&quot; scope=&quot;singleton&quot;
+          init-method=&quot;start&quot; destroy-method=&quot;stop&quot;&gt;
+    &lt;/bean&gt;
+    &lt;!--
+        The &lt;broker&gt; element is used to configure the ActiveMQ broker.
+    --&gt;
+    &lt;broker xmlns=&quot;http://activemq.apache.org/schema/core&quot; brokerName=&quot;localhost&quot; dataDirectory=&quot;${activemq.data}&quot;&gt;
+        &lt;destinationPolicy&gt;
+            &lt;policyMap&gt;
+              &lt;policyEntries&gt;
+                &lt;policyEntry topic=&quot;&gt;&quot; &gt;
+                    &lt;!-- The constantPendingMessageLimitStrategy is used to prevent
+                         slow topic consumers to block producers and affect other consumers
+                         by limiting the number of messages that are retained
+                         For more information, see:
+                         http://activemq.apache.org/slow-consumer-handling.html
+                    --&gt;
+                  &lt;pendingMessageLimitStrategy&gt;
+                    &lt;constantPendingMessageLimitStrategy limit=&quot;1000&quot;/&gt;
+                  &lt;/pendingMessageLimitStrategy&gt;
+                &lt;/policyEntry&gt;
+              &lt;/policyEntries&gt;
+            &lt;/policyMap&gt;
+        &lt;/destinationPolicy&gt;
+
+        &lt;!--
+            The managementContext is used to configure how ActiveMQ is exposed in
+            JMX. By default, ActiveMQ uses the MBean server that is started by
+            the JVM. For more information, see:
+            http://activemq.apache.org/jmx.html
+        --&gt;
+        &lt;managementContext&gt;
+            &lt;managementContext createConnector=&quot;false&quot;/&gt;
+        &lt;/managementContext&gt;
+        &lt;!--
+            Configure message persistence for the broker. The default persistence
+            mechanism is the KahaDB store (identified by the kahaDB tag).
+            For more information, see:
+            http://activemq.apache.org/persistence.html
+        --&gt;
+        &lt;persistenceAdapter&gt;
+            &lt;kahaDB directory=&quot;${activemq.data}/kahadb&quot;/&gt;
+        &lt;/persistenceAdapter&gt;
+
+          &lt;!--
+            The systemUsage controls the maximum amount of space the broker will
+            use before disabling caching and/or slowing down producers. For more information, see:
+            http://activemq.apache.org/producer-flow-control.html
+          --&gt;
+          &lt;systemUsage&gt;
+            &lt;systemUsage&gt;
+                &lt;memoryUsage&gt;
+                    &lt;memoryUsage percentOfJvmHeap=&quot;70&quot; /&gt;
+                &lt;/memoryUsage&gt;
+                &lt;storeUsage&gt;
+                    &lt;storeUsage limit=&quot;100 gb&quot;/&gt;
+                &lt;/storeUsage&gt;
+                &lt;tempUsage&gt;
+                    &lt;tempUsage limit=&quot;50 gb&quot;/&gt;
+                &lt;/tempUsage&gt;
+            &lt;/systemUsage&gt;
+        &lt;/systemUsage&gt;
+        &lt;!--
+            The transport connectors expose ActiveMQ over a given protocol to
+            clients and other brokers. For more information, see:
+            http://activemq.apache.org/configuring-transports.html
+        --&gt;
+        &lt;transportConnectors&gt;
+            &lt;!-- DOS protection, limit concurrent connections to 1000 and frame size to 100MB --&gt;
+            &lt;transportConnector name=&quot;openwire&quot; uri=&quot;tcp://0.0.0.0:61616?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600&quot;/&gt;
+            &lt;transportConnector name=&quot;amqp&quot; uri=&quot;amqp://0.0.0.0:5672?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600&quot;/&gt;
+            &lt;transportConnector name=&quot;stomp&quot; uri=&quot;stomp://0.0.0.0:61613?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600&quot;/&gt;
+            &lt;transportConnector name=&quot;mqtt&quot; uri=&quot;mqtt://0.0.0.0:1883?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600&quot;/&gt;
+            &lt;transportConnector name=&quot;ws&quot; uri=&quot;ws://0.0.0.0:61614?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600&quot;/&gt;
+        &lt;/transportConnectors&gt;
+        &lt;!-- destroy the spring context on shutdown to stop jetty --&gt;
+        &lt;shutdownHooks&gt;
+            &lt;bean xmlns=&quot;http://www.springframework.org/schema/beans&quot; class=&quot;org.apache.activemq.hooks.SpringContextHook&quot; /&gt;
+        &lt;/shutdownHooks&gt;
+    &lt;/broker&gt;
+    &lt;!--
+        Enable web consoles, REST and Ajax APIs and demos
+        The web consoles requires by default login, you can disable this in the jetty.xml file
+        Take a look at ${ACTIVEMQ_HOME}/conf/jetty.xml for more details
+    --&gt;
+    &lt;import resource=&quot;jetty.xml&quot;/&gt;
+&lt;/beans&gt;
+
+]]></script>
+</div></div><p>From the binary distributionthere is an <em>activemq</em> script allowing you to run a Message Broker as a stand alone process from the command line easily providing the $ACTIVEMQ_HOME/bin directory is on your PATH.</p></div>
+

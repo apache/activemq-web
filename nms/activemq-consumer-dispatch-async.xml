@@ -1,0 +1,37 @@
+<div class="wiki-content maincontent"><h2 id="ActiveMQConsumerDispatchAsync-Overview">Overview</h2>
+
+<p>In AMQ4 onwards, the choice of a broker performing synchronous or asynchronous dispatch to a consumer has become more configurable.  It is now configured as a default value on the <a shape="rect" href="activemq-uri-configuration.xml">connection URI, Connection and ConnectionFactory</a> together with being customizable on a per consumer basis via the <a shape="rect" href="activemq-uri-configuration.xml">Destination Options</a> instead previously just being a transport server setting.  </p>
+
+<p>This makes more sense since you want to do async message delivery to slower consumers, but do sync message delivery to faster consumers (to avoid the synchronization and context switching costs of adding another seda queue).  The downside to using sync message delivery is that the producer is more likely to block if there is a slow consumer that he is dispatching messages to.</p>
+
+<p>The default setting is dispatchAsync=true which is the best setting for high performance. If you want to deal better with slow consumers you will want to enable this setting. If you want better thoughput and the chances of having a slow consumer are low, you may want to change this to false.</p>
+
+<h3 id="ActiveMQConsumerDispatchAsync-ConfiguringAsyncDispatchattheConnectionFactoryLevel">Configuring Async Dispatch at the ConnectionFactory Level</h3>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+connectionFactory.DispatchAsync = false;
+]]></script>
+</div></div>
+
+<h3 id="ActiveMQConsumerDispatchAsync-ConfiguringDispatchAsyncattheConnectionLevel">Configuring Dispatch Async at the Connection Level</h3>
+
+<p>Configuring the dispatchAsync setting at this level overrides the settings at the connection factory level.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+connection.DispatchAsync = false;
+]]></script>
+</div></div>
+
+<h3 id="ActiveMQConsumerDispatchAsync-ConfiguringDispatchAsyncattheConsumerLevelusingtheDestinationURI">Configuring Dispatch Async at the Consumer Level using the Destination URI</h3>
+
+<p>Configuring the dispatchAsync using <a shape="rect" href="activemq-uri-configuration.xml">Destination Options</a> overrides the settings at the connection and connection factory level.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+var queue = new ActiveMQQueue(&quot;TEST.QUEUE?consumer.dispatchAsync=false&quot;);
+var consumer = session.CreateConsumer(queue);
+]]></script>
+</div></div></div>
+

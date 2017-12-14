@@ -1,0 +1,29 @@
+<div class="wiki-content maincontent">
+<p>The 'outbound' Connection Factory objects used to send messages by default use the connection configuration properties of the Resource Adapter deployment, but those properties can be overridden per connection factory.</p>
+
+<p>The Connection Factory properties that can be configured are:</p>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Property Name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Required</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Default Value</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>ServerUrl</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>no</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>set in resource adapter</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>UserName</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>no</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>set in resource adapter</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Clientid</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>no</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>set in resource adapter</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Password</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>no</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>set in resource adapter</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>UseInboundSession</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>no</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>set in resource adapter</p></td></tr></tbody></table></div>
+
+
+
+<h4 id="ConnectionFactoryProperties-ServerUrl">ServerUrl </h4>
+
+<p>The URL to the ActiveMQ server that you want this connection to connect to.  If using an embedded broker, this value should be 'vm://localhost'.</p>
+
+<h4 id="ConnectionFactoryProperties-UserName">UserName</h4>
+
+<p>The default user name that will be used to establish connections to the ActiveMQ server.</p>
+
+<h4 id="ConnectionFactoryProperties-Password">Password</h4>
+
+<p>The default password that will be used to log the default user into the ActiveMQ server.</p>
+
+<h4 id="ConnectionFactoryProperties-Clientid">Clientid</h4>
+
+<p>The client id that will be set on the connection that is established to the ActiveMQ server.</p>
+
+<h4 id="ConnectionFactoryProperties-UseInboundSession">UseInboundSession</h4>
+
+<p>Boolean to configure if outbound connections should reuse the inbound connection's session for sending messages.</p></div>
+

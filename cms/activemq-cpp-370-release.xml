@@ -1,0 +1,35 @@
+<div class="wiki-content maincontent"><h2 id="ActiveMQ-CPP3.7.0Release-NewandNoteworthy">New and Noteworthy</h2>
+
+<p>This is a new Major release of ActiveMQ-CPP, a lot of bugs have been fixed that were found in the v3.6.0 release which should reduce memory consumption and improve overall stability.  Some new features have been added as well.  </p>
+
+<ul><li>Added support of Optimized Acknowledge</li><li>Added support for Non-blocking redelivery.</li><li>Removed dependence on the APR-Util library.</li><li>Supports priority backup for Failover Transport</li><li>Supports the cluster rebalancing feature.</li><li>Message Audits to filter duplicates on Failover.</li><li>A lot of other little bug fixes and improvements.</li></ul>
+
+
+<p><br clear="none" class="atl-forced-newline"></p><div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p><strong>NOTE:</strong> Compatible with ActiveMQ Broker versions in the 4.X and 5.X family</p>
+</div></div>
+
+<h2 id="ActiveMQ-CPP3.7.0Release-API">API</h2>
+
+<p>This release is based on the CMS 3.1 API.</p>
+
+<p>Check out the API for this release <a shape="rect" class="external-link" href="http://activemq.apache.org/cms/api_docs/activemqcpp-3.7.0/html">here</a></p>
+
+<h2 id="ActiveMQ-CPP3.7.0Release-DownloadHere">Download Here</h2>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Download Link </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> PGP Signature file of download </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Windows </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.7.0-src.zip">activemq-cpp-library-3.7.0-src.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.7.0-src.zip.asc">activemq-cpp-library-3.7.0-src.zip.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Unix (gzipped) </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.7.0-src.tar.gz">activemq-cpp-library-3.7.0-src.tar.gz</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.7.0-src.tar.gz.asc">activemq-cpp-library-3.7.0-src.tar.gz.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Unix (bz2)</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.7.0-src.tar.bz2">activemq-cpp-library-3.7.0-src.tar.bz2</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.7.0-src.tar.bz2.asc">activemq-cpp-library-3.7.0-src.tar.bz2.asc</a> </p></td></tr></tbody></table></div>
+
+
+
+<h2 id="ActiveMQ-CPP3.7.0Release-SVNTagCheckout">SVN Tag Checkout</h2>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+svn co https://svn.apache.org/repos/asf/activemq/activemq-cpp/tags/activemq-cpp-3.7.0/
+]]></script>
+</div></div>
+
+<h2 id="ActiveMQ-CPP3.7.0Release-Changelog">Changelog</h2>
+
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311207&amp;styleName=Html&amp;version=12324161">release notes</a></p></div>
+

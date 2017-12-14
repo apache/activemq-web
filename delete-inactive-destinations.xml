@@ -1,0 +1,16 @@
+<div class="wiki-content maincontent"><div class="confluence-information-macro confluence-information-macro-information"><p class="title">Inactive Destination</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">An 'inactive' destination is one that has had no messages pending and no consumers connected for some configured period of time.</div></div><div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">By default the broker does <em>not</em> check for inactive destinations. This as governed by the default values for the following options: <strong><code>schedulePeriodForDestinationPurge="0"</code></strong> and&#160;<strong><code>gcInactiveDestinations="false"</code></strong>.</div></div><p>However, the broker can be configured to purge inactive destinations. To do so requires using specially configured destination policy entries in combination with the broker attribute: <strong><code>schedulePeriodForDestinationPurge &gt; 0</code></strong>.</p><p>Example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: xml; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;broker xmlns=&quot;http://activemq.apache.org/schema/core&quot; schedulePeriodForDestinationPurge=&quot;10000&quot;&gt;
+
+  &lt;destinationPolicy&gt;
+     &lt;policyMap&gt;
+        &lt;policyEntries&gt;
+           &lt;policyEntry queue=&quot;&gt;&quot; gcInactiveDestinations=&quot;true&quot; inactiveTimoutBeforeGC=&quot;30000&quot;/&gt;
+        &lt;/policyEntries&gt;
+     &lt;/policyMap&gt;
+  &lt;/destinationPolicy&gt;
+      
+&lt;/broker&gt;]]></script>
+</div></div><p>In this example the broker will check for inactive destinations every&#160;<strong><code>10</code></strong> seconds, as determined by <strong><code>schedulePeriodForDestinationPurge="10000"</code></strong>. When a destination purge is triggered the broker will delete any queue that has been empty for longer than <strong><code>inactiveTimoutBeforeGC="30000"</code></strong> milliseconds (default: <strong><code>60000</code></strong> milliseconds) and for which <strong><code>gcInactiveDestinations="true"</code></strong> is set on its corresponding destination policy entry.</p><p>When a destination is removed the broker will log a message like:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[INFO  Queue                          - TEST.QUEUE Inactive for longer than 30000 ms - removing ...]]></script>
+</div></div><p>&#160;</p><p>&#160;</p></div>
+

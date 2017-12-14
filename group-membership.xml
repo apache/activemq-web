@@ -1,0 +1,33 @@
+<div class="wiki-content maincontent"><p>ActiveBlaze supports group membership using a GroupChannel - which can be created from a GroupChannelFactory.<br clear="none">
+You have to explicitly say which group you want to join/leave - and you can join multiple groups.<br clear="none">
+Each GroupChannel has both a globally unique id and a name.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+
+import org.apache.activeblaze.group.*;
+
+...
+BlazeGroupChannelFactory factory = new BlazeGroupChannelFactory();
+
+BlazeGroupChannel channel = factory.createGroupChannel(&quot;My Channel&quot;);
+//join a group
+channel.addToGroup(&quot;test&quot;);
+channel.start();
+
+//listen for other members
+
+channel.addMemberChangedListener(new MemberChangedListener(){
+
+     public void memberStarted(Member member) {
+         System.out.println(&quot;Member started&quot;);
+     }
+
+     public void memberStopped(Member member) {
+         System.out.println(&quot;Member stopped&quot;);
+     }
+            
+ });
+]]></script>
+</div></div></div>
+

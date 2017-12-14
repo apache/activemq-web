@@ -1,0 +1,14 @@
+<div class="wiki-content maincontent"><p>If a JMS broker goes down, ActiveMQ can automatically reconnect to an available JMS broker using the <strong>failover:</strong> protocol. Not only does this automatically reconnect, it will also resume any temporary destinations, sessions, producers and most importantly consumers.</p>
+
+<p>All of this happens silently inside the JMS client so you don't need to worry about it in your application code.</p>
+
+<p>e.g. connecting to the URL</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+failover:tcp://host1:port1,tcp://host2:port2
+]]></script>
+</div></div>
+
+<p>For more detail see <a shape="rect" href="failover-transport-reference.xml">Failover Transport Reference</a></p></div>
+

@@ -1,0 +1,3 @@
+<div class="wiki-content maincontent">
+<p>Brokers cannot share a journal.  Each must be configured with it's own journal.</p></div>
+

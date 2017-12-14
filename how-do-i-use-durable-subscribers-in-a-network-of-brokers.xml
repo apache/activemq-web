@@ -1,0 +1,24 @@
+<div class="wiki-content maincontent"><p>Durable subscribers behave a little differently across a cluster of ActiveMQ brokers. The two main issues surround messages getting stuck on other brokers in the network after a durable subscriber has disconnected and reconnected to a different broker in the network without fully unsubscribing. The reasons for disconnecting/reconnecting can be voluntary (where the subscriber is using the failover transport), or involuntary (one of the brokers in the cluster fails).</p>
+
+<p>For example, if you have two brokers A and B networked together in both directions to form a cluster, and a durable subscriber connects to broker B, a producer P on broker A will have its messages properly forwarded to broker B and the durable subscriber. However, if the subscriber disconnects and reconnects to broker A, any messages sent by P while the subscriber was away will be stuck on B until the subscriber reconnects to B. </p>
+
+<p>The solution is to use <a shape="rect" href="virtual-destinations.xml">Virtual Destinations</a></p>
+
+<p>Virtual topics use queues under the covers and this allows ActiveMQ to treat each subscriber as a plain old Queue subscriber. This allows ActiveMQ to replay messages that have been orphaned on another broker in the cluster using this configuration as explained in the <a shape="rect" href="networks-of-brokers.xml">Networks of Brokers</a> documentation:</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[    &lt;destinationPolicy&gt;
+      &lt;policyMap&gt;
+        &lt;policyEntries&gt;
+          &lt;policyEntry queue=&quot;TEST.&gt;&quot; enableAudit=&quot;false&quot;&gt;
+            &lt;conditionalNetworkBridgeFilterFactory replayWhenNoConsumers=&quot;true&quot;/&gt;
+          &lt;/policyEntry&gt;
+        &lt;/policyEntries&gt;
+      &lt;/policyMap&gt;
+    &lt;/destinationPolicy&gt;]]></script>
+</div></div> 
+
+
+
+<p>Also, take a look at <a shape="rect" class="external-link" href="http://svn.apache.org/viewvc/activemq/trunk/activemq-unit-tests/src/test/java/org/apache/activemq/usecases/VirtualTopicNetworkClusterReactivationTest.java?view=markup">this unit test to see the full configuration and usage</a></p></div>
+

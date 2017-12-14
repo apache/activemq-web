@@ -1,0 +1,31 @@
+<div class="wiki-content maincontent"><h2 id="ActiveMQ-CPP3.8.1Release-NewandNoteworthy">New and Noteworthy</h2>
+
+<p>This is a new patch release that resolves a memory leak issue found in the 3.8.0 and 3.7.x releases.  If you are running an older release you are strongly advised to upgrade (you can work around the leak by disabling message audit in your ActiveMQConnectionFactory). </p>
+
+<div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p><strong>NOTE:</strong> Compatible with ActiveMQ Broker versions in the 4.X and 5.X family</p>
+</div></div>
+
+<h2 id="ActiveMQ-CPP3.8.1Release-API">API</h2>
+
+<p>This release is based on the CMS 3.2 API.</p>
+
+<p>Check out the API for this release <a shape="rect" class="external-link" href="http://activemq.apache.org/cms/api_docs/activemqcpp-3.6.0/html">here</a></p>
+
+<h2 id="ActiveMQ-CPP3.8.1Release-DownloadHere">Download Here</h2>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Download Link </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> PGP Signature file of download </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Windows </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.8.1-src.zip">activemq-cpp-library-3.8.1-src.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.8.1-src.zip.asc">activemq-cpp-library-3.8.1-src.zip.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Unix (gzipped) </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.8.1-src.tar.gz">activemq-cpp-library-3.8.1-src.tar.gz</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.8.1-src.tar.gz.asc">activemq-cpp-library-3.8.1-src.tar.gz.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Unix (bz2)</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.8.1-src.tar.bz2">activemq-cpp-library-3.8.1-src.tar.bz2</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.8.1-src.tar.bz2.asc">activemq-cpp-library-3.8.1-src.tar.bz2.asc</a> </p></td></tr></tbody></table></div>
+
+
+
+<h2 id="ActiveMQ-CPP3.8.1Release-GitTagCheckout">Git Tag Checkout</h2>
+
+<div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p>git clone <a shape="rect" class="external-link" href="https://git-wip-us.apache.org/repos/asf/activemq-cpp.git">https://git-wip-us.apache.org/repos/asf/activemq-cpp.git</a><br clear="none">
+git checkout tags/activemq-cpp-3.8.1</p>
+</div></div>
+
+<h2 id="ActiveMQ-CPP3.8.1Release-Changelog">Changelog</h2>
+
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311207&amp;styleName=Html&amp;version=12324975">release notes</a></p></div>
+

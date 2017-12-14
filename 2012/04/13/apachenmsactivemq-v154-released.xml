@@ -1,0 +1,2 @@
+<div class="wiki-content maincontent"><p>Today marks the official release of Apache.NMS.ActiveMQ v1.5.4. We put a lot of work into this one fixing bugs that were found since the 1.5.3 release.  This release features a fix for a critical issue related to advisory messages and connection failure.  </p></div>
+

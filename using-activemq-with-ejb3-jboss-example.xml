@@ -1,0 +1,33 @@
+<div class="wiki-content maincontent">
+
+
+<p>I've seen numerous postings regarding ActiveMQ with EJB3, and variations of a datasource XML file for use with JBoss integration.</p>
+
+<p>However, they don't quite work.  Here is what worked for me, it is actually quite simple:</p>
+
+<p>1. Don't use any datasource file - only the RA file is required.  Put it in the `deploy' directory.  The file is called activemq-rar-4.1.1.rar and it is in the ActiveMQ distribution (lib/optional/)</p>
+
+<p>2. In JBoss, the @ResourceAdapter annotation must be placed on the Message Driven Bean (MDB).  This may vary for other application servers.</p>
+
+<p>3. Examples I've seen elsewhere show an activationConfig with destination=&lt;a JNDI name for the queue&gt;.  This doesn't work.  Put the ActiveMQ destination name in the activationConfig.  There is no need to put the queue in the JNDI.</p>
+
+<p>Here is a working example - for EJB3 on JBoss, no XML descriptors are needed, just the RA file and the MDB.</p>
+
+<p>import org.jboss.annotation.ejb.ResourceAdapter;<br clear="none">
+@MessageDriven(activationConfig =<br clear="none">
+       {<br clear="none">
+             @ActivationConfigProperty(propertyName="destinationType", propertyValue="javax.jms.Queue"),<br clear="none">
+             @ActivationConfigProperty(propertyName="destination", propertyValue="FOO.TEST"),<br clear="none">
+             @ActivationConfigProperty(propertyName="acknowledgeMode", propertyValue="Auto-acknowledge")<br clear="none">
+       })<br clear="none">
+@ResourceAdapter("activemq-rar-4.1.1.rar")<br clear="none">
+public class TestBean implements MessageListener {</p>
+
+<p> public TestBean() {<br clear="none">
+ }</p>
+
+<p> public void onMessage(Message message) {<br clear="none">
+ }</p>
+
+<p>} </p></div>
+

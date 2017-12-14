@@ -1,0 +1,14 @@
+<div class="wiki-content maincontent"><h2 id="VerifyDownloads-VerifytheIntegrityofDownloads">Verify the Integrity of Downloads</h2><p>It is essential that you verify the integrity of the downloaded files using the PGP or MD5 signatures. The PGP signatures can be verified using PGP or GPG. Begin by following these steps:</p><ol><li>Download the <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/KEYS">KEYS</a></li><li>Download the asc signature file for the relevant distribution</li><li><p>Verify the signatures using the following commands, depending on your use of PGP or GPG:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[$ pgpk -a KEYS
+$ pgpv apache-activemq-&lt;version&gt;-bin.tar.gz.asc
+]]></script>
+</div></div><p>or</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[$ pgp -ka KEYS
+$ pgp apache-activemq-&lt;version&gt;-bin.tar.gz.asc
+]]></script>
+</div></div><p>or</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[$ gpg --import KEYS
+$ gpg --verify apache-activemq-&lt;version&gt;-bin.tar.gz.asc
+]]></script>
+</div></div></li></ol><p>(Where &lt;version&gt; is replaced with the actual version, e.g., 5.1.0, 5.2.0, etc.).</p><p>Alternatively, you can verify the MD5 signature on the files. A Unix program called <code>md5</code> or <code>md5sum</code> is included in most Linux and Unix distributions. It is also available as part of <a shape="rect" class="external-link" href="http://www.gnu.org/software/textutils/textutils.html" rel="nofollow">GNU Textutils</a>. Windows users can utilize any of the following md5 programs:</p><ul><li><a shape="rect" class="external-link" href="http://www.fourmilab.ch/md5/" rel="nofollow">md5</a></li><li><a shape="rect" class="external-link" href="http://www.pc-tools.net/win32/md5sums/" rel="nofollow">md5sums</a></li><li><a shape="rect" class="external-link" href="http://www.slavasoft.com/fsum/" rel="nofollow">SlavaSoft FSUM</a></li></ul></div>
+

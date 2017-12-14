@@ -1,0 +1,17 @@
+<div class="wiki-content maincontent">
+<p>We have added support for the <a shape="rect" href="rest.xml">REST</a>ful browsing of message queues in the <strong>activemq-web</strong> module. To try out this feature try the <a shape="rect" href="web-samples.xml">Web Samples</a>.</p>
+
+<p>Browsing of queues is implemented by a servlet, <strong>QueueBrowseServlet</strong> which allows queues to be browsed using pluggable views. The current views supported are</p>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>View name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>simple</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Renders a list of &lt;message&gt; elements with an id attribute</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>xml</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Uses XStream to render the entire messages as XML</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>rss</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Uses <a shape="rect" class="external-link" href="https://rome.dev.java.net/" rel="nofollow">Rome</a> to render the messages as an RSS 0.9*, 1.0, 2.0 or Atom 0.3 feed. You can configure the type of feed using the <strong>feedType</strong></p></td></tr></tbody></table></div>
+
+
+<p>Any properties on the view objects can be configured via reflection using query parameters. e.g. you can specify these common properties</p>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Parameter</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>contentType</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Override the MIME content type of the view</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>maxMessages</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>The maximum number of messages to render</p></td></tr></tbody></table></div>
+
+
+<h3 id="RSSandAtom-Examples">Examples</h3>
+
+<ul><li><a shape="rect" class="external-link" href="http://localhost:8080/queueBrowse/FOO/BAR?view=xml" rel="nofollow">http://localhost:8080/queueBrowse/FOO/BAR?view=xml</a> will browse the queue as XML</li><li><a shape="rect" class="external-link" href="http://localhost:8080/queueBrowse/FOO/BAR?view=rss&amp;feedType=rss_2.0" rel="nofollow">http://localhost:8080/queueBrowse/FOO/BAR?view=rss&amp;feedType=rss_2.0</a> will browse the FOO.BAR queue using RSS 2.0</li><li><a shape="rect" class="external-link" href="http://localhost:8080/queueBrowse/FOO/BAR?view=rss&amp;feedType=atom_0.3" rel="nofollow">http://localhost:8080/queueBrowse/FOO/BAR?view=rss&amp;feedType=atom_0.3</a> will browse the FOO.BAR queue using Atom</li></ul></div>
+

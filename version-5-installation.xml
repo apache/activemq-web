@@ -1,0 +1,22 @@
+<div class="wiki-content maincontent"><p>
+</p><ul><li><a shape="rect" href="download.xml">Download</a> a binary distribution of ActiveMQ and unpack it into some directory.</li></ul>
+
+
+<ul><li>To run an ActiveMQ broker, type the following commands from the directory in which you have just unpacked the ActiveMQ distribution.</li></ul>
+
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+cd bin
+activemq
+]]></script>
+</div></div>
+
+<p>The ActiveMQ broker should now run. You can configure the broker by specifying an <a shape="rect" href="xml-configuration.xml">Xml Configuration</a> file as a parameter to the <em>activemq</em> command.</p>
+
+<p>You can now run the <a shape="rect" href="examples.xml">Examples</a> using Ant.</p>
+
+<p>See the <a shape="rect" href="initial-configuration.xml">getting started guide</a> for details of which jars you need to add to your classpath to start using ActiveMQ in your Java code</p>
+
+<p>If you want to use JNDI to connect to your JMS provider then please view the <a shape="rect" href="jndi-support.xml">JNDI Support</a>. If you are a Spring user you should read about <a shape="rect" href="spring-support.xml">Spring Support</a></p></div>
+

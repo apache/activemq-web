@@ -1,0 +1,77 @@
+<div class="wiki-content maincontent"><p>Beginning in ActiveMQ 5.3, a statistics plugin is included that can be used to retrieve statistics from the broker or its destinations. Note that the message must contain a <code>replyTo</code> header (the <code>jmsReplyTo</code> header if you're using JMS) else the message will be ignored. The <code>replyTo</code> header must contain the name of the destination from which you want to retrieve the stats message(s). The statistics message is a <code>MapMessage</code> populated with statistics for the target (i.e., a broker or a destination).</p><p>To retrieve stats for the broker, just send an empty message to the destination named <code>ActiveMQ.Statistics.Broker</code> along with a <code>replyTo</code> header. To retrieve stats for a destination, just send an empty message to the destination named <code>ActiveMQ.Statistics.Destination.&lt;destination-name&gt;</code> or <code>ActiveMQ.Statistics.Destination.&lt;wildcard-expression&gt;</code> along with a <code>replyTo</code> header. If many destinations match a given wildcard expression, one stats message for each destination will be sent to the <code>replyTo</code> destination.</p><p>To configure ActiveMQ to use the statistics plugin, just add the following to the ActiveMQ XML configuration:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;broker ...&gt;
+  &lt;plugins&gt;
+    &lt;statisticsBrokerPlugin/&gt;
+  &lt;/plugins&gt;
+&lt;/broker&gt;
+]]></script>
+</div></div><p>The statistics plugin looks for messages sent to particular destinations. Below is an example of using the statistics plugin to grab stats from a broker:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[Queue replyTo = session.createTemporaryQueue();
+MessageConsumer consumer = session.createConsumer(replyTo);
+
+String queueName = &quot;ActiveMQ.Statistics.Broker&quot;;
+Queue testQueue = session.createQueue(queueName);
+MessageProducer producer = session.createProducer(testQueue);
+Message msg = session.createMessage();
+msg.setJMSReplyTo(replyTo);
+producer.send(msg);
+
+MapMessage reply = (MapMessage) consumer.receive();
+assertNotNull(reply);
+
+for (Enumeration e = reply.getMapNames();e.hasMoreElements();) {
+  String name = e.nextElement().toString();
+  System.out.println(name + &quot;=&quot; + reply.getObject(name));
+}
+]]></script>
+</div></div><p>The output from the code above is shown below:</p><div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p>vm=vm://localhost<br clear="none"> memoryUsage=0<br clear="none"> storeUsage=3330<br clear="none"> tempPercentUsage=0<br clear="none"> ssl=<br clear="none"> openwire=tcp://localhost:50059<br clear="none"> brokerId=ID:bigmac-50057-1253605065511-0:0<br clear="none"> consumerCount=2<br clear="none"> brokerName=localhost<br clear="none"> expiredCount=0<br clear="none"> dispatchCount=1<br clear="none"> maxEnqueueTime=5.0<br clear="none"> storePercentUsage=0<br clear="none"> dequeueCount=0<br clear="none"> inflightCount=1<br clear="none"> messagesCached=0<br clear="none"> tempLimit=107374182400<br clear="none"> averageEnqueueTime=5.0<br clear="none"> stomp+ssl=<br clear="none"> memoryPercentUsage=0<br clear="none"> size=10<br clear="none"> tempUsage=0<br clear="none"> producerCount=1<br clear="none"> minEnqueueTime=5.0<br clear="none"> dataDirectory=/Users/rajdavies/dev/projects/activemq/activemq-core/activemq-data<br clear="none"> enqueueCount=10<br clear="none"> stomp=<br clear="none"> storeLimit=107374182400<br clear="none"> memoryLimit=67108864</p>
+</div></div><p>Similarly, to query the statistics for a destination just send a message to the destination name prepended with <code>ActiveMQ.Statistics.Destination</code>. For example, to retrieve the statistics for a queue whose name is TEST.FOO, send an empty message to the queue named <code>ActiveMQ.Statistics.Destination.TEST.FOO</code>. Below is an example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[Queue replyTo = session.createTemporaryQueue();
+MessageConsumer consumer = session.createConsumer(replyTo);
+
+Queue testQueue = session.createQueue(&quot;TEST.FOO&quot;);
+MessageProducer producer = session.createProducer(null);
+
+String queueName = &quot;ActiveMQ.Statistics.Destination.&quot; + testQueue.getQueueName()
+Queue query = session.createQueue(queueName);
+
+Message msg = session.createMessage();
+
+producer.send(testQueue, msg) 
+msg.setJMSReplyTo(replyTo);
+producer.send(query, msg);
+MapMessage reply = (MapMessage) consumer.receive();
+assertNotNull(reply);
+assertTrue(reply.getMapNames().hasMoreElements());
+        
+for (Enumeration e = reply.getMapNames();e.hasMoreElements();) {
+    String name = e.nextElement().toString();
+    System.err.println(name + &quot;=&quot; + reply.getObject(name));
+}
+]]></script>
+</div></div><p>The output from the code above is shown below:</p><div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p>memoryUsage=0<br clear="none"> dequeueCount=0<br clear="none"> inflightCount=0<br clear="none"> messagesCached=0<br clear="none"> averageEnqueueTime=0.0<br clear="none"> destinationName=queue://TEST.FOO<br clear="none"> size=1<br clear="none"> memoryPercentUsage=0<br clear="none"> producerCount=0<br clear="none"> consumerCount=0<br clear="none"> minEnqueueTime=0.0<br clear="none"> maxEnqueueTime=0.0<br clear="none"> dispatchCount=0<br clear="none"> expiredCount=0<br clear="none"> enqueueCount=1<br clear="none"> memoryLimit=67108864</p>
+</div></div><p>You can also use wildcards in the queue name, too. This will result in a separate stats message for every destination that is matched by the wildcard. Very handy indeed.</p><h3 id="StatisticsPlugin-Subscriptionsstatistics">Subscriptions statistics</h3><p>Since 5.6.0 you can also retrieve statistics on all queue and topic subscriptions. All you need to do it send an empty message to the destination named <code>ActiveMQ.Statistics. Subscription</code> along with a <code>replyTo</code> header.&#160; The response will come in the form of one or more messages each containing the statistics for exactly one subscription on the Broker.&#160;</p><p>Below is an example of using the statistics plugin to grab stats from a broker:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[Queue replyTo = session.createTemporaryQueue();
+MessageConsumer consumer = session.createConsumer(replyTo);
+
+String queueName = &quot;ActiveMQ.Statistics.Subscription&quot;;
+Queue testQueue = session.createQueue(queueName);
+MessageProducer producer = session.createProducer(testQueue);
+Message msg = session.createMessage();
+msg.setJMSReplyTo(replyTo);
+producer.send(msg);
+
+MapMessage reply = (MapMessage) consumer.receive();
+assertNotNull(reply);
+
+for (Enumeration e = reply.getMapNames();e.hasMoreElements();) {
+  String name = e.nextElement().toString();
+  System.out.println(name + &quot;=&quot; + reply.getObject(name));
+}
+]]></script>
+</div></div><p>An example output from the code above is shown below:</p><div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p>selector=null<br clear="none"> dispatchedQueueSize=1<br clear="none"> maximumPendingMessageLimit=0<br clear="none"> exclusive=false<br clear="none"> connectionId=ID:dejan-bosanacs-macbook-pro-2.local-64989-1335528942875-4:1<br clear="none"> destinationName=Test.Queue<br clear="none"> clientId=ID:dejan-bosanacs-macbook-pro-2.local-64989-1335528942875-3:1<br clear="none"> slowConsumer=false<br clear="none"> prefetchSize=1000<br clear="none"> sessionId=1<br clear="none"> dequeueCounter=0<br clear="none"> enqueueCounter=1<br clear="none"> retroactive=false<br clear="none"> dispatchedCounter=1</p>
+</div></div></div>
+

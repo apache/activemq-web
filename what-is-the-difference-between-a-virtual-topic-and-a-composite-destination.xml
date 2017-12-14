@@ -1,0 +1,12 @@
+<div class="wiki-content maincontent"><h2 id="WhatisthedifferencebetweenaVirtualTopicandaCompositeDestination-WhatisthedifferencebetweenaVirtualTopicandaCompositeDestination">What is the difference between a Virtual Topic and a Composite Destination</h2>
+
+<p>Both kinds of <a shape="rect" href="virtual-destinations.xml">Virtual Destinations</a> offer similar capabilities, namely that the producer sees a single Destination to send to and the consumer sees a different Destination to consume from and there can be a many to many map of producer Destination to many different consumer destinations (as well as a mix of Topics and Queues.</p>
+
+<p>The main difference between a Virtual Topic and a Composite Desetination is that with a Composite Destination the list of consumer destinations is static and hard wired. Whereas with a Virtual Topic at run time a new consumer or queue can be created dynamically and addded to the subscription without having to reconfigure the broker.</p>
+
+<p>e.g. for a virtual topic, <strong>VirtualTopic.Orders</strong> at run time a new consumer can be created on the non-existent queue <strong>Consumer.FOO.VirtualTopic.Orders</strong> (where FOO is the unique name of the consumer) and the queue will be created which is also automatically wired up to the virtual topic as a consumer queue.</p>
+
+<h3 id="WhatisthedifferencebetweenaVirtualTopicandaCompositeDestination-See">See</h3>
+
+<ul><li><a shape="rect" href="how-does-a-queue-compare-to-a-topic.xml">How does a Queue compare to a Topic</a></li></ul></div>
+

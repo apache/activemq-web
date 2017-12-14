@@ -1,0 +1,31 @@
+<div class="wiki-content maincontent"><h2 id="ActiveMQ-CPP1.0Release-NewandNoteworthy">New and Noteworthy</h2>
+
+<p>This is our first official release of ActiveMQ CPP.  Some of the included features are:</p>
+<ul><li>CMS - a JMS-like API</li><li>Implementation of the Stomp protocol (compatable with AMQ broker 4.0.2 and later)</li><li>Extensible architecture for supporting additional messaging protocols (focus on OpenWire for the next major release)</li><li>Robust, Java-like library providing streams, readers/writers, and even a synchronized macro</li><li>Build has been tested on win32, linux, solaris, and OSX</li></ul>
+
+
+<div class="panel" style="border-width: 1px;"><div class="panelContent">
+<p><strong>NOTE:</strong> Compatable with ActiveMQ Broker version &gt;= 4.0.2</p>
+</div></div>
+
+<h2 id="ActiveMQ-CPP1.0Release-DownloadHere">Download Here</h2>
+
+<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Download Link </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> PGP Signature file of download </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Windows </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-1.0-src.zip">activemq-cpp-1.0-src.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-1.0-src.zip.asc">activemq-cpp-1.0-src.zip.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Unix </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-1.0-src.tar.gz">activemq-cpp-1.0-src.tar.gz</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-1.0-src.tar.gz.asc">activemq-cpp-1.0-src.tar.gz.asc</a> </p></td></tr></tbody></table></div>
+
+
+<h2 id="ActiveMQ-CPP1.0Release-SVNTagCheckout">SVN Tag Checkout</h2>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+svn co https://svn.apache.org/repos/asf/activemq/activemq-cpp/tags/activemq-cpp-1.0/
+]]></script>
+</div></div>
+
+<h2 id="ActiveMQ-CPP1.0Release-Changelog">Changelog</h2>
+
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="https://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11803&amp;styleName=Html&amp;projectId=11000&amp;Create=Create">release notes</a><br clear="none">
+</p><div class="aui-message warning jim-inline-block">
+    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
+</div>
+&#160;</div>
+

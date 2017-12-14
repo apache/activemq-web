@@ -1,0 +1,12 @@
+<div class="wiki-content maincontent"><h2 id="HowdoIbuildbutdisabletheunittests-HowdoIbuildbutdisabletheunittests">How do I build but disable the unit tests</h2>
+
+<p>The test cases in ActiveMQ can take a very long time to run! <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p>
+
+<p>To disable this you can try the following</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+mvn install -Dmaven.test.skip=true
+]]></script>
+</div></div></div>
+

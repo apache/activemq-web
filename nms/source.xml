@@ -1,0 +1,21 @@
+<div class="wiki-content maincontent"><h2 id="Source-WebBrowsingofGitrepositories">Web Browsing of Git repositories</h2><p>Browse the source tree of each of the NMS projects directly:</p><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>https://git-wip-us.apache.org/repos/asf/activemq-nms-api.git
+https://git-wip-us.apache.org/repos/asf/activemq-nms-openwire.git
+https://git-wip-us.apache.org/repos/asf/activemq-nms-amqp.git
+https://git-wip-us.apache.org/repos/asf/activemq-nms-ems.git
+https://git-wip-us.apache.org/repos/asf/activemq-nms-msmq.git
+https://git-wip-us.apache.org/repos/asf/activemq-nms-stomp.git
+https://git-wip-us.apache.org/repos/asf/activemq-nms-zmq.git
+https://git-wip-us.apache.org/repos/asf/activemq-nms-xms.git</pre>
+</div></div><h2 id="Source-CheckingoutfromGit">Checking out from Git</h2><p>To download the individual projects, run the following command(s):</p><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
+<pre>git clone https://git-wip-us.apache.org/repos/asf/activemq-nms-api.git
+git clone https://git-wip-us.apache.org/repos/asf/activemq-nms-openwire.git
+git clone https://git-wip-us.apache.org/repos/asf/activemq-nms-amqp.git
+git clone https://git-wip-us.apache.org/repos/asf/activemq-nms-ems.git
+git clone https://git-wip-us.apache.org/repos/asf/activemq-nms-msmq.git
+git clone https://git-wip-us.apache.org/repos/asf/activemq-nms-stomp.git
+git clone https://git-wip-us.apache.org/repos/asf/activemq-nms-zmq.git
+git clone https://git-wip-us.apache.org/repos/asf/activemq-nms-xms.git
+</pre>
+</div></div><p>Only project developers can commit to the Git tree via this method.</p><h3 id="Source-Branches">Branches</h3><p>We use the master for the next main release; then we use a branch for any bug fixes on the previous major release.</p><h2 id="Source-Buildingthecode">Building the code</h2><p>To then build the code see <a shape="rect" href="building.xml">Building</a>.</p></div>
+

@@ -1,0 +1,47 @@
+<div class="wiki-content maincontent"><h2 id="ActiveMQAsyncSends-Background">Background</h2>
+
+<p>Apache.NMS.ActiveMQ supports sending messages to a broker in sync or async mode.  The mode used has a huge impact in the latency of the send call.  Since latency is typically a huge factor in the throughput that can achieved by producer, using async sends can increase the performance of your system dramatically.</p>
+
+<p>The good news is that Apache.NMS.ActiveMQ sends message in async mode by default in several cases.  It is only in cases where the JMS specification required the use of sync sending that we default to sync sending.  The cases that we are forced to send in sync mode are when persistent messages are being sent outside of a transaction.</p>
+
+<p>If you are not using transactions and are sending persistent messages, then each send is synch and blocks until the broker has sent back an acknowledgement to the producer that the message has been safely persisted to disk.  This ack provides that guarantee that the message will not be lost but it also costs a huge latency penalty since the client is blocked.</p>
+
+<p>Many high performance applications are designed to be tolerate a small amount of message loss in failure scenarios.  If your application has been designed in this fashion, you can enable the use of async sends to increase throughput even when using persistent messages. </p>
+
+
+<h3 id="ActiveMQAsyncSends-ConfiguringAsyncSendusingaConnectionURI">Configuring Async Send using a Connection URI</h3>
+
+<p>You can use the <a shape="rect" href="activemq-uri-configuration.xml">Connection Configuration URI</a> to configure async sends as follows</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+var cf = new ConnectionFactory(&quot;tcp://locahost:61616?nms.AsyncSend=true&quot;);
+]]></script>
+</div></div>
+
+<h3 id="ActiveMQAsyncSends-ConfiguringAsyncSendattheConnectionFactoryLevel">Configuring Async Send at the ConnectionFactory Level</h3>
+
+<p>You can enable this feature on the Apache.NMS.ActiveMQ.ConnectionFactory object using the property.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+((ConnectionFactory)connectionFactory).AsyncSend = true;
+]]></script>
+</div></div>
+
+<h3 id="ActiveMQAsyncSends-ConfiguringAsyncDispatchattheConnectionLevel">Configuring Async Dispatch at the Connection Level</h3>
+
+<p>Configuring the async send setting at this level overrides the settings at the connection factory level.</p>
+
+<p>You can enable this feature on the Apache.NMS.ActiveMQ.Connection object using the property.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+((Apache.NMS.ActiveMQ.Connection)connection).AsyncSend = true;
+]]></script>
+</div></div>
+
+<h3 id="ActiveMQAsyncSends-Alsosee">Also see</h3>
+
+<ul><li><a shape="rect" href="activemq-uri-configuration.xml">Connection Configuration URI</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/should-i-use-transactions.html">Should I use transactions</a></li><li><a shape="rect" href="activemq-consumer-dispatch-async.xml">Consumer Dispatch Async</a></li></ul></div>
+

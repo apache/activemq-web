@@ -1,0 +1,29 @@
+<div class="wiki-content maincontent">
+<p>Spring supports a useful JMS abstraction called JmsTemplate which makes sending and consuming messages a little simpler than using the JMS APIs directly. The only downside of this abstraction is that each send() will create a connection, session, producer, send the message, then close them all down. This is a really inefficient operation with most JMS providers as each create of a connection, session, producer ends up being an RPC with the broker, if nothing else, for security reasons.</p>
+
+<p>In 3.1-M2 or later of ActiveMQ there's a <a shape="rect" href="../../../spring-support.xml">simple solution</a> using the org.activemq.pool.PooledConnectionFactory which will perform  pooling of JMS resources (connection, session, producer) to make sending messages efficiently. The same thing is true if you wanna use a similar pattern to the JmsTemplate to send messages from inside EJBs.</p>
+
+<p>Here's an example of it in use inside a Spring config file.</p>
+
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+  &lt;!-- a pooling based JMS provider --&gt;
+  &lt;bean id=&quot;jmsFactory&quot; class=&quot;org.activemq.pool.PooledConnectionFactory&quot;&gt;
+    &lt;property name=&quot;connectionFactory&quot;&gt;
+      &lt;bean class=&quot;org.activemq.ActiveMQConnectionFactory&quot;&gt;
+        &lt;property name=&quot;brokerURL&quot;&gt;
+          &lt;value&gt;tcp://localhost:61616&lt;/value&gt;
+        &lt;/property&gt;
+      &lt;/bean&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+
+  &lt;!-- Spring JMS Template --&gt;
+  &lt;bean id=&quot;myJmsTemplate&quot; class=&quot;org.springframework.jms.core.JmsTemplate&quot;&gt;
+    &lt;property name=&quot;connectionFactory&quot;&gt;
+      &lt;ref local=&quot;jmsFactory&quot;/&gt;
+    &lt;/property&gt;
+  &lt;/bean&gt;
+]]></script>
+</div></div></div>
+

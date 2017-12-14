@@ -1,0 +1,11 @@
+<div class="wiki-content maincontent"><p>By default, the <a shape="rect" href="xml-configuration.xml">ActiveMQ xml configuration</a> includes the <a shape="rect" href="discovery.xml">multicast discovery</a> mechanism. The tcp transport connector advertises its self using multicast and a multicast network connector is configured to listen to the same address. In this way, all brokers that share the default multicast address will automatically network with each other. <br clear="none"> If multicast is not required, the multicast attributes of the Transport Connector and Network Connector can be removed.</p><p>To stop advertising your connection URI on the multicast network remove the discoveryUri attribute from the &lt;transportConnector/&gt;:</p><p>replace:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;transportConnector name=&quot;openwire&quot; uri=&quot;tcp://localhost:61616&quot; discoveryUri=&quot;multicast://default&quot;/&gt;
+]]></script>
+</div></div><p>with:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;transportConnector name=&quot;openwire&quot; uri=&quot;tcp://localhost:61616&quot; /&gt;
+]]></script>
+</div></div><p>If you do not require any networked broker support remove the &lt;networkConnector/&gt; altogether. Remove</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;networkConnector name=&quot;default-nc&quot; uri=&quot;multicast://default&quot;/&gt;
+]]></script>
+</div></div><p>Alternatively, provide a static networkConnector for each broker you wish to network with by replacing the the discoveryUri with the static transport connection URI of your target broker.</p><p>For more information see the <a shape="rect" href="discovery-transport-reference.xml">Discovery Transport Reference</a></p></div>
+

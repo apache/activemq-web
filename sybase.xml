@@ -1,0 +1,29 @@
+<div class="wiki-content maincontent"><h2 id="Sybase-Sybase">Sybase</h2>
+
+<p>A dataSource targetting a Sybase ASE database can be configured as follows:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Sybase Datasource</b></div><div class="codeContent panelContent pdl">
+<script class="brush: xml; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[  &lt;bean id=&quot;sybase-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
+
+    &lt;!-- using jConnect --&gt;
+    &lt;property name=&quot;driverClassName&quot; value=&quot;com.sybase.jdbc4.jdbc.SybDriver&quot;/&gt;
+    &lt;property name=&quot;url&quot; value=&quot;jdbc:sybase:Tds:localhost:4000/activemq&quot;/&gt;
+    &lt;!-- using JTDS --&gt;
+    &lt;!-- &lt;property name=&quot;driverClassName&quot; value=&quot;net.sourceforge.jtds.jdbc.Driver&quot;/&gt; --&gt;
+    &lt;!-- &lt;property name=&quot;url&quot; value=&quot;jdbc:jtds:sybase://localhost:4000/activemq&quot;/&gt; --&gt;
+
+    &lt;property name=&quot;username&quot; value=&quot;XXX&quot; /&gt;
+    &lt;property name=&quot;password&quot; value=&quot;YYY&quot; /&gt;
+    &lt;!-- and so on with pool config --&gt;
+  &lt;/bean&gt;
+]]></script>
+</div></div>
+
+<p>When working on a given Sybase ASE database, each operation (e.g.  statement execution) is appended to the transaction log. This log grows  over time, and space has to be freed in order to let the server keep  running.  ASE is able to free space up to the oldest opened transaction; that is,  if you keep a transaction open for too long, the transaction log only  grows - until the allocated space is full and the database goes down. So when using the Master-Slave feature of ActiveMQ with a database lock on table ACTIVEMQ_LOCK a synchronization monitor (see <a shape="rect" class="external-link" href="http://activemq.apache.org/jdbc-master-slave.html">http://activemq.apache.org/jdbc-master-slave.html</a>), you have to be careful.  If you use only one dataSource, hence only one  database, then the lock mechanism shall keep a transaction indefinitely  open, and while messages are persisted the transaction log shall grow  until you run out of space.  It is therefore strongly advised to use a dedicated database for this  lock: just define another dataSource targeting a minimal database  holding no data (only the ACTIVEMQ_LOCK table) and use it as a  lockDataSource in your configuration.</p>
+
+<p>Example:</p>
+<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
+<script class="brush: xml; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;persistenceAdapter&gt;
+  &lt;jdbcPersistenceAdapter dataSource=&quot;#sybase-ds&quot; lockDataSource=&quot;#another-sybase-ds&quot;/&gt;
+&lt;/persistenceAdapter&gt;]]></script>
+</div></div></div>
+
