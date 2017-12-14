@@ -2,7 +2,7 @@
 
 <p>For Windows XP:</p>
 
-<p>1. Download AIO (Asynchronous IO for Java) from IBM (<a shape="rect" class="external-link" href="http://www.alphaworks.ibm.com/tech/aio4j" rel="nofollow">http://www.alphaworks.ibm.com/tech/aio4j</a>).</p>
+<p>1. Download AIO (Asynchronous IO for Java) from IBM (<a shape="rect" href="http://www.alphaworks.ibm.com/tech/aio4j">http://www.alphaworks.ibm.com/tech/aio4j</a>).</p>
 
 <p>2. Unzip the downloaded file and copy the following files: </p>
 
@@ -15,8 +15,8 @@
 
 <p>5. Edit ActiveMQ's configuration file (<strong>activemq.xml</strong>, found in the conf folder). Look the following snippet:
 <br clear="none" class="atl-forced-newline"></p>
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>&lt;!-- ==================================================================== --&gt;
+<structured-macro ac:macro-id="8206c53e-2e9b-45bc-a393-0943547bde5e" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+&lt;!-- ==================================================================== --&gt;
 &lt;!-- ActiveMQ Broker Configuration --&gt;
 &lt;!-- ==================================================================== --&gt;
 &lt;broker&gt;
@@ -26,27 +26,23 @@
     .
     .
 &lt;/broker&gt;   
-</pre>
-</div></div>  
+</plain-text-body></structured-macro>  
 <p><br clear="none" class="atl-forced-newline"></p>
 
 <p>   Change the connector settings, change <strong>tcpServerTransport</strong> to <strong>serverTransport</strong> and remove the unneeded parameters): 
 <br clear="none" class="atl-forced-newline"></p>
- <div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>&lt;connector&gt;
+ <structured-macro ac:macro-id="910ac916-db01-4ecd-92d7-49c2996bc791" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+&lt;connector&gt;
  &lt;serverTransport uri="activeio:aio://&lt;ip address&gt;:&lt;port&gt;" /&gt;
 &lt;/connector&gt;
- </pre>
-</div></div>
+ </plain-text-body></structured-macro>
 <p><br clear="none" class="atl-forced-newline"></p>
 
 <p>    Example:
 <br clear="none" class="atl-forced-newline"></p>
- <div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>    
+ <structured-macro ac:macro-id="e6ac3503-9331-425d-8a3c-e928fd877cac" ac:name="noformat" ac:schema-version="1"><plain-text-body>    
 &lt;connector&gt;
  &lt;serverTransport uri="activeio:aio://192.168.0.162:61616" /&gt;
 &lt;/connector&gt;
- </pre>
-</div></div></div>
+ </plain-text-body></structured-macro></div>
 

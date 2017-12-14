@@ -1,8 +1,8 @@
 <div class="wiki-content maincontent"><p>The Apache ActiveMQ team is delighted to announce the release of Apache ActiveMQ 5.8.0.</p>
 
-<p>This release adds <a shape="rect" href="../../../amqp.xml">AMQP</a> support and resolves 160 issues and enhancements.</p>
+<p>This release adds <link><page ri:content-title="amqp"></page><link-body>AMQP</link-body></link> support and resolves 160 issues and enhancements.</p>
 
-<p>Full details and download link can be found in the <a shape="rect" href="../../../activemq-580-release.xml">release</a> page.</p>
+<p>Full details and download link can be found in the <link><page ri:content-title="activemq 5.8.0 release"></page><link-body>release</link-body></link> page.</p>
 
 <p>A big thanks to everyone who contributed to this release.</p></div>
 

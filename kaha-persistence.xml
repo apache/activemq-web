@@ -1,41 +1,37 @@
-<div class="wiki-content maincontent"><h2 id="KahaPersistence-KahaPersistence">Kaha Persistence</h2>
+<div class="wiki-content maincontent"><h2>Kaha Persistence</h2>
 
 <p>Kaha Peristence is a storage solution written especially for message persistence and is part of the ActiveMQ project. It's tuned to provide optimal performance for typical message usage patterns, which involves writing/reading and discarding messages that are persisted very quickly.</p>
 
 <p>Data stored in Kaha is appended to data logs - the log files are discarded once there is no longer interest in the data contained in the log.</p>
 
-<h3 id="KahaPersistence-ConfiguringKahaPersistence">Configuring Kaha Persistence</h3>
+<h3>Configuring Kaha Persistence</h3>
 
 <p>In the broker XML specify the persistence adaptor to be Kaha e.g.</p>
 
 <p>ActiveMQ 5.0 and above:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
- &lt;broker brokerName=&quot;broker&quot; persistent=&quot;true&quot; useShutdownHook=&quot;false&quot;&gt;
+<structured-macro ac:macro-id="f1210018-4a80-4011-a088-a6da3b1db3bc" ac:name="code" ac:schema-version="1"><plain-text-body>
+ &lt;broker brokerName="broker" persistent="true" useShutdownHook="false"&gt;
     &lt;transportConnectors&gt;
-      &lt;transportConnector uri=&quot;tcp://localhost:61616&quot;/&gt;
+      &lt;transportConnector uri="tcp://localhost:61616"/&gt;
     &lt;/transportConnectors&gt;
     &lt;persistenceAdapter&gt;
-      &lt;kahaPersistenceAdapter directory=&quot;activemq-data&quot; maxDataFileLength=&quot;33554432&quot;/&gt;
+      &lt;kahaPersistenceAdapter directory="activemq-data" maxDataFileLength="33554432"/&gt;
     &lt;/persistenceAdapter&gt;
   &lt;/broker&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 
 <p>ActiveMQ 4.1 and earlier:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
- &lt;broker brokerName=&quot;broker&quot; persistent=&quot;true&quot; useShutdownHook=&quot;false&quot;&gt;
+<structured-macro ac:macro-id="a53390c5-5c6b-4155-b84d-be230563faf1" ac:name="code" ac:schema-version="1"><plain-text-body>
+ &lt;broker brokerName="broker" persistent="true" useShutdownHook="false"&gt;
     &lt;transportConnectors&gt;
-      &lt;transportConnector uri=&quot;tcp://localhost:61616&quot;/&gt;
+      &lt;transportConnector uri="tcp://localhost:61616"/&gt;
     &lt;/transportConnectors&gt;
     &lt;persistenceAdapter&gt;
-      &lt;kahaPersistenceAdapter dir=&quot;activemq-data&quot; maxDataFileLength=&quot;33554432&quot;/&gt;
+      &lt;kahaPersistenceAdapter dir="activemq-data" maxDataFileLength="33554432"/&gt;
     &lt;/persistenceAdapter&gt;
   &lt;/broker&gt;
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

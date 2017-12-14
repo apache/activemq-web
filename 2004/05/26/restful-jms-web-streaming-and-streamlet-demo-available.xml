@@ -1,11 +1,11 @@
 <div class="wiki-content maincontent">
 
 
-<p><a shape="rect" class="external-link" href="http://activemq.codehaus.org" rel="nofollow">ActiveMQ</a> now supports a <a shape="rect" href="../../../rest.xml">RESTful API</a> to the message broker allowing any web capable device to publish and consume messages.</p>
+<p><a shape="rect" href="http://activemq.codehaus.org">ActiveMQ</a> now supports a <link><page ri:content-title="REST"></page><link-body>RESTful API</link-body></link> to the message broker allowing any web capable device to publish and consume messages.</p>
 
-<p>We also support <a shape="rect" href="../../../ajax.xml">Ajax</a> which are a JavaScript mechanism, working with the REST API to provide publish/subscribe based web applications, using the full power of a MOM from inside any web browser.</p>
+<p>We also support <link><page ri:content-title="Ajax"></page></link> which are a JavaScript mechanism, working with the REST API to provide publish/subscribe based web applications, using the full power of a MOM from inside any web browser.</p>
 
-<p>We've now <a shape="rect" href="../../../web-samples.xml">2 demos of using Streamlets</a> in CVS now (a real time stock portfolio and a chat application) along with a simple HTML forms only demo. </p>
+<p>We've now <link><page ri:content-title="Web Samples"></page><link-body>2 demos of using Streamlets</link-body></link> in CVS now (a real time stock portfolio and a chat application) along with a simple HTML forms only demo. </p>
 
 <p>Unfortunately right now there's a bug in the IE JavaScript when using Streamlets so things don't work yet on IE but things work fine on Firefox, Mozilla and Safari. We should have the IE issue fixed real soon.</p></div>
 

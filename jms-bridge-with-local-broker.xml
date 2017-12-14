@@ -1,36 +1,34 @@
-<div class="wiki-content maincontent"><h3 id="JMSBridgeWithLocalBroker-ExampleofaconfigurationthatshowshowtouseaBridgeConnectortomakeaconnectiontothelocalActiveMQbroker.">Example of a configuration that shows how to use a BridgeConnector to make a connection to the local ActiveMQ broker.</h3>
+<div class="wiki-content maincontent"><h3>Example of a configuration that shows how to use a BridgeConnector to make a connection to the local ActiveMQ broker.</h3>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="4e5f3026-cbef-453b-ba5f-9746421eaa2d" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
 &lt;beans&gt;
     &lt;!-- Allows us to use system properties as variables in this configuration file --&gt;
-    &lt;bean class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;/&gt;
+    &lt;bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/&gt;
 
-    &lt;broker useJmx=&quot;true&quot; persistent=&quot;false&quot; xmlns=&quot;http://activemq.org/config/1.0&quot;
-            brokerName=&quot;localhost&quot; dataDirectory=&quot;${activemq.base}/data&quot;&gt;
+    &lt;broker useJmx="true" persistent="false" xmlns="http://activemq.org/config/1.0"
+            brokerName="localhost" dataDirectory="${activemq.base}/data"&gt;
         &lt;jmsBridgeConnectors&gt;
-            &lt;jmsQueueConnector outboundQueueConnectionFactory=&quot;#localBroker&quot;&gt;
+            &lt;jmsQueueConnector outboundQueueConnectionFactory="#localBroker"&gt;
                 &lt;inboundQueueBridges&gt;
                     &lt;inboundQueueBridge
-                            inboundQueueName = &quot;queue.ping&quot;
-                            localQueueName   = &quot;queue.incomingMsgs.ping&quot;
-                            selector         = &quot;JMSType LIKE &#39;foo%&#39;&quot;/&gt;
+                            inboundQueueName = "queue.ping"
+                            localQueueName   = "queue.incomingMsgs.ping"
+                            selector         = "JMSType LIKE 'foo%'"/&gt;
                 &lt;/inboundQueueBridges&gt;
                 &lt;outboundQueueBridges&gt;
                     &lt;outboundQueueBridge
-                            localQueueName    = &quot;queue.incomingMsgs.ping&quot;
-                            outboundQueueName = &quot;queue.pong&quot;
-                            selector          = &quot;JMSType LIKE &#39;foo%&#39;&quot;/&gt;
+                            localQueueName    = "queue.incomingMsgs.ping"
+                            outboundQueueName = "queue.pong"
+                            selector          = "JMSType LIKE 'foo%'"/&gt;
                 &lt;/outboundQueueBridges&gt;
             &lt;/jmsQueueConnector&gt;
         &lt;/jmsBridgeConnectors&gt;
     &lt;/broker&gt;
 
     &lt;!-- JMS ConnectionFactory to use for local bridging --&gt;
-    &lt;bean id=&quot;localBroker&quot; class=&quot;org.apache.activemq.ActiveMQConnectionFactory&quot;&gt;
-        &lt;property name=&quot;brokerURL&quot; value=&quot;vm://localhost:61616&quot; /&gt;
+    &lt;bean id="localBroker" class="org.apache.activemq.ActiveMQConnectionFactory"&gt;
+        &lt;property name="brokerURL" value="vm://localhost:61616" /&gt;
     &lt;/bean&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

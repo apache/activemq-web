@@ -1,9 +1,9 @@
 <div class="wiki-content maincontent">
-<p>The long awaited <a shape="rect" href="../../../activemq-31-release.xml">ActiveMQ 3.1 Release</a> is finally out. Who-hoo! Many thanks to all those on the <a shape="rect" href="../../../team.xml">Team</a> who've helped.</p>
+<p>The long awaited <link><page ri:content-title="ActiveMQ 3.1 Release"></page></link> is finally out. Who-hoo! Many thanks to all those on the <link><page ri:content-title="Team"></page></link> who've helped.</p>
 
-<p>This release includes support for Ruby and Perl thanks to the <a shape="rect" class="external-link" href="http://stomp.codehaus.org/" rel="nofollow">Stomp</a> project together with <a shape="rect" href="../../../activemq-31-release.xml">heaps of new features</a> such as better persistence, journalling and integration with JNDI, JCA, Servlets, Spring, WebLogic and JBoss. </p>
+<p>This release includes support for Ruby and Perl thanks to the <a shape="rect" href="http://stomp.codehaus.org/">Stomp</a> project together with <link><page ri:content-title="ActiveMQ 3.1 Release"></page><link-body>heaps of new features</link-body></link> such as better persistence, journalling and integration with JNDI, JCA, Servlets, Spring, WebLogic and JBoss. </p>
 
-<p>Go on, <a shape="rect" href="../../../download.xml">Download</a> it today!</p>
+<p>Go on, <link><page ri:content-title="Download"></page></link> it today!</p>
 
 <p>Enjoy!</p></div>
 

@@ -1,2 +1,2 @@
-<div class="wiki-content maincontent"><p>The Apache.NMS.XMS client provider for talking to IBM's WebSphere MQ Series message broker. To use this, you will need to following IBM's licensing requirements to acquire the MQSeries client assembly DLL. NMS does not ship with the MQSeries client assembly.</p><p></p></div>
+<div class="wiki-content maincontent"><p>The Apache.NMS.XMS client provider for talking to IBM's WebSphere MQ Series message broker. To use this, you will need to following IBM's licensing requirements to acquire the MQSeries client assembly DLL. NMS does not ship with the MQSeries client assembly.</p><p><structured-macro ac:macro-id="5c40882b-6626-4591-986a-165a301c5b3d" ac:name="children" ac:schema-version="1"></structured-macro></p></div>
 

@@ -1,10 +1,11 @@
 <div class="wiki-content maincontent">
-<h3 id="ReleasePlans-Information">Information</h3>
+<h3>Information</h3>
 
-<ul><li><a shape="rect" href="release-info.xml">Release Info</a></li><li><a shape="rect" href="how-you-can-help-release.xml">How you can help release</a></li></ul>
+<ul><li><link><page ri:content-title="Release Info"></page></link></li><li><link><page ri:content-title="How you can help release"></page></link></li></ul>
 
 
-<h3 id="ReleasePlans-ReleasePlans">Release Plans</h3>
+<h3>Release Plans</h3>
 
-<ul><li><a shape="rect" href="40-rc-1-guide.xml">4.0 RC 1 Guide</a></li></ul></div>
+<ul><li><link><page ri:content-title="4.0 RC 1 Guide"></page></link></li></ul>
+</div>
 

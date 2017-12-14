@@ -1,93 +1,91 @@
-<div class="wiki-content maincontent"><h2 id="XMPP-XMPPProtocolSupport(Jabber!)">XMPP Protocol Support (Jabber!)</h2>
+<div class="wiki-content maincontent"><h2>XMPP Protocol Support (Jabber!)</h2>
 
-<div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Deprecated</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
-<p>This transport was deprecated in 5.8.0 and has been removed in a 5.9.0!</p></div></div>
-<p>We have support for <a shape="rect" class="external-link" href="http://www.xmpp.org/" rel="nofollow">XMPP</a> (Jabber) as a transport in ActiveMQ.</p>
+<structured-macro ac:macro-id="32c335e0-52cc-45b0-9962-3a0899c44e92" ac:name="warning" ac:schema-version="1"><parameter ac:name="title">Deprecated</parameter><rich-text-body>
+<p>This transport was deprecated in 5.8.0 and has been removed in a 5.9.0!</p></rich-text-body></structured-macro>
+<p>We have support for <a shape="rect" href="http://www.xmpp.org/">XMPP</a> (Jabber) as a transport in ActiveMQ.</p>
 
 <p>To use just add a connector as follows</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;broker xmlns=&quot;http://activemq.org/config/1.0&quot;&gt;
+<structured-macro ac:macro-id="633f3d25-a0b8-48b6-aeae-85fb93858d4e" ac:name="code" ac:schema-version="1"><plain-text-body>
+&lt;broker xmlns="http://activemq.org/config/1.0"&gt;
     &lt;transportConnectors&gt;
-       &lt;transportConnector name=&quot;openwire&quot; uri=&quot;tcp://localhost:61616&quot; discoveryUri=&quot;multicast://default&quot;/&gt;
-       &lt;transportConnector name=&quot;stomp&quot;    uri=&quot;stomp://localhost:61613&quot;/&gt;
-       &lt;transportConnector name=&quot;xmpp&quot;     uri=&quot;xmpp://localhost:61222&quot;/&gt;
+       &lt;transportConnector name="openwire" uri="tcp://localhost:61616" discoveryUri="multicast://default"/&gt;
+       &lt;transportConnector name="stomp"    uri="stomp://localhost:61613"/&gt;
+       &lt;transportConnector name="xmpp"     uri="xmpp://localhost:61222"/&gt;
     &lt;/transportConnectors&gt;
   &lt;/broker&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 <p>And you can now use XMPP to connect to the broker &amp; send and receive messages.</p>
-<div class="confluence-information-macro confluence-information-macro-warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
-<p>Some versions of the broker (5.0-5.2) does not include <a shape="rect" class="external-link" href="http://woodstox.codehaus.org/" rel="nofollow">WoodStox</a> library by default, which could impact ActiveMQ XMPP funcionality. You should have a library named like <code>wstx-asl-x.x.x.jar</code> in the <code>lib/optional</code> directory of your broker. If that's not the case, download it from <a shape="rect" class="external-link" href="http://woodstox.codehaus.org/" rel="nofollow">here</a> and put it in the classpath</p></div></div>
+<structured-macro ac:macro-id="b5d113d5-3a2f-4dad-9916-0d828203f4b0" ac:name="warning" ac:schema-version="1"><parameter ac:name="">Classpath</parameter><rich-text-body>
+<p>Some versions of the broker (5.0-5.2) does not include <a shape="rect" href="http://woodstox.codehaus.org/">WoodStox</a> library by default, which could impact ActiveMQ XMPP funcionality. You should have a library named like <code>wstx-asl-x.x.x.jar</code> in the <code>lib/optional</code> directory of your broker. If that's not the case, download it from <a shape="rect" href="http://woodstox.codehaus.org/">here</a> and put it in the classpath</p></rich-text-body></structured-macro>
 
-<h3 id="XMPP-XMPPSupportinApacheActiveMQ">XMPP Support in Apache ActiveMQ</h3>
+<h3>XMPP Support in Apache ActiveMQ</h3>
 
 <p>ActiveMQ provides a bidirectional bridge between ActiveMQ messages and XMPP.</p>
-<ul><li>if a client joins a chatroom / conference room, the name of the conference room is mapped to a JMS topic of the same name</li><li>typing into a chatroom sends a message to the topic</li><li>presence in a chatroom maintains a subscription on the JMS topic (using noLocal to avoid getting copies of things you say) so that messages sent by other clients (via <a shape="rect" href="xmpp.xml">XMPP</a>, the <a shape="rect" href="web-console.xml">Web Console</a>, the <a shape="rect" href="examples.xml">Examples</a> or any other <a shape="rect" href="cross-language-clients.xml">Cross Language Clients</a>) are then sent to the chatroom.</li></ul>
+<ul><li>if a client joins a chatroom / conference room, the name of the conference room is mapped to a JMS topic of the same name</li><li>typing into a chatroom sends a message to the topic</li><li>presence in a chatroom maintains a subscription on the JMS topic (using noLocal to avoid getting copies of things you say) so that messages sent by other clients (via <link></link>, the <link><page ri:content-title="Web Console"></page></link>, the <link><page ri:content-title="Examples"></page></link> or any other <link><page ri:content-title="Cross Language Clients"></page></link>) are then sent to the chatroom.</li></ul>
 
 
-<h3 id="XMPP-UsingaJabberClient">Using a Jabber Client</h3>
+<h3>Using a Jabber Client</h3>
 
-<p>Basically, you should be able to connect from any Jabber-compatible client to the broker. The below example is using <a shape="rect" class="external-link" href="http://jivesoftware.com/products/spark/" rel="nofollow">Spark</a> 2.0.0 version. For more details on connecting with different clients take a look at <a shape="rect" href="#XMPP-Jabberclientscompatibility">#Jabber clients compatibility</a>.</p>
+<p>Basically, you should be able to connect from any Jabber-compatible client to the broker. The below example is using <a shape="rect" href="http://jivesoftware.com/products/spark/">Spark</a> 2.0.0 version. For more details on connecting with different clients take a look at <link ac:anchor="Jabber clients compatibility"><link-body>#Jabber clients compatibility</link-body></link>.</p>
 
 <p>To connect to Apache ActiveMQ try the following...</p>
 
-<p>1. Run the <a shape="rect" href="web-console.xml">Web Console</a><br clear="none">
-2. Start <a shape="rect" class="external-link" href="http://jivesoftware.com/products/spark/" rel="nofollow">Spark</a> or whatever Jabber Client you wish<br clear="none">
+<p>1. Run the <link><page ri:content-title="Web Console"></page></link><br clear="none">
+2. Start <a shape="rect" href="http://jivesoftware.com/products/spark/">Spark</a> or whatever Jabber Client you wish<br clear="none">
 3. Login to localhost:61222</p>
-<div class="confluence-information-macro confluence-information-macro-warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
-<p>Some Jabber clients (like iChat) insist on usernames in forms of <em>username@host</em>, so in that case just append <em>@localhost</em> to your username</p></div></div>
-<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="xmpp.data/step1.png" data-image-src="/confluence/download/attachments/35901/step1.png?version=1&amp;modificationDate=1162051914000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3243" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="step1.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35901" data-linked-resource-container-version="34"></span></p>
-<div class="confluence-information-macro confluence-information-macro-warning"><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<structured-macro ac:macro-id="de4500b9-8d17-4ab8-82c3-a4ada7947169" ac:name="warning" ac:schema-version="1"><parameter ac:name="">Username</parameter><rich-text-body>
+<p>Some Jabber clients (like iChat) insist on usernames in forms of <em>username@host</em>, so in that case just append <em>@localhost</em> to your username</p></rich-text-body></structured-macro>
+<p><image><attachment ri:filename="step1.png"></attachment></image></p>
+<structured-macro ac:macro-id="7214f204-39ac-4b3c-898e-c7ad1a8e366c" ac:name="warning" ac:schema-version="1"><parameter ac:name="">Careful about auto-discovery</parameter><rich-text-body>
 <p>Some Jabber clients like to auto-discover the host and port. You need to explicitly disable this feature so you can explicitly configure <strong>localhost</strong> as the host and <strong>61222</strong> as the port.</p>
 
-<p>e.g. on Spark go to the <strong>Advanced</strong> tab and disable the <strong>Automatically discover host and port</strong></p></div></div>
+<p>e.g. on Spark go to the <strong>Advanced</strong> tab and disable the <strong>Automatically discover host and port</strong></p></rich-text-body></structured-macro>
 <p>4. You should now see the following screen...</p>
 
-<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="xmpp.data/step2.png" data-image-src="/confluence/download/attachments/35901/step2.png?version=1&amp;modificationDate=1162052275000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3230" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="step2.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35901" data-linked-resource-container-version="34"></span></p>
+<p><image><attachment ri:filename="step2.png"></attachment></image></p>
 
 <p>5. Now click on the <strong>Join Conference Room</strong> button (next to the Add Contact button) and the following dialog should appear</p>
 
-<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="xmpp.data/step3.png" data-image-src="/confluence/download/attachments/35901/step3.png?version=1&amp;modificationDate=1162052275000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3283" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="step3.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35901" data-linked-resource-container-version="34"></span></p>
+<p><image><attachment ri:filename="step3.png"></attachment></image></p>
 
 <p>6. Now press the <strong>Create or Join Room</strong> button to get the following dialog. Enter a JMS topic name, in this case <strong>foo.bar</strong> and you're good to go...</p>
 
-<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="xmpp.data/step4.png" data-image-src="/confluence/download/attachments/35901/step4.png?version=1&amp;modificationDate=1162052275000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3275" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="step4.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35901" data-linked-resource-container-version="34"></span></p>
+<p><image><attachment ri:filename="step4.png"></attachment></image></p>
 
 <p>7. Now your chat window should appear for talking and listening to the topic <strong>foo.bar</strong>. So start typing to test things out.&#160;</p>
 
-<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="xmpp.data/step5.png" data-image-src="/confluence/download/attachments/35901/step5.png?version=1&amp;modificationDate=1162052275000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3257" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="step5.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35901" data-linked-resource-container-version="34"></span></p>
+<p><image><attachment ri:filename="step5.png"></attachment></image></p>
 
-<p>&#160;8. Now if you go to the <a shape="rect" class="external-link" href="http://localhost:8161/admin/topics.jsp" rel="nofollow">Topic Console</a> in the Web Console you should see the topic has been created</p>
+<p>&#160;8. Now if you go to the <a shape="rect" href="http://localhost:8161/admin/topics.jsp">Topic Console</a> in the Web Console you should see the topic has been created</p>
 
-<p>&#160;<span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="xmpp.data/step6-new.png" data-image-src="/confluence/download/attachments/35901/step6-new.png?version=1&amp;modificationDate=1238485212000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="10166" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="step6-new.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35901" data-linked-resource-container-version="34"></span></p>
+<p>&#160;<image><attachment ri:filename="step6-new.png"></attachment></image></p>
 
 
 <p>9. If you now click on the <strong>Send To</strong> link next to the <strong>foo.bar</strong> topic you can send a message to the topic from the web console.&#160;</p>
 
-<p>&#160;<span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="xmpp.data/step7-new.png" data-image-src="/confluence/download/attachments/35901/step7-new.png?version=1&amp;modificationDate=1238485212000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="10167" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="step7-new.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35901" data-linked-resource-container-version="34"></span></p>
+<p>&#160;<image><attachment ri:filename="step7-new.png"></attachment></image></p>
 
-<p>10. Press send and you should see the chat appear on the chat window <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p>
+<p>10. Press send and you should see the chat appear on the chat window <emoticon ac:name="smile"></emoticon></p>
 
-<p>&#160;<span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="xmpp.data/step8.png" data-image-src="/confluence/download/attachments/35901/step8.png?version=1&amp;modificationDate=1162052301000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3241" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="step8.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35901" data-linked-resource-container-version="34"></span></p>
+<p>&#160;<image><attachment ri:filename="step8.png"></attachment></image></p>
 
-<h3 id="XMPP-Jabberclientscompatibility">Jabber clients compatibility</h3>
+<h3>Jabber clients compatibility</h3>
 
 <p>Here you can find specfic issues and workarounds for various Jabber clients. If you have some of your own, please post them here.</p>
 
-<h4 id="XMPP-Spark">Spark</h4>
+<h4>Spark</h4>
 
-<p>Url: <a shape="rect" class="external-link" href="http://www.igniterealtime.org/projects/spark/index.jsp" rel="nofollow">http://www.igniterealtime.org/projects/spark/index.jsp</a><br clear="none">
-Spark 2.0.0 works fine with ActiveMQ; Click <a shape="rect" class="external-link" href="http://www.igniterealtime.org/downloads/download-landing.jsp?file=spark/spark_2_ 0_0.exe" rel="nofollow">here</a> to download: <a shape="rect" class="external-link" href="http://www.igniterealtime.org/downloads/download-landing.jsp?file=spark/spark_2_0_0.exe" rel="nofollow">Spark 2.0.0 for Windows</a>.<br clear="none">
+<p>Url: <a shape="rect" href="http://www.igniterealtime.org/projects/spark/index.jsp">http://www.igniterealtime.org/projects/spark/index.jsp</a><br clear="none">
+Spark 2.0.0 works fine with ActiveMQ; Click <a shape="rect" href="http://www.igniterealtime.org/downloads/download-landing.jsp?file=spark/spark_2_ 0_0.exe">here</a> to download: <a shape="rect" href="http://www.igniterealtime.org/downloads/download-landing.jsp?file=spark/spark_2_0_0.exe">Spark 2.0.0 for Windows</a>.<br clear="none">
 Spark 2.5.x connects fine, but it won't open the <strong>Join Conference Room</strong> dialog.</p>
 
-<h4 id="XMPP-iChat">iChat</h4>
+<h4>iChat</h4>
 
-<p>Url: <a shape="rect" class="external-link" href="http://www.apple.com/macosx/features/ichat.html" rel="nofollow">http://www.apple.com/macosx/features/ichat.html</a><br clear="none">
+<p>Url: <a shape="rect" href="http://www.apple.com/macosx/features/ichat.html">http://www.apple.com/macosx/features/ichat.html</a><br clear="none">
 Tested version 4.0.7 works fine, but it insists you use <em>username@host</em> format for usernames</p>
 
-<h4 id="XMPP-Adium">Adium</h4>
+<h4>Adium</h4>
 
-<p>Url: <a shape="rect" class="external-link" href="http://www.adiumx.com/" rel="nofollow">http://www.adiumx.com/</a><br clear="none">
-Tested version 1.3.3 works fine. The only spotted issue is reconnecting to <a shape="rect" href="command-agent.xml">Command Agent</a> topic. We recommend that you restart the Adium if you need to do this </p></div>
+<p>Url: <a shape="rect" href="http://www.adiumx.com/">http://www.adiumx.com/</a><br clear="none">
+Tested version 1.3.3 works fine. The only spotted issue is reconnecting to <link><page ri:content-title="Command Agent"></page></link> topic. We recommend that you restart the Adium if you need to do this </p></div>
 

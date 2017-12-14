@@ -1,5 +1,4 @@
-<div class="wiki-content maincontent"><h1 id="ApacheActiveMQBoardReport-2009.04(April)-StatusreportfortheApacheActiveMQProject">Status report for the Apache ActiveMQ Project</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[Community:
+<div class="wiki-content maincontent"><h1>Status report for the Apache ActiveMQ Project</h1><structured-macro ac:macro-id="8750c421-9c4d-459f-9384-dccd065a1251" ac:name="code" ac:schema-version="1"><parameter ac:name="">none</parameter><plain-text-body>Community:
  * The ActiveMQ project has had another very busy but quiet quarter.
  * The development and user lists continue to stay vibrant.
  * The Camel sub project has completed moving to a TLP.
@@ -14,6 +13,5 @@ Development:
 Releases:
  * ActiveMQ-CPP 2.2.4
  * ActiveMQ-CPP 2.2.5
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

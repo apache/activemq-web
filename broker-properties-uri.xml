@@ -1,10 +1,7 @@
-<div class="wiki-content maincontent"><h2 id="BrokerPropertiesURI-BrokerPropertiesURI">Broker Properties URI</h2><p>From version 4.2 of ActiveMQ onwards the Broker Properties URI allows you to <a shape="rect" href="run-broker.xml">run a configured broker</a> by referencing a properties file which could be on the classpath, a local file or a remote URL.</p><h4 id="BrokerPropertiesURI-Syntax">Syntax</h4><p><strong>properties:name</strong></p><p>Where name is some name which is resolved on the classpath, as a local file or a remote URL which points to the properties file used to configure the broker.</p><h5 id="BrokerPropertiesURI-ExampleURI">Example URI</h5><p>The following examples show variations in using the URI</p><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>properties:/foo/bar.properties
+<div class="wiki-content maincontent"><h2>Broker Properties URI</h2><p>From version 4.2 of ActiveMQ onwards the Broker Properties URI allows you to <link><page ri:content-title="Run Broker"></page><plain-text-link-body>run a configured broker</plain-text-link-body></link> by referencing a properties file which could be on the classpath, a local file or a remote URL.</p><h4>Syntax</h4><p><strong>properties:name</strong></p><p>Where name is some name which is resolved on the classpath, as a local file or a remote URL which points to the properties file used to configure the broker.</p><h5>Example URI</h5><p>The following examples show variations in using the URI</p><structured-macro ac:macro-id="632155fb-8fe5-43c9-bb92-058d3e71366f" ac:name="noformat" ac:schema-version="1"><plain-text-body>properties:/foo/bar.properties
 properties:foo.properties
 properties:http://foo.com/foo.properties
-</pre>
-</div></div><p>Here is <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/config/broker.properties">an example properties file</a></p><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>## ---------------------------------------------------------------------------
+</plain-text-body></structured-macro><p>Here is <a shape="rect" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/config/broker.properties">an example properties file</a></p><structured-macro ac:macro-id="8e337744-7484-4c40-afec-e78bdd572746" ac:name="noformat" ac:schema-version="1"><plain-text-body>## ---------------------------------------------------------------------------
 ## Licensed to the Apache Software Foundation (ASF) under one or more
 ## contributor license agreements.  See the NOTICE file distributed with
 ## this work for additional information regarding copyright ownership.
@@ -25,6 +22,5 @@ useJmx = false
 persistent = false
 brokerName = Cheese
 # END SNIPPET: example
-</pre>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

@@ -1,7 +1,7 @@
 <div class="wiki-content maincontent">
 
 
-<p>There's a new lightweight library available called <a shape="rect" class="external-link" href="http://activecluster.codehaus.org/" rel="nofollow">ActiveCluster</a> which provides a simple cluster abstraction on top of some of the core APIs in JMS. This API allows you to monitor nodes in a cluster, watch them come &amp; go or update their state - or send and receive messages, direct to a member of the cluster or as the group as a whole. For more details on the API see this <a shape="rect" class="external-link" href="http://activecluster.codehaus.org/Overview" rel="nofollow">overview</a>.</p>
+<p>There's a new lightweight library available called <a shape="rect" href="http://activecluster.codehaus.org/">ActiveCluster</a> which provides a simple cluster abstraction on top of some of the core APIs in JMS. This API allows you to monitor nodes in a cluster, watch them come &amp; go or update their state - or send and receive messages, direct to a member of the cluster or as the group as a whole. For more details on the API see this <a shape="rect" href="http://activecluster.codehaus.org/Overview">overview</a>.</p>
 
-<p>ActiveCluster can sit neatly on top of ActiveMQ to provide a lightweight, scalable and partitionable cluster communication fabric. See the <a shape="rect" class="external-link" href="http://activecluster.codehaus.org/Examples?refresh=1" rel="nofollow">examples</a> as a quick way to get started.</p></div>
+<p>ActiveCluster can sit neatly on top of ActiveMQ to provide a lightweight, scalable and partitionable cluster communication fabric. See the <a shape="rect" href="http://activecluster.codehaus.org/Examples?refresh=1">examples</a> as a quick way to get started.</p></div>
 

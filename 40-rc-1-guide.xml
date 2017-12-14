@@ -1,40 +1,21 @@
 <div class="wiki-content maincontent">
-<h1 id="id-4.0RC1Guide-ActiveMQ4.0-RC-1ReleaseGuide">ActiveMQ 4.0-RC-1 Release Guide</h1>
+<h1>ActiveMQ 4.0-RC-1 Release Guide</h1>
 
+<structured-macro ac:macro-id="17ebdd42-c7a8-4eb7-a100-f0f437346bd8" ac:name="include" ac:schema-version="1"><parameter ac:name=""><link><page ri:content-title="Release Info"></page></link></parameter></structured-macro>
 
-<h2 id="id-4.0RC1Guide-GeneralReleaseInformation">General Release Information</h2>
-
-<ul><li><a shape="rect" class="external-link" href="http://jira.activemq.org/jira/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel" rel="nofollow">Current RoadMap</a></li><li><a shape="rect" href="release-guide.xml">Release Guide</a></li><li><a shape="rect" class="external-link" href="http://wiki.apache.org/incubator/SigningReleases">Signing Releases</a></li><li><a shape="rect" class="external-link" href="http://apache.org/dev/mirrors.html">Apache Mirror Guidelines</a></li></ul>
-
-<h2 id="id-4.0RC1Guide-ReleaseManager">Release Manager</h2>
+<h2>Release Manager</h2>
 
 <p><strong>Hiram Chirino</strong></p>
 
-<h2 id="id-4.0RC1Guide-Specialissues">Special issues</h2>
+<h2>Special issues</h2>
 
 <p>We are still in the Incubator so need to ensure that all the proper disclaimers are in place and that the artifacts are all properly named <strong>incubator-activemq</strong>.</p>
 
-<h2 id="id-4.0RC1Guide-OpenIssuesHoldinguptheRelease">Open Issues Holding up the Release</h2>
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
-</div>
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Macro params are invalid
-</div>
+<h2>Open Issues Holding up the Release</h2>
+<structured-macro ac:macro-id="7f85f0ae-2822-4605-ab32-ebb3aa92f7d9" ac:name="jiraissues" ac:schema-version="1"><parameter ac:name="url"><url ri:value="http://jira.activemq.org/jira/secure/IssueNavigator.jspa?view=rss&amp;&amp;pid=10520&amp;fixfor=11727&amp;status=1&amp;status=3&amp;status=4&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;sorter/field=priority&amp;sorter/order=DESC&amp;tempMax=25&amp;reset=true&amp;decorator=none"></url></parameter></structured-macro><structured-macro ac:macro-id="868dcc2d-8785-4981-a107-a08e9d4fe594" ac:name="jiraissues" ac:schema-version="1"></structured-macro>
 
+<h2>Issues Resolved for this Release</h2>
+<structured-macro ac:macro-id="3e18b6b8-907d-438e-bdec-0a23f820a52a" ac:name="jiraissues" ac:schema-version="1"><parameter ac:name="url"><url ri:value="http://jira.activemq.org/jira/secure/IssueNavigator.jspa?view=rss&amp;&amp;pid=10520&amp;fixfor=11727&amp;status=5&amp;status=6&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;sorter/field=priority&amp;sorter/order=DESC&amp;tempMax=1000&amp;reset=true&amp;decorator=none"></url></parameter></structured-macro><structured-macro ac:macro-id="bba04820-7f10-4ff3-b1a2-53f3286f6910" ac:name="jiraissues" ac:schema-version="1"></structured-macro>
 
-<h2 id="id-4.0RC1Guide-IssuesResolvedforthisRelease">Issues Resolved for this Release</h2>
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
-</div>
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Macro params are invalid
-</div>
-
-
-<h2 id="id-4.0RC1Guide-HowtoHelp">How to Help</h2>
-
-<p>Everyone in the ActiveMQ community can help with releases; users, developers, commmiters are all encouraged to test out a release and post any comments to the <a shape="rect" href="mailing-lists.xml">activemq-dev@ mailing list</a> or create a <a shape="rect" class="external-link" href="https://issues.apache.org/activemq/browse/AMQ">JIRA</a> issue.</p>
-
-<p>ActiveMQ is available in both source and binary distributions.  See <a shape="rect" href="getting-started.xml">Getting Started</a>.</p></div>
+<structured-macro ac:macro-id="bfcc4b7b-12e5-4794-ae41-818eb0fc337d" ac:name="include" ac:schema-version="1"><parameter ac:name=""><link><page ri:content-title="How you can help release"></page></link></parameter></structured-macro></div>
 

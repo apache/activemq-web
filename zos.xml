@@ -1,4 +1,4 @@
-<div class="wiki-content maincontent"><h1 id="zOS-RunningActiveMQonz/OS">Running ActiveMQ on z/OS</h1>
+<div class="wiki-content maincontent"><h1>Running ActiveMQ on z/OS</h1>
 
 <p>It is relatively straightforward to run the ActiveMQ broker on z/OS.</p>
 
@@ -9,24 +9,23 @@
    3. Run using JZOS<br clear="none">
    4. Test</p>
 
-<h3 id="zOS-CopyActiveMQtoz/OS">Copy ActiveMQ to z/OS</h3>
+<h3>Copy ActiveMQ to z/OS</h3>
 
-<ul><li>Ensure that the 1.5 JVM is available on z/OS, together with the <a shape="rect" class="external-link" href="http://www.dovetail.com/docs/jzos/index.html" rel="nofollow">JZOS</a> component.</li><li>Download the .zip version of ActiveMQ from Apache.</li><li>FTP the broker to a suitable directory in USS.</li><li>Log into USS using rlogin or whatever has been configured at your site to do a login into USS.</li><li>Extract the zip file using the command: jar -xvf apache-activemq-5.0.0.zip</li><li>This will extract the whole package in ASCII, so do not except any of the files to be viewable on z/OS, except using special editors suitable for ASCII.</li><li>Maybe rename the directory to which the files were extracted to something shorter or create a softlink for more convenient access.</li></ul>
+<ul><li>Ensure that the 1.5 JVM is available on z/OS, together with the <a shape="rect" href="http://www.dovetail.com/docs/jzos/index.html">JZOS</a> component.</li><li>Download the .zip version of ActiveMQ from Apache.</li><li>FTP the broker to a suitable directory in USS.</li><li>Log into USS using rlogin or whatever has been configured at your site to do a login into USS.</li><li>Extract the zip file using the command: jar -xvf apache-activemq-5.0.0.zip</li><li>This will extract the whole package in ASCII, so do not except any of the files to be viewable on z/OS, except using special editors suitable for ASCII.</li><li>Maybe rename the directory to which the files were extracted to something shorter or create a softlink for more convenient access.</li></ul>
 
 
-<h3 id="zOS-Modifytheconfiguration">Modify the configuration</h3>
+<h3>Modify the configuration</h3>
 
 <p>Currently, the Jetty plugin does not work on z/OS, so need to be disabled in the activemq.xml file.</p>
 
 <ul><li>FTP the activemq.xml file from the conf directory in the ActiveMQ installation to your PC in binary mode.</li><li>Edit the XML file using your XML editor or a text editor like Wordpad.</li><li>Search for "jetty" in the XML.</li><li>Change the comment block so that jetty is completely commented out.</li><li>Save the file.</li><li>FTP the file back into the location on z/OS it came from, again in binary mode, so that it is preserved as an ASCII file.</li></ul>
 
 
-<h3 id="zOS-RunusingJZOS">Run using JZOS</h3>
+<h3>Run using JZOS</h3>
 
 <p>I have renamed the lib/optional directory in USS and shortened some of the lib/optional jar names to make the JCL easier to handle. The JCL to run the ActiveMQ broker is then:</p>
 
-<div class="code panel pdl" style="border-style: solid;border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;border-bottom-style: solid;"><b>ACTIVEMQ.JCL</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="9ff805fd-64d6-42b8-8c77-40ca683d592b" ac:name="code" ac:schema-version="1"><parameter ac:name="title">ACTIVEMQ.JCL</parameter><parameter ac:name="borderStyle">solid</parameter><plain-text-body>
 //ACTIVEMQ JOB   (),
 //         CLASS=A,                                                    
 //         MSGCLASS=X,                                                 
@@ -41,9 +40,9 @@
 //* Batch job to run Tomcat under JZOS                                 
 //*                                                                    
 //* Tailor the proc and job for your installation:                     
-//* 1.) Modify the Job card per your installation&#39;s requirements       
+//* 1.) Modify the Job card per your installation's requirements       
 //* 2.) Modify the PROCLIB card to point to JZOS proclib               
-//* 3.) Set VERSION=&#39;14&#39; for Java 1.4 or VERSION=&#39;50&#39; for Java 5       
+//* 3.) Set VERSION='14' for Java 1.4 or VERSION='50' for Java 5       
 //* 4.) Set JAVA_HOME to point the location of the Java SDK            
 //* 5.) Set CATALINA_HOME to point to the shared Tomcat install dir    
 //* 6.) (Optional) set CATALINA_BASE to point to instance specific     
@@ -52,9 +51,9 @@
 //*********************************************************************
 //*                                                                    
 //JAVA EXEC PROC=JVMPRC50,                                             
-// LOGLVL=&#39;+D&#39;,
-// JAVACLS=&#39;org.apache.activemq.console.Main&#39;,
-// ARGS=&#39;start&#39;
+// LOGLVL='+D',
+// JAVACLS='org.apache.activemq.console.Main',
+// ARGS='start'
 //STDENV DD *
 # This is a shell script which configures
 # any environment variables for the Java JVM.
@@ -62,58 +61,58 @@
 . /etc/profile
 export JAVA_HOME=/space/javaV5_31/J5.0 
 AMQ_HOME=/home/user/activemq/amq
-ACTIVEMQ_BASE=&quot;$AMQ_HOME&quot;
+ACTIVEMQ_BASE="$AMQ_HOME"
 
-export PATH=/bin:&quot;${JAVA_HOME}&quot;/bin:
+export PATH=/bin:"${JAVA_HOME}"/bin:
 
-LIBPATH=/lib:/usr/lib:&quot;${JAVA_HOME}&quot;/bin
-LIBPATH=&quot;$LIBPATH&quot;:&quot;${JAVA_HOME}&quot;/bin/classic
-export LIBPATH=&quot;$LIBPATH&quot;:
+LIBPATH=/lib:/usr/lib:"${JAVA_HOME}"/bin
+LIBPATH="$LIBPATH":"${JAVA_HOME}"/bin/classic
+export LIBPATH="$LIBPATH":
 
-CLASSPATH=&quot;${JAVA_HOME}/lib/tools.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/conf&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/activemq-all-5.0.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/bin/run.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/bin/wrapper.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/activation-1.1.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/activemq-console-5.0.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/activemq-core-5.0.0-tests.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/activemq-core-5.0.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/activemq-jaas-5.0.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/activemq-web-5.0.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/camel-core-1.2.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/camel-jms-1.2.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/camel-spring-1.2.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/commons-logging-1.1.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/geronimo-j2ee-management_1.0_spec-1.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/geronimo-jms_1.1_spec-1.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/geronimo-jta_1.0.1B_spec-1.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/jaxb-api-2.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/jaxb-impl-2.0.3.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/stax-1.2.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/stax-api-1.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/spring-2.0.6.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/xbean.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/jetty-6.1.4.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/jetty-util-6.1.4.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/activeio-core-3.1.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/geronimo-j2ee-connector.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/activeio-core-tests.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/geronimo-j2ee-jacc.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/activemq-optional-5.0.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/activemq-xmpp-5.0.0.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/jmdns-1.0-RC2.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/commons-beanutils-1.6.1.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/log4j-1.2.14.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/commons-collections-3.1.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/servlet-api-2.5-6.1.4.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/commons-dbcp-1.2.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/commons-httpclient-2.0.1.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/commons-pool-1.2.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/xmlpull-1.1.3.4d_b4_min.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/derby-10.1.3.1.jar&quot;
-CLASSPATH=&quot;$CLASSPATH&quot;:&quot;$AMQ_HOME/lib/opt/xstream-1.1.2.jar&quot;
-export CLASSPATH=&quot;$CLASSPATH&quot;:
+CLASSPATH="${JAVA_HOME}/lib/tools.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/conf"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/activemq-all-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/bin/run.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/bin/wrapper.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activation-1.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activemq-console-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activemq-core-5.0.0-tests.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activemq-core-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activemq-jaas-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/activemq-web-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/camel-core-1.2.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/camel-jms-1.2.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/camel-spring-1.2.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/commons-logging-1.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/geronimo-j2ee-management_1.0_spec-1.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/geronimo-jms_1.1_spec-1.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/geronimo-jta_1.0.1B_spec-1.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/jaxb-api-2.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/jaxb-impl-2.0.3.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/stax-1.2.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/stax-api-1.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/spring-2.0.6.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/xbean.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/jetty-6.1.4.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/jetty-util-6.1.4.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/activeio-core-3.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/geronimo-j2ee-connector.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/activeio-core-tests.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/geronimo-j2ee-jacc.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/activemq-optional-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/activemq-xmpp-5.0.0.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/jmdns-1.0-RC2.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/commons-beanutils-1.6.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/log4j-1.2.14.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/commons-collections-3.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/servlet-api-2.5-6.1.4.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/commons-dbcp-1.2.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/commons-httpclient-2.0.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/commons-pool-1.2.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/xmlpull-1.1.3.4d_b4_min.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/derby-10.1.3.1.jar"
+CLASSPATH="$CLASSPATH":"$AMQ_HOME/lib/opt/xstream-1.1.2.jar"
+export CLASSPATH="$CLASSPATH":
 
 # Set JZOS specific options
 # Use this variable to specify encoding for DD STDOUT and STDERR
@@ -121,41 +120,40 @@ export CLASSPATH=&quot;$CLASSPATH&quot;:
 # Use this variable to prevent JZOS from handling MVS operator commands
 #export JZOS_ENABLE_MVS_COMMANDS=false
 # Use this variable to supply additional arguments to main
-#export JZOS_MAIN_ARGS=&quot;&quot;
+#export JZOS_MAIN_ARGS=""
 
 # Configure JVM options
 # Note that ActiveMQ requires default ASCII file.encoding
-IJO=&quot;-Xms64m -Xmx512m&quot;
-IJO=&quot;$IJO -Dfile.encoding=ISO8859-1&quot;
-IJO=&quot;$IJO -Dcom.sun.management.jmxremote&quot;
-IJO=&quot;$IJO -Dorg.apache.activemq.UseDedicatedTaskRunner=true&quot;
-IJO=&quot;$IJO -Dderby.system.home=${ACTIVEMQ_BASE}/data&quot;
-IJO=&quot;$IJO -Dderby.storage.fileSyncTransactionLog=true&quot;
-IJO=&quot;$IJO -Djavax.net.ssl.keyStorePassword=password&quot;
-IJO=&quot;$IJO -Djavax.net.ssl.trustStorePassword=password&quot;
-IJO=&quot;$IJO -Djavax.net.ssl.keyStore=${ACTIVEMQ_BASE}/conf/broker.ks&quot;
-IJO=&quot;$IJO -Djavax.net.ssl.trustStore=${ACTIVEMQ_BASE}/conf/broker.ts&quot;
-IJO=&quot;$IJO -Dactivemq.classpath=${CLASSPATH}&quot;
-IJO=&quot;$IJO -Dactivemq.base=${ACTIVEMQ_BASE}&quot;
-IJO=&quot;$IJO -Dactivemq.home=${AMQ_HOME}&quot;
-IJO=&quot;$IJO -Djava.io.tmpdir=${ACTIVEMQ_BASE}/temp&quot;
+IJO="-Xms64m -Xmx512m"
+IJO="$IJO -Dfile.encoding=ISO8859-1"
+IJO="$IJO -Dcom.sun.management.jmxremote"
+IJO="$IJO -Dorg.apache.activemq.UseDedicatedTaskRunner=true"
+IJO="$IJO -Dderby.system.home=${ACTIVEMQ_BASE}/data"
+IJO="$IJO -Dderby.storage.fileSyncTransactionLog=true"
+IJO="$IJO -Djavax.net.ssl.keyStorePassword=password"
+IJO="$IJO -Djavax.net.ssl.trustStorePassword=password"
+IJO="$IJO -Djavax.net.ssl.keyStore=${ACTIVEMQ_BASE}/conf/broker.ks"
+IJO="$IJO -Djavax.net.ssl.trustStore=${ACTIVEMQ_BASE}/conf/broker.ts"
+IJO="$IJO -Dactivemq.classpath=${CLASSPATH}"
+IJO="$IJO -Dactivemq.base=${ACTIVEMQ_BASE}"
+IJO="$IJO -Dactivemq.home=${AMQ_HOME}"
+IJO="$IJO -Djava.io.tmpdir=${ACTIVEMQ_BASE}/temp"
 
 # Configure SDK5.0 to use shared classes (at group level)
 # You must comment this out if you are not running SDK 5
 groupname=`id -gn`
-IJO=&quot;$IJO -Xshareclasses:name=$groupname,groupAccess&quot;
-export IBM_JAVA_OPTIONS=&quot;$IJO &quot;
+IJO="$IJO -Xshareclasses:name=$groupname,groupAccess"
+export IBM_JAVA_OPTIONS="$IJO "
 
 export JAVA_DUMP_HEAP=false
 export JAVA_PROPAGATE=NO
 export IBM_JAVA_ZOS_TDUMP=NO
 //
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="zOS-Test">Test</h3>
+<h3>Test</h3>
 
 <p>Once the broker has been started on z/OS, modify one of the example application to have the hostname of the z/OS system and run it to confirm that the broker is functioning correctly.</p>
 
-<p>You can also gather information about the broker as usual using <a shape="rect" href="jmx.xml">jmx</a>.</p></div>
+<p>You can also gather information about the broker as usual using <link><page ri:content-title="jmx"></page></link>.</p></div>
 

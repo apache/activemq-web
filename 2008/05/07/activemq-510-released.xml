@@ -1,4 +1,4 @@
-<div class="wiki-content maincontent"><p>The ActiveMQ team is pleased to announce the <a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-510-release.html">ActiveMQ 5.1.0 Release</a>. <a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-510-release.html">ActiveMQ 5.1.0</a> is a much more stable message broker than 5.0.0 and we highly encourage all the 5.0.0 users to upgrade to this release.</p>
+<div class="wiki-content maincontent"><p>The ActiveMQ team is pleased to announce the <a shape="rect" href="http://activemq.apache.org/activemq-510-release.html">ActiveMQ 5.1.0 Release</a>. <a shape="rect" href="http://activemq.apache.org/activemq-510-release.html">ActiveMQ 5.1.0</a> is a much more stable message broker than 5.0.0 and we highly encourage all the 5.0.0 users to upgrade to this release.</p>
 
-<p>For more details on the fixed issues see the <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11802&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a>.</p></div>
+<p>For more details on the fixed issues see the <a shape="rect" href="http://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11802&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a>.</p></div>
 

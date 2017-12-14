@@ -1,12 +1,13 @@
-<div class="wiki-content maincontent"><h2 id="HowdoIdeleteadestination-HowdoIdeleteadestination">How do I delete a destination</h2>
+<div class="wiki-content maincontent"><h2>How do I delete a destination</h2>
 
-<p>via Java code or <a shape="rect" href="jmx.xml">JMX</a> you can grab the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/broker/jmx/BrokerViewMBean.html">BrokerViewMBean</a> and call one of the following methods</p>
+<p>via Java code or <link><page ri:content-title="JMX"></page></link> you can grab the <a shape="rect" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/broker/jmx/BrokerViewMBean.html">BrokerViewMBean</a> and call one of the following methods</p>
 
-<ul><li><a shape="rect" class="external-link" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/broker/jmx/BrokerViewMBean.html#removeQueue(java.lang.String)">removeQueue(String)</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/broker/jmx/BrokerViewMBean.html#removeTopic(java.lang.String)">removeTopic(String)</a></li></ul>
+<ul><li><a shape="rect" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/broker/jmx/BrokerViewMBean.html#removeQueue(java.lang.String)">removeQueue(String)</a></li><li><a shape="rect" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/broker/jmx/BrokerViewMBean.html#removeTopic(java.lang.String)">removeTopic(String)</a></li></ul>
 
 
 
-<h3 id="HowdoIdeleteadestination-Seealso">See also</h3>
+<h3>See also</h3>
 
-<ul><li><a shape="rect" href="how-do-i-create-new-destinations.xml">How do I create new destinations</a></li><li><a shape="rect" href="how-can-i-monitor-activemq.xml">How can I monitor ActiveMQ</a></li><li><a shape="rect" href="jmx.xml">JMX</a></li><li><a shape="rect" href="web-console.xml">Web Console</a></li></ul></div>
+<ul><li><link><page ri:content-title="How do I create new destinations"></page></link></li><li><link><page ri:content-title="How can I monitor ActiveMQ"></page></link></li><li><link><page ri:content-title="JMX"></page></link></li><li><link><page ri:content-title="Web Console"></page></link></li></ul>
+</div>
 

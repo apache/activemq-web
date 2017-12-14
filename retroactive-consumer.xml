@@ -1,21 +1,19 @@
-<div class="wiki-content maincontent"><h2 id="RetroactiveConsumer-Background">Background</h2>
+<div class="wiki-content maincontent"><h2>Background</h2>
 
 <p>A retroactive consumer is just a regular JMS <strong>Topic</strong> consumer who indicates that at the start of a subscription every attempt should be used to go back in time and send any old messages (or the last message sent on that topic) that the consumer may have missed.</p>
 
-<p>See the <a shape="rect" href="subscription-recovery-policy.xml">Subscription Recovery Policy</a> for more detail.</p>
+<p>See the <link><page ri:content-title="Subscription Recovery Policy"></page></link> for more detail.</p>
 
-<h3 id="RetroactiveConsumer-Example">Example</h3>
+<h3>Example</h3>
 
 <p>You mark a Consumer as being retroactive as follows:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-topic = new ActiveMQTopic(&quot;TEST.Topic?consumer.retroactive=true&quot;);
+<structured-macro ac:macro-id="462c0993-e6fb-4e86-84d7-558eaea7c411" ac:name="code" ac:schema-version="1"><parameter ac:name="">java</parameter><plain-text-body>
+topic = new ActiveMQTopic("TEST.Topic?consumer.retroactive=true");
 consumer = session.createConsumer(topic);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h2 id="RetroactiveConsumer-Limitations">Limitations</h2>
+<h2>Limitations</h2>
 
 <p>Retroactive consumer will not consistently work when used across a network of brokers.</p>
 

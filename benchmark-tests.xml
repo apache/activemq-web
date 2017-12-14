@@ -1,9 +1,10 @@
-<div class="wiki-content maincontent"><h2 id="BenchmarkTests-ActiveMQMavenPerformancetestplugin.">ActiveMQ Maven Performance test plugin.</h2>
+<div class="wiki-content maincontent"><h2>ActiveMQ Maven Performance test plugin.</h2>
 
-<p>Starting with ActiveMQ 5.5 and above the plugin can be obtained from maven or if you download the src from SVN you can build it yourself.  To run the following Maven goals make sure you are inside a Maven2 project directory where its POM is enabled with the Maven2 plugin.  The plugin is further documented <a shape="rect" href="activemq-performance-module-users-manual.xml">here</a>.</p>
+<p>Starting with ActiveMQ 5.5 and above the plugin can be obtained from maven or if you download the src from SVN you can build it yourself.  To run the following Maven goals make sure you are inside a Maven2 project directory where its POM is enabled with the Maven2 plugin.  The plugin is further documented <link><page ri:content-title="ActiveMQ Performance Module Users Manual"></page><link-body>here</link-body></link>.</p>
 
-<h2 id="BenchmarkTests-Third-PartyJMSperformancetests">Third-Party JMS performance tests</h2>
+<h2>Third-Party JMS performance tests</h2>
 
 <p>There are a number of third-party JMS performance test tools that can be used to measure the performance of various features of brokers and compare them.</p>
-<ul><li><a shape="rect" class="external-link" href="http://jmeter.apache.org/">Apache JMeter</a></li><li><a shape="rect" class="external-link" href="https://github.com/chirino/jms-benchmark" rel="nofollow">jms-benchmark</a></li></ul></div>
+<ul><li><a shape="rect" href="http://jmeter.apache.org/">Apache JMeter</a></li><li><a shape="rect" href="https://github.com/chirino/jms-benchmark">jms-benchmark</a></li></ul>
+</div>
 

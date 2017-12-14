@@ -1,5 +1,4 @@
-<div class="wiki-content maincontent"><div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>Community:
+<div class="wiki-content maincontent"><structured-macro ac:macro-id="b7e799f9-4d6a-4397-900e-7eb12546bcac" ac:name="noformat" ac:schema-version="1"><plain-text-body>Community:
  * The ActiveMQ project has had another very busy but quiet quarter.
  * The development and user lists continue to stay vibrant.
  * New PMC members: Dejan Bosanac
@@ -16,6 +15,5 @@ Releases:
  * ActiveMQ-CPP 3.0.0
  * ActiveMQ-CPP 3.0.1
 
-</pre>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

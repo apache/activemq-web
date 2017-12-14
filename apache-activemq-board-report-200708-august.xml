@@ -1,5 +1,4 @@
-<div class="wiki-content maincontent"><h1 id="ApacheActiveMQBoardReport-2007.08(August)-StatusreportfortheApacheActiveMQProject">Status report for the Apache ActiveMQ Project</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[July board report was missed in part due to a change in PMC chair.
+<div class="wiki-content maincontent"><h1>Status report for the Apache ActiveMQ Project</h1><structured-macro ac:macro-id="5a6c948d-f150-4690-9906-a96776c77ce9" ac:name="code" ac:schema-version="1"><parameter ac:name="">none</parameter><plain-text-body>July board report was missed in part due to a change in PMC chair.
 
 Community:
  * The developer and user communities remain very active.
@@ -18,6 +17,5 @@ Maintenance Releases:
  * ActiveMQ CPP 2.0.1 - Updated to use the CMS 1.0 API
  * ActiveMQ CMS 1.1 - Updated to build as a shared lib
 
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

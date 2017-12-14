@@ -1,4 +1,4 @@
 <div class="wiki-content maincontent"><p>This is where you will find examples of how to use the NMS API.  These examples demonstrate using the NMS API generically and are limited to features exposed directly through the API model.  For examples covering more advanced features of a specific NMS Provider, refer to the documentation for that NMS Provider.</p>
 
-<ul class="childpages-macro"><li><a shape="rect" href="nms-simple-asynchronous-consumer-example.xml">NMS Simple Asynchronous Consumer Example</a></li><li><a shape="rect" href="nms-simple-synchornous-consumer-example.xml">NMS Simple Synchornous Consumer Example</a></li></ul></div>
+<structured-macro ac:macro-id="ad2ff0b3-960d-4232-960a-33036f4b83af" ac:name="children" ac:schema-version="1"><parameter ac:name="depth">2</parameter></structured-macro></div>
 

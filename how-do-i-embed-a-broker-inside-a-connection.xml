@@ -1,136 +1,116 @@
-<div class="wiki-content maincontent"><p>In many messaging topologies there are JMS Brokers (server side) and a JMS client side. Often it makes sense to deploy a broker within your JVM. This allows you to optimise away a network hop; making the networking of JMS as efficient as pure RMI, but with all the usual JMS features of location independence, reliability, load balancing etc.</p><p>There are various ways to embed a broker in ActiveMQ depending on if you are using Java, Spring, XBean or using the ActiveMQConnectionFactory .</p><h3 id="HowdoIembedaBrokerinsideaConnection-UsingexplicitJavacode">Using explicit Java code</h3><p>The following Java code will create an embedded broker</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[BrokerService broker = new BrokerService();
+<div class="wiki-content maincontent"><p>In many messaging topologies there are JMS Brokers (server side) and a JMS client side. Often it makes sense to deploy a broker within your JVM. This allows you to optimise away a network hop; making the networking of JMS as efficient as pure RMI, but with all the usual JMS features of location independence, reliability, load balancing etc.</p><p>There are various ways to embed a broker in ActiveMQ depending on if you are using Java, Spring, XBean or using the ActiveMQConnectionFactory .</p><h3>Using explicit Java code</h3><p>The following Java code will create an embedded broker</p><structured-macro ac:macro-id="9eaa5bb3-576f-42b5-9c4b-04d93d7c7ee6" ac:name="code" ac:schema-version="1"><plain-text-body>BrokerService broker = new BrokerService();
 
 // configure the broker
-broker.addConnector(&quot;tcp://localhost:61616&quot;);
+broker.addConnector("tcp://localhost:61616");
 
 broker.start();
-]]></script>
-</div></div><p>If you want to lazily bind the transport connector as part of start(), useful when start() will block pending a store lock (as in a slave start), you can use the following code</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[BrokerService broker = new BrokerService();
+</plain-text-body></structured-macro><p>If you want to lazily bind the transport connector as part of start(), useful when start() will block pending a store lock (as in a slave start), you can use the following code</p><structured-macro ac:macro-id="ac608f29-1173-4703-b0cc-192bed0dd67f" ac:name="code" ac:schema-version="1"><plain-text-body>BrokerService broker = new BrokerService();
 
 TransportConnector connector = new TransportConnector();
-connector.setUri(new URI(&quot;tcp://localhost:61616&quot;));
+connector.setUri(new URI("tcp://localhost:61616"));
 broker.addConnector(connector);
 broker.start();
-]]></script>
-</div></div><p>In the same JVM clients can then use the <a shape="rect" href="vm-transport-reference.xml">vm:// transport</a> to connect to the embedded broker - whilst external clients can use the <a shape="rect" href="tcp-transport-reference.xml">tcp:// protocol</a></p><p>If you have more than one embedded broker, ensure that you give them a unique name and - e.g.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[BrokerService broker = new BrokerService();
+</plain-text-body></structured-macro><p>In the same JVM clients can then use the <link><page ri:content-title="VM Transport Reference"></page><plain-text-link-body>vm:// transport</plain-text-link-body></link> to connect to the embedded broker - whilst external clients can use the <link><page ri:content-title="TCP Transport Reference"></page><plain-text-link-body>tcp:// protocol</plain-text-link-body></link></p><p>If you have more than one embedded broker, ensure that you give them a unique name and - e.g.</p><structured-macro ac:macro-id="ab19815a-2dfd-4e65-a5be-b8210339a28c" ac:name="code" ac:schema-version="1"><plain-text-body>BrokerService broker = new BrokerService();
 // configure the broker
-broker.setBrokerName(&quot;fred&quot;);
-broker.addConnector(&quot;tcp://localhost:61616&quot;);
+broker.setBrokerName("fred");
+broker.addConnector("tcp://localhost:61616");
 broker.start();
-]]></script>
-</div></div><p>Then if you want to connect to the broker named 'fred' from within the same JVM, you can by using the uri <strong>vm://fred</strong></p><p>It is possible to fully configure a broker through application code e.g.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[BrokerService broker = new BrokerService();
-broker.setBrokerName(&quot;fred&quot;);
+</plain-text-body></structured-macro><p>Then if you want to connect to the broker named 'fred' from within the same JVM, you can by using the uri <strong>vm://fred</strong></p><p>It is possible to fully configure a broker through application code e.g.</p><structured-macro ac:macro-id="7e0ebf92-ef49-416b-b093-0dd90aa42955" ac:name="code" ac:schema-version="1"><plain-text-body>BrokerService broker = new BrokerService();
+broker.setBrokerName("fred");
 broker.setUseShutdownHook(false);
 //Add plugin
 broker.setPlugins(new BrokerPlugin[]{new JaasAuthenticationPlugin()});
 //Add a network connection
-NetworkConnector connector = answer.addNetworkConnector(&quot;static://&quot;+&quot;tcp://somehost:61616&quot;);
+NetworkConnector connector = answer.addNetworkConnector("static://"+"tcp://somehost:61616");
 connector.setDuplex(true);
-broker.addConnector(&quot;tcp://localhost:61616&quot;);
+broker.addConnector("tcp://localhost:61616");
 broker.start();
-]]></script>
-</div></div><div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Please note that you should add plugins before connectors or they will not be initialized</p></div></div><p>For more details on the available properties you can specify, see the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/5.11.0/apidocs/org/apache/activemq/broker/BrokerService.html">BrokerService javadoc</a></p><h3 id="HowdoIembedaBrokerinsideaConnection-UsingtheBrokerFactory">Using the BrokerFactory</h3><p>There is a helper class called <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/broker/BrokerFactory.html">BrokerFactory</a> which can be used to create a broker via URI for configuration.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[BrokerService broker = BrokerFactory.createBroker(new URI(someURI));
-]]></script>
-</div></div><p>The available values of the URI are</p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>URI scheme</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Example</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>xbean:</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>xbean:activemq.xml</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Searches the classpath (and file system) for an XML document with the given URI (activemq.xml in this case) which will then be used as the <a shape="rect" href="xml-configuration.xml">Xml Configuration</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>broker:</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>broker:tcp://localhost:61616</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Uses the <a shape="rect" href="broker-configuration-uri.xml">Broker Configuration URI</a> to confgure the broker</p></td></tr></tbody></table></div><h3 id="HowdoIembedaBrokerinsideaConnection-UsingSpring">Using Spring</h3><p>There is a factory bean that can refer to an external ActiveMQ XML configuration file</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;bean id=&quot;broker&quot; class=&quot;org.apache.activemq.xbean.BrokerFactoryBean&quot;&gt;
-    &lt;property name=&quot;config&quot; value=&quot;classpath:org/apache/activemq/xbean/activemq.xml&quot; /&gt;
-    &lt;property name=&quot;start&quot; value=&quot;true&quot; /&gt;
+</plain-text-body></structured-macro><structured-macro ac:macro-id="b7967e06-0454-4e9a-af9a-5c24b63b0501" ac:name="note" ac:schema-version="1"><rich-text-body><p>Please note that you should add plugins before connectors or they will not be initialized</p></rich-text-body></structured-macro><p>For more details on the available properties you can specify, see the <a shape="rect" href="http://activemq.apache.org/maven/5.11.0/apidocs/org/apache/activemq/broker/BrokerService.html">BrokerService javadoc</a></p><h3>Using the BrokerFactory</h3><p>There is a helper class called <a shape="rect" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/broker/BrokerFactory.html">BrokerFactory</a> which can be used to create a broker via URI for configuration.</p><structured-macro ac:macro-id="a8d3bdfc-dd6d-4a02-aa2e-76524c94fc34" ac:name="code" ac:schema-version="1"><plain-text-body>BrokerService broker = BrokerFactory.createBroker(new URI(someURI));
+</plain-text-body></structured-macro><p>The available values of the URI are</p><table><tbody><tr><th colspan="1" rowspan="1"><p>URI scheme</p></th><th colspan="1" rowspan="1"><p>Example</p></th><th colspan="1" rowspan="1"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1"><p>xbean:</p></td><td colspan="1" rowspan="1"><p>xbean:activemq.xml</p></td><td colspan="1" rowspan="1"><p>Searches the classpath (and file system) for an XML document with the given URI (activemq.xml in this case) which will then be used as the <link><page ri:content-title="Xml Configuration"></page></link></p></td></tr><tr><td colspan="1" rowspan="1"><p>broker:</p></td><td colspan="1" rowspan="1"><p>broker:tcp://localhost:61616</p></td><td colspan="1" rowspan="1"><p>Uses the <link><page ri:content-title="Broker Configuration URI"></page></link> to confgure the broker</p></td></tr></tbody></table><h3>Using Spring</h3><p>There is a factory bean that can refer to an external ActiveMQ XML configuration file</p><structured-macro ac:macro-id="2243664c-6d07-401c-94c7-af12ccb45fbf" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;bean id="broker" class="org.apache.activemq.xbean.BrokerFactoryBean"&gt;
+    &lt;property name="config" value="classpath:org/apache/activemq/xbean/activemq.xml" /&gt;
+    &lt;property name="start" value="true" /&gt;
   &lt;/bean&gt;
-]]></script>
-</div></div><p>In this case the usual Spring 'classpath:org/apache/activemq/xbean/activemq.xml' resource mechanism is being used so that the activemq.xml file would be found on the classpath by looking inside all the directories on the classpath then looking for 'org/apache/activemq/xbean/activemq.xml'. You can of course change this to any value you like. e.g. use classpath:activemq.xml if you just want to drop it in a directory that is in the classpath; like WEB-INF/classes in a web application.</p><p>If you wish you can use a URL instead using the <strong>file:* or *http:</strong> prefixes. For more details see how <a shape="rect" class="external-link" href="http://static.springframework.org/spring/docs/1.2.x/reference/beans.html#context-functionality-resources" rel="nofollow">Spring deals with resources</a></p><h3 id="HowdoIembedaBrokerinsideaConnection-UsingXBean">Using XBean</h3><p>If you are already using <a shape="rect" class="external-link" href="http://geronimo.apache.org/xbean/">XBean</a> then you can just mix and match your Spring/XBean <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-core/src/test/resources/org/apache/activemq/xbean/activemq.xml">XML configuration</a> with ActiveMQ's configuration.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans 
-  xmlns=&quot;http://www.springframework.org/schema/beans&quot; 
-  xmlns:amq=&quot;http://activemq.apache.org/schema/core&quot;
-  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd&quot;&gt;
+</plain-text-body></structured-macro><p>In this case the usual Spring 'classpath:org/apache/activemq/xbean/activemq.xml' resource mechanism is being used so that the activemq.xml file would be found on the classpath by looking inside all the directories on the classpath then looking for 'org/apache/activemq/xbean/activemq.xml'. You can of course change this to any value you like. e.g. use classpath:activemq.xml if you just want to drop it in a directory that is in the classpath; like WEB-INF/classes in a web application.</p><p>If you wish you can use a URL instead using the <strong>file:* or *http:</strong> prefixes. For more details see how <a shape="rect" href="http://static.springframework.org/spring/docs/1.2.x/reference/beans.html#context-functionality-resources">Spring deals with resources</a></p><h3>Using XBean</h3><p>If you are already using <a shape="rect" href="http://geronimo.apache.org/xbean/">XBean</a> then you can just mix and match your Spring/XBean <a shape="rect" href="https://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-core/src/test/resources/org/apache/activemq/xbean/activemq.xml">XML configuration</a> with ActiveMQ's configuration.</p><structured-macro ac:macro-id="8349179f-1e83-4dd6-801a-e787987af165" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;beans 
+  xmlns="http://www.springframework.org/schema/beans" 
+  xmlns:amq="http://activemq.apache.org/schema/core"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd"&gt;
 
-  &lt;bean class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;/&gt;
+  &lt;bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/&gt;
 
-  &lt;broker useJmx=&quot;true&quot; xmlns=&quot;http://activemq.apache.org/schema/core&quot;&gt;
+  &lt;broker useJmx="true" xmlns="http://activemq.apache.org/schema/core"&gt;
 
     &lt;persistenceFactory&gt;
-      &lt;kahaDB directory=&quot;${basedir}/target&quot; /&gt;
+      &lt;kahaDB directory="${basedir}/target" /&gt;
     &lt;/persistenceFactory&gt;
 
     &lt;transportConnectors&gt;
-      &lt;transportConnector uri=&quot;tcp://localhost:61636&quot; /&gt;
+      &lt;transportConnector uri="tcp://localhost:61636" /&gt;
     &lt;/transportConnectors&gt;
 
   &lt;/broker&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div><h3 id="HowdoIembedaBrokerinsideaConnection-UsingSpring2.0">Using Spring 2.0</h3><p>If you are using Spring 2.0 and ActiveMQ 4.1 or later (and xbean-spring 2.5 or later) you can embed the ActiveMQ broker XML inside any regular Spring.xml file without requiring the above factory bean. e.g. here is an <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-core/src/test/resources/spring-embedded-xbean.xml">example</a> of a regular Spring XML file in Spring 2.0 which also configures a broker.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans 
-  xmlns=&quot;http://www.springframework.org/schema/beans&quot; 
-  xmlns:amq=&quot;http://activemq.apache.org/schema/core&quot;
-  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-  xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd&quot;&gt;
+</plain-text-body></structured-macro><h3>Using Spring 2.0</h3><p>If you are using Spring 2.0 and ActiveMQ 4.1 or later (and xbean-spring 2.5 or later) you can embed the ActiveMQ broker XML inside any regular Spring.xml file without requiring the above factory bean. e.g. here is an <a shape="rect" href="http://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-core/src/test/resources/spring-embedded-xbean.xml">example</a> of a regular Spring XML file in Spring 2.0 which also configures a broker.</p><structured-macro ac:macro-id="fe131cb2-ea4a-4f1f-a40a-fc78932b400b" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;beans 
+  xmlns="http://www.springframework.org/schema/beans" 
+  xmlns:amq="http://activemq.apache.org/schema/core"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+  http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd"&gt;
   
   &lt;!--  lets create an embedded ActiveMQ Broker --&gt;
-  &lt;amq:broker useJmx=&quot;false&quot; persistent=&quot;false&quot;&gt;
+  &lt;amq:broker useJmx="false" persistent="false"&gt;
     &lt;amq:transportConnectors&gt;
-      &lt;amq:transportConnector uri=&quot;tcp://localhost:0&quot; /&gt;
+      &lt;amq:transportConnector uri="tcp://localhost:0" /&gt;
     &lt;/amq:transportConnectors&gt;
   &lt;/amq:broker&gt;
 
    &lt;!--  ActiveMQ destinations to use  --&gt;
-  &lt;amq:queue id=&quot;destination&quot;  physicalName=&quot;org.apache.activemq.spring.Test.spring.embedded&quot;/&gt;
+  &lt;amq:queue id="destination"  physicalName="org.apache.activemq.spring.Test.spring.embedded"/&gt;
 
   &lt;!-- JMS ConnectionFactory to use, configuring the embedded broker using XML --&gt;
-  &lt;amq:connectionFactory id=&quot;jmsFactory&quot; brokerURL=&quot;vm://localhost&quot;/&gt;
+  &lt;amq:connectionFactory id="jmsFactory" brokerURL="vm://localhost"/&gt;
   
 
   &lt;!-- Spring JMS Template --&gt;
-  &lt;bean id=&quot;myJmsTemplate&quot; class=&quot;org.springframework.jms.core.JmsTemplate&quot;&gt;
-    &lt;property name=&quot;connectionFactory&quot;&gt;
+  &lt;bean id="myJmsTemplate" class="org.springframework.jms.core.JmsTemplate"&gt;
+    &lt;property name="connectionFactory"&gt;
       &lt;!-- lets wrap in a pool to avoid creating a connection per send --&gt;
-      &lt;bean class=&quot;org.springframework.jms.connection.SingleConnectionFactory&quot;&gt;
-        &lt;property name=&quot;targetConnectionFactory&quot;&gt;
-          &lt;ref local=&quot;jmsFactory&quot; /&gt;
+      &lt;bean class="org.springframework.jms.connection.SingleConnectionFactory"&gt;
+        &lt;property name="targetConnectionFactory"&gt;
+          &lt;ref local="jmsFactory" /&gt;
         &lt;/property&gt;
       &lt;/bean&gt;
     &lt;/property&gt;
   &lt;/bean&gt;
 
-  &lt;bean id=&quot;consumerJmsTemplate&quot; class=&quot;org.springframework.jms.core.JmsTemplate&quot;&gt;
-    &lt;property name=&quot;connectionFactory&quot; ref=&quot;jmsFactory&quot;/&gt;
+  &lt;bean id="consumerJmsTemplate" class="org.springframework.jms.core.JmsTemplate"&gt;
+    &lt;property name="connectionFactory" ref="jmsFactory"/&gt;
   &lt;/bean&gt;
 
   &lt;!-- a sample POJO which uses a Spring JmsTemplate --&gt;
-  &lt;bean id=&quot;producer&quot; class=&quot;org.apache.activemq.spring.SpringProducer&quot;&gt;
-    &lt;property name=&quot;template&quot;&gt;
-      &lt;ref bean=&quot;myJmsTemplate&quot;&gt;&lt;/ref&gt;
+  &lt;bean id="producer" class="org.apache.activemq.spring.SpringProducer"&gt;
+    &lt;property name="template"&gt;
+      &lt;ref bean="myJmsTemplate"&gt;&lt;/ref&gt;
     &lt;/property&gt;
 
-    &lt;property name=&quot;destination&quot;&gt;
-      &lt;ref bean=&quot;destination&quot; /&gt;
+    &lt;property name="destination"&gt;
+      &lt;ref bean="destination" /&gt;
     &lt;/property&gt;
 
-    &lt;property name=&quot;messageCount&quot;&gt;
+    &lt;property name="messageCount"&gt;
       &lt;value&gt;10&lt;/value&gt;
     &lt;/property&gt;
   &lt;/bean&gt;
 
   &lt;!-- a sample POJO consumer --&gt;
-  &lt;bean id=&quot;consumer&quot; class=&quot;org.apache.activemq.spring.SpringConsumer&quot;&gt;
-    &lt;property name=&quot;template&quot; ref=&quot;consumerJmsTemplate&quot;/&gt;
-    &lt;property name=&quot;destination&quot; ref=&quot;destination&quot;/&gt;
+  &lt;bean id="consumer" class="org.apache.activemq.spring.SpringConsumer"&gt;
+    &lt;property name="template" ref="consumerJmsTemplate"/&gt;
+    &lt;property name="destination" ref="destination"/&gt;
   &lt;/bean&gt;
 
 &lt;/beans&gt;
-]]></script>
-</div></div><h3 id="HowdoIembedaBrokerinsideaConnection-UsingActiveMQConnectionFactory">Using ActiveMQConnectionFactory</h3><p>An embedded broker can also be created using an ActiveMQConnectionFactory and using a vm connector as a uri. e.g.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory(&quot;vm://localhost?broker.persistent=false&quot;);
-]]></script>
-</div></div><p>Use the query parameters "broker.&lt;property&gt;" to configure the broker, where &lt;property&gt; matches the bean properties on the BrokerService.</p><p>The broker will be created upon creation of the first connection.</p><p>You can turn off auto creation by setting the create property on the VM Transport to false:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory(&quot;vm://localhost?create=false&quot;);
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro><h3>Using ActiveMQConnectionFactory</h3><p>An embedded broker can also be created using an ActiveMQConnectionFactory and using a vm connector as a uri. e.g.</p><structured-macro ac:macro-id="3f36f9a1-bc84-4200-9611-e572416daf76" ac:name="code" ac:schema-version="1"><plain-text-body>ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory("vm://localhost?broker.persistent=false");
+</plain-text-body></structured-macro><p>Use the query parameters "broker.&lt;property&gt;" to configure the broker, where &lt;property&gt; matches the bean properties on the BrokerService.</p><p>The broker will be created upon creation of the first connection.</p><p>You can turn off auto creation by setting the create property on the VM Transport to false:</p><structured-macro ac:macro-id="5d37b378-935e-4ddb-872f-10e99dce2b27" ac:name="code" ac:schema-version="1"><plain-text-body>ActiveMQConnectionFactory cf = new ActiveMQConnectionFactory("vm://localhost?create=false");
+</plain-text-body></structured-macro></div>
 

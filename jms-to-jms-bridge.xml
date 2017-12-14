@@ -1,104 +1,97 @@
-<div class="wiki-content maincontent"><h3 id="JMStoJMSBridge-Introduction">Introduction</h3><div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Warning, try Camel first!</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>Note that we recommend you look at using <a shape="rect" class="external-link" href="http://camel.apache.org/">Apache Camel</a> for bridging ActiveMQ to or from any message broker (or indeed <a shape="rect" class="external-link" href="http://camel.apache.org/components.html">any other technology, protocol or middleware</a>) as its much easier to:</p><ul><li>keep things flexible; its very easy to map different queue/topic to one or more queues or topics on the other provider</li><li>perform content based routing, filtering and other <a shape="rect" class="external-link" href="http://camel.apache.org/enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li>allows you to work with <a shape="rect" class="external-link" href="http://camel.apache.org/components.html">any technology, protocol or middleware</a>, not just JMS providers</li></ul><p>e.g. in your Spring XML file just add:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;camelContext xmlns=&quot;http://camel.apache.org/schema/spring&quot;&gt;
+<div class="wiki-content maincontent"><h3>Introduction</h3><structured-macro ac:macro-id="8f3d34a6-d2b2-4ae6-9592-7af58f76c70a" ac:name="warning" ac:schema-version="1"><parameter ac:name="title">Warning, try Camel first!</parameter><rich-text-body><p>Note that we recommend you look at using <a shape="rect" href="http://camel.apache.org/">Apache Camel</a> for bridging ActiveMQ to or from any message broker (or indeed <a shape="rect" href="http://camel.apache.org/components.html">any other technology, protocol or middleware</a>) as its much easier to:</p><ul><li>keep things flexible; its very easy to map different queue/topic to one or more queues or topics on the other provider</li><li>perform content based routing, filtering and other <a shape="rect" href="http://camel.apache.org/enterprise-integration-patterns.html">Enterprise Integration Patterns</a></li><li>allows you to work with <a shape="rect" href="http://camel.apache.org/components.html">any technology, protocol or middleware</a>, not just JMS providers</li></ul><p>e.g. in your Spring XML file just add:</p><structured-macro ac:macro-id="1c8e34e4-e50f-4c2e-8f5f-b474b46eb8ce" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>&lt;camelContext xmlns="http://camel.apache.org/schema/spring"&gt;
   &lt;route&gt;
-   &lt;from uri=&quot;mqseries:Foo.Bar&quot;/&gt;
-   &lt;to uri=&quot;activemq:Cheese&quot;/&gt;
+   &lt;from uri="mqseries:Foo.Bar"/&gt;
+   &lt;to uri="activemq:Cheese"/&gt;
   &lt;/route&gt;
 &lt;/camelContext&gt;
-]]></script>
-</div></div></div></div><p>ActiveMQ provides bridging functionality to other JMS providers that implement the JMS 1.0.2 and above specification.<br clear="none"> A JMS bridge can be co-located with an ActiveMQ broker or run remotely.<br clear="none"> In order to support JMS 1.0.2 there is seperation between Queues and Topics.</p><p>temporary destinations and replyTo destinations in the inbound message exchanges are automatically handled, enabling an ActiveMQ service to handle a foreign JMS TopicRequestor or QueueResquestor exchanges.</p><h3 id="JMStoJMSBridge-properties">properties</h3><p><strong>JMS Bridge Topic Connector</strong></p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localTopicConnection</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used to connect to ActiveMQ</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localTopicConnectionFactory</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>used to initialize the ActiveMQ JMS Connection if localTopicConnection is not set</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localClientId</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>set the id of the local connection</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundClientId</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>set the id of the outbound connection</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>jndiLocalTemplate</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Spring default template</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>used for locating the Connection Factory for the ActiveMQ Connection if the localTopicConnection or localTopicConnectionFactory is not set</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundTopicConnection</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used to connect to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundTopicConnectionFactory</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>used to initialize the foreign JMS Connection if outboundTopicConnection is not set</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>jndiOutboundTemplate</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Spring default template</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>used for locating the Connection Factory for the ActiveMQ Connection if the localTopicConnection or localTopicConnectionFactory is not set</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localUsername</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for authentication to the ActiveMQ JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localPassword</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for authentication to the ActiveMQ JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundUsername</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for authentication to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundPassword</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for authentication to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>inboundMessageConvertor</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for converting foreign JMS Messages to a format for ActiveMQ</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundMessageConvertor</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for converting ActiveMQ messages to a format for the foriegn JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>inboundTopicBridges</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>an array of InboundTopicBridge instances - used for defining inbound (subscribe to) traffic from the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundTopicBridges</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>an array of OutboundTopicBridge instances - used for defining destinations that will be published to the foreign JMS provider</p></td></tr></tbody></table></div><p><strong>JMS Bridge Queue Connector</strong></p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localQueueConnection</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used to connect to ActiveMQ</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localQueueConnectionFactory</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>used to initialize the ActiveMQ JMS Connection if localQueueConnection is not set</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localClientId</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>set the id of the local connection</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundClientId</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>set the id of the outbound connection</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>jndiLocalTemplate</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Spring default template</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>used for locating the Connection Factory for the ActiveMQ Connection if the localQueueConnection or localQueueConnectionFactory is not set</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundQueueConnection</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used to connect to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundQueueConnectionFactory</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>used to initialize the foreign JMS Connection if localQueueConnection is not set</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>jndiOutboundTemplate</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Spring default template</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>used for locating the Connection Factory for the ActiveMQ Connection if the localQueueConnection or localQueueConnectionFactory is not set</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localUsername</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for authentication to the ActiveMQ JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localPassword</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for authentication to the ActiveMQ JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundUsername</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for authentication to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundPassword</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for authentication to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>inboundMessageConvertor</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for converting foreign JMS Messages to a format for ActiveMQ</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundMessageConvertor</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will be used for converting ActiveMQ messages to a format for the foriegn JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>inboundQueueBridges</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>an array of InboundQueueBridge instances - used for defining inbound (subscribe to) traffic from the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundQueueBridges</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>an array of OutboundQueueBridge instances - used for defining destinations that will be forwarded to the foreign JMS provider</p></td></tr></tbody></table></div><div class="sectionColumnWrapper"><div class="sectionMacroWithBorder"><div class="sectionMacroRow"><div class="columnMacro" style="width:50%;min-width:50%;max-width:50%;"><h4 id="JMStoJMSBridge-TopicBridges">Topic Bridges</h4><p><strong>InboundTopicBridge</strong></p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localTopicName</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the name of the local ActiveMQ Queue</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>inboundTopicName</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the foreign topic name to subscribe to</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>selector</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>selector to use - if any</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>consumerName</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>if set will create a durable consumer</p></td></tr></tbody></table></div><p><strong>OutboundTopicBridge</strong></p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localTopicName</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the name of the local ActiveMQ Queue</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundTopicName</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the foreign topic name to publish to</p></td></tr></tbody></table></div></div><div class="columnMacro" style="width:50%;min-width:50%;max-width:50%;"><h4 id="JMStoJMSBridge-QueueBridges">Queue Bridges</h4><p><strong>InboundQueueBridge</strong></p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localQueueName</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the name of the local ActiveMQ Queue</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>inboundQueueName</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the foreign queue name to receive from</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>selector</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>selector to use - if any</p></td></tr></tbody></table></div><p><br clear="none" class="atl-forced-newline"> <strong>OutboundQueueBridge</strong></p><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property name</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>localQueueName</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the name of the local ActiveMQ Queue</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>outboundQueueName</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>null</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>the foreign queue name to send to</p></td></tr></tbody></table></div></div></div></div></div><h3 id="JMStoJMSBridge-ExampleXBeanConfiguration">Example XBean Configuration</h3><p>The following <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/network/jms/queue-xbean.xml">example config file</a> shows how to use the regular <a shape="rect" href="xml-configuration.xml">Xml Configuration</a> to configure a JMS to JMS bridge.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[  &lt;broker xmlns=&quot;http://activemq.apache.org/schema/core&quot; id=&quot;localbroker&quot;
-    brokerName=&quot;localBroker&quot; persistent=&quot;false&quot;&gt;
+</plain-text-body></structured-macro></rich-text-body></structured-macro><p>ActiveMQ provides bridging functionality to other JMS providers that implement the JMS 1.0.2 and above specification.<br clear="none"> A JMS bridge can be co-located with an ActiveMQ broker or run remotely.<br clear="none"> In order to support JMS 1.0.2 there is seperation between Queues and Topics.</p><p>temporary destinations and replyTo destinations in the inbound message exchanges are automatically handled, enabling an ActiveMQ service to handle a foreign JMS TopicRequestor or QueueResquestor exchanges.</p><h3>properties</h3><p><strong>JMS Bridge Topic Connector</strong></p><table><tbody><tr><th colspan="1" rowspan="1"><p>property name</p></th><th colspan="1" rowspan="1"><p>default value</p></th><th colspan="1" rowspan="1"><p>description</p></th></tr><tr><td colspan="1" rowspan="1"><p>localTopicConnection</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used to connect to ActiveMQ</p></td></tr><tr><td colspan="1" rowspan="1"><p>localTopicConnectionFactory</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>used to initialize the ActiveMQ JMS Connection if localTopicConnection is not set</p></td></tr><tr><td colspan="1" rowspan="1"><p>localClientId</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>set the id of the local connection</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundClientId</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>set the id of the outbound connection</p></td></tr><tr><td colspan="1" rowspan="1"><p>jndiLocalTemplate</p></td><td colspan="1" rowspan="1"><p>Spring default template</p></td><td colspan="1" rowspan="1"><p>used for locating the Connection Factory for the ActiveMQ Connection if the localTopicConnection or localTopicConnectionFactory is not set</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundTopicConnection</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used to connect to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundTopicConnectionFactory</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>used to initialize the foreign JMS Connection if outboundTopicConnection is not set</p></td></tr><tr><td colspan="1" rowspan="1"><p>jndiOutboundTemplate</p></td><td colspan="1" rowspan="1"><p>Spring default template</p></td><td colspan="1" rowspan="1"><p>used for locating the Connection Factory for the ActiveMQ Connection if the localTopicConnection or localTopicConnectionFactory is not set</p></td></tr><tr><td colspan="1" rowspan="1"><p>localUsername</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for authentication to the ActiveMQ JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>localPassword</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for authentication to the ActiveMQ JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundUsername</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for authentication to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundPassword</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for authentication to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>inboundMessageConvertor</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for converting foreign JMS Messages to a format for ActiveMQ</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundMessageConvertor</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for converting ActiveMQ messages to a format for the foriegn JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>inboundTopicBridges</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>an array of InboundTopicBridge instances - used for defining inbound (subscribe to) traffic from the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundTopicBridges</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>an array of OutboundTopicBridge instances - used for defining destinations that will be published to the foreign JMS provider</p></td></tr></tbody></table><p><strong>JMS Bridge Queue Connector</strong></p><table><tbody><tr><th colspan="1" rowspan="1"><p>property name</p></th><th colspan="1" rowspan="1"><p>default value</p></th><th colspan="1" rowspan="1"><p>description</p></th></tr><tr><td colspan="1" rowspan="1"><p>localQueueConnection</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used to connect to ActiveMQ</p></td></tr><tr><td colspan="1" rowspan="1"><p>localQueueConnectionFactory</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>used to initialize the ActiveMQ JMS Connection if localQueueConnection is not set</p></td></tr><tr><td colspan="1" rowspan="1"><p>localClientId</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>set the id of the local connection</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundClientId</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>set the id of the outbound connection</p></td></tr><tr><td colspan="1" rowspan="1"><p>jndiLocalTemplate</p></td><td colspan="1" rowspan="1"><p>Spring default template</p></td><td colspan="1" rowspan="1"><p>used for locating the Connection Factory for the ActiveMQ Connection if the localQueueConnection or localQueueConnectionFactory is not set</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundQueueConnection</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used to connect to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundQueueConnectionFactory</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>used to initialize the foreign JMS Connection if localQueueConnection is not set</p></td></tr><tr><td colspan="1" rowspan="1"><p>jndiOutboundTemplate</p></td><td colspan="1" rowspan="1"><p>Spring default template</p></td><td colspan="1" rowspan="1"><p>used for locating the Connection Factory for the ActiveMQ Connection if the localQueueConnection or localQueueConnectionFactory is not set</p></td></tr><tr><td colspan="1" rowspan="1"><p>localUsername</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for authentication to the ActiveMQ JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>localPassword</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for authentication to the ActiveMQ JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundUsername</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for authentication to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundPassword</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for authentication to the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>inboundMessageConvertor</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for converting foreign JMS Messages to a format for ActiveMQ</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundMessageConvertor</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will be used for converting ActiveMQ messages to a format for the foriegn JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>inboundQueueBridges</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>an array of InboundQueueBridge instances - used for defining inbound (subscribe to) traffic from the foreign JMS provider</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundQueueBridges</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>an array of OutboundQueueBridge instances - used for defining destinations that will be forwarded to the foreign JMS provider</p></td></tr></tbody></table><structured-macro ac:macro-id="fc5033ca-749d-4ac3-be79-ed9adc8602dc" ac:name="section" ac:schema-version="1"><parameter ac:name="border">true</parameter><rich-text-body><structured-macro ac:macro-id="f6b52566-a480-48f4-9ef9-a166aa599cc0" ac:name="column" ac:schema-version="1"><parameter ac:name="width">50%</parameter><rich-text-body><h4>Topic Bridges</h4><p><strong>InboundTopicBridge</strong></p><table><tbody><tr><th colspan="1" rowspan="1"><p>property name</p></th><th colspan="1" rowspan="1"><p>default value</p></th><th colspan="1" rowspan="1"><p>description</p></th></tr><tr><td colspan="1" rowspan="1"><p>localTopicName</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>the name of the local ActiveMQ Queue</p></td></tr><tr><td colspan="1" rowspan="1"><p>inboundTopicName</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>the foreign topic name to subscribe to</p></td></tr><tr><td colspan="1" rowspan="1"><p>selector</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>selector to use - if any</p></td></tr><tr><td colspan="1" rowspan="1"><p>consumerName</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>if set will create a durable consumer</p></td></tr></tbody></table><p><strong>OutboundTopicBridge</strong></p><table><tbody><tr><th colspan="1" rowspan="1"><p>property name</p></th><th colspan="1" rowspan="1"><p>default value</p></th><th colspan="1" rowspan="1"><p>description</p></th></tr><tr><td colspan="1" rowspan="1"><p>localTopicName</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>the name of the local ActiveMQ Queue</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundTopicName</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>the foreign topic name to publish to</p></td></tr></tbody></table></rich-text-body></structured-macro><structured-macro ac:macro-id="d88262df-141e-4074-b048-13eeadb6cadf" ac:name="column" ac:schema-version="1"><parameter ac:name="width">50%</parameter><rich-text-body><h4>Queue Bridges</h4><p><strong>InboundQueueBridge</strong></p><table><tbody><tr><th colspan="1" rowspan="1"><p>property name</p></th><th colspan="1" rowspan="1"><p>default value</p></th><th colspan="1" rowspan="1"><p>description</p></th></tr><tr><td colspan="1" rowspan="1"><p>localQueueName</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>the name of the local ActiveMQ Queue</p></td></tr><tr><td colspan="1" rowspan="1"><p>inboundQueueName</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>the foreign queue name to receive from</p></td></tr><tr><td colspan="1" rowspan="1"><p>selector</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>selector to use - if any</p></td></tr></tbody></table><p><br clear="none" class="atl-forced-newline"> <strong>OutboundQueueBridge</strong></p><table><tbody><tr><th colspan="1" rowspan="1"><p>property name</p></th><th colspan="1" rowspan="1"><p>default value</p></th><th colspan="1" rowspan="1"><p>description</p></th></tr><tr><td colspan="1" rowspan="1"><p>localQueueName</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>the name of the local ActiveMQ Queue</p></td></tr><tr><td colspan="1" rowspan="1"><p>outboundQueueName</p></td><td colspan="1" rowspan="1"><p>null</p></td><td colspan="1" rowspan="1"><p>the foreign queue name to send to</p></td></tr></tbody></table></rich-text-body></structured-macro></rich-text-body></structured-macro><h3>Example XBean Configuration</h3><p>The following <a shape="rect" href="http://svn.apache.org/repos/asf/activemq/trunk/activemq-unit-tests/src/test/resources/org/apache/activemq/network/jms/queue-xbean.xml">example config file</a> shows how to use the regular <link><page ri:content-title="Xml Configuration"></page></link> to configure a JMS to JMS bridge.</p><structured-macro ac:macro-id="e7254210-9de0-4ff4-9b7c-e66ccb0f342d" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>  &lt;broker xmlns="http://activemq.apache.org/schema/core" id="localbroker"
+    brokerName="localBroker" persistent="false"&gt;
     &lt;jmsBridgeConnectors&gt;
       &lt;jmsQueueConnector
-        outboundQueueConnectionFactory=&quot;#remoteFactory&quot;&gt;
+        outboundQueueConnectionFactory="#remoteFactory"&gt;
         &lt;inboundQueueBridges&gt;
           &lt;inboundQueueBridge
-            inboundQueueName=&quot;org.apache.activemq.network.jms.QueueBridgeXBeanTest&quot; /&gt;
+            inboundQueueName="org.apache.activemq.network.jms.QueueBridgeXBeanTest" /&gt;
         &lt;/inboundQueueBridges&gt;
       &lt;/jmsQueueConnector&gt;
     &lt;/jmsBridgeConnectors&gt;
     &lt;transportConnectors&gt;
-      &lt;transportConnector uri=&quot;tcp://localhost:61234&quot; /&gt;
+      &lt;transportConnector uri="tcp://localhost:61234" /&gt;
     &lt;/transportConnectors&gt;
   &lt;/broker&gt;
   &lt;!-- JMS ConnectionFactory to use remote --&gt;
-  &lt;bean id=&quot;remoteFactory&quot;
-    class=&quot;org.apache.activemq.ActiveMQConnectionFactory&quot;&gt;
-    &lt;property name=&quot;brokerURL&quot; value=&quot;tcp://localhost:61666&quot; /&gt;
+  &lt;bean id="remoteFactory"
+    class="org.apache.activemq.ActiveMQConnectionFactory"&gt;
+    &lt;property name="brokerURL" value="tcp://localhost:61666" /&gt;
   &lt;/bean&gt;
-]]></script>
-</div></div><h3 id="JMStoJMSBridge-ExamplepureSpringConfiguration">Example pure Spring Configuration</h3><p>The following example shows how to use raw Spring XML to wire together a broker - bridging to a Foreign JMS provider</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;!-- local broker with embedded Jms to Jms bridge (ok - it&#39;s contrived) --&gt;
-  &lt;bean id=&quot;localbroker&quot; class=&quot;org.apache.activemq.broker.BrokerService&quot;
-    init-method=&quot;start&quot;&gt;
-    &lt;property name=&quot;brokerName&quot; value = &quot;localBroker&quot;/&gt;
-      &lt;property name=&quot;persistent&quot; value = &quot;false&quot;/&gt;
-    &lt;property name=&quot;transportConnectorURIs&quot;&gt;
+</plain-text-body></structured-macro><h3>Example pure Spring Configuration</h3><p>The following example shows how to use raw Spring XML to wire together a broker - bridging to a Foreign JMS provider</p><structured-macro ac:macro-id="efa48821-6721-4f88-980e-9a707b669bec" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>&lt;!-- local broker with embedded Jms to Jms bridge (ok - it's contrived) --&gt;
+  &lt;bean id="localbroker" class="org.apache.activemq.broker.BrokerService"
+    init-method="start"&gt;
+    &lt;property name="brokerName" value = "localBroker"/&gt;
+      &lt;property name="persistent" value = "false"/&gt;
+    &lt;property name="transportConnectorURIs"&gt;
       &lt;list&gt;
         &lt;value&gt;tcp://localhost:61234&lt;/value&gt;
       &lt;/list&gt;
     &lt;/property&gt;
-    &lt;property name=&quot;jmsBridgeConnectors&quot;&gt;
+    &lt;property name="jmsBridgeConnectors"&gt;
       &lt;list&gt;
-      	&lt;ref bean=&quot;jmsConnector&quot;/&gt;
+      	&lt;ref bean="jmsConnector"/&gt;
       &lt;/list&gt;
     &lt;/property&gt;
   &lt;/bean&gt;
 
   &lt;!-- JMS ConnectionFactory to use local broker (the one with the bridge) --&gt;
-  &lt;bean id=&quot;localFactory&quot;
-    class=&quot;org.apache.activemq.ActiveMQConnectionFactory&quot;&gt;
-    &lt;property name=&quot;brokerURL&quot; value=&quot;tcp://localhost:61234&quot; /&gt;
+  &lt;bean id="localFactory"
+    class="org.apache.activemq.ActiveMQConnectionFactory"&gt;
+    &lt;property name="brokerURL" value="tcp://localhost:61234" /&gt;
   &lt;/bean&gt;
 
   &lt;!--JmsTopicConnector - the Jms bridge --&gt;
-  &lt;bean id=&quot;jmsConnector&quot;
-  	class=&quot;org.apache.activemq.network.jms.JmsTopicConnector&quot;&gt;
-  	&lt;property name = &quot;outboundTopicConnectionFactory&quot; ref = &quot;remoteFactory&quot;/&gt;
+  &lt;bean id="jmsConnector"
+  	class="org.apache.activemq.network.jms.JmsTopicConnector"&gt;
+  	&lt;property name = "outboundTopicConnectionFactory" ref = "remoteFactory"/&gt;
 
-  	&lt;property name = &quot;inboundTopicBridges&quot;&gt;
+  	&lt;property name = "inboundTopicBridges"&gt;
   	 &lt;list&gt;
-  	  &lt;ref bean=&quot;InboundTopicBridge&quot; /&gt;
+  	  &lt;ref bean="InboundTopicBridge" /&gt;
   	 &lt;/list&gt;
   	 &lt;/property&gt;
 
   &lt;/bean&gt;
 
-  &lt;bean id =&quot;InboundTopicBridge&quot; class=&quot;org.apache.activemq.network.jms.InboundTopicBridge&quot;&gt;
-  	&lt;property name = &quot;inboundTopicName&quot; value = &quot;org.apache.activemq.network.jms.TopicBridgeSpringTest&quot;/&gt;
+  &lt;bean id ="InboundTopicBridge" class="org.apache.activemq.network.jms.InboundTopicBridge"&gt;
+  	&lt;property name = "inboundTopicName" value = "org.apache.activemq.network.jms.TopicBridgeSpringTest"/&gt;
   &lt;/bean&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div><h3 id="JMStoJMSBridge-ExampleXBeanConfigurationtoBridgeActiveMQtoProviderWithNoURLSetter">Example XBean Configuration to Bridge ActiveMQ to Provider With No URL Setter</h3><p>Some JMS providers, WebLogic for instance, do not expose a setter for connection properties like host and port (setBrokerUrl) on their ConnectionFactory object. In this case you need to set outboundQueueConnectionFactoryName and jndiOutboundTemplate in your activemq.xml config file.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;!-- START SNIPPET: example --&gt;
+</plain-text-body></structured-macro><h3>Example XBean Configuration to Bridge ActiveMQ to Provider With No URL Setter</h3><p>Some JMS providers, WebLogic for instance, do not expose a setter for connection properties like host and port (setBrokerUrl) on their ConnectionFactory object. In this case you need to set outboundQueueConnectionFactoryName and jndiOutboundTemplate in your activemq.xml config file.</p><structured-macro ac:macro-id="9ab28010-3e37-4a07-9f51-a419b333462f" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>&lt;!-- START SNIPPET: example --&gt;
 &lt;beans&gt;
 
   &lt;!-- Allows us to use system properties as variables in this configuration file --&gt;
-  &lt;bean class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;/&gt;
+  &lt;bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/&gt;
 
-  &lt;broker useJmx=&quot;true&quot; xmlns=&quot;http://activemq.org/config/1.0&quot;&gt;
+  &lt;broker useJmx="true" xmlns="http://activemq.org/config/1.0"&gt;
 
     &lt;persistenceAdapter&gt;
-        &lt;journaledJDBC journalLogFiles=&quot;5&quot; dataDirectory=&quot;${activemq.home}/activemq-data&quot;/&gt;
+        &lt;journaledJDBC journalLogFiles="5" dataDirectory="${activemq.home}/activemq-data"/&gt;
     &lt;/persistenceAdapter&gt;
 
     &lt;transportConnectors&gt;
-       &lt;transportConnector name=&quot;default&quot; uri=&quot;tcp://localhost:61616&quot; discoveryUri=&quot;multicast://default&quot;/&gt;
-       &lt;transportConnector name=&quot;stomp&quot;   uri=&quot;stomp://localhost:61613&quot;/&gt;
+       &lt;transportConnector name="default" uri="tcp://localhost:61616" discoveryUri="multicast://default"/&gt;
+       &lt;transportConnector name="stomp"   uri="stomp://localhost:61613"/&gt;
     &lt;/transportConnectors&gt;
 
     &lt;networkConnectors&gt;
-      &lt;networkConnector name=&quot;default&quot; uri=&quot;multicast://default&quot;/&gt;
+      &lt;networkConnector name="default" uri="multicast://default"/&gt;
     &lt;/networkConnectors&gt;
 
     &lt;jmsBridgeConnectors&gt;
-     &lt;jmsQueueConnector name=&quot;JreportRequestBridge-Inbound&quot;
-        jndiOutboundTemplate=&quot;#remoteJndi&quot;
-        outboundQueueConnectionFactoryName=&quot;jms/ConnectionFactory&quot;
-        localQueueConnectionFactory=&quot;#localFactory&quot;&gt;
+     &lt;jmsQueueConnector name="JreportRequestBridge-Inbound"
+        jndiOutboundTemplate="#remoteJndi"
+        outboundQueueConnectionFactoryName="jms/ConnectionFactory"
+        localQueueConnectionFactory="#localFactory"&gt;
         &lt;inboundQueueBridges&gt;
-          &lt;inboundQueueBridge inboundQueueName=&quot;jms/queue/jreport/request&quot;/&gt;
+          &lt;inboundQueueBridge inboundQueueName="jms/queue/jreport/request"/&gt;
         &lt;/inboundQueueBridges&gt;
       &lt;/jmsQueueConnector&gt;
     &lt;/jmsBridgeConnectors&gt;
@@ -106,62 +99,60 @@
   &lt;/broker&gt;
 
     &lt;!-- Set up the template for connecting to Weblogic --&gt;
-    &lt;bean id=&quot;remoteJndi&quot; class=&quot;org.springframework.jndi.JndiTemplate&quot;&gt;
-        &lt;property name=&quot;environment&quot;&gt;
+    &lt;bean id="remoteJndi" class="org.springframework.jndi.JndiTemplate"&gt;
+        &lt;property name="environment"&gt;
                 &lt;props&gt;
-                        &lt;prop key=&quot;java.naming.factory.initial&quot;&gt;weblogic.jndi.WLInitialContextFactory&lt;/prop&gt;
-                        &lt;prop key=&quot;java.naming.provider.url&quot;&gt;t3://&lt;your ip here&gt;:7001&lt;/prop&gt;
+                        &lt;prop key="java.naming.factory.initial"&gt;weblogic.jndi.WLInitialContextFactory&lt;/prop&gt;
+                        &lt;prop key="java.naming.provider.url"&gt;t3://&lt;your ip here&gt;:7001&lt;/prop&gt;
                 &lt;/props&gt;
         &lt;/property&gt;
     &lt;/bean&gt;
 
-  &lt;bean id=&quot;localFactory&quot;
-    class=&quot;org.apache.activemq.ActiveMQConnectionFactory&quot;&gt;
-    &lt;property name=&quot;brokerURL&quot; value=&quot;tcp://localhost:61616&quot; /&gt;
+  &lt;bean id="localFactory"
+    class="org.apache.activemq.ActiveMQConnectionFactory"&gt;
+    &lt;property name="brokerURL" value="tcp://localhost:61616" /&gt;
   &lt;/bean&gt;
 
-  &lt;bean id=&quot;localQueue&quot; class=&quot;org.apache.activemq.command.ActiveMQQueue&quot;&gt;
-    &lt;constructor-arg value=&quot;dynamic/jms.queue.jreport.request&quot;/&gt;
+  &lt;bean id="localQueue" class="org.apache.activemq.command.ActiveMQQueue"&gt;
+    &lt;constructor-arg value="dynamic/jms.queue.jreport.request"/&gt;
   &lt;/bean&gt;
 &lt;/beans&gt;
 &lt;!-- END SNIPPET: xbean --&gt;
-]]></script>
-</div></div><h3 id="JMStoJMSBridge-ExamplepureSpringConfigurationforsendingmessagestoexternalActiveMQdestinationthroughbridge">Example pure Spring Configuration for sending messages to external ActiveMQ destination through bridge</h3><p>Spring beans:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!DOCTYPE beans PUBLIC &quot;-//SPRING//DTD BEAN//EN&quot; &quot;http://www.springframework.org/dtd/spring-beans.dtd&quot;&gt;
+</plain-text-body></structured-macro><h3>Example pure Spring Configuration for sending messages to external ActiveMQ destination through bridge</h3><p>Spring beans:</p><structured-macro ac:macro-id="cbcd3077-34d7-42fc-a2fc-b21579cd26b5" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd"&gt;
 
 &lt;beans&gt;
 
-	&lt;bean id=&quot;mainBroker&quot; class=&quot;org.apache.activemq.broker.BrokerService&quot; init-method=&quot;start&quot; destroy-method=&quot;stop&quot;&gt;
-		&lt;property name=&quot;brokerName&quot; value = &quot;mainBroker&quot;/&gt;
-		&lt;property name=&quot;persistent&quot; value=&quot;false&quot;/&gt;
-		&lt;property name=&quot;transportConnectorURIs&quot;&gt;
+	&lt;bean id="mainBroker" class="org.apache.activemq.broker.BrokerService" init-method="start" destroy-method="stop"&gt;
+		&lt;property name="brokerName" value = "mainBroker"/&gt;
+		&lt;property name="persistent" value="false"/&gt;
+		&lt;property name="transportConnectorURIs"&gt;
 			&lt;list&gt;
 				&lt;value&gt;tcp://localhost:7000&lt;/value&gt;
 			&lt;/list&gt;
 		&lt;/property&gt;
 	&lt;/bean&gt;
 
-	&lt;bean id=&quot;bridgedBroker&quot; class=&quot;org.apache.activemq.broker.BrokerService&quot; init-method=&quot;start&quot; destroy-method=&quot;stop&quot;&gt;
-		&lt;property name=&quot;brokerName&quot; value = &quot;bridgedBroker&quot;/&gt;
-		&lt;property name=&quot;persistent&quot; value=&quot;false&quot;/&gt;
-		&lt;property name=&quot;transportConnectorURIs&quot;&gt;
+	&lt;bean id="bridgedBroker" class="org.apache.activemq.broker.BrokerService" init-method="start" destroy-method="stop"&gt;
+		&lt;property name="brokerName" value = "bridgedBroker"/&gt;
+		&lt;property name="persistent" value="false"/&gt;
+		&lt;property name="transportConnectorURIs"&gt;
 			&lt;list&gt;
 				&lt;value&gt;tcp://localhost:7001&lt;/value&gt;
 			&lt;/list&gt;
 		&lt;/property&gt;
-		&lt;property name=&quot;jmsBridgeConnectors&quot;&gt;
+		&lt;property name="jmsBridgeConnectors"&gt;
 			&lt;list&gt;
-				&lt;bean class=&quot;org.apache.activemq.network.jms.JmsQueueConnector&quot;&gt;
-					&lt;property name=&quot;outboundQueueConnectionFactory&quot;&gt;
-						&lt;bean class=&quot;org.apache.activemq.ActiveMQConnectionFactory&quot;&gt;
-							&lt;property name=&quot;brokerURL&quot; value=&quot;tcp://localhost:7000&quot; /&gt;
+				&lt;bean class="org.apache.activemq.network.jms.JmsQueueConnector"&gt;
+					&lt;property name="outboundQueueConnectionFactory"&gt;
+						&lt;bean class="org.apache.activemq.ActiveMQConnectionFactory"&gt;
+							&lt;property name="brokerURL" value="tcp://localhost:7000" /&gt;
 						&lt;/bean&gt;
 					&lt;/property&gt;
-					&lt;property name=&quot;outboundQueueBridges&quot;&gt;
+					&lt;property name="outboundQueueBridges"&gt;
 						&lt;list&gt;
-							&lt;bean class=&quot;org.apache.activemq.network.jms.OutboundQueueBridge&quot;&gt;
-								&lt;constructor-arg value=&quot;messages.input&quot;/&gt;
+							&lt;bean class="org.apache.activemq.network.jms.OutboundQueueBridge"&gt;
+								&lt;constructor-arg value="messages.input"/&gt;
 							&lt;/bean&gt;
 						&lt;/list&gt;
 					&lt;/property&gt;
@@ -171,34 +162,32 @@
 	&lt;/bean&gt;
 
 &lt;/beans&gt;
-]]></script>
-</div></div><p>Java code:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[public class BridgeTest {
+</plain-text-body></structured-macro><p>Java code:</p><structured-macro ac:macro-id="ccd7cc10-d4e9-4405-829a-17a18774ab9f" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>public class BridgeTest {
 
 	public BridgeTest() throws Exception {
 
 	    Log log = LogFactory.getLog(getClass());
 
-	    new ClassPathXmlApplicationContext(&quot;bridge/context-bridge.xml&quot;);
+	    new ClassPathXmlApplicationContext("bridge/context-bridge.xml");
 
-	    ActiveMQConnection connection = ActiveMQConnection.makeConnection(&quot;tcp://localhost:7001&quot;);
+	    ActiveMQConnection connection = ActiveMQConnection.makeConnection("tcp://localhost:7001");
 	    connection.start();
 	    Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-	    Destination destination = session.createQueue(&quot;messages.input&quot;);
+	    Destination destination = session.createQueue("messages.input");
 	    MessageProducer producer = session.createProducer(destination);
-	    producer.send(session.createTextMessage(&quot;Test Message&quot;));
-	    log.debug(&quot;send message&quot;);
+	    producer.send(session.createTextMessage("Test Message"));
+	    log.debug("send message");
 	    session.close();
 	    connection.close();
 
-	    connection = ActiveMQConnection.makeConnection(&quot;tcp://localhost:7000&quot;);
+	    connection = ActiveMQConnection.makeConnection("tcp://localhost:7000");
 	    connection.start();
 	    session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-	    destination = session.createQueue(&quot;messages.input&quot;);
+	    destination = session.createQueue("messages.input");
             MessageConsumer consumer = session.createConsumer(destination);
-            log.debug(&quot;receive message&quot;);
+            log.debug("receive message");
             Message message = consumer.receive(5000);
-            log.debug(&quot;Received: &quot; + message);
+            log.debug("Received: " + message);
 	    session.close();
 	    connection.close();
 	}
@@ -208,6 +197,5 @@
 	}
 
 }
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

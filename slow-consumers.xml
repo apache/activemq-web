@@ -1,22 +1,22 @@
 <div class="wiki-content maincontent">
-<h2 id="SlowConsumers-BlockedTransport">Blocked Transport</h2>
+<h2>Blocked Transport</h2>
 
 <p>when using TCP there can be occasions when a network outage can result in a blocked write. This can cause the entire broker to freeze - and the socket may never be unblocked. Currently we have a Thread that checks for blocked sockets - using a sweep protocol to detect if there are connections that are blocked writing for more than a configurable period. This can work but there is no way to unblock the calling thread that is associated with the send down the socket (which will be the publishing thread in non-durable topics).</p>
-<div class="confluence-information-macro confluence-information-macro-note"><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
-<p>Need to check if closing out the socket unblock the send.</p></div></div>
+<structured-macro ac:macro-id="398bd1a2-5c6b-448e-a7a5-f119ded4da45" ac:name="note" ac:schema-version="1"><rich-text-body>
+<p>Need to check if closing out the socket unblock the send.</p></rich-text-body></structured-macro>
 <p>TCP transports also use the InactivityMontor class as TransportFilter which detects dead sockets by forcing KeepAliveInfo commands periodically through the transport when it is idle.  Therefore, the InactivityMontor can assume that if packets are not being received periodically, it means that the transport is dead and transport exception is generated.</p>
 
-<h2 id="SlowConsumers-BlockedConsumer">Blocked Consumer</h2>
+<h2>Blocked Consumer</h2>
 
 <p>This is slightly different from above - The Consumer is blocked or very slow in processing a message. On the Client side the limit to how many messages a connection can hold is limited by the pre-fetch (which for non-durable topics is in the thousands).</p>
 
-<h2 id="SlowConsumers-BackgroundonSlowConsumers">Background on Slow Consumers</h2>
+<h2>Background on Slow Consumers</h2>
 
 <p>Slow consumers can cause problems in the broker. Here's the various things we can do.</p>
 
 <p>In general slow consumers don't affect queues that much as consumers compete for messages; so a slow consumer just gets less than the others.</p>
 
-<h3 id="SlowConsumers-Non-DurableTopics">Non-Durable Topics</h3>
+<h3>Non-Durable Topics</h3>
 
 <p>Non-durable topics are the scenario which is most affected by slow consumers since the messages are not persistent and messages generally go to all consumers (who have a valid selector)</p>
 
@@ -26,16 +26,16 @@
 
 <p>These will be exposed as a pluggable policy for the user. It might be worth doing one on a destination by destination basis?</p>
 
-<h3 id="SlowConsumers-DurableTopics">Durable Topics</h3>
+<h3>Durable Topics</h3>
 
 <p>We can drop messages from RAM since they are persistent so we can deal with slow consumers well (assuming you have enough disk).<br clear="none">
 If consumers get too far behind we could consider killing consumers; but I think thats more of a background operator issue?</p>
 
-<h3 id="SlowConsumers-Durablequeues">Durable queues</h3>
+<h3>Durable queues</h3>
 
 <p>Since all messages are persisted, they can be evicted from memory.</p>
 
-<h3 id="SlowConsumers-Non-durablequeues">Non-durable queues</h3>
+<h3>Non-durable queues</h3>
 
 <p>A slow consumer is not really an issue with queues. But all of the consumers being slow is. In this case we eventually block the producer until messages are consumed.</p>
 
@@ -43,7 +43,7 @@ If consumers get too far behind we could consider killing consumers; but I think
 <ul><li>spool messages to disk</li><li>discard messages</li></ul>
 
 
-<h2 id="SlowConsumers-ImplementationSolutions">Implementation Solutions</h2>
+<h2>Implementation Solutions</h2>
 
 <p>For persistent messages: Introduce a different dispatching model where we have a thread per destination with it's own memory allocation. This would allow us more control over dispatching, and allow us to set different priorities to different destinations.</p>
 
@@ -60,7 +60,7 @@ If consumers get too far behind we could consider killing consumers; but I think
 
 <p>&#160;</p>
 
-<h3 id="SlowConsumers-SlowConsumerDetector">Slow Consumer Detector</h3>
+<h3>Slow Consumer Detector</h3>
 
 <p>We need a good way of detecting that a consumer is slow - together with knowing when the consumer speeds up again</p></div>
 

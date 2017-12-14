@@ -1,34 +1,29 @@
 <div class="wiki-content maincontent"><p>Pure restart of the embedded broker is not advisable, since it's state could be corrupted. Therefore, you're advised to instantiate the broker again before restarting it.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-BrokerService service = BrokerFactory.createBroker(&quot;xbean:activemq.xml&quot;);
+<structured-macro ac:macro-id="83b8db39-13df-4c7d-8bd8-e959f2722bfb" ac:name="code" ac:schema-version="1"><plain-text-body>
+BrokerService service = BrokerFactory.createBroker("xbean:activemq.xml");
 service.start();
 service.waitUntilStarted();
 
 service.stop();
 service.waitUntilStopped();
 
-service = BrokerFactory.createBroker(&quot;xbean:activemq.xml&quot;);
+service = BrokerFactory.createBroker("xbean:activemq.xml");
 service.start();
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>In 5.3 however, we allowed the force start of the broker that has been stopped for use cases that need this functionality. You can do it by using </p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="2781ad46-6498-41c8-833e-8adb8bbf24ac" ac:name="code" ac:schema-version="1"><plain-text-body>
 BrokerService.start(boolean force);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>method.</p>
 
 <p>The following example demonstrates it.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-BrokerService service = BrokerFactory.createBroker(&quot;xbean:activemq.xml&quot;);
+<structured-macro ac:macro-id="708b1ca9-f8db-4529-831c-180bd947d7b0" ac:name="code" ac:schema-version="1"><plain-text-body>
+BrokerService service = BrokerFactory.createBroker("xbean:activemq.xml");
 service.start();
 service.waitUntilStarted();
 
@@ -36,8 +31,7 @@ service.stop();
 service.waitUntilStopped();
 
 service.start(true);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>However, it's better (more reliable) to instantiate the broker again if it is possible.</p></div>
 

@@ -5,9 +5,7 @@
 <ul><li>set the useAsyncSend property on the ActiveMQConnectionFactory</li><li>set the property using the URI when you connect to the broker</li></ul>
 
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="44308207-4c2b-4a2a-9a3d-33831df7c467" ac:name="code" ac:schema-version="1"><plain-text-body>
 tcp://localhost:61616?jms.useAsyncSend=true
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

@@ -1,12 +1,11 @@
-<div class="wiki-content maincontent"><p>The following is a very simple JMS application with multiple, concurrent, consumers and producers.  See the <a shape="rect" href="initial-configuration.xml">Initial Configuration</a> guide for details on how to setup your classpath correctly.</p>
+<div class="wiki-content maincontent"><p>The following is a very simple JMS application with multiple, concurrent, consumers and producers.  See the <link><page ri:content-title="Initial Configuration"></page></link> guide for details on how to setup your classpath correctly.</p>
 
 <p>Things you might do after running this example:</p>
-<ul class="alternate"><li><a shape="rect" href="run-broker.xml">Setup a broker</a> instead of using the org.activemq.broker.impl.Main class directly</li><li>Use JNDI to lookup a javax.jms.ConnectionFactory rather than creating ActiveMQConnectionFactory directly.</li><li>Implement the javax.jms.MessageListener interface rather than calling consumer.receive()</li><li>Use transactional sessions</li><li>Use a Topic rather than a queue</li></ul>
+<ul class="alternate"><li><link><page ri:content-title="Run Broker"></page><link-body>Setup a broker</link-body></link> instead of using the org.activemq.broker.impl.Main class directly</li><li>Use JNDI to lookup a javax.jms.ConnectionFactory rather than creating ActiveMQConnectionFactory directly.</li><li>Implement the javax.jms.MessageListener interface rather than calling consumer.receive()</li><li>Use transactional sessions</li><li>Use a Topic rather than a queue</li></ul>
 
 
 <p>The point of this example is to show you the basic code required to use JMS in a straightforward way.  The Consumers and Producers could very easy be on completely different machines or in different processes.</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>App.java</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="9a9982ea-46ba-4ce4-a8d8-8aaa2cc93092" ac:name="code" ac:schema-version="1"><parameter ac:name="title">App.java</parameter><plain-text-body>
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.Connection;
@@ -65,7 +64,7 @@ public class App {
         public void run() {
             try {
                 // Create a ConnectionFactory
-                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(&quot;vm://localhost&quot;);
+                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
 
                 // Create a Connection
                 Connection connection = connectionFactory.createConnection();
@@ -75,18 +74,18 @@ public class App {
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
                 // Create the destination (Topic or Queue)
-                Destination destination = session.createQueue(&quot;TEST.FOO&quot;);
+                Destination destination = session.createQueue("TEST.FOO");
 
                 // Create a MessageProducer from the Session to the Topic or Queue
                 MessageProducer producer = session.createProducer(destination);
                 producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
                 // Create a messages
-                String text = &quot;Hello world! From: &quot; + Thread.currentThread().getName() + &quot; : &quot; + this.hashCode();
+                String text = "Hello world! From: " + Thread.currentThread().getName() + " : " + this.hashCode();
                 TextMessage message = session.createTextMessage(text);
 
                 // Tell the producer to send the message
-                System.out.println(&quot;Sent message: &quot;+ message.hashCode() + &quot; : &quot; + Thread.currentThread().getName());
+                System.out.println("Sent message: "+ message.hashCode() + " : " + Thread.currentThread().getName());
                 producer.send(message);
 
                 // Clean up
@@ -94,7 +93,7 @@ public class App {
                 connection.close();
             }
             catch (Exception e) {
-                System.out.println(&quot;Caught: &quot; + e);
+                System.out.println("Caught: " + e);
                 e.printStackTrace();
             }
         }
@@ -105,7 +104,7 @@ public class App {
             try {
 
                 // Create a ConnectionFactory
-                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(&quot;vm://localhost&quot;);
+                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("vm://localhost");
 
                 // Create a Connection
                 Connection connection = connectionFactory.createConnection();
@@ -117,7 +116,7 @@ public class App {
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
                 // Create the destination (Topic or Queue)
-                Destination destination = session.createQueue(&quot;TEST.FOO&quot;);
+                Destination destination = session.createQueue("TEST.FOO");
 
                 // Create a MessageConsumer from the Session to the Topic or Queue
                 MessageConsumer consumer = session.createConsumer(destination);
@@ -128,25 +127,24 @@ public class App {
                 if (message instanceof TextMessage) {
                     TextMessage textMessage = (TextMessage) message;
                     String text = textMessage.getText();
-                    System.out.println(&quot;Received: &quot; + text);
+                    System.out.println("Received: " + text);
                 } else {
-                    System.out.println(&quot;Received: &quot; + message);
+                    System.out.println("Received: " + message);
                 }
 
                 consumer.close();
                 session.close();
                 connection.close();
             } catch (Exception e) {
-                System.out.println(&quot;Caught: &quot; + e);
+                System.out.println("Caught: " + e);
                 e.printStackTrace();
             }
         }
 
         public synchronized void onException(JMSException ex) {
-            System.out.println(&quot;JMS Exception occured.  Shutting down client.&quot;);
+            System.out.println("JMS Exception occured.  Shutting down client.");
         }
     }
 }
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

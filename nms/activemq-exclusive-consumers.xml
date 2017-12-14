@@ -1,4 +1,4 @@
-<div class="wiki-content maincontent"><h3 id="ActiveMQExclusiveConsumers-ExclusiveConsumer">Exclusive Consumer</h3>
+<div class="wiki-content maincontent"><h3>Exclusive Consumer</h3>
 
 <p>We have a new feature in version 4.x and above called Exclusive Consumer or Exclusive Queues which avoids the end user having to <em>pin</em> anything. The broker will pick a single MessageConsumer to get all the messages for a queue to ensure ordering. If that consumer fails, the broker will auto failover and choose another consumer.</p>
 
@@ -6,14 +6,12 @@
 
 <p>For those who've struggled with pinning NMS consumers in clusters you'll immediately realize how useful this is to making clustered, high available distributed services.</p>
 
-<h3 id="ActiveMQExclusiveConsumers-Example">Example</h3>
+<h3>Example</h3>
 
-<p>An Exclusive Consumer is created using <a shape="rect" href="activemq-uri-configuration.xml">ActiveMQ URI Configuration</a> as follows:</p>
+<p>An Exclusive Consumer is created using <link><page ri:content-title="ActiveMQ URI Configuration"></page></link> as follows:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-var queue = session.GetQueue(&quot;TEST.QUEUE?consumer.exclusive=true&quot;);
+<structured-macro ac:macro-id="6d35e79c-c27e-418a-b6ef-c047f55c2af0" ac:name="code" ac:schema-version="1"><parameter ac:name="">java</parameter><plain-text-body>
+var queue = session.GetQueue("TEST.QUEUE?consumer.exclusive=true");
 var consumer = session.CreateConsumer(queue);
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

@@ -1,8 +1,8 @@
 <div class="wiki-content maincontent">
-<p>We've documented some of the new features coming along in <a shape="rect" href="../../../changes-in-40.xml">the 4.x branch of ActiveMQ</a>. In particular the things I'm particularly happy about are</p>
+<p>We've documented some of the new features coming along in <link><page ri:content-title="Changes in 4.0"></page><link-body>the 4.x branch of ActiveMQ</link-body></link>. In particular the things I'm particularly happy about are</p>
 
-<ul><li><a shape="rect" href="../../../exclusive-consumer.xml">Exclusive Consumer</a></li><li><a shape="rect" href="../../../message-groups.xml">Message Groups</a></li></ul>
+<ul><li><link><page ri:content-title="Exclusive Consumer"></page></link></li><li><link><page ri:content-title="Message Groups"></page></link></li></ul>
 
 
-<p>I really love <a shape="rect" href="../../../message-groups.xml">Message Groups</a>, they totally rock! <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"> Its well worth reading the overview of what they are and how they can be useful making a partitioned high performance grid style distributed system with ordering or fast caching etc.</p></div>
+<p>I really love <link><page ri:content-title="Message Groups"></page></link>, they totally rock! <emoticon ac:name="smile"></emoticon> Its well worth reading the overview of what they are and how they can be useful making a partitioned high performance grid style distributed system with ordering or fast caching etc.</p></div>
 

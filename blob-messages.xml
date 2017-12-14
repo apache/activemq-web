@@ -1,4 +1,4 @@
-<div class="wiki-content maincontent"><h2 id="BlobMessages-BlobMessages">Blob Messages</h2>
+<div class="wiki-content maincontent"><h2>Blob Messages</h2>
 
 <p>A common requirement these days is to send around massive files for processing by consumers. Folks want to take advantage of the message broker's features such as reliable, transactional load balancing of queues with smart routing but still manage to deal with huge logical files.</p>
 
@@ -6,42 +6,35 @@
 
 <p>There are now new createBlobMessage() methods on the ActiveMQSession that you can use for sending BLOBs. </p>
 
-<h3 id="BlobMessages-SendingBlobMessages">Sending BlobMessages</h3>
+<h3>Sending BlobMessages</h3>
 
 <p>You can send a URL around the JMS network, such as a file or URL which exists on some shared file system or web server using the following code</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-BlobMessage message = session.createBlobMessage(new URL(&quot;http://some.shared.site.com&quot;);
+<structured-macro ac:macro-id="6be5c968-e508-407f-83e5-5e256a77d939" ac:name="code" ac:schema-version="1"><plain-text-body>
+BlobMessage message = session.createBlobMessage(new URL("http://some.shared.site.com");
 producer.send(message);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>Or if you are creating files or streams dynamically on the client you may want to upload the file to the broker or some server (Jetty, FTP, WebDav or whatever). In which case you'd use one of the following methods</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="f990ea28-b4c0-4468-b9ba-5648214461d4" ac:name="code" ac:schema-version="1"><plain-text-body>
 // lets use a local file
-BlobMessage message = session.createBlobMessage(new File(&quot;/foo/bar&quot;);
+BlobMessage message = session.createBlobMessage(new File("/foo/bar");
 producer.send(message);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="a43a4699-551e-41b2-a013-f580e8ba0894" ac:name="code" ac:schema-version="1"><plain-text-body>
 // lets use a stream
 InputStream in = ...;
 BlobMessage message = session.createBlobMessage(in);
 producer.send(message);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="BlobMessages-ReceivingBlobMessages">Receiving BlobMessages</h3>
+<h3>Receiving BlobMessages</h3>
 
-<p>A <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/BlobMessage.html">BlobMessage</a> is a regular JMS message so it can be received just like any other message...</p>
+<p>A <a shape="rect" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/BlobMessage.html">BlobMessage</a> is a regular JMS message so it can be received just like any other message...</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="19b81f57-789a-4d1a-882a-d0f3ebe734be" ac:name="code" ac:schema-version="1"><plain-text-body>
 public class MyListener implements MessageListener {
   public void onMessage(Message message) {
     if (message instanceof BlobMessage) {
@@ -52,22 +45,20 @@ public class MyListener implements MessageListener {
     }
   }
 }
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 
-<h3 id="BlobMessages-ConfiguringtheBLOBTransferPolicy">Configuring the BLOB Transfer Policy</h3>
+<h3>Configuring the BLOB Transfer Policy</h3>
 
 <p>You can explicitly configure the BlobTransferPolicy on an ActiveMQConnectionFactory, ActiveMQConnection or ActiveMQSession. Typically its done on the factory either via Java code or Spring.</p>
 
-<p>You can use the <a shape="rect" href="connection-configuration-uri.xml">Connection Configuration URI</a> to configure these things via a URI.</p>
+<p>You can use the <link><page ri:content-title="Connection Configuration URI"></page></link> to configure these things via a URI.</p>
 
 <p>For example you can connect to a broker also specifying the uploadUrl to use via</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="c3816021-f3f7-419b-b3d9-65a52c18ef59" ac:name="code" ac:schema-version="1"><plain-text-body>
 tcp://localhost:61616?jms.blobTransferPolicy.uploadUrl=http://foo.com
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
+
 </div>
 

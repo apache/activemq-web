@@ -1,15 +1,15 @@
-<div class="wiki-content maincontent"><h2 id="Support-GettingHelp">Getting Help</h2>
+<div class="wiki-content maincontent"><h2>Getting Help</h2>
 
-<p>If you are experiencing problems using NMS then please first try the <a shape="rect" href="faq.xml">FAQ</a>. If you cannot find your issue then report your problem to our <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQNET">Issue Tracker</a></p>
+<p>If you are experiencing problems using NMS then please first try the <link><page ri:content-title="FAQ"></page></link>. If you cannot find your issue then report your problem to our <a shape="rect" href="http://issues.apache.org/activemq/browse/AMQNET">Issue Tracker</a></p>
 
-<p>You may also find it useful to discuss your issues with the community on the <a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a> or join one of our <a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a>.</p>
+<p>You may also find it useful to discuss your issues with the community on the <a shape="rect" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a> or join one of our <a shape="rect" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a>.</p>
 
-<h3 id="Support-Links">Links</h3>
+<h3>Links</h3>
 
-<ul><li><a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQNET">Issue Tracker</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="faq.xml">FAQ</a></li></ul>
+<ul><li><a shape="rect" href="http://issues.apache.org/activemq/browse/AMQNET">Issue Tracker</a></li><li><a shape="rect" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><link><page ri:content-title="FAQ"></page></link></li></ul>
 
 
-<h3 id="Support-Gettingmorehelp">Getting more help</h3>
+<h3>Getting more help</h3>
 
-<p>For more details on how to get more help see the <a shape="rect" class="external-link" href="http://activemq.apache.org/support.html">main ActiveMQ Support page</a></p></div>
+<p>For more details on how to get more help see the <a shape="rect" href="http://activemq.apache.org/support.html">main ActiveMQ Support page</a></p></div>
 

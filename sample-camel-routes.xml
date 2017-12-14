@@ -1,40 +1,39 @@
-<div class="wiki-content maincontent"><h3 id="SampleCamelRoutes-ExampleofaconfigurationthatshowhowtouseCamelrouteswithJuelandXpath.">Example of a configuration that show how to use Camel routes with Juel and Xpath.</h3>
+<div class="wiki-content maincontent"><h3>Example of a configuration that show how to use Camel routes with Juel and Xpath.</h3>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="41ae1a77-7a67-4919-a2be-1f5d0e54506c" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
 &lt;beans&gt;
     &lt;!-- Allows us to use system properties as variables in this configuration file --&gt;
-    &lt;bean class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;/&gt;
+    &lt;bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/&gt;
 
-    &lt;broker useJmx=&quot;true&quot; persistent=&quot;false&quot; xmlns=&quot;http://activemq.org/config/1.0&quot;
-            brokerName=&quot;localhost&quot; dataDirectory=&quot;${activemq.base}/data&quot;&gt;
+    &lt;broker useJmx="true" persistent="false" xmlns="http://activemq.org/config/1.0"
+            brokerName="localhost" dataDirectory="${activemq.base}/data"&gt;
     &lt;/broker&gt;
 
-    &lt;camelContext id=&quot;camel&quot; xmlns=&quot;http://activemq.apache.org/camel/schema/spring&quot;&gt;
+    &lt;camelContext id="camel" xmlns="http://activemq.apache.org/camel/schema/spring"&gt;
         &lt;!-- simple bridge from a topic to queue --&gt;
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:topic:topic.HelloWorld.incoming&quot;&gt;
-            &lt;to   uri=&quot;activemq:queue:queue.HelloWorld&quot;&gt;
+            &lt;from uri="activemq:topic:topic.HelloWorld.incoming"&gt;
+            &lt;to   uri="activemq:queue:queue.HelloWorld"&gt;
         &lt;/route&gt;
 
         &lt;!-- Dependencies: camel-juel-[camel-n].jar, juel-[juel-n]-impl.jar, juel-[juel-n].jar must be in the activemq lib directory --&gt;
         &lt;!-- 2 separate JUEL based filters --&gt;
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:topic:topic.HelloWorld.incoming.camel1&quot;&gt;
+            &lt;from uri="activemq:topic:topic.HelloWorld.incoming.camel1"&gt;
             &lt;filter&gt;
-                &lt;el&gt;${in.headers.JMSType.equals(&#39;foo&#39;)}&lt;/el&gt;
+                &lt;el&gt;${in.headers.JMSType.equals('foo')}&lt;/el&gt;
                 &lt;filter&gt;
-                    &lt;el&gt;${in.headers.myHeaderField.equals(&#39;takeMe&#39;)}&lt;/el&gt;
-                    &lt;to   uri=&quot;activemq:queue:queue.HelloWorld.camel1.fooMsgs&quot;&gt;
+                    &lt;el&gt;${in.headers.myHeaderField.equals('takeMe')}&lt;/el&gt;
+                    &lt;to   uri="activemq:queue:queue.HelloWorld.camel1.fooMsgs"&gt;
                 &lt;/filter&gt;
             &lt;/filter&gt;
             &lt;filter&gt;
-                &lt;el&gt;${in.headers.JMSType.equals(&#39;bar&#39;)}&lt;/el&gt;
+                &lt;el&gt;${in.headers.JMSType.equals('bar')}&lt;/el&gt;
                 &lt;filter&gt;
-                    &lt;el&gt;${in.headers.myHeaderField.equals(&#39;takeMe&#39;)}&lt;/el&gt;
+                    &lt;el&gt;${in.headers.myHeaderField.equals('takeMe')}&lt;/el&gt;
                     &lt;filter&gt;
-                        &lt;el&gt;${in.headers.myOtherHeaderField.equals(&#39;3&#39;)}&lt;/el&gt;
-                        &lt;to   uri=&quot;activemq:queue:queue.HelloWorld.camel1.fooMsgs.special&quot;&gt;
+                        &lt;el&gt;${in.headers.myOtherHeaderField.equals('3')}&lt;/el&gt;
+                        &lt;to   uri="activemq:queue:queue.HelloWorld.camel1.fooMsgs.special"&gt;
                     &lt;/filter&gt;
                 &lt;/filter&gt;
             &lt;/filter&gt;
@@ -43,28 +42,28 @@
         &lt;!-- route using 2 separate xpath based filters, assuming the message has an XML body --&gt;
 
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:topic:topic.HelloWorld.incoming.camel2&quot;&gt;
+            &lt;from uri="activemq:topic:topic.HelloWorld.incoming.camel2"&gt;
             &lt;filter&gt;
-                &lt;xpath&gt;$JMSType = &#39;foo&#39; and $myCustomHeader=&#39;takeMe&#39;&lt;/xpath&gt;
-                &lt;to   uri=&quot;activemq:queue:queue.HelloWorld.camel2.fooMsgs&quot;&gt;
+                &lt;xpath&gt;$JMSType = 'foo' and $myCustomHeader='takeMe'&lt;/xpath&gt;
+                &lt;to   uri="activemq:queue:queue.HelloWorld.camel2.fooMsgs"&gt;
             &lt;/filter&gt;
             &lt;filter&gt;
-                &lt;xpath&gt;$JMSType = &#39;bar&#39; and $myCustomHeader=&#39;takeMe&#39;&lt;/xpath&gt;
-                &lt;to   uri=&quot;activemq:queue:queue.HelloWorld.camel2.barMsgs&quot;&gt;
+                &lt;xpath&gt;$JMSType = 'bar' and $myCustomHeader='takeMe'&lt;/xpath&gt;
+                &lt;to   uri="activemq:queue:queue.HelloWorld.camel2.barMsgs"&gt;
             &lt;/filter&gt;
         &lt;/route&gt;
 
         &lt;!-- route using choice route based on xpath --&gt;
 
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:topic:topic.HelloWorld.incoming.camel3&quot;&gt;
+            &lt;from uri="activemq:topic:topic.HelloWorld.incoming.camel3"&gt;
             &lt;choice&gt;
                 &lt;when&gt;
-                    &lt;xpath&gt;$JMSType = &#39;foo&#39;&lt;/xpath&gt;
-                    &lt;to   uri=&quot;activemq:queue:queue.HelloWorld.camel3.fooMsgs&quot;&gt;
+                    &lt;xpath&gt;$JMSType = 'foo'&lt;/xpath&gt;
+                    &lt;to   uri="activemq:queue:queue.HelloWorld.camel3.fooMsgs"&gt;
                 &lt;/when&gt;
                 &lt;otherwise&gt;
-                    &lt;to   uri=&quot;activemq:queue:queue.HelloWorld.camel3.nonFooMsgs&quot;&gt;
+                    &lt;to   uri="activemq:queue:queue.HelloWorld.camel3.nonFooMsgs"&gt;
                 &lt;/otherwise&gt;
             &lt;/choice&gt;
         &lt;/route&gt;
@@ -72,11 +71,11 @@
         &lt;!-- route using choice route based on JUEL --&gt;
 
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:topic:topic.HelloWorld.incoming.camel4&quot;&gt;
+            &lt;from uri="activemq:topic:topic.HelloWorld.incoming.camel4"&gt;
             &lt;choice&gt;
                 &lt;when&gt;
-                    &lt;el&gt;${in.headers.JMSType.equals(&#39;foo&#39;)}&lt;/el&gt;
-                    &lt;to uri=&quot;activemq:queue:queue.HelloWorld.camel4.fooMsgs&quot;&gt;
+                    &lt;el&gt;${in.headers.JMSType.equals('foo')}&lt;/el&gt;
+                    &lt;to uri="activemq:queue:queue.HelloWorld.camel4.fooMsgs"&gt;
                 &lt;/when&gt;
             &lt;/choice&gt;
         &lt;/route&gt;
@@ -84,16 +83,16 @@
         &lt;!-- route using nested JUEL based filters --&gt;
 
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:topic:topic.HelloWorld.incoming.camel5&quot;&gt;
+            &lt;from uri="activemq:topic:topic.HelloWorld.incoming.camel5"&gt;
             &lt;filter&gt;
-                &lt;el&gt;${in.headers.JMSType.equals(&#39;foo&#39;)}&lt;/el&gt;
+                &lt;el&gt;${in.headers.JMSType.equals('foo')}&lt;/el&gt;
                 &lt;filter&gt;
-                    &lt;el&gt;${in.headers.OperationRequest.equals(&#39;foo1&#39;)}&lt;/el&gt;
-                    &lt;to uri=&quot;activemq:queue:queue.HelloWorld.camel5.foo1Msgs&quot;&gt;
+                    &lt;el&gt;${in.headers.OperationRequest.equals('foo1')}&lt;/el&gt;
+                    &lt;to uri="activemq:queue:queue.HelloWorld.camel5.foo1Msgs"&gt;
                 &lt;/filter&gt;
                 &lt;filter&gt;
-                    &lt;el&gt;${in.headers.OperationRequest.equals(&#39;foo2&#39;)}&lt;/el&gt;
-                    &lt;to uri=&quot;activemq:queue:queue.HelloWorld.camel5.foo2Msgs&quot;&gt;
+                    &lt;el&gt;${in.headers.OperationRequest.equals('foo2')}&lt;/el&gt;
+                    &lt;to uri="activemq:queue:queue.HelloWorld.camel5.foo2Msgs"&gt;
                 &lt;/filter&gt;
             &lt;/filter&gt;
         &lt;/route&gt;
@@ -101,12 +100,12 @@
         &lt;!-- route using nested JUEL and xpath filters, including a filter which examines the message content for an xml attribute --&gt;
 
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:topic:topic.HelloWorld.incoming.camel6&quot;&gt;
+            &lt;from uri="activemq:topic:topic.HelloWorld.incoming.camel6"&gt;
             &lt;filter&gt;
-                &lt;el&gt;${in.headers.JMSType.equals(&#39;foo&#39;)}&lt;/el&gt;
+                &lt;el&gt;${in.headers.JMSType.equals('foo')}&lt;/el&gt;
                 &lt;filter&gt;
-                    &lt;xpath&gt;/rootXMLBodyNode/childXMLBodyNode[@myAttributeKey=&#39;myAttributeValue&#39;]&lt;/xpath&gt;
-                    &lt;to uri=&quot;activemq:queue:queue.HelloWorld.camel6.fooMsgs&quot;&gt;
+                    &lt;xpath&gt;/rootXMLBodyNode/childXMLBodyNode[@myAttributeKey='myAttributeValue']&lt;/xpath&gt;
+                    &lt;to uri="activemq:queue:queue.HelloWorld.camel6.fooMsgs"&gt;
                 &lt;/filter&gt;
             &lt;/filter&gt;
         &lt;/route&gt;
@@ -114,12 +113,12 @@
         &lt;!-- route using nested JUEL and xpath filters, including a filter which examines the message content for an xml value --&gt;
 
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:topic:topic.HelloWorld.incoming.camel7&quot;&gt;
+            &lt;from uri="activemq:topic:topic.HelloWorld.incoming.camel7"&gt;
             &lt;filter&gt;
-                &lt;el&gt;${in.headers.JMSType.equals(&#39;Tideworks.GateVision.XmlCmd&#39;)}&lt;/el&gt;
+                &lt;el&gt;${in.headers.JMSType.equals('Tideworks.GateVision.XmlCmd')}&lt;/el&gt;
                 &lt;filter&gt;
-                    &lt;xpath&gt;/rootXMLBodyNode/childXMLBodyNode/elementKey = &#39;elementValue&#39;&lt;/xpath&gt;
-                    &lt;to uri=&quot;activemq:queue:queue.HelloWorld.camel7.fooMsgs&quot;&gt;
+                    &lt;xpath&gt;/rootXMLBodyNode/childXMLBodyNode/elementKey = 'elementValue'&lt;/xpath&gt;
+                    &lt;to uri="activemq:queue:queue.HelloWorld.camel7.fooMsgs"&gt;
                 &lt;/filter&gt;
             &lt;/filter&gt;
         &lt;/route&gt;
@@ -127,17 +126,16 @@
         &lt;!-- route using nested JUEL and xpath filters, including a filter which examines the message content for an xml attribute --&gt;
 
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:topic:topic.HelloWorld.incoming.camel8&quot;&gt;
+            &lt;from uri="activemq:topic:topic.HelloWorld.incoming.camel8"&gt;
             &lt;filter&gt;
-                &lt;el&gt;${in.headers.JMSType.equals(&#39;foo&#39;)}&lt;/el&gt;
+                &lt;el&gt;${in.headers.JMSType.equals('foo')}&lt;/el&gt;
                 &lt;filter&gt;
-                    &lt;xpath&gt;/rootXMLBodyNode/childXMLBodyNode[@myAttributeKey=&#39;myAttributeValue&#39;]/grandchildXMLBodyNode[@myAttributeKey=&#39;myAttributeValue&#39;]&lt;/xpath&gt;
-                    &lt;to uri=&quot;activemq:queue:queue.HelloWorld.camel8.fooMsgs&quot;&gt;
+                    &lt;xpath&gt;/rootXMLBodyNode/childXMLBodyNode[@myAttributeKey='myAttributeValue']/grandchildXMLBodyNode[@myAttributeKey='myAttributeValue']&lt;/xpath&gt;
+                    &lt;to uri="activemq:queue:queue.HelloWorld.camel8.fooMsgs"&gt;
                 &lt;/filter&gt;
             &lt;/filter&gt;
         &lt;/route&gt;
     &lt;/camelContext&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

@@ -1,12 +1,13 @@
-<div class="wiki-content maincontent"><h2 id="CanIuseActiveMQ5.xorlateronJava1.4-CanIuseActiveMQ5.0orlateronJava1.4?">Can I use ActiveMQ 5.0 or later on Java 1.4?</h2>
+<div class="wiki-content maincontent"><h2>Can I use ActiveMQ 5.0 or later on Java 1.4?</h2>
 
 <p>Apache ActiveMQ 5.x or later is developed to run on Java 5 or later  to take advantage of the new language features together with the major fact that on Java 5 the new concurrency code is faster &amp; less buggy and requires less dependencies.</p>
 
-<p>We may get around to creating a sepate distro of retrotranslated jars for 1.4 <a shape="rect" href="contributing.xml">particularly if someone helps</a>.</p>
+<p>We may get around to creating a sepate distro of retrotranslated jars for 1.4 <link><page ri:content-title="Contributing"></page><link-body>particularly if someone helps</link-body></link>.</p>
 
-<p>Until then you can just <a shape="rect" class="external-link" href="http://retrotranslator.sourceforge.net/#jit" rel="nofollow">install the retrotranslator JIT in your JVM</a> which will auto-swizzle all Java 5 bytecode to be complaint Java 1.4 bytecode using backport-util-concurrent instead of Java 5 concurrency code.</p>
+<p>Until then you can just <a shape="rect" href="http://retrotranslator.sourceforge.net/#jit">install the retrotranslator JIT in your JVM</a> which will auto-swizzle all Java 5 bytecode to be complaint Java 1.4 bytecode using backport-util-concurrent instead of Java 5 concurrency code.</p>
 
-<h2 id="CanIuseActiveMQ5.xorlateronJava1.4-SeeAlso">See Also</h2>
+<h2>See Also</h2>
 
-<ul><li><a shape="rect" href="what-platforms-does-activemq-support.xml">What platforms does ActiveMQ support</a></li></ul></div>
+<ul><li><link><page ri:content-title="What platforms does ActiveMQ support"></page></link></li></ul>
+</div>
 

@@ -1,6 +1,6 @@
 <div class="wiki-content maincontent">
 <p>If you are using the JMS Streams feature with 4.x of ActiveMQ<br clear="none">
-<a shape="rect" class="external-link" href="http://activemq.org/JMS+Streams" rel="nofollow">http://activemq.org/JMS+Streams</a></p>
+<a shape="rect" href="http://activemq.org/JMS+Streams">http://activemq.org/JMS+Streams</a></p>
 
 <p> you'd be able to watch the progress in a JMX console or HermesJMS by looking at the queue depths; each large 1Gb file is split into individual JMS messages so you can monitor queue depth etc to track progress</p></div>
 

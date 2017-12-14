@@ -2,17 +2,15 @@
 
 <p>If you get an exception like this</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="5ca8d7d4-3666-4e2d-ace3-fd67fd052ca4" ac:name="code" ac:schema-version="1"><plain-text-body>
 java.lang.NoClassDefFoundError - org/springframework/core/io/Resource
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="NoClassDefFoundError-org.springframework.core.io.Resource-Cause">Cause</h3>
+<h3>Cause</h3>
 
-<p>You were probably trying to use the <a shape="rect" href="xml-configuration.xml">XML Configuration</a> mechanism, which uses Spring, but without having the Spring jar on your classpath.</p>
+<p>You were probably trying to use the <link><page ri:content-title="XML Configuration"></page></link> mechanism, which uses Spring, but without having the Spring jar on your classpath.</p>
 
-<h3 id="NoClassDefFoundError-org.springframework.core.io.Resource-Solution">Solution</h3>
+<h3>Solution</h3>
 
 <p>Add the Spring jar to your classpath.</p></div>
 

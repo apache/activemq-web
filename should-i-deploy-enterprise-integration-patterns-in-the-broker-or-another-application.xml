@@ -1,20 +1,21 @@
-<div class="wiki-content maincontent"><h2 id="ShouldIdeployEnterpriseIntegrationPatternsinthebrokeroranotherapplication-ShouldIdeployEnterpriseIntegrationPatternsinthebrokeroranotherapplication">Should I deploy Enterprise Integration Patterns in the broker or another application</h2>
+<div class="wiki-content maincontent"><h2>Should I deploy Enterprise Integration Patterns in the broker or another application</h2>
 
-<p>Whether you deploy the <a shape="rect" href="enterprise-integration-patterns.xml">Enterprise Integration Patterns</a> inside the ActiveMQ Broker or in a separate application depends on your requirements. </p>
+<p>Whether you deploy the <link><page ri:content-title="Enterprise Integration Patterns"></page></link> inside the ActiveMQ Broker or in a separate application depends on your requirements. </p>
 
-<h3 id="ShouldIdeployEnterpriseIntegrationPatternsinthebrokeroranotherapplication-AdvantagesofdeployingEIPinsidethebroker">Advantages of deploying EIP inside the broker</h3>
+<h3>Advantages of deploying EIP inside the broker</h3>
 
-<ul><li>Its a single JVM so less moving parts and you're less likely to forget to deploy something</li><li>if you are doing things like polling resources such as files, databases and bridging them to queues or topics then its usually more efficient to host in the broker; as there's less contention and there's no network communication between the EIP rules and the message broker as its all in the same JVM (so you can use the <a shape="rect" href="vm-transport-reference.xml">VM Transport</a> to avoid network overhead.</li></ul>
-
-
-<h3 id="ShouldIdeployEnterpriseIntegrationPatternsinthebrokeroranotherapplication-AdvantagesofdeployingEIPinsideaseparateapplication">Advantages of deploying EIP inside a separate application</h3>
-
-<ul><li>its easier to deploy loads of JVMs containing the EIP routing rules to get better load balancing</li><li>you can easily change your routing rules then stop/restart applications without having to restart your broker. Having said that since ActiveMQ supports <a shape="rect" href="how-can-i-support-auto-reconnection.xml">auto reconnection</a> its not such a big deal to bounce the Broker now and again to refresh routing rules. Note that at some point <a shape="rect" class="external-link" href="https://issues.apache.org/activemq/browse/CAMEL-234">Camel will support auto-reload of routing rules on the fly without having to stop and reload the JVM</a> so one day this won't be such a big benefit.</li></ul>
+<ul><li>Its a single JVM so less moving parts and you're less likely to forget to deploy something</li><li>if you are doing things like polling resources such as files, databases and bridging them to queues or topics then its usually more efficient to host in the broker; as there's less contention and there's no network communication between the EIP rules and the message broker as its all in the same JVM (so you can use the <link><page ri:content-title="VM Transport Reference"></page><link-body>VM Transport</link-body></link> to avoid network overhead.</li></ul>
 
 
-<h3 id="ShouldIdeployEnterpriseIntegrationPatternsinthebrokeroranotherapplication-SeeAlso">See Also</h3>
+<h3>Advantages of deploying EIP inside a separate application</h3>
 
-<ul><li><a shape="rect" href="should-i-deploy-the-broker-inside-my-jvm-or-appserver.xml">Should I deploy the broker inside my JVM or AppServer</a></li></ul>
+<ul><li>its easier to deploy loads of JVMs containing the EIP routing rules to get better load balancing</li><li>you can easily change your routing rules then stop/restart applications without having to restart your broker. Having said that since ActiveMQ supports <link><page ri:content-title="How can I support auto reconnection"></page><link-body>auto reconnection</link-body></link> its not such a big deal to bounce the Broker now and again to refresh routing rules. Note that at some point <a shape="rect" href="https://issues.apache.org/activemq/browse/CAMEL-234">Camel will support auto-reload of routing rules on the fly without having to stop and reload the JVM</a> so one day this won't be such a big benefit.</li></ul>
+
+
+<h3>See Also</h3>
+
+<ul><li><link><page ri:content-title="Should I deploy the broker inside my JVM or AppServer"></page></link></li></ul>
+
 
 </div>
 

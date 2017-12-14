@@ -1,10 +1,10 @@
 <div class="wiki-content maincontent">
 
 
-<p>We did some harvesting of questions on the <a shape="rect" class="external-link" href="http://servlet.uwyn.com/drone/log/hausbot/activemq" rel="nofollow">IRC log</a> and have added a few new entries to the <a shape="rect" href="../../../faq.xml">FAQ</a></p>
+<p>We did some harvesting of questions on the <a shape="rect" href="http://servlet.uwyn.com/drone/log/hausbot/activemq">IRC log</a> and have added a few new entries to the <link><page ri:content-title="FAQ"></page></link></p>
 
-<ul><li><a shape="rect" class="external-link" href="http://activemq.codehaus.org/How+do+distributed+queues+work?refresh=1" rel="nofollow">How do distributed queues work</a></li><li><a shape="rect" class="external-link" href="http://activemq.codehaus.org/What+happens+with+a+fast+producer+and+slow+consumer?refresh=1" rel="nofollow">What happens with a fast producer and slow consumer</a></li></ul>
+<ul><li><a shape="rect" href="http://activemq.codehaus.org/How+do+distributed+queues+work?refresh=1">How do distributed queues work</a></li><li><a shape="rect" href="http://activemq.codehaus.org/What+happens+with+a+fast+producer+and+slow+consumer?refresh=1">What happens with a fast producer and slow consumer</a></li></ul>
 
 
-<p>If you can think of any other questions please mail us on one of the <a shape="rect" class="external-link" href="http://activemq.codehaus.org/maven/mail-lists.html" rel="nofollow">mailing lists</a> or join us on </p><p><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></p>  or post a comment to this blog.<p></p></div>
+<p>If you can think of any other questions please mail us on one of the <a shape="rect" href="http://activemq.codehaus.org/maven/mail-lists.html">mailing lists</a> or join us on </p><p><structured-macro ac:macro-id="64b65670-1e24-47a2-a09f-37ecc1f3b01d" ac:name="link" ac:schema-version="1"><parameter ac:name="">IRC</parameter><parameter ac:name="text">IRC</parameter><parameter ac:name="url">irc://irc.codehaus.org/activemq</parameter></structured-macro></p>  or post a comment to this blog.<p></p></div>
 

@@ -1,117 +1,113 @@
-<div class="wiki-content maincontent"><h3 id="JMSBridgeWithOracleAQ-ExampleofaconfigurationthatshowshowtoconnecttoOracleAQqueuesandtopics.">Example of a configuration that shows how to connect to Oracle AQ queues and topics.</h3>
+<div class="wiki-content maincontent"><h3>Example of a configuration that shows how to connect to Oracle AQ queues and topics.</h3>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="4cf21870-0ab2-4f52-a906-fabf122f573a" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
 &lt;beans&gt;
     &lt;!-- Allows us to use system properties as variables in this configuration file --&gt;
-    &lt;bean class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;/&gt;
+    &lt;bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/&gt;
 
-    &lt;broker useJmx=&quot;true&quot; persistent=&quot;false&quot; xmlns=&quot;http://activemq.org/config/1.0&quot;
-            brokerName=&quot;localhost&quot; dataDirectory=&quot;${activemq.base}/data&quot; &gt;
+    &lt;broker useJmx="true" persistent="false" xmlns="http://activemq.org/config/1.0"
+            brokerName="localhost" dataDirectory="${activemq.base}/data" &gt;
     &lt;/broker&gt;
 
-    &lt;camelContext id=&quot;camel&quot; xmlns=&quot;http://activemq.apache.org/camel/schema/spring&quot;&gt;
+    &lt;camelContext id="camel" xmlns="http://activemq.apache.org/camel/schema/spring"&gt;
         &lt;!-- Dependencies: ojdbc.jar and aqjms.jar must be in the activemq lib directory --&gt;
 
         &lt;!-- this camel route will read incoming messages from Oracle --&gt;
         &lt;route&gt;
-            &lt;from uri=&quot;oracleQueue:queue:ORACLE_QUEUE&quot;&gt;
-            &lt;to   uri=&quot;activemq:queue:queue.inboundOracleAQqueue&quot; &gt;
+            &lt;from uri="oracleQueue:queue:ORACLE_QUEUE"&gt;
+            &lt;to   uri="activemq:queue:queue.inboundOracleAQqueue" &gt;
         &lt;/route&gt;
         &lt;route&gt;
             &lt;!-- NOTE: I have had success with a topic using ActiveMQ 5.3, but not 5.1 --&gt;
-            &lt;from uri=&quot;oracleTopic:topic:ORACLE_TOPIC&quot;&gt;
-            &lt;to   uri=&quot;activemq:queue:queue.inboundOracleAQtopic&quot; &gt;
+            &lt;from uri="oracleTopic:topic:ORACLE_TOPIC"&gt;
+            &lt;to   uri="activemq:queue:queue.inboundOracleAQtopic" &gt;
         &lt;/route&gt;
 
         &lt;!-- these camel routes will log the messages to the console .... replace them with something more useful!!  --&gt;
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:queue:queue.inboundOracleAQqueue&quot; &gt;
-            &lt;to uri=&quot;log:oracleAQ.inbound.got_a_queue_message?level=ERROR&quot;&gt;
+            &lt;from uri="activemq:queue:queue.inboundOracleAQqueue" &gt;
+            &lt;to uri="log:oracleAQ.inbound.got_a_queue_message?level=ERROR"&gt;
         &lt;/route&gt;
         &lt;route&gt;
-            &lt;from uri=&quot;activemq:queue:queue.inboundOracleAQtopic&quot; &gt;
-            &lt;to uri=&quot;log:oracleAQ.inbound.got_a_topic_message?level=ERROR&quot;&gt;
+            &lt;from uri="activemq:queue:queue.inboundOracleAQtopic" &gt;
+            &lt;to uri="log:oracleAQ.inbound.got_a_topic_message?level=ERROR"&gt;
         &lt;/route&gt;
     &lt;/camelContext&gt;
 
     &lt;!-- without the following bean instantiation, we will get an oracle.jms.AQjmsException with each and every received message --&gt;
-    &lt;bean id=&quot;requiredBeanForOracleAq&quot; class=&quot;org.apache.activemq.ActiveMQConnectionFactory&quot; /&gt;
+    &lt;bean id="requiredBeanForOracleAq" class="org.apache.activemq.ActiveMQConnectionFactory" /&gt;
 
-    &lt;bean id=&quot;connectionFactoryOracleAQQueue&quot; class=&quot;oracle.jms.AQjmsFactory&quot; factory-method=&quot;getQueueConnectionFactory&quot;&gt;
-        &lt;constructor-arg index=&quot;0&quot;&gt;
+    &lt;bean id="connectionFactoryOracleAQQueue" class="oracle.jms.AQjmsFactory" factory-method="getQueueConnectionFactory"&gt;
+        &lt;constructor-arg index="0"&gt;
             &lt;value&gt;jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS_LIST ....... (SERVICE_NAME = myDbService)))&lt;/value&gt;
         &lt;/constructor-arg&gt;
-        &lt;constructor-arg index=&quot;1&quot; type=&quot;java.util.Properties&quot;&gt;
+        &lt;constructor-arg index="1" type="java.util.Properties"&gt;
             &lt;value&gt;&lt;/value&gt;
         &lt;/constructor-arg&gt;
     &lt;/bean&gt;
 
-    &lt;bean id=&quot;connectionFactoryOracleAQTopic&quot; class=&quot;oracle.jms.AQjmsFactory&quot;
-                factory-method=&quot;getQueueConnectionFactory&quot;&gt;
-        &lt;constructor-arg index=&quot;0&quot;&gt;
+    &lt;bean id="connectionFactoryOracleAQTopic" class="oracle.jms.AQjmsFactory"
+                factory-method="getQueueConnectionFactory"&gt;
+        &lt;constructor-arg index="0"&gt;
             &lt;value&gt;jdbc:oracle:thin:@(DESCRIPTION =(ADDRESS_LIST ....... (SERVICE_NAME = myDbService)))&lt;/value&gt;
         &lt;/constructor-arg&gt;
-        &lt;constructor-arg index=&quot;1&quot; type=&quot;java.util.Properties&quot;&gt;
+        &lt;constructor-arg index="1" type="java.util.Properties"&gt;
             &lt;value&gt;&lt;/value&gt;
         &lt;/constructor-arg&gt;
     &lt;/bean&gt;
 
-    &lt;bean id=&quot;oracleQueueCredentials&quot; class=&quot;org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter&quot;&gt;
-        &lt;property name=&quot;targetConnectionFactory&quot;&gt;
-            &lt;ref bean=&quot;connectionFactoryOracleAQQueue&quot;&gt;
+    &lt;bean id="oracleQueueCredentials" class="org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter"&gt;
+        &lt;property name="targetConnectionFactory"&gt;
+            &lt;ref bean="connectionFactoryOracleAQQueue"&gt;
         &lt;/property&gt;
-        &lt;property name=&quot;username&quot;&gt;
+        &lt;property name="username"&gt;
             &lt;value&gt;foo&lt;/value&gt;
         &lt;/property&gt;
-        &lt;property name=&quot;password&quot;&gt;
+        &lt;property name="password"&gt;
             &lt;value&gt;bar&lt;/value&gt;
         &lt;/property&gt;
     &lt;/bean&gt;
 
-    &lt;bean id=&quot;oracleTopicCredentials&quot; class=&quot;org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter&quot;&gt;
-        &lt;property name=&quot;targetConnectionFactory&quot;&gt;
-            &lt;ref bean=&quot;connectionFactoryOracleAQTopic&quot;&gt;
+    &lt;bean id="oracleTopicCredentials" class="org.springframework.jms.connection.UserCredentialsConnectionFactoryAdapter"&gt;
+        &lt;property name="targetConnectionFactory"&gt;
+            &lt;ref bean="connectionFactoryOracleAQTopic"&gt;
         &lt;/property&gt;
-        &lt;property name=&quot;username&quot;&gt;
+        &lt;property name="username"&gt;
             &lt;value&gt;foo&lt;/value&gt;
         &lt;/property&gt;
-        &lt;property name=&quot;password&quot;&gt;
+        &lt;property name="password"&gt;
             &lt;value&gt;bar&lt;/value&gt;
         &lt;/property&gt;
     &lt;/bean&gt;
 
-   &lt;bean id=&quot;oracleQueue&quot; class=&quot;org.apache.camel.component.jms.JmsComponent&quot;&gt;
-        &lt;property name=&quot;connectionFactory&quot; ref=&quot;oracleQueueCredentials&quot;&gt;
+   &lt;bean id="oracleQueue" class="org.apache.camel.component.jms.JmsComponent"&gt;
+        &lt;property name="connectionFactory" ref="oracleQueueCredentials"&gt;
    &lt;/bean&gt;
 
-   &lt;bean id=&quot;oracleTopic&quot; class=&quot;org.apache.camel.component.jms.JmsComponent&quot;&gt;
-        &lt;property name=&quot;connectionFactory&quot; ref=&quot;oracleTopicCredentials&quot;&gt;
+   &lt;bean id="oracleTopic" class="org.apache.camel.component.jms.JmsComponent"&gt;
+        &lt;property name="connectionFactory" ref="oracleTopicCredentials"&gt;
    &lt;/bean&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 
-<p>If you run in an OSGi environment such as <a shape="rect" class="external-link" href="http://servicemix.apache.org">ServiceMix 4</a> then take a look at <a shape="rect" class="external-link" href="http://servicemix.396122.n5.nabble.com/ServiceMix-4-2-Camel-OracleAQ-td421214.html#a421214" rel="nofollow">this discussion</a> how to install the OracleAQ Client in the OSGi container.</p>
+<p>If you run in an OSGi environment such as <a shape="rect" href="http://servicemix.apache.org">ServiceMix 4</a> then take a look at <a shape="rect" href="http://servicemix.396122.n5.nabble.com/ServiceMix-4-2-Camel-OracleAQ-td421214.html#a421214">this discussion</a> how to install the OracleAQ Client in the OSGi container.</p>
 
-<h4 id="JMSBridgeWithOracleAQ-OracleSQLcode">Oracle SQL code</h4>
+<h4>Oracle SQL code</h4>
 <p>You may need to setup OracleAQ, and here is a sample code</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="efdb1a06-1164-41a6-86ee-ce8b6fc792b7" ac:name="code" ac:schema-version="1"><plain-text-body>
 BEGIN
- DBMS_AQADM.CREATE_QUEUE_TABLE( queue_table =&gt; &#39;queue_message_table&#39;, queue_payload_type =&gt; &#39;SYS.AQ$_JMS_TEXT_MESSAGE&#39;);
+ DBMS_AQADM.CREATE_QUEUE_TABLE( queue_table =&gt; 'queue_message_table', queue_payload_type =&gt; 'SYS.AQ$_JMS_TEXT_MESSAGE');
 END;        
 
 BEGIN
-  DBMS_AQADM.CREATE_QUEUE( queue_name =&gt; &#39;ORACLE_QUEUE&#39;, queue_table =&gt; &#39;queue_message_table&#39;);
+  DBMS_AQADM.CREATE_QUEUE( queue_name =&gt; 'ORACLE_QUEUE', queue_table =&gt; 'queue_message_table');
 END;
 
 BEGIN
-  DBMS_AQADM.START_QUEUE(queue_name =&gt; &#39;ORACLE_QUEUE&#39;);
+  DBMS_AQADM.START_QUEUE(queue_name =&gt; 'ORACLE_QUEUE');
 END;  
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<p>You can also find more information about OracleAQ and using JMS at: <a shape="rect" class="external-link" href="http://docs.oracle.com/cd/B13789_01/server.101/b10785/jm_exmpl.htm" rel="nofollow">http://docs.oracle.com/cd/B13789_01/server.101/b10785/jm_exmpl.htm</a></p></div>
+<p>You can also find more information about OracleAQ and using JMS at: <a shape="rect" href="http://docs.oracle.com/cd/B13789_01/server.101/b10785/jm_exmpl.htm">http://docs.oracle.com/cd/B13789_01/server.101/b10785/jm_exmpl.htm</a></p></div>
 

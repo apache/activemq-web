@@ -1,4 +1,4 @@
-<div class="wiki-content maincontent"><p>This is the C library which is based on the <a shape="rect" href="openwire.xml">OpenWire</a> protocol.</p>
+<div class="wiki-content maincontent"><p>This is the C library which is based on the <link><page ri:content-title="OpenWire"></page></link> protocol.</p>
 
 <p>You can browse the code here</p>
 
@@ -6,5 +6,6 @@
 
 <p>e.g. here's an example of it in use...</p>
 
-<p><a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/sandbox/openwire-c/src/examples/main.c">http://svn.apache.org/repos/asf/activemq/sandbox/openwire-c/src/examples/main.c</a></p></div>
+<p><a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/activemq/sandbox/openwire-c/src/examples/main.c">http://svn.apache.org/repos/asf/activemq/sandbox/openwire-c/src/examples/main.c</a></p>
+</div>
 

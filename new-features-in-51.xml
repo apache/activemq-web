@@ -1,9 +1,10 @@
-<div class="wiki-content maincontent"><h2 id="NewFeaturesin5.1-NewFeaturesin5.1">New Features in 5.1</h2>
+<div class="wiki-content maincontent"><h2>New Features in 5.1</h2>
 
 <p>In the 5.1.x release of Apache ActiveMQ there are the following new features:</p>
 
-<ul><li>You can use the new <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/advisory/DestinationSource.html">DestinationSource</a> on an ActiveMQConnection to access the available queues or topics or listen to queues/topics being created or deleted.
-<h2 id="NewFeaturesin5.1-NewFeaturesin5.1.1">New Features in 5.1</h2></li><li>Support for more graceful handling of <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ-1517">timeouts within MessageProducer.send</a></li><li>Add the option for a <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ-1572">backup channel that is already connected for the Failover transport</a></li><li>ActiveMQ configuration can now validate against an XSD which means that it can be embedded in a spring configuration file.</li><li>Stomp can now handle delivering Map and Object messages.</li></ul>
+<ul><li>You can use the new <a shape="rect" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/advisory/DestinationSource.html">DestinationSource</a> on an ActiveMQConnection to access the available queues or topics or listen to queues/topics being created or deleted.
+<h2>New Features in 5.1</h2></li><li>Support for more graceful handling of <a shape="rect" href="http://issues.apache.org/activemq/browse/AMQ-1517">timeouts within MessageProducer.send</a></li><li>Add the option for a <a shape="rect" href="http://issues.apache.org/activemq/browse/AMQ-1572">backup channel that is already connected for the Failover transport</a></li><li>ActiveMQ configuration can now validate against an XSD which means that it can be embedded in a spring configuration file.</li><li>Stomp can now handle delivering Map and Object messages.</li></ul>
+
 
 </div>
 

@@ -1,2 +1,2 @@
-<div class="wiki-content maincontent"><div class="error"><span class="error">Unable to render {children}.</span> Can only find children for a page, this is a blogpost.</div></div>
+<div class="wiki-content maincontent"><structured-macro ac:macro-id="8ac3e1a2-e372-4fce-8fb2-facd210a99ad" ac:name="children" ac:schema-version="1"><parameter ac:name="all">true</parameter></structured-macro></div>
 

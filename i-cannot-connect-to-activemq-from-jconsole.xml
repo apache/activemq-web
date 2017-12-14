@@ -2,19 +2,15 @@
 
 <p>e.g. on unix (OS X, Linux, Solaris)</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="7b9766cc-e65f-46e3-ac75-a5d24a48e220" ac:name="code" ac:schema-version="1"><plain-text-body>
 export ACTIVEMQ_OPTS=$ACTIVEMQ_OPTS -Djava.rmi.server.hostname=&lt;hostname&gt; 
 activemq
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>or on Windows</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="61232e79-c03a-457a-beda-9bb1d082442f" ac:name="code" ac:schema-version="1"><plain-text-body>
 SET ACTIVEMQ_OPTS=%ACTIVEMQ_OPTS% -Djava.rmi.server.hostname=&lt;hostname&gt; 
 activemq
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

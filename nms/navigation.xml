@@ -1,32 +1,33 @@
-<div class="wiki-content maincontent"><h3 id="Navigation-Overview"><a shape="rect" href="overview.xml">Overview</a></h3>
+<div class="wiki-content maincontent"><h3><link><page ri:content-title="Overview"></page></link></h3>
 
-<ul class="alternate"><li><a shape="rect" href="index.xml">Home</a></li><li><a shape="rect" href="faq.xml">FAQ</a></li><li><a shape="rect" href="download.xml">Download</a></li></ul>
-
-
-<h3 id="Navigation-UsingNMS"><a shape="rect" href="using-nms.xml">Using NMS</a></h3>
-
-<ul class="alternate"><li><a shape="rect" href="apachenms.xml">NMS Overview</a></li><li><a shape="rect" href="nms.xml">Getting Started</a></li><li><a shape="rect" href="nms-api.xml">NMS API Reference</a></li><li><a shape="rect" href="apachenmsactivemq.xml">ActiveMQ</a></li><li><a shape="rect" href="apachenmsstomp.xml">Stomp</a></li><li><a shape="rect" href="apachenmsmsmq.xml">MSMQ</a></li><li><a shape="rect" href="apachenmsems.xml">Tibco EMS</a></li><li><a shape="rect" href="apachenmswcf.xml">WCF</a></li></ul>
+<ul class="alternate"><li><link><page ri:content-title="Index"></page><link-body>Home</link-body></link></li><li><link><page ri:content-title="FAQ"></page></link></li><li><link><page ri:content-title="Download"></page></link></li></ul>
 
 
-<h3 id="Navigation-Search">Search</h3>
-<p></p><p>
-</p><form enctype="application/x-www-form-urlencoded" method="get" id="cse-search-box" action="http://www.google.com/cse">
-  <div>
-    <input type="hidden" name="cx" value="007878419884033443453:m5nhvy4hmyq">
-    <input type="hidden" name="ie" value="UTF-8">
-    <input type="text" name="q" size="21">
-    <input type="submit" name="sa" value="Search">
-  </div>
-</form>
-<script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"></script>
-<p></p>
+<h3><link><page ri:content-title="Using NMS"></page></link></h3>
 
-<h3 id="Navigation-Community"><a shape="rect" href="community.xml">Community</a></h3>
-
-<ul class="alternate"><li><a shape="rect" href="support.xml">Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></li><li><a shape="rect" href="articles.xml">Articles</a></li><li><a shape="rect" href="site.xml">Site</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/team.html">Team</a></li></ul>
+<ul class="alternate"><li><link><page ri:content-title="Apache.NMS"></page><link-body>NMS Overview</link-body></link></li><li><link><page ri:content-title="NMS"></page><link-body>Getting Started</link-body></link></li><li><link><page ri:content-title="NMS API"></page><link-body>NMS API Reference</link-body></link></li><li><link><page ri:content-title="Apache.NMS.ActiveMQ"></page><link-body>ActiveMQ</link-body></link></li><li><link><page ri:content-title="Apache.NMS.Stomp"></page><link-body>Stomp</link-body></link></li><li><link><page ri:content-title="Apache.NMS.MSMQ"></page><link-body>MSMQ</link-body></link></li><li><link><page ri:content-title="Apache.NMS.EMS"></page><link-body>Tibco EMS</link-body></link></li><li><link><page ri:content-title="Apache.NMS.WCF"></page><link-body>WCF</link-body></link></li></ul>
 
 
-<h3 id="Navigation-Developers"><a shape="rect" href="developers.xml">Developers</a></h3>
+<h3>Search</h3>
+<p></p><p><structured-macro ac:macro-id="4162f69a-6f79-4fb8-914d-d0ef4169ed10" ac:name="html" ac:schema-version="1"><plain-text-body>
+&lt;form action="http://www.google.com/cse" id="cse-search-box"&gt;
+  &lt;div&gt;
+    &lt;input type="hidden" name="cx" value="007878419884033443453:m5nhvy4hmyq" /&gt;
+    &lt;input type="hidden" name="ie" value="UTF-8" /&gt;
+    &lt;input type="text" name="q" size="21" /&gt;
+    &lt;input type="submit" name="sa" value="Search" /&gt;
+  &lt;/div&gt;
+&lt;/form&gt;
+&lt;script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&amp;lang=en"&gt;&lt;/script&gt;
+</plain-text-body></structured-macro></p><p></p>
 
-<ul class="alternate"><li><a shape="rect" href="source.xml">Source</a></li><li><a shape="rect" href="building.xml">Building</a></li></ul></div>
+<h3><link><page ri:content-title="Community"></page></link></h3>
+
+<ul class="alternate"><li><link><page ri:content-title="Support"></page></link></li><li><a shape="rect" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc://irc.codehaus.org/activemq">IRC</a></li><li><link><page ri:content-title="Articles"></page></link></li><li><link><page ri:content-title="Site"></page></link></li><li><a shape="rect" href="http://activemq.apache.org/team.html">Team</a></li></ul>
+
+
+<h3><link><page ri:content-title="Developers"></page></link></h3>
+
+<ul class="alternate"><li><link><page ri:content-title="Source"></page></link></li><li><link><page ri:content-title="Building"></page></link></li></ul>
+</div>
 

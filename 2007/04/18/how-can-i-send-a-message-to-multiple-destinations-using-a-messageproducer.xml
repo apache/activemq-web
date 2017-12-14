@@ -1,10 +1,8 @@
 <div class="wiki-content maincontent"><p>How can I send a message to multiple Destinations using a MessageProducer? The trick is to pass null in for the destination when you create it; then you can specify the destination on each send.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="1b0481f4-3aba-4bc2-a3a0-2ddac58514b0" ac:name="code" ac:schema-version="1"><plain-text-body>
 MessageProducer producer = session.createProducer(null);
 ...
 producer.send(destination, message);
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

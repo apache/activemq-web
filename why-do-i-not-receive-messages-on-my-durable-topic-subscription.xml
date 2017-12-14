@@ -5,7 +5,7 @@
 
 <p>But you don't receive the messages?</p>
 
-<h3 id="WhydoInotreceivemessagesonmydurabletopicsubscription-Fix">Fix</h3>
+<h3>Fix</h3>
 
-<p>To be able to deliver messages to offline durable topic subscribers you must mark the message as being persistent. To do this set the PERSISTENT_DELIVERY mode on the MessageProducer as described <a shape="rect" href="how-do-i-make-messages-durable.xml">here</a>.</p></div>
+<p>To be able to deliver messages to offline durable topic subscribers you must mark the message as being persistent. To do this set the PERSISTENT_DELIVERY mode on the MessageProducer as described <link><page ri:content-title="How do I make messages durable"></page><link-body>here</link-body></link>.</p></div>
 

@@ -1,6 +1,6 @@
 <div class="wiki-content maincontent">
 
-<p>We're proud to announce the new <a shape="rect" href="../../../activemq-20-release.xml">ActiveMQ 2.0 Release</a>. This is a major release including lots of new functionality and performance improvements. A more detailed list of changes is <a shape="rect" class="external-link" href="http://jira.codehaus.org/secure/BrowseProject.jspa?id=10520&amp;report=changelog" rel="nofollow">here</a>.</p>
+<p>We're proud to announce the new <link><page ri:content-title="ActiveMQ 2.0 Release"></page></link>. This is a major release including lots of new functionality and performance improvements. A more detailed list of changes is <a shape="rect" href="http://jira.codehaus.org/secure/BrowseProject.jspa?id=10520&amp;report=changelog">here</a>.</p>
 
 <p>This release includes</p>
 

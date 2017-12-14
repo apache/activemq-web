@@ -1,7 +1,7 @@
-<div class="wiki-content maincontent"><h2 id="samplereport-PerformanceTestReportTemplate">Performance Test Report Template</h2>
+<div class="wiki-content maincontent"><h2>Performance Test Report Template</h2>
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>&lt;testResult&gt;
+<structured-macro ac:macro-id="00b92e64-60d1-468f-8ffa-af56e342b2fd" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+&lt;testResult&gt;
   &lt;property name='systemSettings'&gt;
     &lt;props&gt;
       &lt;prop key='java.runtime.name'&gt;Java(TM) 2 Runtime Environment, Standard Edition&lt;/prop&gt;
@@ -68,6 +68,5 @@
     &lt;/props&gt;
   &lt;/property&gt;
 &lt;/testResult&gt;
-</pre>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

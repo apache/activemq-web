@@ -1,36 +1,31 @@
-<div class="wiki-content maincontent"><h2 id="LifeCycle-LifecycleofChannels">Life cycle of Channels</h2>
+<div class="wiki-content maincontent"><h2>Life cycle of Channels</h2>
 
 <p>Blaze Channels are in one of five states:</p>
 
-<h3 id="LifeCycle-Constructed-theChannelisn'tinitializedorhasbeenshutDown">Constructed - the Channel isn't initialized or has been shutDown</h3>
+<h3>Constructed - the Channel isn't initialized or has been shutDown</h3>
 
-<h3 id="LifeCycle-initialized-">initialized - </h3>
+<h3>initialized - </h3>
 <p> you can explicitly initialize a Channel by invoking its init() method. At this point its Configuration is set</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="4cf10daf-4687-4230-9b72-42f430b54a68" ac:name="code" ac:schema-version="1"><plain-text-body>
  BlazeChannelFactory factory = new BlazeChannelFactory();
  BlazeChannel channel = factory.createChannel();
  channel.init();
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="LifeCycle-started-">started - </h3>
+<h3>started - </h3>
 <p> this will implicitly initialize the channel and start the Channel's underlying communication with its peers:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="4b16db1d-9359-4600-8d74-4fc58d51bec0" ac:name="code" ac:schema-version="1"><plain-text-body>
  BlazeChannelFactory factory = new BlazeChannelFactory();
  BlazeChannel channel = factory.createChannel();
  channel.start();
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="LifeCycle-stopped-">stopped - </h3>
+<h3>stopped - </h3>
 <p> this will stop communication - however you are able to re-start the channel at a latter point</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="268ac83c-3aac-47ec-a2bb-82fb9c7ef9e6" ac:name="code" ac:schema-version="1"><plain-text-body>
  BlazeChannelFactory factory = new BlazeChannelFactory();
  BlazeChannel channel = factory.createChannel();
  channel.stop();
@@ -38,22 +33,19 @@
  ...
  //re-start
  channel.start();
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="LifeCycle-shutdown">shut down</h3>
+<h3>shut down</h3>
 <ul class="alternate"><li>this will implicitly call stop() - and de-construct the channel. It is possible to re-initialize the channel again - and it is recommend that to apply configuration changes to the channel - it be shut down and re-started - e.g.</li></ul>
 
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="55b98ba8-4a80-4e63-a194-c7293ce12552" ac:name="code" ac:schema-version="1"><plain-text-body>
  BlazeChannelFactory factory = new BlazeChannelFactory();
  BlazeChannel channel = factory.createChannel();
  channel.shutDown();
  // change the congiguration
- channel.getConfiguration().setBroadcastURI(&quot;tcp://localhost:60661&quot;);
+ channel.getConfiguration().setBroadcastURI("tcp://localhost:60661");
  //re-start
  channel.start();
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

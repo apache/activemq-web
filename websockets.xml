@@ -1,65 +1,60 @@
-<div class="wiki-content maincontent"><h1 id="WebSockets-Introduction">Introduction</h1>
-<p>Besides <a shape="rect" href="ajax.xml">Ajax</a> API, starting with version <strong>5.4.0</strong> onwards, you can use HTML5 <a shape="rect" class="external-link" href="http://dev.w3.org/html5/websockets/" rel="nofollow">WebSockets</a> to exchange messages with the broker from your browser. </p>
+<div class="wiki-content maincontent"><h1>Introduction</h1>
+<p>Besides <link><page ri:content-title="Ajax"></page></link> API, starting with version <strong>5.4.0</strong> onwards, you can use HTML5 <a shape="rect" href="http://dev.w3.org/html5/websockets/">WebSockets</a> to exchange messages with the broker from your browser. </p>
 
-<p>HTML 5 introduced web sockets, as a standardized way to communicate asynchronously with the server from a web page. This is practically an ideal channel for implementing asynchronous messaging for web pages. Since JavaScript easily handles text and JSON formatted data, <a shape="rect" class="external-link" href="http://activemq.apache.org/stomp/">Stomp</a> protocol is a good choice for the wire protocol to be used over web sockets. Since version <strong>5.9.0</strong>, we also support efficient binary MQTT protocol over Web sockets.</p>
+<p>HTML 5 introduced web sockets, as a standardized way to communicate asynchronously with the server from a web page. This is practically an ideal channel for implementing asynchronous messaging for web pages. Since JavaScript easily handles text and JSON formatted data, <a shape="rect" href="http://activemq.apache.org/stomp/">Stomp</a> protocol is a good choice for the wire protocol to be used over web sockets. Since version <strong>5.9.0</strong>, we also support efficient binary MQTT protocol over Web sockets.</p>
 
 <p>This solution should bring better messaging capabilities to JavaScript clients then simple Ajax API, as implementing Stomp or MQTT in JavaScript brings much more messaging-oriented API and features such as transactions, for example.</p>
 
-<h1 id="WebSockets-Configuration">Configuration</h1>
+<h1>Configuration</h1>
 
 <p>ActiveMQ comes with <em>WebSocket</em> transport which implements Stomp over WebSockets functionality.</p>
 
 <p>To configure it, you need to place something like this to your ActiveMQ configuration file</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;transportConnectors&gt;
-  &lt;transportConnector name=&quot;websocket&quot; uri=&quot;ws://0.0.0.0:61614&quot;/&gt;
-&lt;/transportConnectors&gt;]]></script>
-</div></div>
+<structured-macro ac:macro-id="180101a5-7751-46e0-a63e-058c298b448e" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;transportConnectors&gt;
+  &lt;transportConnector name="websocket" uri="ws://0.0.0.0:61614"/&gt;
+&lt;/transportConnectors&gt;</plain-text-body></structured-macro>
 
 <p>One thing worth noting is that web sockets (just as Ajax) implements the <em>same origin policy</em>, so you can access only brokers running on the same host as the web application running the client.</p>
 
-<h1 id="WebSockets-SecureWebSockets">Secure Web Sockets</h1>
+<h1>Secure Web Sockets</h1>
 
 <p>Version 5.7.0 introduced <em>Secure Web Socket</em> transport. To configure it you need two things. First, you need to configure a new transport connector like this</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;transportConnectors&gt;
-  &lt;transportConnector name=&quot;secure_websocket&quot; uri=&quot;wss://0.0.0.0:61614&quot;/&gt;
-&lt;/transportConnectors&gt;]]></script>
-</div></div>
+<structured-macro ac:macro-id="a6eac470-f23e-4712-9e84-de9576dde0af" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;transportConnectors&gt;
+  &lt;transportConnector name="secure_websocket" uri="wss://0.0.0.0:61614"/&gt;
+&lt;/transportConnectors&gt;</plain-text-body></structured-macro>
 
 <p>Note that we use <em>wss</em> url prefix to denote a secured version of the protocol. Next you need to provide SSL context for this transport. You can do that by providing <em>sslContext</em> in your broker configuration in a similar fashion as you'd do for <em>ssl</em> or <em>https</em> transports.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;sslContext&gt;
-    &lt;sslContext keyStore=&quot;file:${activemq.conf}/broker.ks&quot;
-                keyStorePassword=&quot;password&quot; trustStore=&quot;file:${activemq.conf}/broker.ts&quot;
-                trustStorePassword=&quot;password&quot;
+<structured-macro ac:macro-id="22509a3c-0762-4f83-9cd8-6c6b01ced6c3" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;sslContext&gt;
+    &lt;sslContext keyStore="file:${activemq.conf}/broker.ks"
+                keyStorePassword="password" trustStore="file:${activemq.conf}/broker.ts"
+                trustStorePassword="password"
     /&gt;
-&lt;/sslContext&gt;]]></script>
-</div></div>
+&lt;/sslContext&gt;</plain-text-body></structured-macro>
 
 <p>That's it, your secure websocket transport is ready. Take a look at the next section to see how to use a demo to test it out.</p>
 
-<h1 id="WebSockets-Demos">Demos</h1>
+<h1>Demos</h1>
 
-<p>As of version 5.6.0, an adapted demo of <a shape="rect" class="external-link" href="http://github.com/jmesnil/stomp-websocket" rel="nofollow">stomp-websocket</a> library is integrated with ActiveMQ web demo application. <br clear="none">
-As of version 5.9.0, we have a similar demo using MQTT and <a shape="rect" class="external-link" href="http://git.eclipse.org/c/paho/org.eclipse.paho.mqtt.javascript.git" rel="nofollow">Eclipse Paho client</a></p>
+<p>As of version 5.6.0, an adapted demo of <a shape="rect" href="http://github.com/jmesnil/stomp-websocket">stomp-websocket</a> library is integrated with ActiveMQ web demo application. <br clear="none">
+As of version 5.9.0, we have a similar demo using MQTT and <a shape="rect" href="http://git.eclipse.org/c/paho/org.eclipse.paho.mqtt.javascript.git">Eclipse Paho client</a></p>
 
 <p>To see demos:</p>
 
-<ul><li>Start the broker with <code>ws</code> transport (you can use activemq-demo.xml configuration for that)</li><li>Go to <a shape="rect" class="external-link" href="http://localhost:8161/demo/websocket" rel="nofollow">http://localhost:8161/demo/websocket</a> to check Stomp example</li><li>Go to <a shape="rect" class="external-link" href="http://localhost:8161/demo/mqtt" rel="nofollow">http://localhost:8161/demo/mqtt</a> to check MQTT example</li></ul>
+<ul><li>Start the broker with <code>ws</code> transport (you can use activemq-demo.xml configuration for that)</li><li>Go to <a shape="rect" href="http://localhost:8161/demo/websocket">http://localhost:8161/demo/websocket</a> to check Stomp example</li><li>Go to <a shape="rect" href="http://localhost:8161/demo/mqtt">http://localhost:8161/demo/mqtt</a> to check MQTT example</li></ul>
 
 
-<h1 id="WebSockets-Clients">Clients</h1>
+<h1>Clients</h1>
 
-<ul><li><a shape="rect" class="external-link" href="http://github.com/krukow/stomple" rel="nofollow">Stomple</a> by <a shape="rect" class="external-link" href="http://blog.higher-order.net/" rel="nofollow">Karl Krukow</a></li><li><a shape="rect" class="external-link" href="http://github.com/jmesnil/stomp-websocket" rel="nofollow">stomp-websocket</a> by <a shape="rect" class="external-link" href="http://jmesnil.net/weblog/" rel="nofollow">Jeff Mesnil</a></li><li><a shape="rect" class="external-link" href="http://git.eclipse.org/c/paho/org.eclipse.paho.mqtt.javascript.git" rel="nofollow">Eclipse Paho MQTT JavaScript client</a></li></ul>
+<ul><li><a shape="rect" href="http://github.com/krukow/stomple">Stomple</a> by <a shape="rect" href="http://blog.higher-order.net/">Karl Krukow</a></li><li><a shape="rect" href="http://github.com/jmesnil/stomp-websocket">stomp-websocket</a> by <a shape="rect" href="http://jmesnil.net/weblog/">Jeff Mesnil</a></li><li><a shape="rect" href="http://git.eclipse.org/c/paho/org.eclipse.paho.mqtt.javascript.git">Eclipse Paho MQTT JavaScript client</a></li></ul>
 
 
-<h1 id="WebSockets-MoreResources">More Resources</h1>
+<h1>More Resources</h1>
 
-<ul><li><a shape="rect" class="external-link" href="http://www.nighttale.net/activemq/activemq-54-stomp-over-web-sockets.html" rel="nofollow">ActiveMQ 5.4: Stomp over Web Sockets</a></li><li><a shape="rect" class="external-link" href="http://blog.higher-order.net/2010/06/01/stomple-rc1-combining-websockets-and-reliable-messaging/" rel="nofollow">Stomple RC1: Combining WebSockets and Reliable Messaging</a></li><li><a shape="rect" class="external-link" href="http://jmesnil.net/stomp-websocket/doc/" rel="nofollow">Stomp On Web Sockets</a></li></ul>
+<ul><li><a shape="rect" href="http://www.nighttale.net/activemq/activemq-54-stomp-over-web-sockets.html">ActiveMQ 5.4: Stomp over Web Sockets</a></li><li><a shape="rect" href="http://blog.higher-order.net/2010/06/01/stomple-rc1-combining-websockets-and-reliable-messaging/">Stomple RC1: Combining WebSockets and Reliable Messaging</a></li><li><a shape="rect" href="http://jmesnil.net/stomp-websocket/doc/">Stomp On Web Sockets</a></li></ul>
+
 
 
 

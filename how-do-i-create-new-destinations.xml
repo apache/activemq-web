@@ -7,21 +7,21 @@
 
 <p>and the broker will automatically create the physical destinations for you.  This avoids spending large amounts of time creating every individual destination you wish to use and possibly then exposing it in some JNDI provider.</p>
 
-<p>In addition, if you are using JNDI to lookup connection factory and destinations, you can specify which destinations you wish to create by default using the properties file. See the <a shape="rect" href="jndi-support.xml">JNDI Support</a> for more details. </p>
+<p>In addition, if you are using JNDI to lookup connection factory and destinations, you can specify which destinations you wish to create by default using the properties file. See the <link><page ri:content-title="JNDI Support"></page></link> for more details. </p>
 
 
-<h3 id="HowdoIcreatenewdestinations-Creatingdestinationsonstartup">Creating destinations on startup</h3>
+<h3>Creating destinations on startup</h3>
 
-<p>Its completely optional but as of 4.1 you can <a shape="rect" href="configure-startup-destinations.xml">Configure Startup Destinations</a> to specify which destinations are automatically created when the broker starts.</p>
+<p>Its completely optional but as of 4.1 you can <link><page ri:content-title="Configure Startup Destinations"></page></link> to specify which destinations are automatically created when the broker starts.</p>
 
-<h3 id="HowdoIcreatenewdestinations-Limitingcreationofdestinations">Limiting creation of destinations</h3>
+<h3>Limiting creation of destinations</h3>
 
-<p>If you need to restrict access or creation of destinations then please use the <a shape="rect" href="security.xml">Security</a> option to disable destinations being auto-created for certain users. </p>
-<div class="confluence-information-macro confluence-information-macro-information"><p class="title">Client side destination objects are not the same as server side resources</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<p>If you need to restrict access or creation of destinations then please use the <link><page ri:content-title="Security"></page></link> option to disable destinations being auto-created for certain users. </p>
+<structured-macro ac:macro-id="5a28a8d5-28a7-45ad-87a8-b42708854c9a" ac:name="info" ac:schema-version="1"><parameter ac:name="title">Client side destination objects are not the same as server side resources</parameter><rich-text-body>
 <p>Note that the ActiveMQ Broker will only create server side resources for destinations when messages are actually sent to them. So you can create as many instances of ActiveMQTopic and ActiveMQQueue on a client without any real overhead until you actually send messages to them on a broker.  So a JMS client creating a new ActiveMQQueue POJO does not mean you are creating server side queue resources.</p>
 
 <p>Think of the ActiveMQQueue and ActiveMQTopic classes as like java.net.URL. They are just names which refer to server side resources which are auto-created when they are used.<br clear="none">
-This means that different clients creating different ActiveMQQueue instances will communicate with the same physical queue on a JMS broker if the name is the same.</p></div></div>
+This means that different clients creating different ActiveMQQueue instances will communicate with the same physical queue on a JMS broker if the name is the same.</p></rich-text-body></structured-macro>
 
-<p>You can browse the currently available queues and topics using <a shape="rect" href="jmx.xml">JMX</a>. You can also use the <a shape="rect" href="jmx.xml">JMX</a> MBeans to create the destinations you require.</p></div>
+<p>You can browse the currently available queues and topics using <link><page ri:content-title="JMX"></page></link>. You can also use the <link><page ri:content-title="JMX"></page></link> MBeans to create the destinations you require.</p></div>
 

@@ -1,59 +1,46 @@
-<div class="wiki-content maincontent"><div style="padding-right:20px;float:left;margin-left:-20px;">
-<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-external-resource" src="http://activemq.apache.org/activemq-410-release.data/activemq-4.1-box-reflection.png" data-image-src="http://activemq.apache.org/activemq-410-release.data/activemq-4.1-box-reflection.png"></span></p></div>
+<div class="wiki-content maincontent"><structured-macro ac:macro-id="adb7e2bb-80d2-4600-a407-b06e9be999bf" ac:name="div" ac:schema-version="1"><parameter ac:name="style">padding-right:20px;float:left;margin-left:-20px;</parameter><rich-text-body>
+<p><image><url ri:value="http://activemq.apache.org/activemq-410-release.data/activemq-4.1-box-reflection.png"></url></image></p></rich-text-body></structured-macro>
 
-
-
-
-<div style="min-height:200px">
-<h2 id="ActiveMQ4.1.2Release-NewandNoteworthy">New and Noteworthy</h2>
+<structured-macro ac:macro-id="d9aaef9d-e61f-4f60-842f-267fbd13e127" ac:name="div" ac:schema-version="1"><parameter ac:name="style">min-height:200px</parameter><rich-text-body>
+<h2>New and Noteworthy</h2>
 
 <p>Contains slew of bug fixes that are tracked in the change log.</p>
 
-<h2 id="ActiveMQ4.1.2Release-GettingtheBinaryDistributions">Getting the Binary Distributions</h2>
+<h2>Getting the Binary Distributions</h2>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Download Link</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Windows Distribution</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-bin.zip">apache-activemq-4.1.2-bin.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-bin.zip.asc">apache-activemq-4.1.2-bin.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Unix/Linux/Cygwin Distribution</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-bin.tar.gz">apache-activemq-4.1.2-bin.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-bin.tar.gz.asc">apache-activemq-4.1.2-bin.tar.gz.asc</a></p></td></tr></tbody></table></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Description</p></th><th colspan="1" rowspan="1"><p>Download Link</p></th><th colspan="1" rowspan="1"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1"><p>Windows Distribution</p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-bin.zip">apache-activemq-4.1.2-bin.zip</a></p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-bin.zip.asc">apache-activemq-4.1.2-bin.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1"><p>Unix/Linux/Cygwin Distribution</p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-bin.tar.gz">apache-activemq-4.1.2-bin.tar.gz</a></p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-bin.tar.gz.asc">apache-activemq-4.1.2-bin.tar.gz.asc</a></p></td></tr></tbody></table>
 
 
-<h2 id="ActiveMQ4.1.2Release-GettingtheBinariesusingMaven2">Getting the Binaries using Maven 2</h2>
+<h2>Getting the Binaries using Maven 2</h2>
 
-<p>To use this release in your maven project, the proper dependency configuration that you should use in your <a shape="rect" class="external-link" href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html">Maven POM</a> is:</p>
+<p>To use this release in your maven project, the proper dependency configuration that you should use in your <a shape="rect" href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html">Maven POM</a> is:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="1745a3eb-65f2-4234-8e75-0c772cc44a84" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
 &lt;dependency&gt;
   &lt;groupId&gt;org.apache.activemq&lt;/groupId&gt;
   &lt;artifactId&gt;activemq-core&lt;/artifactId&gt;
   &lt;version&gt;4.1.2&lt;/version&gt;
 &lt;/dependency&gt;
-]]></script>
-</div></div>
-</div>
+</plain-text-body></structured-macro>
+</rich-text-body></structured-macro>
+
+<h2>Getting the Source Code</h2>
+
+<h3>Source Distributions</h3>
+
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Description</p></th><th colspan="1" rowspan="1"><p>Download Link</p></th><th colspan="1" rowspan="1"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1"><p>Source for Windows</p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-src.zip">apache-activemq-4.1.2-src.zip</a></p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-src.zip.asc">apache-activemq-4.1.2-src.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1"><p>Source for Unix/Linux/Cygwin</p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-src.tar.gz">apache-activemq-4.1.2-src.tar.gz</a></p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-src.tar.gz.asc">apache-activemq-4.1.2-src.tar.gz.asc</a></p></td></tr></tbody></table>
 
 
+<h3>SVN Tag Checkout</h3>
 
-
-<h2 id="ActiveMQ4.1.2Release-GettingtheSourceCode">Getting the Source Code</h2>
-
-<h3 id="ActiveMQ4.1.2Release-SourceDistributions">Source Distributions</h3>
-
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Download Link</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Source for Windows</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-src.zip">apache-activemq-4.1.2-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-src.zip.asc">apache-activemq-4.1.2-src.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Source for Unix/Linux/Cygwin</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-src.tar.gz">apache-activemq-4.1.2-src.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/4.1.2/apache-activemq-4.1.2-src.tar.gz.asc">apache-activemq-4.1.2-src.tar.gz.asc</a></p></td></tr></tbody></table></div>
-
-
-<h3 id="ActiveMQ4.1.2Release-SVNTagCheckout">SVN Tag Checkout</h3>
-
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="cab11c13-707c-4236-af36-710492cceb2b" ac:name="code" ac:schema-version="1"><plain-text-body>
 svn co http://svn.apache.org/repos/asf/activemq/tags/activemq-4.1.2
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h2 id="ActiveMQ4.1.2Release-Changelog">Changelog</h2>
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11801&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p>
+<h2>Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="http://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11801&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p>
 
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Data cannot be retrieved due to an unexpected error
-</div>
+<structured-macro ac:macro-id="b3cfbe4b-3b3f-4e40-96a2-7fa80738b266" ac:name="jiraissues" ac:schema-version="1"><parameter ac:name="columns">type;key;summary</parameter><parameter ac:name="url"><url ri:value="http://issues.apache.org/activemq/sr/jira.issueviews:searchrequest-xml/temp/SearchRequest.xml?&amp;pid=10520&amp;fixfor=11801&amp;sorter/field=issuekey&amp;sorter/order=DESC"></url></parameter></structured-macro>
 
-
-<p>Also see the previous <a shape="rect" href="activemq-411-release.xml">ActiveMQ 4.1.1 Release</a></p></div>
+<p>Also see the previous <link><page ri:content-title="ActiveMQ 4.1.1 Release"></page></link></p></div>
 

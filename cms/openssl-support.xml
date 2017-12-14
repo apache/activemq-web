@@ -1,3 +1,3 @@
 <div class="wiki-content maincontent"><p>This section covers building the ActiveMQ-CPP Library with support for SSL using the OpenSSL library</p>
-<ul class="childpages-macro"><li><a shape="rect" href="enable-openssl-support-with-autotools.xml">Enable OpenSSL support with autotools</a></li><li><a shape="rect" href="how-do-i-prevent-autoconf-from-enabling-openssl-support.xml">How do I prevent autoconf from enabling OpenSSL support</a></li><li><a shape="rect" href="how-to-enable-ssl-support-on-windows.xml">How to enable SSL support on Windows</a></li></ul></div>
+<structured-macro ac:macro-id="91699896-dbbe-43e4-b0fe-3ca45b430706" ac:name="children" ac:schema-version="1"><parameter ac:name="all">true</parameter></structured-macro></div>
 

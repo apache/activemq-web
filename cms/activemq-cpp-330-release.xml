@@ -1,35 +1,32 @@
-<div class="wiki-content maincontent"><h2 id="ActiveMQ-CPP3.3.0Release-NewandNoteworthy">New and Noteworthy</h2>
+<div class="wiki-content maincontent"><h2>New and Noteworthy</h2>
 
 <p>This is a major release of the ActiveMQ-CPP client which includes some API changes and several new features and improvements.  Some additional methods have been added to the CMS API to make it easier to use.  Some highlights for this release:</p>
 
 <ul><li>Solved some deadlock issues that could occur during failover when using asynchronous consumers.</li><li>Synchronous Consumers now get an exception if they call receive when the Connection has failed.</li><li>CMS API now provides an XA domain for linking the CMS client into XA transactions.</li><li>The Failover Transport now supports the connection rebalancing feature in ActiveMQ.</li><li>Fixes in the Stomp handling allow the client to work with ActiveMQ Apollo.</li><li>Better message redelivery processing for Transacted consumers.</li></ul>
 
 
-<p><br clear="none" class="atl-forced-newline"></p><div class="panel" style="border-width: 1px;"><div class="panelContent">
-<p><strong>NOTE:</strong> Compatible with ActiveMQ Broker versions in the 4.X and 5.X family</p>
-</div></div>
+<p><br clear="none" class="atl-forced-newline"><structured-macro ac:macro-id="14a44314-e431-4e8d-ac43-efa8e1ff3ae5" ac:name="panel" ac:schema-version="1"><rich-text-body>
+<p><strong>NOTE:</strong> Compatible with ActiveMQ Broker versions in the 4.X and 5.X family</p></rich-text-body></structured-macro></p>
 
-<h2 id="ActiveMQ-CPP3.3.0Release-API">API</h2>
+<h2>API</h2>
 
 <p>This release is based on the CMS 2.2 API.</p>
 
-<p>Check out the API for this release <a shape="rect" class="external-link" href="http://activemq.apache.org/cms/api_docs/activemqcpp-3.3.0/html">here</a></p>
+<p>Check out the API for this release <a shape="rect" href="http://activemq.apache.org/cms/api_docs/activemqcpp-3.3.0/html">here</a></p>
 
-<h2 id="ActiveMQ-CPP3.3.0Release-DownloadHere">Download Here</h2>
+<h2>Download Here</h2>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Download Link </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> PGP Signature file of download </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Windows </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.zip">activemq-cpp-library-3.3.0-src.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.zip.asc">activemq-cpp-library-3.3.0-src.zip.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Unix (gzipped) </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.tar.gz">activemq-cpp-library-3.3.0-src.tar.gz</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.tar.gz.asc">activemq-cpp-library-3.3.0-src.tar.gz.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Source code for Unix (bz2)</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.tar.bz2">activemq-cpp-library-3.3.0-src.tar.bz2</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.tar.bz2.asc">activemq-cpp-library-3.3.0-src.tar.bz2.asc</a> </p></td></tr></tbody></table></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Description </p></th><th colspan="1" rowspan="1"><p> Download Link </p></th><th colspan="1" rowspan="1"><p> PGP Signature file of download </p></th></tr><tr><td colspan="1" rowspan="1"><p> Source code for Windows </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.zip">activemq-cpp-library-3.3.0-src.zip</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.zip.asc">activemq-cpp-library-3.3.0-src.zip.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1"><p> Source code for Unix (gzipped) </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.tar.gz">activemq-cpp-library-3.3.0-src.tar.gz</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.tar.gz.asc">activemq-cpp-library-3.3.0-src.tar.gz.asc</a> </p></td></tr><tr><td colspan="1" rowspan="1"><p> Source code for Unix (bz2)</p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.tar.bz2">activemq-cpp-library-3.3.0-src.tar.bz2</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dist/activemq/activemq-cpp/source/activemq-cpp-library-3.3.0-src.tar.bz2.asc">activemq-cpp-library-3.3.0-src.tar.bz2.asc</a> </p></td></tr></tbody></table>
 
 
 
-<h2 id="ActiveMQ-CPP3.3.0Release-SVNTagCheckout">SVN Tag Checkout</h2>
+<h2>SVN Tag Checkout</h2>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="4f6fde0b-9b1b-488c-a296-2c7ca8c304ff" ac:name="code" ac:schema-version="1"><plain-text-body>
 svn co https://svn.apache.org/repos/asf/activemq/activemq-cpp/tags/activemq-cpp-3.3.0/
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h2 id="ActiveMQ-CPP3.3.0Release-Changelog">Changelog</h2>
+<h2>Changelog</h2>
 
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311207&amp;styleName=Html&amp;version=12315668">release notes</a></p></div>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311207&amp;styleName=Html&amp;version=12315668">release notes</a></p></div>
 

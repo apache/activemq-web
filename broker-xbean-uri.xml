@@ -1,28 +1,26 @@
-<div class="wiki-content maincontent"><h2 id="BrokerXBeanURI-BrokerXBeanURI">Broker XBean URI</h2>
+<div class="wiki-content maincontent"><h2>Broker XBean URI</h2>
 
-<p>The Broker XBean URI allows you to <a shape="rect" href="run-broker.xml">run a configured broker</a> by referencing an <a shape="rect" href="xml-configuration.xml">Xml Configuration</a> on the classpath. The URI points to an XML document which can be parsed via XBean or Spring. This URI is typically on the classpath; though in 4.2 onwards you can point to a file or URL as well.</p>
+<p>The Broker XBean URI allows you to <link><page ri:content-title="Run Broker"></page><link-body>run a configured broker</link-body></link> by referencing an <link><page ri:content-title="Xml Configuration"></page></link> on the classpath. The URI points to an XML document which can be parsed via XBean or Spring. This URI is typically on the classpath; though in 4.2 onwards you can point to a file or URL as well.</p>
 
-<h4 id="BrokerXBeanURI-Syntax">Syntax</h4>
+<h4>Syntax</h4>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Syntax </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> xbean:classPathResource </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Where classPathResource is some name which is resolved on the classpath and interpreted to be an XML document. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> xbean:</p>
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Syntax </p></th><th colspan="1" rowspan="1"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1"><p> xbean:classPathResource </p></td><td colspan="1" rowspan="1"><p> Where classPathResource is some name which is resolved on the classpath and interpreted to be an XML document. </p></td></tr><tr><td colspan="1" rowspan="1"><p> xbean:</p>
 file:filePathResource
-<p></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Where filePathResource is some name which is resolved on the file system and interpreted to be an XML document. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> xbean:urlResource </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Where urlResource is some resource which points to an XML document </p></td></tr></tbody></table></div>
+<p></p></td><td colspan="1" rowspan="1"><p> Where filePathResource is some name which is resolved on the file system and interpreted to be an XML document. </p></td></tr><tr><td colspan="1" rowspan="1"><p> xbean:urlResource </p></td><td colspan="1" rowspan="1"><p> Where urlResource is some resource which points to an XML document </p></td></tr></tbody></table>
 
 
-<h5 id="BrokerXBeanURI-ExampleURI">Example URI</h5>
+<h5>Example URI</h5>
 
 <p>The following example starts up a broker using the activemq.xml configuration file which is on the classpath</p>
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>xbean:activemq.xml
-</pre>
-</div></div> 
+<structured-macro ac:macro-id="6e9a3e33-967a-4bd2-bc8b-e1471f52fcab" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+xbean:activemq.xml
+</plain-text-body></structured-macro> 
 
 
 <p>The following example starts up a broker using the activemq.xml configuration file which is in the current directory</p>
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>xbean:file:./activemq.xml
-</pre>
-</div></div> </div>
+<structured-macro ac:macro-id="f555bed5-94eb-497b-8756-df9a749cf33b" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+xbean:file:./activemq.xml
+</plain-text-body></structured-macro> </div>
 

@@ -1,23 +1,20 @@
 <div class="wiki-content maincontent">
-<h2 id="ActiveMQ3.2Release-NewandNoteworthy">New and Noteworthy</h2>
+<h2>New and Noteworthy</h2>
 
 <p>This new release includes the following</p>
 
-<ul><li>Improved <a shape="rect" class="external-link" href="http://stomp.codehaus.org/" rel="nofollow">Stomp</a> 1.0 support to make it easy to create cross language clients such as for C, C#, Python, Ruby, Perl and Pike.</li><li>Ajax support now uses OpenRico as the default Ajax library</li><li>the Resource Adaptor now supports batching</li><li>demand based store and forward in networks</li><li>support for Informix JDBC</li><li>updated DTD for the latest Spring</li><li>various performance enhancements and bug fixes</li></ul>
+<ul><li>Improved <a shape="rect" href="http://stomp.codehaus.org/">Stomp</a> 1.0 support to make it easy to create cross language clients such as for C, C#, Python, Ruby, Perl and Pike.</li><li>Ajax support now uses OpenRico as the default Ajax library</li><li>the Resource Adaptor now supports batching</li><li>demand based store and forward in networks</li><li>support for Informix JDBC</li><li>updated DTD for the latest Spring</li><li>various performance enhancements and bug fixes</li></ul>
 
 
-<h2 id="ActiveMQ3.2Release-DownloadHere">Download Here</h2>
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Download</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.zip" rel="nofollow">activemq-3.2.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2-src.zip" rel="nofollow">activemq-3.2-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.tar.gz" rel="nofollow">activemq-3.2.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2-src.tar.gz" rel="nofollow">activemq-3.2-src.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in gz package</p></td></tr></tbody></table></div>
+<h2>Download Here</h2>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Download</p></th><th colspan="1" rowspan="1"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.zip">activemq-3.2.zip</a></p></td><td colspan="1" rowspan="1"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2-src.zip">activemq-3.2-src.zip</a></p></td><td colspan="1" rowspan="1"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.tar.gz">activemq-3.2.tar.gz</a></p></td><td colspan="1" rowspan="1"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2-src.tar.gz">activemq-3.2-src.tar.gz</a></p></td><td colspan="1" rowspan="1"><p>Source Distribution in gz package</p></td></tr></tbody></table>
 
 
-<h2 id="ActiveMQ3.2Release-Changelog">Changelog</h2>
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="https://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11610&amp;styleName=Html&amp;projectId=10520&amp;Create=Create" rel="nofollow">release notes</a></p>
+<h2>Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="https://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11610&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p>
 
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
-</div>
+<structured-macro ac:macro-id="b8c785ae-8206-49dd-b5c9-8d7c264d7dfd" ac:name="jiraissues" ac:schema-version="1"><parameter ac:name="url"><url ri:value="http://jira.activemq.org/jira/secure/IssueNavigator.jspa?view=rss&amp;pid=10520&amp;fixfor=11610&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;tempMax=25&amp;reset=true&amp;decorator=none"></url></parameter></structured-macro>
 
 
-
-<p>You may also want to look at <a shape="rect" href="activemq-31-release.xml">the previous Changelog</a></p></div>
+<p>You may also want to look at <link><page ri:content-title="ActiveMQ 3.1 Release"></page><link-body>the previous Changelog</link-body></link></p></div>
 

@@ -1,6 +1,6 @@
-<div class="wiki-content maincontent"><h2 id="Howyoucanhelprelease-HowtoHelp">How to Help</h2>
+<div class="wiki-content maincontent"><h2>How to Help</h2>
 
-<p>Everyone in the ActiveMQ community can help with releases; users, developers, commmiters are all encouraged to test out a release and post any comments to the <a shape="rect" href="mailing-lists.xml">activemq-dev@ mailing list</a> or create a <a shape="rect" class="external-link" href="https://issues.apache.org/activemq/browse/AMQ">JIRA</a> issue.</p>
+<p>Everyone in the ActiveMQ community can help with releases; users, developers, commmiters are all encouraged to test out a release and post any comments to the <link><page ri:content-title="Mailing Lists"></page><link-body>activemq-dev@ mailing list</link-body></link> or create a <a shape="rect" href="https://issues.apache.org/activemq/browse/AMQ">JIRA</a> issue.</p>
 
-<p>ActiveMQ is available in both source and binary distributions.  See <a shape="rect" href="getting-started.xml">Getting Started</a>.</p></div>
+<p>ActiveMQ is available in both source and binary distributions.  See <link><page ri:content-title="Getting Started"></page></link>.</p></div>
 

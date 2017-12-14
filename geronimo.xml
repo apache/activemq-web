@@ -1,5 +1,5 @@
 <div class="wiki-content maincontent">
-<p>ActiveMQ is the default JMS provider in <a shape="rect" class="external-link" href="http://geronimo.apache.org">Apache Geronimo</a>.</p>
+<p>ActiveMQ is the default JMS provider in <a shape="rect" href="http://geronimo.apache.org">Apache Geronimo</a>.</p>
 
 <p>ActiveMQ can be used both as JMS Client and a JMS Broker. This short<br clear="none">
 article explains how to use it on a standalone client to access the<br clear="none">
@@ -14,19 +14,18 @@ Adapters to your Geronimo server.<br clear="none">
 The following deployment descriptor can be used to deploy two topics and a<br clear="none">
 ConnectionFactory: weatherTopic and weatherRequestsTopic</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;connector xmlns=&quot;http://geronimo.apache.org/xml/ns/j2ee/connector&quot;
-    version=&quot;1.5&quot;
-    configId=&quot;weather/Topics&quot;
-    parentId=&quot;org/apache/geronimo/SystemJMS&quot;&gt;
+<structured-macro ac:macro-id="d2250b10-bf1d-4e52-8a7e-e645e9fb44a1" ac:name="code" ac:schema-version="1"><plain-text-body>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;connector xmlns="http://geronimo.apache.org/xml/ns/j2ee/connector"
+    version="1.5"
+    configId="weather/Topics"
+    parentId="org/apache/geronimo/SystemJMS"&gt;
     &lt;resourceadapter&gt;
         &lt;resourceadapter-instance&gt;
             &lt;resourceadapter-name&gt;ActiveMQ RA&lt;/resourceadapter-name&gt;
-            &lt;config-property-setting name=&quot;ServerUrl&quot;&gt;tcp://localhost:61616&lt;/config-property-setting&gt;
-            &lt;config-property-setting name=&quot;UserName&quot;&gt;geronimo&lt;/config-property-setting&gt;
-            &lt;config-property-setting name=&quot;Password&quot;&gt;geronimo&lt;/config-property-setting&gt;
+            &lt;config-property-setting name="ServerUrl"&gt;tcp://localhost:61616&lt;/config-property-setting&gt;
+            &lt;config-property-setting name="UserName"&gt;geronimo&lt;/config-property-setting&gt;
+            &lt;config-property-setting name="Password"&gt;geronimo&lt;/config-property-setting&gt;
             &lt;workmanager&gt;
                 &lt;gbean-link&gt;DefaultWorkManager&lt;/gbean-link&gt;
             &lt;/workmanager&gt;
@@ -67,7 +66,7 @@ ConnectionFactory: weatherTopic and weatherRequestsTopic</p>
         &lt;adminobject-instance&gt;
             &lt;message-destination-name&gt;weatherTopic&lt;/message-destination-name&gt;
             &lt;config-property-setting
-name=&quot;PhysicalName&quot;&gt;weatherTopic&lt;/config-property-setting&gt;
+name="PhysicalName"&gt;weatherTopic&lt;/config-property-setting&gt;
         &lt;/adminobject-instance&gt;
     &lt;/adminobject&gt;
     &lt;adminobject&gt;
@@ -78,25 +77,22 @@ name=&quot;PhysicalName&quot;&gt;weatherTopic&lt;/config-property-setting&gt;
 
 &lt;message-destination-name&gt;weatherRequestsTopic&lt;/message-destination-name&gt;
             &lt;config-property-setting
-name=&quot;PhysicalName&quot;&gt;weatherRequestsTopic&lt;/config-property-setting&gt;
+name="PhysicalName"&gt;weatherRequestsTopic&lt;/config-property-setting&gt;
         &lt;/adminobject-instance&gt;
     &lt;/adminobject&gt;
 
 &lt;/connector&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>Then deploy it using Geronimo's deploy tool :</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="d52711e4-100d-4c6a-bd05-d7b309b3b4d1" ac:name="code" ac:schema-version="1"><plain-text-body>
 D:\geronimo&gt;java -jar bin\deployer.jar deploy d:\projects\weather\src\resources\
 geronimo-activemq.xml repository\activemq\rars\activemq-ra-3.1-SNAPSHOT.rar
 Username: system
 Password: manager
 Deployed weather/Topics
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>The geronimo.log file should now refer to these newly deployed Topics.</p>
 
@@ -132,54 +128,48 @@ jms.weatherRequestsTopic=weatherRequestsTopic</p>
 
 <ul class="alternate"><li>Now, in your Spring description file, declare the bean that will read<br clear="none">
 the properties from the bootstrap.properties file
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-    &lt;bean id=&quot;placeholderConfig&quot; 
-          class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;&gt;
-        &lt;property name=&quot;location&quot;&gt;&lt;value&gt;classpath:/bootstrap.properties&lt;/value&gt;&lt;/property&gt;
+<structured-macro ac:macro-id="4c35d9fb-b949-42d6-ac4a-848b747a8fa2" ac:name="code" ac:schema-version="1"><plain-text-body>
+    &lt;bean id="placeholderConfig" 
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"&gt;
+        &lt;property name="location"&gt;&lt;value&gt;classpath:/bootstrap.properties&lt;/value&gt;&lt;/property&gt;
     &lt;/bean&gt;
-]]></script>
-</div></div></li></ul>
+</plain-text-body></structured-macro></li></ul>
 
 
 <ul class="alternate"><li>Create a JNDI template (A Spring-specific wrapper around the JNDI InitialContext
- <div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-   &lt;bean id=&quot;jndiTemplate&quot; class=&quot;org.springframework.jndi.JndiTemplate&quot;&gt;
-        &lt;property name=&quot;environment&quot;&gt;
+ <structured-macro ac:macro-id="2c47a0d9-75fe-436a-8995-0ced8834813c" ac:name="code" ac:schema-version="1"><plain-text-body>
+   &lt;bean id="jndiTemplate" class="org.springframework.jndi.JndiTemplate"&gt;
+        &lt;property name="environment"&gt;
             &lt;props&gt;
-                &lt;prop key=&quot;java.naming.factory.initial&quot;&gt;${jms.jndiContextFactory}&lt;/prop&gt;
+                &lt;prop key="java.naming.factory.initial"&gt;${jms.jndiContextFactory}&lt;/prop&gt;
 
 				&lt;!-- Specific to ActiveMQ --&gt;
 
 				&lt;!-- the address of the ActiveMQ broker --&gt;
-                &lt;prop key=&quot;brokerURL&quot;&gt;${jms.jndiProviderUrl}&lt;/prop&gt;
+                &lt;prop key="brokerURL"&gt;${jms.jndiProviderUrl}&lt;/prop&gt;
 				&lt;!-- Some Topics Registration, since we are using a fake JNDI implementation --&gt;
-                &lt;prop key=&quot;topic.${jms.weatherTopic}&quot;&gt;${jms.weatherTopic}&lt;/prop&gt;
-                &lt;prop key=&quot;topic.${jms.weatherRequestsTopic}&quot;&gt;${jms.weatherRequestsTopic}&lt;/prop&gt;
+                &lt;prop key="topic.${jms.weatherTopic}"&gt;${jms.weatherTopic}&lt;/prop&gt;
+                &lt;prop key="topic.${jms.weatherRequestsTopic}"&gt;${jms.weatherRequestsTopic}&lt;/prop&gt;
 			&lt;/props&gt;
         &lt;/property&gt;
     &lt;/bean&gt;
-]]></script>
-</div></div></li></ul>
+</plain-text-body></structured-macro></li></ul>
 
 
 <ul class="alternate"><li>Retrieve the ConnectionFactory from the JNDI context</li></ul>
 
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-    &lt;bean id=&quot;internalJmsQueueConnectionFactory&quot;
-        class=&quot;org.springframework.jndi.JndiObjectFactoryBean&quot;&gt;
-        &lt;property name=&quot;jndiTemplate&quot;&gt;
-            &lt;ref bean=&quot;jndiTemplate&quot;/&gt;
+<structured-macro ac:macro-id="060cb49a-9253-4db0-8a36-06f8fcef8896" ac:name="code" ac:schema-version="1"><plain-text-body>
+    &lt;bean id="internalJmsQueueConnectionFactory"
+        class="org.springframework.jndi.JndiObjectFactoryBean"&gt;
+        &lt;property name="jndiTemplate"&gt;
+            &lt;ref bean="jndiTemplate"/&gt;
         &lt;/property&gt;
-        &lt;property name=&quot;jndiName&quot;&gt;
+        &lt;property name="jndiName"&gt;
             &lt;value&gt;${jms.connectionFactoryName}&lt;/value&gt;
         &lt;/property&gt;
     &lt;/bean&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>I'm not 100% sure, but I think that you can put any Factory Name, it will just<br clear="none">
 work. (In a scenario where the JNDI context actually contacts a naming server,<br clear="none">
@@ -188,30 +178,29 @@ it should match the name of the deployed ConnectionFactory)</p>
 <ul class="alternate"><li>Get the Topics instances from the JNDI Context</li></ul>
 
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;bean id=&quot;weatherTopic&quot;
-		class=&quot;org.springframework.jndi.JndiObjectFactoryBean&quot;
-		singleton=&quot;true&quot;&gt;
-        &lt;property name=&quot;jndiTemplate&quot;&gt;
-            &lt;ref bean=&quot;jndiTemplate&quot;/&gt;
+<structured-macro ac:macro-id="d7a1771f-06d0-4f42-9806-62aa17e81627" ac:name="code" ac:schema-version="1"><plain-text-body>
+&lt;bean id="weatherTopic"
+		class="org.springframework.jndi.JndiObjectFactoryBean"
+		singleton="true"&gt;
+        &lt;property name="jndiTemplate"&gt;
+            &lt;ref bean="jndiTemplate"/&gt;
         &lt;/property&gt;
-        &lt;property name=&quot;jndiName&quot;&gt;
+        &lt;property name="jndiName"&gt;
             &lt;value&gt;${jms.weatherTopic}&lt;/value&gt;
         &lt;/property&gt;
 	&lt;/bean&gt;
-&lt;bean id=&quot;weatherRequestTopic&quot;
-		class=&quot;org.springframework.jndi.JndiObjectFactoryBean&quot;
-		singleton=&quot;true&quot;&gt;
-        &lt;property name=&quot;jndiTemplate&quot;&gt;
-            &lt;ref bean=&quot;jndiTemplate&quot;/&gt;
+&lt;bean id="weatherRequestTopic"
+		class="org.springframework.jndi.JndiObjectFactoryBean"
+		singleton="true"&gt;
+        &lt;property name="jndiTemplate"&gt;
+            &lt;ref bean="jndiTemplate"/&gt;
         &lt;/property&gt;
-        &lt;property name=&quot;jndiName&quot;&gt;
+        &lt;property name="jndiName"&gt;
             &lt;value&gt;${jms.weatherRequestsTopic}&lt;/value&gt;
         &lt;/property&gt;
 	&lt;/bean&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<ul class="alternate"><li>Now, you can reuse these Topics beans the way you want.</li></ul></div>
+<ul class="alternate"><li>Now, you can reuse these Topics beans the way you want.</li></ul>
+</div>
 

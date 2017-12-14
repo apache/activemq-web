@@ -6,31 +6,26 @@
 
 <p>We do this using a simple separator of "," allowing a number of destinations to be specified when creating a destintation, or registering destinations in JNDI. e.g. the destination</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="6277290e-e1c1-41c9-8626-0903661ac49b" ac:name="code" ac:schema-version="1"><plain-text-body>
 FOO.A,FOO.B,FOO.C
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>Represents 3 different destinations. This could be used with a queue or topic to represent a set of 3 destinations. e.g.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="40832b73-bda0-4200-b10c-cd1aa311a70d" ac:name="code" ac:schema-version="1"><plain-text-body>
 // send to 3 queues as one logical operation
-Queue queue = new ActiveMQQueue(&quot;FOO.A,FOO.B,FOO.C&quot;);
+Queue queue = new ActiveMQQueue("FOO.A,FOO.B,FOO.C");
 producer.send(queue, someMessage);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>If you wish to mix and match the types of destination, you can use a prefix of <strong>queue://</strong> or <strong>topic://</strong> to differentiate the type of destination. e.g. to publish on a queue but also make a notification on a topic as well you could use</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="ae96f102-2093-47a3-8507-ed585b7c2636" ac:name="code" ac:schema-version="1"><plain-text-body>
 // send to queues and topic one logical operation
-Queue queue = new ActiveMQQueue(&quot;FOO.A,topic://NOTIFY.FOO.A&quot;);
+Queue queue = new ActiveMQQueue("FOO.A,topic://NOTIFY.FOO.A");
 producer.send(queue, someMessage);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<p>Composite destinations can also be configured on the <a shape="rect" href="virtual-destinations.xml#VirtualDestinations-CompositeDestinations">broker side</a>, such that messages sent to a single destination by the client will be transparently copied to multiple physical destinations.</p></div>
+<p>Composite destinations can also be configured on the <link ac:anchor="Composite Destinations"><page ri:content-title="Virtual Destinations"></page><link-body>broker side</link-body></link>, such that messages sent to a single destination by the client will be transparently copied to multiple physical destinations.</p>
+</div>
 

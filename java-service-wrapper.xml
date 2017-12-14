@@ -1,11 +1,11 @@
 <div class="wiki-content maincontent"><p>This page provides some useful information on running the ActiveMQ broker as a windows-NT service or a daemon thread in Linux or Unix systems.</p>
 
-<div class="confluence-information-macro confluence-information-macro-warning"><p class="title">64bit 4gb memory limit</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
-<p>The ActiveMQ distribution uses an older and free community release of the service wrapper library. This wrapper has a memory limit of 4gb when running on 64bit platforms. You can manually <a shape="rect" class="external-link" href="http://wrapper.tanukisoftware.com/doc/english/download.jsp" rel="nofollow">download a newer release</a> of the wrapper library that does not have this limit, from the vendors website at. It us not possible for Apache ActiveMQ to update and distribute a newer release of the service wrapper, as the vendor changed licensing terms, which does not comply with ASF licensing terms. Therefore out of the box the service wrapper is stuck on that older release.</p>
+<structured-macro ac:macro-id="927644e6-adf6-4e1b-8465-66bcb3401600" ac:name="warning" ac:schema-version="1"><parameter ac:name="title">64bit 4gb memory limit</parameter><rich-text-body>
+<p>The ActiveMQ distribution uses an older and free community release of the service wrapper library. This wrapper has a memory limit of 4gb when running on 64bit platforms. You can manually <a shape="rect" href="http://wrapper.tanukisoftware.com/doc/english/download.jsp">download a newer release</a> of the wrapper library that does not have this limit, from the vendors website at. It us not possible for Apache ActiveMQ to update and distribute a newer release of the service wrapper, as the vendor changed licensing terms, which does not comply with ASF licensing terms. Therefore out of the box the service wrapper is stuck on that older release.</p>
 
-<p>However you can manually upgrade the library.</p></div></div>
+<p>However you can manually upgrade the library.</p></rich-text-body></structured-macro>
 
-<h3 id="JavaServiceWrapper-Windows-NTService">Windows-NT Service</h3>
+<h3>Windows-NT Service</h3>
 
 <p>Here are the steps to install the ActiveMQ broker as an NT service:</p>
 <ol><li>Download the windows binary distribution (i.e. apache-activemq-5.9.0.zip)</li><li>Go to ACTIVEMQ_HOME/bin/win32</li><li>Run InstallService.bat</li></ol>
@@ -21,7 +21,7 @@
 <ol><li>Run UninstallService.bat</li></ol>
 
 
-<h3 id="JavaServiceWrapper-Linux/MacOSXDaemon">Linux/Mac OS X Daemon</h3>
+<h3>Linux/Mac OS X Daemon</h3>
 
 
 <p>Here are the steps to run the ActiveMQ broker as a daemon in Linux or Unix systems:</p>
@@ -33,12 +33,12 @@
 <ol><li>Go to ACTIVEMQ_HOME/linux for linux systems or ACTIVEMQ_HOME/macosx for Mac OS X systems.</li><li>Run ./activemq stop</li></ol>
 
 
-<h3 id="JavaServiceWrapper-ConfiguringtheJavaServiceWrapper">&#160;Configuring the Java Service Wrapper</h3>
+<h3>&#160;Configuring the Java Service Wrapper</h3>
 
 
-<p>ActiveMQ uses the&#160;<a shape="rect" class="external-link" href="http://wrapper.tanukisoftware.org/doc/english/introduction.html" rel="nofollow">Java Service Wrapper</a> to run the broker. To configure how the Java Service Wrapper starts up, you can edit the wrapper.conf located in the bin/win32, bin/linux, or bin/macosx depending on which system you are running it. For more information on the different properties of the Java Service Wrapper, refer to this <a shape="rect" class="external-link" href="http://wrapper.tanukisoftware.org/doc/english/properties.html" rel="nofollow">page</a></p>
+<p>ActiveMQ uses the&#160;<a shape="rect" href="http://wrapper.tanukisoftware.org/doc/english/introduction.html">Java Service Wrapper</a> to run the broker. To configure how the Java Service Wrapper starts up, you can edit the wrapper.conf located in the bin/win32, bin/linux, or bin/macosx depending on which system you are running it. For more information on the different properties of the Java Service Wrapper, refer to this <a shape="rect" href="http://wrapper.tanukisoftware.org/doc/english/properties.html">page</a></p>
 
-<h3 id="JavaServiceWrapper-Troubleshooting">&#160;Troubleshooting</h3>
+<h3>&#160;Troubleshooting</h3>
 
 <p>If you are having problems running the service, turn on the wrapper debugging in the corresponding wrapper.conf file via (wrapper.debug=TRUE)</p>
 

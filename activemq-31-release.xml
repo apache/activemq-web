@@ -1,26 +1,23 @@
 <div class="wiki-content maincontent">
-<h2 id="ActiveMQ3.1Release-NewandNoteworthy">New and Noteworthy</h2>
+<h2>New and Noteworthy</h2>
 
 <p>This new release includes the following</p>
 
-<ul><li>New <a shape="rect" class="external-link" href="http://stomp.codehaus.org/" rel="nofollow">Stomp</a> support to make it easy to create cross language clients such as for Ruby or Perl etc. (Python, C and .Net coming soon)</li><li>XPath based selectors and demand based publishing, making it easy to implement <a shape="rect" class="external-link" href="http://servicemix.org/WS+Notification" rel="nofollow">WS-Notification</a> on top of ActiveMQ</li><li>a pooling JMS ConnectionFactory for better support of the Spring JMSTemplate outside of a JCA container</li><li>improved JNDI support to allow easy dynamic creation of Queues and Topics, to handle different connection settings and to reuse standard JNDI properties</li><li>Increased support for the number of <a shape="rect" href="jdbc-support.xml">databases and JDBC drivers</a> to include
+<ul><li>New <a shape="rect" href="http://stomp.codehaus.org/">Stomp</a> support to make it easy to create cross language clients such as for Ruby or Perl etc. (Python, C and .Net coming soon)</li><li>XPath based selectors and demand based publishing, making it easy to implement <a shape="rect" href="http://servicemix.org/WS+Notification">WS-Notification</a> on top of ActiveMQ</li><li>a pooling JMS ConnectionFactory for better support of the Spring JMSTemplate outside of a JCA container</li><li>improved JNDI support to allow easy dynamic creation of Queues and Topics, to handle different connection settings and to reuse standard JNDI properties</li><li>Increased support for the number of <link><page ri:content-title="JDBC Support"></page><link-body>databases and JDBC drivers</link-body></link> to include
 	<ul><li>Apache Derby</li><li>Oracle</li><li>Sybase</li><li>DB2</li><li>SQLServer</li><li>Postgresql</li><li>MySQL</li><li>Axion</li><li>HSQL</li></ul>
 	</li><li>improved authentication at the connection and destination level</li><li>More flexible prefetch policy configurations for more control over queue dispatching and performance tuning</li><li>improved support for priority message ordering</li><li>cleaner servlet integration</li><li>better XA integration to allow outbound producers to reuse inbound JMS sessions</li><li>improved support for WebSphere and JBoss</li><li>easier journal file size and checkpoint period configuration</li><li>jabber transport</li><li>various performance enhancements and bug fixes</li></ul>
 
 
 
-<h2 id="ActiveMQ3.1Release-DownloadHere">Download Here</h2>
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Download</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.1.zip" rel="nofollow">activemq-3.1.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.1-src.zip" rel="nofollow">activemq-3.1-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.1.tar.gz" rel="nofollow">activemq-3.1.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.1-src.tar.gz" rel="nofollow">activemq-3.1-src.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in gz package</p></td></tr></tbody></table></div>
+<h2>Download Here</h2>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Download</p></th><th colspan="1" rowspan="1"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.1.zip">activemq-3.1.zip</a></p></td><td colspan="1" rowspan="1"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.1-src.zip">activemq-3.1-src.zip</a></p></td><td colspan="1" rowspan="1"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.1.tar.gz">activemq-3.1.tar.gz</a></p></td><td colspan="1" rowspan="1"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.1-src.tar.gz">activemq-3.1-src.tar.gz</a></p></td><td colspan="1" rowspan="1"><p>Source Distribution in gz package</p></td></tr></tbody></table>
 
 
-<h2 id="ActiveMQ3.1Release-Changelog">Changelog</h2>
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11501&amp;styleName=Html&amp;projectId=10520&amp;Create=Create" rel="nofollow">release notes</a></p>
+<h2>Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11501&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p>
 
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
-</div>
+<structured-macro ac:macro-id="734eb27c-b8f6-4715-b880-1907d691ed20" ac:name="jiraissues" ac:schema-version="1"><parameter ac:name="url"><url ri:value="http://jira.activemq.org/jira/secure/IssueNavigator.jspa?view=rss&amp;pid=10520&amp;fixfor=11501&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;tempMax=100&amp;reset=true&amp;decorator=none"></url></parameter></structured-macro>
 
 
-
-<p>You may also want to look at <a shape="rect" href="activemq-30-release.xml">the previous Changelog</a></p></div>
+<p>You may also want to look at <link><page ri:content-title="ActiveMQ 3.0 Release"></page><link-body>the previous Changelog</link-body></link></p></div>
 

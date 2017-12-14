@@ -2,17 +2,16 @@
 You have to explicitly say which group you want to join/leave - and you can join multiple groups.<br clear="none">
 Each GroupChannel has both a globally unique id and a name.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="a74c7a79-dbfb-4d45-befd-60b5910478b9" ac:name="code" ac:schema-version="1"><plain-text-body>
 
 import org.apache.activeblaze.group.*;
 
 ...
 BlazeGroupChannelFactory factory = new BlazeGroupChannelFactory();
 
-BlazeGroupChannel channel = factory.createGroupChannel(&quot;My Channel&quot;);
+BlazeGroupChannel channel = factory.createGroupChannel("My Channel");
 //join a group
-channel.addToGroup(&quot;test&quot;);
+channel.addToGroup("test");
 channel.start();
 
 //listen for other members
@@ -20,14 +19,13 @@ channel.start();
 channel.addMemberChangedListener(new MemberChangedListener(){
 
      public void memberStarted(Member member) {
-         System.out.println(&quot;Member started&quot;);
+         System.out.println("Member started");
      }
 
      public void memberStopped(Member member) {
-         System.out.println(&quot;Member stopped&quot;);
+         System.out.println("Member stopped");
      }
             
  });
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

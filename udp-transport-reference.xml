@@ -1,23 +1,22 @@
 <div class="wiki-content maincontent">
-<h3 id="UDPTransportReference-TheUDPTransport">The UDP Transport</h3>
+<h3>The UDP Transport</h3>
 
 <p>The UDP transport allows clients to connect to a remote ActiveMQ broker using raw UDP</p>
 
 <p>Note that by default UDP is not reliable; datagrams can be lost so you should add a reliability layer to ensure the JMS contract can be implemented on a non-reliable transport.</p>
 
-<h4 id="UDPTransportReference-ConfigurationSyntax">Configuration Syntax</h4>
+<h4>Configuration Syntax</h4>
 
 <p><strong>udp://hostname:port?transportOptions</strong></p>
 
-<h5 id="UDPTransportReference-TransportOptions">Transport Options</h5>
+<h5>Transport Options</h5>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default Value </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> minmumWireFormatVersion </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The minimum version wireformat that is allowed </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> trace </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Causes all commands that are sent over the transport to be logged </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> useLocalHost </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> true </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> When true, it causes the local machines name to resolve to "localhost". </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> datagramSize </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 4 * 1024 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Specifies the size of a datagram </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> default </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The name of the WireFormat to use </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wireFormat.* </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>&#160;</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> All the properties with this prefix are used to configure the wireFormat. See <a shape="rect" href="configuring-wire-formats.xml">Configuring Wire Formats</a> for more information </p></td></tr></tbody></table></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Option Name </p></th><th colspan="1" rowspan="1"><p> Default Value </p></th><th colspan="1" rowspan="1"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1"><p> minmumWireFormatVersion </p></td><td colspan="1" rowspan="1"><p> 0 </p></td><td colspan="1" rowspan="1"><p> The minimum version wireformat that is allowed </p></td></tr><tr><td colspan="1" rowspan="1"><p> trace </p></td><td colspan="1" rowspan="1"><p> false </p></td><td colspan="1" rowspan="1"><p> Causes all commands that are sent over the transport to be logged </p></td></tr><tr><td colspan="1" rowspan="1"><p> useLocalHost </p></td><td colspan="1" rowspan="1"><p> true </p></td><td colspan="1" rowspan="1"><p> When true, it causes the local machines name to resolve to "localhost". </p></td></tr><tr><td colspan="1" rowspan="1"><p> datagramSize </p></td><td colspan="1" rowspan="1"><p> 4 * 1024 </p></td><td colspan="1" rowspan="1"><p> Specifies the size of a datagram </p></td></tr><tr><td colspan="1" rowspan="1"><p> wireFormat </p></td><td colspan="1" rowspan="1"><p> default </p></td><td colspan="1" rowspan="1"><p> The name of the WireFormat to use </p></td></tr><tr><td colspan="1" rowspan="1"><p> wireFormat.* </p></td><td colspan="1" rowspan="1"><p>&#160;</p></td><td colspan="1" rowspan="1"><p> All the properties with this prefix are used to configure the wireFormat. See <link><page ri:content-title="Configuring Wire Formats"></page></link> for more information </p></td></tr></tbody></table>
 
 
-<h5 id="UDPTransportReference-ExampleURI">Example URI</h5>
+<h5>Example URI</h5>
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>udp://localhost:8123
-</pre>
-</div></div></div>
+<structured-macro ac:macro-id="00dbfb14-8ec1-4cee-907a-7d2894f960a9" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+udp://localhost:8123
+</plain-text-body></structured-macro></div>
 

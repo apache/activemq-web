@@ -1,10 +1,10 @@
-<div class="wiki-content maincontent"><h2 id="UsingActiveMQ5-UsingApacheActiveMQ">Using Apache ActiveMQ</h2>
+<div class="wiki-content maincontent"><h2>Using Apache ActiveMQ</h2>
 
-<p>To help you get started using Apache ActiveMQ version 5 you may wish to start off with the <a shape="rect" href="version-5-getting-started.xml">Version 5 Getting Started</a> guide or the <a shape="rect" href="configuring-version-5-transports.xml">Configuring version 5 Transports</a>. Otherwise here is a complete list of the guides.</p>
+<p>To help you get started using Apache ActiveMQ version 5 you may wish to start off with the <link><page ri:content-title="Version 5 Getting Started"></page></link> guide or the <link><page ri:content-title="Configuring version 5 Transports"></page></link>. Otherwise here is a complete list of the guides.</p>
 
-<ul class="childpages-macro"><li><a shape="rect" href="configure-version-5-brokers.xml">Configure version 5 Brokers</a></li><li><a shape="rect" href="configuring-version-5-transports.xml">Configuring Version 5 Transports</a></li><li><a shape="rect" href="ldap-broker-discovery-mechanism.xml">LDAP Broker Discovery Mechanism</a></li><li><a shape="rect" href="version-5-examples.xml">Version 5 Examples</a></li><li><a shape="rect" href="version-5-getting-started.xml">Version 5 Getting Started</a></li><li><a shape="rect" href="version-5-hello-world.xml">Version 5 Hello World</a></li><li><a shape="rect" href="version-5-initial-configuration.xml">Version 5 Initial Configuration</a></li><li><a shape="rect" href="version-5-installation.xml">Version 5 Installation</a></li><li><a shape="rect" href="version-5-performance-tuning.xml">Version 5 Performance Tuning</a></li><li><a shape="rect" href="version-5-run-broker.xml">Version 5 Run Broker</a></li><li><a shape="rect" href="version-5-topologies.xml">Version 5 Topologies</a></li><li><a shape="rect" href="version-5-web-samples.xml">Version 5 Web Samples</a></li><li><a shape="rect" href="version-5-xml-configuration.xml">Version 5 XML Configuration</a></li></ul> 
+<structured-macro ac:macro-id="b9c58b39-30e2-4e24-b6a4-21ea6082c45d" ac:name="children" ac:schema-version="1"><parameter ac:name="depth">4</parameter></structured-macro> 
 
-<h3 id="UsingActiveMQ5-CommercialDocumentation">Commercial Documentation</h3>
+<h3>Commercial Documentation</h3>
 
-<p>The Commercial Providers listed on the <a shape="rect" href="support.xml">Support</a> page may also have additional documentation, examples, tutorials, etc... that can help you get started using ActiveMQ.</p></div>
+<p>The Commercial Providers listed on the <link><page ri:content-title="Support"></page></link> page may also have additional documentation, examples, tutorials, etc... that can help you get started using ActiveMQ.</p></div>
 

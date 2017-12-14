@@ -1,11 +1,12 @@
-<div class="wiki-content maincontent"><p>There are a few example programs demonstrating the <a shape="rect" href="rest.xml">REST</a> messaging or <a shape="rect" href="ajax.xml">Ajax</a> in the <a shape="rect" class="external-link" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-web-demo/">activemq/activemq-web-demo</a> module. </p>
+<div class="wiki-content maincontent"><p>There are a few example programs demonstrating the <link><page ri:content-title="REST"></page></link> messaging or <link><page ri:content-title="Ajax"></page></link> in the <a shape="rect" href="https://svn.apache.org/repos/asf/activemq/trunk/activemq-web-demo/">activemq/activemq-web-demo</a> module. </p>
 
-<h2 id="Version5WebSamples-RunningtheWebSamples">Running the Web Samples</h2>
+<h2>Running the Web Samples</h2>
 
 <p>We have integrated the Web Samples into the binary distribution. </p>
 
 <p>The steps to running the Web Samples are</p>
 
-<ul><li><a shape="rect" href="download.xml">Download</a> a binary distribution</li><li><a shape="rect" href="run-broker.xml">Run the Message Broker</a> e.g. by running bin/activemq</li><li>point your browser to <a shape="rect" class="external-link" href="http://localhost:8161/demo" rel="nofollow">http://localhost:8161/demo</a></li></ul>
+<ul><li><link><page ri:content-title="Download"></page></link> a binary distribution</li><li><link><page ri:content-title="Run Broker"></page><link-body>Run the Message Broker</link-body></link> e.g. by running bin/activemq</li><li>point your browser to <a shape="rect" class="external-link" href="http://localhost:8161/demo" rel="nofollow">http://localhost:8161/demo</a></li></ul>
+
 </div>
 

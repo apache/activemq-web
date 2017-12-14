@@ -1,15 +1,12 @@
-<div class="wiki-content maincontent"><p>For many secured environments there's a requirement to log every user management action. For that ActiveMQ implements <em>audit logging</em>, which means that every management action made through JMX or Web Console management interface will be logged and available for later inspection.</p><p>Audit logging comes pre-configured with the distribution, so it's very easy to turn it on or off. All you have to do is to set <code>org.apache.activemq.audit</code> system property. &#160;From 5.16.0 the value can be one of "true|entry|exit|all". When the value is all or exit, the audit captures the time the JMX operation completed. You can do that by uncommenting the following line in the startup script:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ACTIVEMQ_OPTS=&quot;$ACTIVEMQ_OPTS -Dorg.apache.activemq.audit=true&quot;
-]]></script>
-</div></div><p>The actual logs are by default stored in <code>${ACTIVEMQ_HOME}/data/audit.log</code> and for secured broker you may expect entries similar to the following:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[2010-12-22 12:12:07,225 | INFO  | admin requested /admin/createDestination.action [JMSDestination=&#39;test&#39; JMSDestinationType=&#39;queue&#39; 
-secret=&#39;4eb0bc3e-9d7a-4256-844c-24f40fda98f1&#39; ] from 127.0.0.1 | qtp12205619-39
-2010-12-22 12:12:14,512 | INFO  | admin requested /admin/purgeDestination.action [JMSDestination=&#39;test&#39; JMSDestinationType=&#39;queue&#39; 
-secret=&#39;eff6a932-1b58-45da-a64a-1b30b246cfc9&#39; ] from 127.0.0.1 | qtp12205619-36
-2010-12-22 12:12:17,802 | INFO  | admin requested /admin/sendMessage.action [JMSTimeToLive=&#39;&#39; JMSXGroupSeq=&#39;&#39; AMQ_SCHEDULED_DELAY=&#39;&#39; JMSType=&#39;&#39; 
-JMSMessageCountHeader=&#39;JMSXMessageCounter&#39; JMSXGroupID=&#39;&#39; JMSReplyTo=&#39;&#39; JMSDestination=&#39;test&#39; AMQ_SCHEDULED_PERIOD=&#39;&#39; JMSText=&#39;Enter some text 
-here for the message body...&#39; JMSDestinationType=&#39;queue&#39; AMQ_SCHEDULED_CRON=&#39;&#39; JMSCorrelationID=&#39;&#39; AMQ_SCHEDULED_REPEAT=&#39;&#39; JMSMessageCount=&#39;1&#39; 
-secret=&#39;a0e1df62-14d6-4425-82a2-17aa01a16e7d&#39; JMSPriority=&#39;&#39; ] from 127.0.0.1 | qtp12205619-37
+<div class="wiki-content maincontent"><p>For many secured environments there's a requirement to log every user management action. For that ActiveMQ implements <em>audit logging</em>, which means that every management action made through JMX or Web Console management interface will be logged and available for later inspection.</p><p>Audit logging comes pre-configured with the distribution, so it's very easy to turn it on or off. All you have to do is to set <code>org.apache.activemq.audit</code> system property. &#160;From 5.16.0 the value can be one of "true|entry|exit|all". When the value is all or exit, the audit captures the time the JMX operation completed. You can do that by uncommenting the following line in the startup script:</p><structured-macro ac:macro-id="133e6c51-e580-4b57-b0c7-1c109a35b72b" ac:name="code" ac:schema-version="1"><plain-text-body>ACTIVEMQ_OPTS="$ACTIVEMQ_OPTS -Dorg.apache.activemq.audit=true"
+</plain-text-body></structured-macro><p>The actual logs are by default stored in <code>${ACTIVEMQ_HOME}/data/audit.log</code> and for secured broker you may expect entries similar to the following:</p><structured-macro ac:macro-id="d87a0230-8455-4ec7-82a5-9126c485fd82" ac:name="code" ac:schema-version="1"><plain-text-body>2010-12-22 12:12:07,225 | INFO  | admin requested /admin/createDestination.action [JMSDestination='test' JMSDestinationType='queue' 
+secret='4eb0bc3e-9d7a-4256-844c-24f40fda98f1' ] from 127.0.0.1 | qtp12205619-39
+2010-12-22 12:12:14,512 | INFO  | admin requested /admin/purgeDestination.action [JMSDestination='test' JMSDestinationType='queue' 
+secret='eff6a932-1b58-45da-a64a-1b30b246cfc9' ] from 127.0.0.1 | qtp12205619-36
+2010-12-22 12:12:17,802 | INFO  | admin requested /admin/sendMessage.action [JMSTimeToLive='' JMSXGroupSeq='' AMQ_SCHEDULED_DELAY='' JMSType='' 
+JMSMessageCountHeader='JMSXMessageCounter' JMSXGroupID='' JMSReplyTo='' JMSDestination='test' AMQ_SCHEDULED_PERIOD='' JMSText='Enter some text 
+here for the message body...' JMSDestinationType='queue' AMQ_SCHEDULED_CRON='' JMSCorrelationID='' AMQ_SCHEDULED_REPEAT='' JMSMessageCount='1' 
+secret='a0e1df62-14d6-4425-82a2-17aa01a16e7d' JMSPriority='' ] from 127.0.0.1 | qtp12205619-37
 
 ...
 
@@ -17,6 +14,5 @@ secret=&#39;a0e1df62-14d6-4425-82a2-17aa01a16e7d&#39; JMSPriority=&#39;&#39; ] f
 2010-12-22 12:13:21,976 | INFO  | admin called org.apache.activemq.broker.jmx.QueueView.resetStatistics[] | RMI TCP Connection(8)-192.168.1.107
 2010-12-22 12:13:32,457 | INFO  | admin called org.apache.activemq.broker.jmx.QueueView.sendTextMessage[message] | RMI TCP Connection(6)-
 192.168.1.107
-]]></script>
-</div></div><p>In this example you can see sample entries for actions taken both in Web Console or via JMX. Log entries contain info like:</p><ul><li>username (if available), or "anonymous" otherwise</li><li>Operation performed, which in JMX case is the method name and request URL if the operation is performed over web</li><li>Parameters used for the operation and</li><li>IP address from which call has been made</li></ul><p>A default location of the audit log can be configured in <code>${ACTIVEMQ_HOME}/conf/log4j.properties</code></p></div>
+</plain-text-body></structured-macro><p>In this example you can see sample entries for actions taken both in Web Console or via JMX. Log entries contain info like:</p><ul><li>username (if available), or "anonymous" otherwise</li><li>Operation performed, which in JMX case is the method name and request URL if the operation is performed over web</li><li>Parameters used for the operation and</li><li>IP address from which call has been made</li></ul><p>A default location of the audit log can be configured in <code>${ACTIVEMQ_HOME}/conf/log4j.properties</code></p></div>
 

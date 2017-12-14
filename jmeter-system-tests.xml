@@ -1,10 +1,10 @@
 <div class="wiki-content maincontent">
-<h3 id="JMeterSystemTests-JMeterSystemTests">JMeter System Tests</h3>
+<h3>JMeter System Tests</h3>
 <p>You can use JMeter to test your ActiveMQ Server. Please refer to the JMeter site for detailed instructions on using this software.<br clear="none">
 The Test would check for duplicate messages and the order of messages received.</p>
 
 
-<h3 id="JMeterSystemTests-BuildingaTestPlan">Building a Test Plan</h3>
+<h3>Building a Test Plan</h3>
 
 <p>For a Producer System Test Sampler<br clear="none">
 1. Add a Thread Group.<br clear="none">
@@ -16,7 +16,7 @@ The Test would check for duplicate messages and the order of messages received.<
 2. Highlight te Consumer Sampler then right click to add the consumer listener "View Producer System Test Results" from the Listener menu.</p>
 
 
-<h3 id="JMeterSystemTests-TheJMeterSystemTestModuleisconsistof:">The JMeter System Test Module is consist of:</h3>
+<h3>The JMeter System Test Module is consist of:</h3>
 <p>1. JMeter Producer System Test Sampler</p>
 
 <ul class="alternate"><li>A JMeter Sampler tells JMeter to send requests to the server. Pluggable Samplers allow unlimited testing capabilities.</li></ul>
@@ -44,6 +44,7 @@ The Test would check for duplicate messages and the order of messages received.<
 
 
 <ul class="alternate"><li>Consumer Identifier - Identifies the Consumer that received the message.</li><li>Producer Name - Producer name that send the message.</li><li>Message - The message body received.</li><li>Message Count - The number of messages received.</li></ul>
+
 
 
 </div>

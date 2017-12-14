@@ -1,4 +1,4 @@
-<div class="wiki-content maincontent"><p>To bridge from ActiveMQ to another JMS provider use the <a shape="rect" href="jms-to-jms-bridge.xml">JMS bridge</a>. </p>
+<div class="wiki-content maincontent"><p>To bridge from ActiveMQ to another JMS provider use the <link><page ri:content-title="jms to jms bridge"></page><link-body>JMS bridge</link-body></link>. </p>
 
-<p>To bridge to another kind of transport completely, use <a shape="rect" class="external-link" href="http://camel.apache.org">Camel</a> or <a shape="rect" class="external-link" href="http://servicemix.apache.org">ServiceMix</a></p></div>
+<p>To bridge to another kind of transport completely, use <a shape="rect" href="http://camel.apache.org">Camel</a> or <a shape="rect" href="http://servicemix.apache.org">ServiceMix</a></p></div>
 

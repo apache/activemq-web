@@ -1,23 +1,22 @@
-<div class="wiki-content maincontent"><h2 id="Example-ActiveMQ-CPPinAction">ActiveMQ-CPP in Action</h2>
+<div class="wiki-content maincontent"><h2>ActiveMQ-CPP in Action</h2>
 
 <p>In the example below we create two classes <strong>HolloWorldConsumer</strong> and <strong>HelloWorldProducer</strong> each of which runs in its own thread.  The Producer sends TextMessage objects via a <strong>MessageProducer</strong> instance to the ActiveMQ broker.  The Consumer receives messages asynchronously from the broker on the same Topic or Queue as the Producer looking for a set number of TextMessages to arrive.  </p>
 
 <p>The following example is taken from the source code and shows a basic usage scenario of ActiveMQ-CPP, you can find other examples in the examples folder that ships with the source distribution of ActiveMQ-CPP:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>main.cpp</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="6137a35b-c89a-4c44-89d0-d0ac7ebd9d8c" ac:name="code" ac:schema-version="1"><parameter ac:name="title">main.cpp</parameter><plain-text-body>
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the &quot;License&quot;); you may not use this file except in compliance with
+ * (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
  *
  *     http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
@@ -112,9 +111,9 @@ public:
 
             // Create the destination (Topic or Queue)
             if (useTopic) {
-                destination = session-&gt;createTopic(&quot;TEST.FOO&quot;);
+                destination = session-&gt;createTopic("TEST.FOO");
             } else {
-                destination = session-&gt;createQueue(&quot;TEST.FOO&quot;);
+                destination = session-&gt;createQueue("TEST.FOO");
             }
 
             // Create a MessageProducer from the Session to the Topic or Queue
@@ -125,12 +124,12 @@ public:
             string threadIdStr = Long::toString(Thread::currentThread()-&gt;getId());
 
             // Create a messages
-            string text = (string) &quot;Hello world! from thread &quot; + threadIdStr;
+            string text = (string) "Hello world! from thread " + threadIdStr;
 
             for (int ix = 0; ix &lt; numMessages; ++ix) {
                 std::auto_ptr&lt;TextMessage&gt; message(session-&gt;createTextMessage(text));
-                message-&gt;setIntProperty(&quot;Integer&quot;, ix);
-                printf(&quot;Sent message #%d from thread %s\n&quot;, ix + 1, threadIdStr.c_str());
+                message-&gt;setIntProperty("Integer", ix);
+                printf("Sent message #%d from thread %s\n", ix + 1, threadIdStr.c_str());
                 producer-&gt;send(message.get());
             }
 
@@ -238,9 +237,9 @@ public:
 
             // Create the destination (Topic or Queue)
             if (useTopic) {
-                destination = session-&gt;createTopic(&quot;TEST.FOO&quot;);
+                destination = session-&gt;createTopic("TEST.FOO");
             } else {
-                destination = session-&gt;createQueue(&quot;TEST.FOO&quot;);
+                destination = session-&gt;createQueue("TEST.FOO");
             }
 
             // Create a MessageConsumer from the Session to the Topic or Queue
@@ -272,15 +271,15 @@ public:
         try {
             count++;
             const TextMessage* textMessage = dynamic_cast&lt;const TextMessage*&gt; (message);
-            string text = &quot;&quot;;
+            string text = "";
 
             if (textMessage != NULL) {
                 text = textMessage-&gt;getText();
             } else {
-                text = &quot;NOT A TEXTMESSAGE!&quot;;
+                text = "NOT A TEXTMESSAGE!";
             }
 
-            printf(&quot;Message #%d Received: %s\n&quot;, count, text.c_str());
+            printf("Message #%d Received: %s\n", count, text.c_str());
 
         } catch (CMSException&amp; e) {
             e.printStackTrace();
@@ -298,7 +297,7 @@ public:
     // If something bad happens you see it here as this class is also been
     // registered as an ExceptionListener with the connection.
     virtual void onException(const CMSException&amp; ex AMQCPP_UNUSED) {
-        printf(&quot;CMS Exception occurred.  Shutting down client.\n&quot;);
+        printf("CMS Exception occurred.  Shutting down client.\n");
         ex.printStackTrace();
         exit(1);
     }
@@ -334,9 +333,9 @@ int main(int argc AMQCPP_UNUSED, char* argv[] AMQCPP_UNUSED) {
 
     activemq::library::ActiveMQCPP::initializeLibrary();
     {
-    std::cout &lt;&lt; &quot;=====================================================\n&quot;;
-    std::cout &lt;&lt; &quot;Starting the example:&quot; &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;-----------------------------------------------------\n&quot;;
+    std::cout &lt;&lt; "=====================================================\n";
+    std::cout &lt;&lt; "Starting the example:" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "-----------------------------------------------------\n";
 
 
     // Set the URI to point to the IP Address of your broker.
@@ -362,16 +361,16 @@ int main(int argc AMQCPP_UNUSED, char* argv[] AMQCPP_UNUSED) {
     // the trusted root.  If using client authentication you also need to specify
     // the location of the client Certificate.
     //
-    //     System::setProperty( &quot;decaf.net.ssl.keyStore&quot;, &quot;&lt;path&gt;/client.pem&quot; );
-    //     System::setProperty( &quot;decaf.net.ssl.keyStorePassword&quot;, &quot;password&quot; );
-    //     System::setProperty( &quot;decaf.net.ssl.trustStore&quot;, &quot;&lt;path&gt;/rootCA.pem&quot; );
+    //     System::setProperty( "decaf.net.ssl.keyStore", "&lt;path&gt;/client.pem" );
+    //     System::setProperty( "decaf.net.ssl.keyStorePassword", "password" );
+    //     System::setProperty( "decaf.net.ssl.trustStore", "&lt;path&gt;/rootCA.pem" );
     //
     // The you just specify the ssl transport in the URI, for example:
     //
     //     ssl://localhost:61617
     //
     std::string brokerURI =
-        &quot;failover:(tcp://localhost:61616)&quot;;
+        "failover:(tcp://localhost:61616)";
 
     //============================================================
     // set to true to use topics instead of queues
@@ -408,10 +407,10 @@ int main(int argc AMQCPP_UNUSED, char* argv[] AMQCPP_UNUSED) {
     consumer.close();
     producer.close();
 
-    std::cout &lt;&lt; &quot;Time to completion = &quot; &lt;&lt; totalTime &lt;&lt; &quot; seconds.&quot; &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;-----------------------------------------------------\n&quot;;
-    std::cout &lt;&lt; &quot;Finished with the example.&quot; &lt;&lt; std::endl;
-    std::cout &lt;&lt; &quot;=====================================================\n&quot;;
+    std::cout &lt;&lt; "Time to completion = " &lt;&lt; totalTime &lt;&lt; " seconds." &lt;&lt; std::endl;
+    std::cout &lt;&lt; "-----------------------------------------------------\n";
+    std::cout &lt;&lt; "Finished with the example." &lt;&lt; std::endl;
+    std::cout &lt;&lt; "=====================================================\n";
 
     }
     activemq::library::ActiveMQCPP::shutdownLibrary();
@@ -419,6 +418,5 @@ int main(int argc AMQCPP_UNUSED, char* argv[] AMQCPP_UNUSED) {
 
 // END SNIPPET: demo
 
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

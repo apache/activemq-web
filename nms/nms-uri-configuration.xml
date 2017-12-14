@@ -1,20 +1,20 @@
-<div class="wiki-content maincontent"><h2 id="NMSURIConfiguration-ConfiguringNMS">Configuring NMS</h2>
+<div class="wiki-content maincontent"><h2>Configuring NMS</h2>
 
 <p>When working with the generic NMS API NMSConnectionFactory class you must choose via the URI which NMS provider you actually wish to use.  This page documents the uri syntax and available options for the NMS providers.</p>
 
-<h3 id="NMSURIConfiguration-ConnectionURIParameters"><strong>Connection URI Parameters</strong></h3>
+<h3><strong>Connection URI Parameters</strong></h3>
 
-<h5 id="NMSURIConfiguration-ExampleConfiguration">&#160;Example Configuration</h5>
+<h5>&#160;Example Configuration</h5>
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>cf = new NMSConnectionFactory("activemq:tcp://localhost:61616");
-</pre>
-</div></div>
+<structured-macro ac:macro-id="5c2de8cd-bb53-4569-9785-b14137b0aa5c" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+cf = new NMSConnectionFactory("activemq:tcp://localhost:61616");
+</plain-text-body></structured-macro>
 
-<h3 id="NMSURIConfiguration-NMSProviderOptions">NMS Provider Options</h3>
+<h3>NMS Provider Options</h3>
 
 <p>Click on the provider name to visit the URI configuration documentation for your chosen NMS provider.</p>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" href="activemq-uri-configuration.xml">activemq</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Use the NMS.ActiveMQ Provider to talk to an ActiveMQ Broker. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" href="stomp-uri-configuration.xml">stomp</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Use the NMS.Stomp Provider to talk to an Stomp Broker  ActivemMQ Broker supports the Stomp protocol natively. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> ems </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Use the NMS.EMS Provider to talk to a TIBCO Broker. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> msmq </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Use the NMS.MSMQ Provider to talk to a Microsoft Messaging (MSMQ) Broker. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> wcf </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Use the NMS.WCF Provider to support a Windows Communication Foundation (WCF) endpoint connection for connecting to a back-end broker. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> xms </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Use the NMS.XMS Provider to talk to an IBM MQSerios Broker. This provider is currently not implemented. </p></td></tr></tbody></table></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Option Name </p></th><th colspan="1" rowspan="1"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1"><p> <link><page ri:content-title="ActiveMQ URI Configuration"></page><link-body>activemq</link-body></link> </p></td><td colspan="1" rowspan="1"><p> Use the NMS.ActiveMQ Provider to talk to an ActiveMQ Broker. </p></td></tr><tr><td colspan="1" rowspan="1"><p> <link><page ri:content-title="Stomp URI Configuration"></page><link-body>stomp</link-body></link> </p></td><td colspan="1" rowspan="1"><p> Use the NMS.Stomp Provider to talk to an Stomp Broker  ActivemMQ Broker supports the Stomp protocol natively. </p></td></tr><tr><td colspan="1" rowspan="1"><p> ems </p></td><td colspan="1" rowspan="1"><p> Use the NMS.EMS Provider to talk to a TIBCO Broker. </p></td></tr><tr><td colspan="1" rowspan="1"><p> msmq </p></td><td colspan="1" rowspan="1"><p> Use the NMS.MSMQ Provider to talk to a Microsoft Messaging (MSMQ) Broker. </p></td></tr><tr><td colspan="1" rowspan="1"><p> wcf </p></td><td colspan="1" rowspan="1"><p> Use the NMS.WCF Provider to support a Windows Communication Foundation (WCF) endpoint connection for connecting to a back-end broker. </p></td></tr><tr><td colspan="1" rowspan="1"><p> xms </p></td><td colspan="1" rowspan="1"><p> Use the NMS.XMS Provider to talk to an IBM MQSerios Broker. This provider is currently not implemented. </p></td></tr></tbody></table>
+
 </div>
 

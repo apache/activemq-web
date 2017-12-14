@@ -1,19 +1,17 @@
-<div class="wiki-content maincontent"><h3 id="ActiveMQConsumerPriority-Background">Background</h3>
+<div class="wiki-content maincontent"><h3>Background</h3>
 
 <p>As well as having a pluggable dispatch policy (e.g. round robin etc), we now support consumer priorities.</p>
 
 <p>This allows us to weight consumers to optimise network hops. For example, you typically want a broker to send messages to regular NMS consumers rather than to other brokers; there's no need to make unnecessary broker-to-broker hops if there are available consumers.</p>
 
-<h3 id="ActiveMQConsumerPriority-Example">Example</h3>
+<h3>Example</h3>
 
-<p>The priority for a consumer is set using <a shape="rect" href="activemq-uri-configuration.xml">Destination Options</a> as follows:</p>
+<p>The priority for a consumer is set using <link><page ri:content-title="ActiveMQ URI Configuration"></page><link-body>Destination Options</link-body></link> as follows:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-var queue = session.GetQueue(&quot;TEST.QUEUE?consumer.priority=10&quot;);
+<structured-macro ac:macro-id="91f62f32-07fc-46ae-b30f-86646d2f98e6" ac:name="code" ac:schema-version="1"><parameter ac:name="">java</parameter><plain-text-body>
+var queue = session.GetQueue("TEST.QUEUE?consumer.priority=10");
 var consumer = session.CreateConsumer(queue);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>The range for assigning priority numbers is from 0 to 127, with 127 being the highest priority and 0 being the default priority.<br clear="none">
 The way it works is that the broker will simply order any queue consumers according to their priorities and send messages to the highest priority consumers first. <br clear="none">

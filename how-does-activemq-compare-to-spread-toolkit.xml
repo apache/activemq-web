@@ -1,11 +1,7 @@
 <div class="wiki-content maincontent">
-<p>Spread Toolkit is a C++ library for messaging and only has <a shape="rect" class="external-link" href="http://www.spread.org/JMS4Spread/docs/" rel="nofollow">partial support for JMS</a>. It doesn't support durable messaging, transactions, XA or full JMS 1.1. It is also dependent on a native code Spread daemon running on the machine.</p>
+<p>Spread Toolkit is a C++ library for messaging and only has <a shape="rect" href="http://www.spread.org/JMS4Spread/docs/">partial support for JMS</a>. It doesn't support durable messaging, transactions, XA or full JMS 1.1. It is also dependent on a native code Spread daemon running on the machine.</p>
 
-<p>Apache ActiveMQ on the other hand is the JMS provider used in <a shape="rect" class="external-link" href="http://geronimo.apache.org">Apache Geronimo</a> and is J2EE 1.4 certified in Geronimo and is 100% pure Java. ActiveMQ supports transient and durable messaging, transactions, XA, J2EE 1.4, JMS 1.1, JCA 1.5 as well as heaps of different features like <a shape="rect" href="message-groups.xml">Message Groups</a> and <a shape="rect" href="clustering.xml">Clustering</a></p>
+<p>Apache ActiveMQ on the other hand is the JMS provider used in <a shape="rect" href="http://geronimo.apache.org">Apache Geronimo</a> and is J2EE 1.4 certified in Geronimo and is 100% pure Java. ActiveMQ supports transient and durable messaging, transactions, XA, J2EE 1.4, JMS 1.1, JCA 1.5 as well as heaps of different features like <link><page ri:content-title="Message Groups"></page></link> and <link><page ri:content-title="Clustering"></page></link></p>
 
-<h2 id="HowdoesActiveMQcomparetoSpreadToolkit-Performanceguides">Performance guides</h2>
-
-<p>If you're not convinced by performance reports then please do try running performance tests yourself. You might wanna check out our overview of <a shape="rect" href="performance.xml">Performance</a> or try using out the <a shape="rect" href="activemq-performance-module-users-manual.xml">ActiveMQ Performance Module Users Manual</a></p>
-
-<p>The Commercial Providers on the <a shape="rect" href="support.xml">Support</a> page may also be able to help diagnose performance issues, suggest changes, etc...</p></div>
+<structured-macro ac:macro-id="3a3420b9-f796-4044-895d-6667e944d341" ac:name="include" ac:schema-version="1"><parameter ac:name=""><link><page ri:content-title="Performance report"></page></link></parameter></structured-macro></div>
 

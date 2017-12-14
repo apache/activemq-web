@@ -1,51 +1,47 @@
 <div class="wiki-content maincontent"><p>Create the file &lt;webapp-root&gt;/META-INF/context.xml.  Here is an example:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;Context antiJARLocking=&quot;true&quot;&gt;
+<structured-macro ac:macro-id="7dd5eabb-c111-44ea-8f88-6ef5041b9159" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
+&lt;Context antiJARLocking="true"&gt;
     &lt;Resource
-        name=&quot;jms/ConnectionFactory&quot;
-        auth=&quot;Container&quot;
-        type=&quot;org.apache.activemq.ActiveMQConnectionFactory&quot;
-        description=&quot;JMS Connection Factory&quot;
-        factory=&quot;org.apache.activemq.jndi.JNDIReferenceFactory&quot;
-        brokerURL=&quot;tcp://localhost:61616&quot;
-        brokerName=&quot;LocalActiveMQBroker&quot;
-        useEmbeddedBroker=&quot;false&quot;/&gt;
+        name="jms/ConnectionFactory"
+        auth="Container"
+        type="org.apache.activemq.ActiveMQConnectionFactory"
+        description="JMS Connection Factory"
+        factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+        brokerURL="tcp://localhost:61616"
+        brokerName="LocalActiveMQBroker"
+        useEmbeddedBroker="false"/&gt;
 
-    &lt;Resource name=&quot;jms/topic/MyTopic&quot;
-        auth=&quot;Container&quot;
-        type=&quot;org.apache.activemq.command.ActiveMQTopic&quot;
-        factory=&quot;org.apache.activemq.jndi.JNDIReferenceFactory&quot;
-        physicalName=&quot;MY.TEST.FOO&quot;/&gt;
-    &lt;Resource name=&quot;jms/queue/MyQueue&quot;
-        auth=&quot;Container&quot;
-        type=&quot;org.apache.activemq.command.ActiveMQQueue&quot;
-        factory=&quot;org.apache.activemq.jndi.JNDIReferenceFactory&quot;
-        physicalName=&quot;MY.TEST.FOO.QUEUE&quot;/&gt;
+    &lt;Resource name="jms/topic/MyTopic"
+        auth="Container"
+        type="org.apache.activemq.command.ActiveMQTopic"
+        factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+        physicalName="MY.TEST.FOO"/&gt;
+    &lt;Resource name="jms/queue/MyQueue"
+        auth="Container"
+        type="org.apache.activemq.command.ActiveMQQueue"
+        factory="org.apache.activemq.jndi.JNDIReferenceFactory"
+        physicalName="MY.TEST.FOO.QUEUE"/&gt;
 &lt;/Context&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 <p>This will setup the JNDI for the ConectionFactory and Topic to work within Tomcat.</p>
 
 <p>Here is some example code that will publish a test message to the MY.TEST.FOO Topic:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="b64cbd8a-16e8-45e4-ab6b-2dacc0a5b5c2" ac:name="code" ac:schema-version="1"><plain-text-body>
 try {
     InitialContext initCtx = new InitialContext();
-    Context envContext = (Context) initCtx.lookup(&quot;java:comp/env&quot;);
-    ConnectionFactory connectionFactory = (ConnectionFactory) envContext.lookup(&quot;jms/ConnectionFactory&quot;);
+    Context envContext = (Context) initCtx.lookup("java:comp/env");
+    ConnectionFactory connectionFactory = (ConnectionFactory) envContext.lookup("jms/ConnectionFactory");
     Connection connection = connectionFactory.createConnection();
     Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
-    MessageProducer producer = session.createProducer((Destination) envContext.lookup(&quot;jms/topic/MyTopic&quot;));
+    MessageProducer producer = session.createProducer((Destination) envContext.lookup("jms/topic/MyTopic"));
 
     Message testMessage = session.createMessage();
-    testMessage.setStringProperty(&quot;testKey&quot;, &quot;testValue&quot;);
+    testMessage.setStringProperty("testKey", "testValue");
     producer.send(testMessage);
 } catch (NamingException e) {
     // TODO handle exception
 } catch (JMSException e) {
     // TODO handle exception
 }
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

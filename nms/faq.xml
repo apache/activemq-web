@@ -1,20 +1,20 @@
-<div class="wiki-content maincontent"><h2 id="FAQ-GeneralQuestions">General Questions</h2>
+<div class="wiki-content maincontent"><h2>General Questions</h2>
 
-<ul class="childpages-macro"><li><a shape="rect" href="are-there-more-faq-entries.xml">Are there more FAQ Entries</a></li><li><a shape="rect" href="should-i-pool-connections.xml">Should I pool connections</a></li><li><a shape="rect" href="what-is-nms.xml">What is NMS</a></li></ul>
+<structured-macro ac:macro-id="dc8c6620-2708-4b9d-82a6-41311ed7fe9c" ac:name="children" ac:schema-version="1"><parameter ac:name="all">true</parameter></structured-macro>
 
-<h2 id="FAQ-UsingNMSFAQ">Using NMS FAQ</h2>
+<h2>Using NMS FAQ</h2>
 
+<structured-macro ac:macro-id="0badc8ca-d47a-4421-88b6-02223562fce8" ac:name="include" ac:schema-version="1"><parameter ac:name=""><link><page ri:content-title="NMS FAQ"></page></link></parameter></structured-macro>
 
+<h2>Using NMS.ActiveMQ FAQ</h2>
 
-<h2 id="FAQ-UsingNMS.ActiveMQFAQ">Using NMS.ActiveMQ FAQ</h2>
+<structured-macro ac:macro-id="895f0349-85ee-476d-8351-b5fe59041b8f" ac:name="include" ac:schema-version="1"><parameter ac:name=""><link><page ri:content-title="ActiveMQ FAQ"></page></link></parameter></structured-macro>
 
+<h2>Using NMS.Stomp FAQ</h2>
 
+<h2>Using NMS.MSMQ FAQ</h2>
 
-<h2 id="FAQ-UsingNMS.StompFAQ">Using NMS.Stomp FAQ</h2>
+<h2>Using NMS.EMS FAQ</h2>
 
-<h2 id="FAQ-UsingNMS.MSMQFAQ">Using NMS.MSMQ FAQ</h2>
-
-<h2 id="FAQ-UsingNMS.EMSFAQ">Using NMS.EMS FAQ</h2>
-
-<h2 id="FAQ-UsingNMS.WCFFAQ">Using NMS.WCF FAQ</h2></div>
+<h2>Using NMS.WCF FAQ</h2></div>
 

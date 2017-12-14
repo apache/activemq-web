@@ -1,13 +1,14 @@
-<div class="wiki-content maincontent"><h3 id="Nosuitabledriver-Symptoms">Symptoms</h3>
+<div class="wiki-content maincontent"><h3>Symptoms</h3>
 
 <p>I get an exception saying <strong>No suitable driver</strong> when initialising the JDBC driver.</p>
 
-<h3 id="Nosuitabledriver-Reason">Reason</h3>
+<h3>Reason</h3>
 
-<p>ActiveMQ tries to auto-detect the JDBC driver so that it can deduce the ultimate database's SQL dialect. Some JDBC drivers are not yet auto-recognised. Here's <a shape="rect" href="jdbc-support.xml">how to configure the language adapater class to use or to provide us with details of your driver so we can add support for it to ActiveMQ</a>.</p>
+<p>ActiveMQ tries to auto-detect the JDBC driver so that it can deduce the ultimate database's SQL dialect. Some JDBC drivers are not yet auto-recognised. Here's <link><page ri:content-title="JDBC Support"></page><link-body>how to configure the language adapater class to use or to provide us with details of your driver so we can add support for it to ActiveMQ</link-body></link>.</p>
 
-<h3 id="Nosuitabledriver-See">See</h3>
+<h3>See</h3>
 
-<ul><li><a shape="rect" href="jdbc-support.xml">JDBC Support</a></li><li><a shape="rect" href="persistence.xml">Persistence</a></li><li><a shape="rect" href="how-to-configure-a-new-database.xml">How to configure a new database</a></li></ul>
+<ul><li><link><page ri:content-title="JDBC Support"></page></link></li><li><link><page ri:content-title="Persistence"></page></link></li><li><link><page ri:content-title="How to configure a new database"></page></link></li></ul>
+
 </div>
 

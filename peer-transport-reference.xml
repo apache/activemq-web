@@ -1,17 +1,16 @@
-<div class="wiki-content maincontent"><h3 id="PeerTransportReference-ThePeerTransport">The Peer Transport</h3>
+<div class="wiki-content maincontent"><h3>The Peer Transport</h3>
 
 <p>The Peer transport provides a peer-to-peer network with ActiveMQ. What actually happens is the peer transport uses the VM transport to create and connect to a local embedded broker but which configures the embedded broker to establish network connections to other peer embedded brokers.</p>
 
-<h4 id="PeerTransportReference-ConfigurationSyntax">Configuration Syntax</h4>
+<h4>Configuration Syntax</h4>
 
 <p><strong>peer://peer-group/brokerName?brokerOptions</strong></p>
 
-<h5 id="PeerTransportReference-ExampleURI">Example URI</h5>
+<h5>Example URI</h5>
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>peer://groupa/broker1?persistent=false
-</pre>
-</div></div>
+<structured-macro ac:macro-id="d4973bd1-7ca2-4098-b501-53fca5f603df" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+peer://groupa/broker1?persistent=false
+</plain-text-body></structured-macro>
 <p>&#160;</p>
 
 <p>&#160;</p></div>

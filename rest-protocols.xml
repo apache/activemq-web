@@ -1,34 +1,28 @@
 <div class="wiki-content maincontent"><p>There are many ways to map JMS to REST...</p>
 
-<h2 id="RESTprotocols-Crappynon-REST">Crappy non-REST</h2>
+<h2>Crappy non-REST</h2>
 
 <p>Send via </p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="d7b1badc-1a83-45f4-aa96-bccc7d98258c" ac:name="code" ac:schema-version="1"><plain-text-body>
 POST /queue/Destination
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>Consume</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="a4aabcb2-1c9b-4fd2-8749-7afdc2abee82" ac:name="code" ac:schema-version="1"><plain-text-body>
 GET /queue/Destination
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>This is bad as the GET is not idempotent. We can add a user ID or use a cookie</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="c5a27fcb-bed0-4dc0-bfae-b2da55d827c2" ac:name="code" ac:schema-version="1"><plain-text-body>
 GET /queue/Destination?jsessionId=....
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>though a caching proxy may keep returning the same message</p>
 
-<h2 id="RESTprotocols-SimpleRESTusing1atatimedelivery">Simple REST using 1 at a time delivery</h2>
+<h2>Simple REST using 1 at a time delivery</h2>
 
 <p>Subscribe via</p>
 
@@ -43,13 +37,11 @@ POST /unsubscribe/consumerId/Destination</p>
 
 <p>POST /ack/consumerId/messageId</p>
 
-<h2 id="RESTprotocols-BatchmessageREST">Batch message REST</h2>
+<h2>Batch message REST</h2>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="7d52776b-30cf-4924-a0b6-9962cc902061" ac:name="code" ac:schema-version="1"><plain-text-body>
 POST lockNextMessage/consumerId?max=10 
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>-&gt; give back up to 10 message URLs</p>
 
@@ -59,9 +51,10 @@ POST lockNextMessage/consumerId?max=10
 
 <p>DELETE /consumerId/messages/messageId</p>
 
-<h3 id="RESTprotocols-Furtheroptions...">Further options...</h3>
+<h3>Further options...</h3>
 
 <p>You can include ACK messages inside the POST; so the 2nd POST could include the ACKs - also you could return the batch of messages as well.</p>
+
 
 
 

@@ -1,5 +1,4 @@
-<div class="wiki-content maincontent"><h1 id="ApacheActiveMQBoardReport-2008.07(July)-StatusreportfortheApacheActiveMQProject">Status report for the Apache ActiveMQ Project</h1><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[Community:
+<div class="wiki-content maincontent"><h1>Status report for the Apache ActiveMQ Project</h1><structured-macro ac:macro-id="e63d73fc-c415-4b30-b192-415e94ab6290" ac:name="code" ac:schema-version="1"><parameter ac:name="">none</parameter><plain-text-body>Community:
  * The ActiveMQ project has had another very busy quarter.  Seven new contributors were voted in and accepted becoming ActiveMQ committers:
    * Gary Tully 
    * Gert Vanthienen 
@@ -21,6 +20,5 @@ Releases:
  * ActiveIO 3.0.1
  * ActiveMQ-CPP 2.2
 
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

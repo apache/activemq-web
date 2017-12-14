@@ -1,4 +1,4 @@
 <div class="wiki-content maincontent"><p>Questions for developers wishing to extend or enhance Apache ActiveMQ</p>
 
-<ul class="childpages-macro"><li><a shape="rect" href="how-can-i-add-a-new-type-of-transport.xml">How can I add a new type of transport</a></li><li><a shape="rect" href="how-can-i-contribute.xml">How can I contribute</a></li><li><a shape="rect" href="how-do-i-add-my-own-plugins.xml">How do I add my own plugins</a></li><li><a shape="rect" href="how-do-i-debug-activemq-from-my-ide.xml">How do I debug ActiveMQ from my IDE</a></li></ul></div>
+<structured-macro ac:macro-id="f2073f3c-4db5-47be-ae49-cba901b84bce" ac:name="children" ac:schema-version="1"><parameter ac:name="all">true</parameter></structured-macro></div>
 

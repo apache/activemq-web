@@ -1,8 +1,8 @@
-<div class="wiki-content maincontent"><h2 id="CreatingDistributions-CreatingaDistributionofActiveMQ-CPP">Creating a Distribution of ActiveMQ-CPP</h2>
+<div class="wiki-content maincontent"><h2>Creating a Distribution of ActiveMQ-CPP</h2>
 
 <p>This should give you an idea of the steps involved with creating a new distribution of ActiveMQ-CPP.  This content was extracted from <a shape="rect" class="external-link" href="http://www.apache.org/dev/mirror-guide-bodewig.html">http://www.apache.org/dev/mirror-guide-bodewig.html</a>, so you may want to reference that for more information.</p>
 
-<h3 id="CreatingDistributions-ALittleBackgroundInfo...">A Little Background Info ...</h3>
+<h3>A Little Background Info ...</h3>
 <p>Apache mirrors everything under /www.www.apache.org/dist.  We have had the infrastructure team add a directory under there for activemq.  All you need in order to write to this directory is to be a member of the activemq group.  If you're not, you'll have to create an infrastructure issue to get yourself added.  Under the dir activemq,  there is a directory activemq-cpp/source for the source distributions of ActiveMQ-CPP.</p>
 
 <p>Under the source dir, we just drop the archive files (*.zip, *.tar.gz, *.zip.asc, *.tar.gz.asc) for the release versions. (NOTE: After you add files here, you should wait about 24 hours before notifying the lists since it takes a while for all the mirrors to pick up the files).</p>
@@ -17,61 +17,58 @@
 
 <p>... and click on one of the archives.  You'll be taken to a generic-looking download page.</p>
 
-<p>Like I said, this is a quick and dirty for now, but it works! <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p>
+<p>Like I said, this is a quick and dirty for now, but it works! <emoticon ac:name="smile"></emoticon></p>
 
-<h3 id="CreatingDistributions-Productversion,interfaceversionandpackagename">Product version, interface version and package name</h3>
+<h3>Product version, interface version and package name</h3>
 
-<p>The page <a shape="rect" href="activemq-cpp-product-version-number.xml">ActiveMQ-CPP product version number</a> has been created to specify the way version numbers are used in the project, with some examples.</p>
+<p>The page <link><page ri:content-title="ActiveMQ-CPP product version number"></page></link> has been created to specify the way version numbers are used in the project, with some examples.</p>
 
-<p><a shape="rect" href="activemq-cpp-libtool-and-packaging-notes.xml">ActiveMQ-CPP, libtool and packaging notes</a> discusses the way version numbers impact libtool and packaging, and make some recommendations for this project.</p>
+<p><link><page ri:content-title="ActiveMQ-CPP, libtool and packaging notes"></page></link> discusses the way version numbers impact libtool and packaging, and make some recommendations for this project.</p>
 
-<h3 id="CreatingDistributions-CreatingaDistribution(step-by-step)">Creating a Distribution (step-by-step)</h3>
+<h3>Creating a Distribution (step-by-step)</h3>
 <ul><li>Create a pre-release download page for your distribution.  This should have a disclaimer that the release is not yet official and should have a temporary link to a pre-release distribution.  For the pre-release, you do not need to have both zip and tar.gz, but a detached signature file (.asc) file should accompany any distribution.  Below is an example of the disclaimer that should appear at the top of the download page:</li></ul>
 
 
-<div class="confluence-information-macro confluence-information-macro-warning"><p class="title">The Release is still in progress</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<structured-macro ac:macro-id="dff08b99-9f5f-48f8-97b2-e641c7c4aeb0" ac:name="warning" ac:schema-version="1"><parameter ac:name="title">The Release is still in progress</parameter><rich-text-body>
 <p> 	You are previewing the release page for unreleased version of yadda. The download links on the page below may not work until it is officially released.</p>
 
 <p> 	Until the release is approved you could try the current source bundle:<br clear="none">
- 	<a shape="rect" class="external-link" href="http://people.apache.org/~myaccount/yadda.zip">http://people.apache.org/~myaccount/yadda.zip</a></p></div></div>
+ 	<a shape="rect" href="http://people.apache.org/~myaccount/yadda.zip">http://people.apache.org/~myaccount/yadda.zip</a></p></rich-text-body></structured-macro>
 
 <p>Here is the Wiki Test for the above:</p>
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>{warning:title=The Release is still in progress}
+<structured-macro ac:macro-id="d1a0132f-2605-47fd-8dfb-8f025c1033e5" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+{warning:title=The Release is still in progress}
  	You are previewing the release page for unreleased version of yadda. The download links on the page below may not work until it is officially released.
  	 
  	Until the release is approved you could try the current source bundle:
  	[http://people.apache.org/~myaccount/yadda.zip]
 {warning}
-</pre>
-</div></div>
+</plain-text-body></structured-macro>
 
-<ul><li>Call a vote on the release of the distribution.  This email typically has <p>[VOTE]</p> in the subject line and should provide a link to the download page and the pre-release distribution.</li><li>Wait 3 days.  If there &gt;= 3 +1's and no -1's, you can proceed with the release.</li><li>Create all of the distributions of the source (*.zip, *.tar.gz).  Make sure that you remove the .svn directories from the directory before you create the archives.  On *nix, this can be done with the command:</li></ul>
+<ul><li>Call a vote on the release of the distribution.  This email typically has <p><structured-macro ac:macro-id="a3ebd840-af2e-420f-b8f4-66e95fa1dbb9" ac:name="html" ac:schema-version="1"><parameter ac:name="nopanel">true</parameter><plain-text-body>[VOTE]</plain-text-body></structured-macro></p> in the subject line and should provide a link to the download page and the pre-release distribution.</li><li>Wait 3 days.  If there &gt;= 3 +1's and no -1's, you can proceed with the release.</li><li>Create all of the distributions of the source (*.zip, *.tar.gz).  Make sure that you remove the .svn directories from the directory before you create the archives.  On *nix, this can be done with the command:</li></ul>
 
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>rm -rf `find . -type d -name .svn`
-</pre>
-</div></div>
+<structured-macro ac:macro-id="6fbc2b45-33bf-4edb-9e16-e9e3d73045f7" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+rm -rf `find . -type d -name .svn`
+</plain-text-body></structured-macro>
 
 <ul><li>Sign your distribution files, creating an asc file for both the tar and zip files, see this page <a shape="rect" class="external-link" href="http://www.apache.org/dev/release-signing.html">http://www.apache.org/dev/release-signing.html</a> for more information on release signing.</li></ul>
 
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>gpg --armor --output foo.tar.gz.asc --detach-sig foo.tar.gz
+<structured-macro ac:macro-id="ca3a314e-73c2-4310-af92-69f282dc9041" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+gpg --armor --output foo.tar.gz.asc --detach-sig foo.tar.gz
 gpg --armor --output foo.zip.asc --detach-sig foo.zip
-</pre>
-</div></div>
+</plain-text-body></structured-macro>
 
 <ul><li>Copy the distribution files to <strong>/www/www.apache.org/dist/activemq/activemq-cpp/source</strong> on minotaur.</li><li>Wait 24 hours for the mirrors to be updated with the distribution.</li><li>Update the links on the download page to reference your distribution through the CGI script.  This simply means that you precede the file names with the path <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/">http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/</a>.</li></ul>
 
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>i.e. http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-1.1-src.zip
-</pre>
-</div></div>
+<structured-macro ac:macro-id="425298a1-5ba0-4668-80c3-b6a5148fbf77" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+i.e. http://www.apache.org/dyn/closer.cgi/activemq/activemq-cpp/source/activemq-cpp-1.1-src.zip
+</plain-text-body></structured-macro>
 
-<ul><li>Generate the Doxygen API and place it under /www/activemq.apache.org/cms/api_docs.</li><li>Add the link to the release API to the <a shape="rect" href="api.xml">API</a> page.</li><li>Add a news item under the CMS space on the wiki about the release.</li><li>Send out an e-mail on both the dev and users list about the release.</li></ul>
+<ul><li>Generate the Doxygen API and place it under /www/activemq.apache.org/cms/api_docs.</li><li>Add the link to the release API to the <link><page ri:content-title="API"></page></link> page.</li><li>Add a news item under the CMS space on the wiki about the release.</li><li>Send out an e-mail on both the dev and users list about the release.</li></ul>
+
 </div>
 

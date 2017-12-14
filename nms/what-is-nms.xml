@@ -1,6 +1,6 @@
-<div class="wiki-content maincontent"><h2 id="WhatisNMS-WhatisNMS?">What is NMS?</h2>
+<div class="wiki-content maincontent"><h2>What is NMS?</h2>
 
-<p><a shape="rect" href="nms.xml">NMS</a> is the open source .Net Messaging API. </p>
+<p><link><page ri:content-title="NMS"></page></link> is the open source .Net Messaging API. </p>
 
 <p>This allows you to build .Net applications in C# or VB to a single API which can then be used to connect to multiple different Message Brokers.</p></div>
 

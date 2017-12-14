@@ -1,8 +1,8 @@
-<div class="wiki-content maincontent"><h3 id="ZeroConfTransportReference-TheZeroConfTransport">The ZeroConf Transport</h3>
+<div class="wiki-content maincontent"><h3>The ZeroConf Transport</h3>
 
-<p>The ZeroConf transport works just like <a shape="rect" href="discovery-transport-reference.xml">Discovery Transport</a>, except that it uses a <a shape="rect" href="zeroconf.xml">ZeroConf</a> based discovery agent to locate the list of broker uris to connect to.</p>
+<p>The ZeroConf transport works just like <link><page ri:content-title="Discovery Transport Reference"></page><link-body>Discovery Transport</link-body></link>, except that it uses a <link><page ri:content-title="ZeroConf"></page></link> based discovery agent to locate the list of broker uris to connect to.</p>
 
-<h4 id="ZeroConfTransportReference-ConfigurationSyntax">Configuration Syntax</h4>
+<h4>Configuration Syntax</h4>
 
 <p><strong>zeroconf:serviceName?transportOptions</strong><br clear="none">
 or<br clear="none">
@@ -11,23 +11,20 @@ or<br clear="none">
 
 <p>where <em>serviceName</em> is the Zeroconf service name; which seems to start with an underscore (_) and must end with a dot (.). So we can use this service name to distinguish development, UAT &amp; production brokers - or group them into domains etc.</p>
 
-<p>Note that to be able to use ZeroConf to find brokers, the brokers need to have <a shape="rect" href="discovery.xml">Discovery</a> enabled. To configure discovery in a Broker you should use the <a shape="rect" href="xml-configuration.xml">Xml Configuration</a>. Its basically something like...</p>
+<p>Note that to be able to use ZeroConf to find brokers, the brokers need to have <link><page ri:content-title="Discovery"></page></link> enabled. To configure discovery in a Broker you should use the <link><page ri:content-title="Xml Configuration"></page></link>. Its basically something like...</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;broker name=&quot;foo&quot;&gt;
+<structured-macro ac:macro-id="6985defe-7571-4905-ae3f-ca6d372f1ebe" ac:name="code" ac:schema-version="1"><plain-text-body>
+&lt;broker name="foo"&gt;
   &lt;transportConnectors&gt;
-    &lt;transportConnector name=&quot;openwire&quot; uri=&quot;tcp://0.0.0.0:61616&quot; discoveryUri=&quot;zeroconf:_activemq_development. /&gt;
+    &lt;transportConnector name="openwire" uri="tcp://0.0.0.0:61616" discoveryUri="zeroconf:_activemq_development. /&gt;
   &lt;/transportConnectors&gt;
   ...
 &lt;/broker&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h5 id="ZeroConfTransportReference-ExampleclientURI">Example client URI</h5>
+<h5>Example client URI</h5>
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>zeroconf:_activemq_development.
-</pre>
-</div></div></div>
+<structured-macro ac:macro-id="dc56016e-8011-4157-a33f-097e11f39c98" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+zeroconf:_activemq_development.
+</plain-text-body></structured-macro></div>
 

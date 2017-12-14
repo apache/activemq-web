@@ -1,11 +1,9 @@
 <div class="wiki-content maincontent"><p>It may seem like the resource adapter when used in an app server like geronimo or jboss is not pooling connections.  Looking the the ActiveMQ broker logs, it will show multiple message for each use of a pooled conntion simlilar to:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="21ffa5c6-27c5-468d-9fcd-be9f6e053026" ac:name="code" ac:schema-version="1"><plain-text-body>
 16:43:07 INFO  Adding new client: ID:localhost-58375-1120682586690-1:0 on transport: TcpTransportChannel: Socket[addr=/127.0.0.1,port=58376,localport=61616]
 16:43:08 INFO  Removing client: ID:localhost-58375-1120682586690-1:0 on transport: TcpTransportChannel: Socket[addr=/127.0.0.1,port=58376,localport=61616]
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>At first glance it may seem like a new connection is being established..  but if you look at the logs is more detail, you will noticed that the client connection id's are being reused since the connections are being pooled.  This behavior is a side-effect of the connection being reset to a 'cleaned up' state.  It allows the next client to use the connection as if it has just been created.</p>
 

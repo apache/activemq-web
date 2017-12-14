@@ -1,7 +1,6 @@
 <div class="wiki-content maincontent"><p>Apache TomEE is a distribution of Tomcat with fully integrated ActiveMQ offering full JMS support to plain war files, Servlets and more.  No setup is required and code like the following will work out of the box.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="5101179b-fd6d-4929-a474-8fd1914439b9" ac:name="code" ac:schema-version="1"><plain-text-body>
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServlet;
 import javax.jms.Topic;
@@ -10,10 +9,10 @@ import javax.jms.ConnectionFactory;
 
 public class MyServet extends HttpServlet {
 
-    @Resource(name = &quot;foo&quot;)
+    @Resource(name = "foo")
     private Topic fooTopic;
 
-    @Resource(name = &quot;bar&quot;)
+    @Resource(name = "bar")
     private Queue barQueue;
 
     @Resource
@@ -34,7 +33,7 @@ public class MyServet extends HttpServlet {
         producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
         // Create a message
-        TextMessage message = session.createTextMessage(&quot;Hello World!&quot;);
+        TextMessage message = session.createTextMessage("Hello World!");
 
         // Tell the producer to send the message
         producer.send(message);
@@ -42,66 +41,57 @@ public class MyServet extends HttpServlet {
         //...
     }
 }
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>All topics and queues are created automatically when declared properly in code as above.  For example, the following reference in code:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-    @Resource(name = &quot;foo&quot;)
+<structured-macro ac:macro-id="a447851b-470b-49ea-bdf2-98e354d90539" ac:name="code" ac:schema-version="1"><plain-text-body>
+    @Resource(name = "foo")
     private Topic fooTopic;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>Is identical to the following declaration in the &lt;tomee.home&gt;/conf/tomee.xml file or WEB-INF/resources.xml file:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-    &lt;Resource id=&quot;foo&quot; type=&quot;javax.jms.Topic&quot; /&gt;
-]]></script>
-</div></div>
+<structured-macro ac:macro-id="7d741179-b9fc-46f5-a40e-98cdfc961c53" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
+    &lt;Resource id="foo" type="javax.jms.Topic" /&gt;
+</plain-text-body></structured-macro>
 
 <p>In both situations Topic name would be 'foo'.</p>
 
-<h2 id="TomEE-ConfiguringanEmbeddedBroker">Configuring an Embedded Broker</h2>
+<h2>Configuring an Embedded Broker</h2>
 
 <p>If no broker is configured and JMS is used in the webapp, TomEE will create a broker equivalent to the following declaration:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="7c13fdba-cf0d-414c-af75-c52ffe1af967" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
 &lt;tomee&gt;
-    &lt;Resource id=&quot;MyJmsResourceAdapter&quot; type=&quot;ActiveMQResourceAdapter&quot;&gt;
+    &lt;Resource id="MyJmsResourceAdapter" type="ActiveMQResourceAdapter"&gt;
         BrokerXmlConfig =  broker:(tcp://someHostName:61616)
         ServerUrl       =  vm://localhost
     &lt;/Resource&gt;
 
-    &lt;Resource id=&quot;MyJmsConnectionFactory&quot; type=&quot;javax.jms.ConnectionFactory&quot;&gt;
+    &lt;Resource id="MyJmsConnectionFactory" type="javax.jms.ConnectionFactory"&gt;
         ResourceAdapter = MyJmsResourceAdapter
     &lt;/Resource&gt;
 &lt;/tomee&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>This creates an ActiveMQ Broker that runs inside TomEE and is bound to the address <code>someHostName:61616</code>.  This broker will start when TomEE starts and shutdown when TomEE shuts down.  All JMS communication happening inside TomEE itself will happen using the embedded ActiveMQ Broker over the ActiveMQ "vm" transport which is optimized for sending and receiving messages when in the same JVM as the Broker.</p>
 
-<h2 id="TomEE-ConnectingtoanExternalBroker">Connecting to an External Broker</h2>
+<h2>Connecting to an External Broker</h2>
 
 <p>It is possible to connect to an ActiveMQ Broker running externally.  The setup is similar to the above with only two changes.</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="07bc00ae-86a8-4e8e-b991-f2b7e2ebb733" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
 &lt;tomee&gt;
-    &lt;Resource id=&quot;MyJmsResourceAdapter&quot; type=&quot;ActiveMQResourceAdapter&quot;&gt;
+    &lt;Resource id="MyJmsResourceAdapter" type="ActiveMQResourceAdapter"&gt;
         BrokerXmlConfig =
         ServerUrl       =  tcp://someHostName:61616
     &lt;/Resource&gt;
 
-    &lt;Resource id=&quot;MyJmsConnectionFactory&quot; type=&quot;javax.jms.ConnectionFactory&quot;&gt;
+    &lt;Resource id="MyJmsConnectionFactory" type="javax.jms.ConnectionFactory"&gt;
         ResourceAdapter = MyJmsResourceAdapter
     &lt;/Resource&gt;
 &lt;/tomee&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>Here the <code>BrokerXmlConfig</code> property is empty as we are not configuring an embedded broker to be run inside TomEE.  The <code>ServerUrl</code> now points to an explicit remote host and port <code>someHostName:61616</code> where an ActiveMQ Broker must be running.  This Broker can be a plain ActiveMQ install or an ActiveMQ Broker embedded in a TomEE install.</p></div>
 

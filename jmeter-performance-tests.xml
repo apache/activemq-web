@@ -1,17 +1,17 @@
-<div class="wiki-content maincontent"><h3 id="JMeterPerformanceTests-JMeterperformancetest">JMeter performance test</h3>
+<div class="wiki-content maincontent"><h3>JMeter performance test</h3>
 
-<p>You can use JMeter to test the performance of your ActiveMQ Server. Please refer to the <a shape="rect" class="external-link" href="http://jakarta.apache.org/jmeter/">JMeter site</a> for detailed instructions on using this software.</p>
+<p>You can use JMeter to test the performance of your ActiveMQ Server. Please refer to the <a shape="rect" href="http://jakarta.apache.org/jmeter/">JMeter site</a> for detailed instructions on using this software.</p>
 
-<h3 id="JMeterPerformanceTests-DownloadingtheJMeterPerformanceTestBinary">Downloading the JMeter Performance Test Binary</h3>
+<h3>Downloading the JMeter Performance Test Binary</h3>
 
 <p>You can download the latest activemq-jmeter-*.zip distribution from the following</p>
 
-<ul><li><a shape="rect" class="external-link" href="http://people.apache.org/repository/incubator-activemq/distributions/">Apache ActiveMQ versions</a></li><li><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/" rel="nofollow">3.x versions of ActiveMQ</a>.</li></ul>
+<ul><li><a shape="rect" href="http://people.apache.org/repository/incubator-activemq/distributions/">Apache ActiveMQ versions</a></li><li><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/">3.x versions of ActiveMQ</a>.</li></ul>
 
 
-<h3 id="JMeterPerformanceTests-BuildingtheJMeterPerformanceTestfromsource">Building the JMeter Performance Test from source</h3>
+<h3>Building the JMeter Performance Test from source</h3>
 
-<p>1. Check out the latest head version of ActiveMQ from <a shape="rect" href="source.xml">Source</a>. Build from source.</p>
+<p>1. Check out the latest head version of ActiveMQ from <link><page ri:content-title="Source"></page></link>. Build from source.</p>
 
 <p>2. Run maven from the JMeter directory. This will build JMeter into the target directory.</p>
 
@@ -19,7 +19,7 @@
 
 <p>4. There are sample Test Plans located at \bin\testfiles directory that you could open to test ActiveMQ.</p>
 
-<h3 id="JMeterPerformanceTests-BuildingaTestPlan">Building a Test Plan</h3>
+<h3>Building a Test Plan</h3>
 
 <p>For a Producer Sampler<br clear="none">
 1. Add a Thread Group.<br clear="none">
@@ -33,7 +33,7 @@
 3. Highlight the Consumer Sampler then right click to add the consumer listener "View Consumer Results" from the Listener menu.<br clear="none">
 4. Go to the Thread Group element and set the Number of Threads, Ramp-Up Period and Loop Count to 1.</p>
 
-<h3 id="JMeterPerformanceTests-TheJMeterPerformanceTestModuleconsistsof:">The JMeter Performance Test Module consists of:</h3>
+<h3>The JMeter Performance Test Module consists of:</h3>
 
 <p>1. JMeter Producer Sampler</p>
 <ul class="alternate"><li>A JMeter Sampler tells JMeter to send requests to the server. Pluggable Samplers allow unlimited testing capabilities.</li></ul>
@@ -57,5 +57,6 @@
 
 
 <p>4. JMeter Consumer Listener</p>
-<ul class="alternate"><li>The Consumer Listener would provide statistics with the number of messages received and average messages per second.</li></ul></div>
+<ul class="alternate"><li>The Consumer Listener would provide statistics with the number of messages received and average messages per second.</li></ul>
+</div>
 

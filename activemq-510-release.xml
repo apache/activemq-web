@@ -1,46 +1,23 @@
-<div class="wiki-content maincontent"><div style="padding-right:20px;float:left;margin-left:-20px;">
-<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-external-resource" src="http://activemq.apache.org/activemq-500-release.data/activemq-5.x-box-reflection.png" data-image-src="http://activemq.apache.org/activemq-500-release.data/activemq-5.x-box-reflection.png"></span></p></div>
+<div class="wiki-content maincontent"><structured-macro ac:macro-id="3a4d805f-5a60-4fe0-9d1e-092bf9446812" ac:name="div" ac:schema-version="1"><parameter ac:name="style">padding-right:20px;float:left;margin-left:-20px;</parameter><rich-text-body>
+<p><image><url ri:value="http://activemq.apache.org/activemq-500-release.data/activemq-5.x-box-reflection.png"></url></image></p></rich-text-body></structured-macro><structured-macro ac:macro-id="0f60386e-cdcc-429b-bbf3-96f0ef2b5c54" ac:name="div" ac:schema-version="1"><parameter ac:name="style">min-height:200px</parameter><rich-text-body>
+
+<structured-macro ac:macro-id="d62d6b9c-662a-4fe8-89d6-03c8c27c9db6" ac:name="include" ac:schema-version="1"><parameter ac:name=""><link><page ri:content-title="New Features in 5.1"></page></link></parameter></structured-macro>
+
+<h2>Getting the Binary Distributions</h2>
 
 
-<div style="min-height:200px">
-
-<h2 id="ActiveMQ5.1.0Release-NewFeaturesin5.1">New Features in 5.1</h2>
-
-<p>In the 5.1.x release of Apache ActiveMQ there are the following new features:</p>
-
-<ul><li>You can use the new <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/activemq-core/apidocs/org/apache/activemq/advisory/DestinationSource.html">DestinationSource</a> on an ActiveMQConnection to access the available queues or topics or listen to queues/topics being created or deleted.
-<h2 id="ActiveMQ5.1.0Release-NewFeaturesin5.1.1">New Features in 5.1</h2></li><li>Support for more graceful handling of <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ-1517">timeouts within MessageProducer.send</a></li><li>Add the option for a <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/browse/AMQ-1572">backup channel that is already connected for the Failover transport</a></li><li>ActiveMQ configuration can now validate against an XSD which means that it can be embedded in a spring configuration file.</li><li>Stomp can now handle delivering Map and Object messages.</li></ul>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Description</p></th><th colspan="1" rowspan="1"><p>Download Link</p></th><th colspan="1" rowspan="1"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1"><p>Windows Distribution</p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-bin.zip">apache-activemq-5.1.0-bin.zip</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/apache-activemq-5.1.0-bin.zip.asc">apache-activemq-5.1.0-bin.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1"><p>Unix/Linux/Cygwin Distribution</p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-bin.tar.gz">apache-activemq-5.1.0-bin.tar.gz</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-bin.tar.gz.asc">apache-activemq-5.1.0-bin.tar.gz.asc</a></p></td></tr></tbody></table>
 
 
+<structured-macro ac:macro-id="f470ad0a-c90b-4aed-ae1c-a47258e4bbf7" ac:name="info" ac:schema-version="1"><parameter ac:name="title">Do not use Safari to download, the above URLs use redirection</parameter><rich-text-body>
+<p>The above URLs use the Apache Mirror system to redirect you to a suitable mirror for your download. Some users have experienced issues with some versions of browsers (e.g. some Safari browsers). If the download doesn't seem to work for you from the above URL then try using <a shape="rect" href="http://www.mozilla.com/en-US/firefox/">FireFox</a></p></rich-text-body></structured-macro>
 
-<h2 id="ActiveMQ5.1.0Release-GettingtheBinaryDistributions">Getting the Binary Distributions</h2>
+<structured-macro ac:macro-id="52a39382-420f-473f-b1ee-7c98a4a63d05" ac:name="include" ac:schema-version="1"><parameter ac:name=""><link><page ri:content-title="Verify Downloads"></page></link></parameter></structured-macro>
 
-
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Download Link</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Windows Distribution</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-bin.zip">apache-activemq-5.1.0-bin.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/apache-activemq-5.1.0-bin.zip.asc">apache-activemq-5.1.0-bin.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Unix/Linux/Cygwin Distribution</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-bin.tar.gz">apache-activemq-5.1.0-bin.tar.gz</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-bin.tar.gz.asc">apache-activemq-5.1.0-bin.tar.gz.asc</a></p></td></tr></tbody></table></div>
-
-
-<div class="confluence-information-macro confluence-information-macro-information"><p class="title">Do not use Safari to download, the above URLs use redirection</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
-<p>The above URLs use the Apache Mirror system to redirect you to a suitable mirror for your download. Some users have experienced issues with some versions of browsers (e.g. some Safari browsers). If the download doesn't seem to work for you from the above URL then try using <a shape="rect" class="external-link" href="http://www.mozilla.com/en-US/firefox/" rel="nofollow">FireFox</a></p></div></div>
-
-<h2 id="ActiveMQ5.1.0Release-VerifytheIntegrityofDownloads">Verify the Integrity of Downloads</h2><p>It is essential that you verify the integrity of the downloaded files using the PGP or MD5 signatures. The PGP signatures can be verified using PGP or GPG. Begin by following these steps:</p><ol><li>Download the <a shape="rect" class="external-link" href="http://www.apache.org/dist/activemq/KEYS">KEYS</a></li><li>Download the asc signature file for the relevant distribution</li><li><p>Verify the signatures using the following commands, depending on your use of PGP or GPG:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[$ pgpk -a KEYS
-$ pgpv apache-activemq-&lt;version&gt;-bin.tar.gz.asc
-]]></script>
-</div></div><p>or</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[$ pgp -ka KEYS
-$ pgp apache-activemq-&lt;version&gt;-bin.tar.gz.asc
-]]></script>
-</div></div><p>or</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[$ gpg --import KEYS
-$ gpg --verify apache-activemq-&lt;version&gt;-bin.tar.gz.asc
-]]></script>
-</div></div></li></ol><p>(Where &lt;version&gt; is replaced with the actual version, e.g., 5.1.0, 5.2.0, etc.).</p><p>Alternatively, you can verify the MD5 signature on the files. A Unix program called <code>md5</code> or <code>md5sum</code> is included in most Linux and Unix distributions. It is also available as part of <a shape="rect" class="external-link" href="http://www.gnu.org/software/textutils/textutils.html" rel="nofollow">GNU Textutils</a>. Windows users can utilize any of the following md5 programs:</p><ul><li><a shape="rect" class="external-link" href="http://www.fourmilab.ch/md5/" rel="nofollow">md5</a></li><li><a shape="rect" class="external-link" href="http://www.pc-tools.net/win32/md5sums/" rel="nofollow">md5sums</a></li><li><a shape="rect" class="external-link" href="http://www.slavasoft.com/fsum/" rel="nofollow">SlavaSoft FSUM</a></li></ul>
-
-<div class="confluence-information-macro confluence-information-macro-tip"><p class="title">Error When Expanding Tarballs</p><span class="aui-icon aui-icon-small aui-iconfont-approve confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
+<structured-macro ac:macro-id="1039a25b-c5ed-4fa0-8c2e-0bccd4ff54e7" ac:name="tip" ac:schema-version="1"><parameter ac:name="title">Error When Expanding Tarballs</parameter><rich-text-body>
 <p>When expanding the binary tarballs you might wind up experiencing the following: </p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ 
+<structured-macro ac:macro-id="e796ae17-de14-452c-97a2-48a300eb1828" ac:name="code" ac:schema-version="1"><plain-text-body> 
 $ tar zxvf /path/to/apache-activemq-5.1.0-bin.tar.gz
 apache-activemq-5.1.0/bin/run.jar
 apache-activemq-5.1.0/activemq-all-5.1.0.jar
@@ -52,32 +29,21 @@ apache-activemq-5.1.0/webapps/fileserver/WEB-INF/classes/org/apache/activemq/uti
 tar: Unexpected EOF in archive
 tar: A lone zero block at 61740
 tar: Error exit delayed from previous errors
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<p>These errors are a product of an open <a shape="rect" class="external-link" href="http://jira.codehaus.org/browse/MASSEMBLY-302" rel="nofollow">bug in Maven</a> and are innocuous and won't affect anything.</p></div></div>
+<p>These errors are a product of an open <a shape="rect" href="http://jira.codehaus.org/browse/MASSEMBLY-302">bug in Maven</a> and are innocuous and won't affect anything.</p></rich-text-body></structured-macro>
 
-<h2 id="ActiveMQ5.1.0Release-GettingtheBinariesusingMaven2">Getting the Binaries using Maven 2</h2>
+<h2>Getting the Binaries using Maven 2</h2>
 
-<p>To use this release in your maven project, the proper dependency configuration that you should use in your <a shape="rect" class="external-link" href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html">Maven POM</a> is:</p>
+<p>To use this release in your maven project, the proper dependency configuration that you should use in your <a shape="rect" href="http://maven.apache.org/guides/introduction/introduction-to-the-pom.html">Maven POM</a> is:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="c6bf1393-c057-4f86-821b-9bfd3c176877" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
 &lt;dependency&gt;
   &lt;groupId&gt;org.apache.activemq&lt;/groupId&gt;
   &lt;artifactId&gt;activemq-core&lt;/artifactId&gt;
   &lt;version&gt;5.1.0&lt;/version&gt;
 &lt;/dependency&gt;
-]]></script>
-</div></div>
-</div>
-
-
-<h2 id="ActiveMQ5.1.0Release-GettingtheSourceCode">Getting the Source Code</h2><h3 id="ActiveMQ5.1.0Release-SourceDistributions">Source Distributions</h3><div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Download Link</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Source for Windows</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-src.zip">apache-activemq-5.1.0-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-src.zip.asc">apache-activemq-5.1.0-src.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Source for Unix/Linux/Cygwin</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-src.tar.gz">apache-activemq-5.1.0-src.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-src.tar.gz.asc">apache-activemq-5.1.0-src.tar.gz.asc</a></p></td></tr></tbody></table></div><h3 id="ActiveMQ5.1.0Release-SVNTagCheckout">SVN Tag Checkout</h3><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[svn co http://svn.apache.org/repos/asf/activemq/tags/activemq-5.1.0
-]]></script>
-</div></div><h2 id="ActiveMQ5.1.0Release-Changelog">Changelog</h2><p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11802&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p><p></p><div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Data cannot be retrieved due to an unexpected error
-</div>
-<p>Also see the previous <a shape="rect" href="activemq-500-release.xml">ActiveMQ 5.0.0 Release</a></p></div>
+</plain-text-body></structured-macro>
+</rich-text-body></structured-macro><h2>Getting the Source Code</h2><h3>Source Distributions</h3><table><tbody><tr><th colspan="1" rowspan="1"><p>Description</p></th><th colspan="1" rowspan="1"><p>Download Link</p></th><th colspan="1" rowspan="1"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1"><p>Source for Windows</p></td><td colspan="1" rowspan="1"><p><a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-src.zip">apache-activemq-5.1.0-src.zip</a></p></td><td colspan="1" rowspan="1"><p><a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-src.zip.asc">apache-activemq-5.1.0-src.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1"><p>Source for Unix/Linux/Cygwin</p></td><td colspan="1" rowspan="1"><p><a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-src.tar.gz">apache-activemq-5.1.0-src.tar.gz</a></p></td><td colspan="1" rowspan="1"><p><a shape="rect" href="http://archive.apache.org/dist/activemq/apache-activemq/5.1.0/apache-activemq-5.1.0-src.tar.gz.asc">apache-activemq-5.1.0-src.tar.gz.asc</a></p></td></tr></tbody></table><h3>SVN Tag Checkout</h3><structured-macro ac:macro-id="e95d37ce-297f-4204-9eed-717027d99571" ac:name="code" ac:schema-version="1"><plain-text-body>svn co http://svn.apache.org/repos/asf/activemq/tags/activemq-5.1.0
+</plain-text-body></structured-macro><h2>Changelog</h2><p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="http://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11802&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p><p><structured-macro ac:macro-id="8642b5a0-fa7e-4975-95bf-3ab5e6147c11" ac:name="jiraissues" ac:schema-version="1"><parameter ac:name="columns">type;key;summary</parameter><parameter ac:name="url"><url ri:value="http://issues.apache.org/activemq/sr/jira.issueviews:searchrequest-xml/temp/SearchRequest.xml?&amp;pid=10520&amp;fixfor=11802&amp;sorter/field=issuekey&amp;sorter/order=DESC"></url></parameter></structured-macro></p><p>Also see the previous <link><page ri:content-title="ActiveMQ 5.0.0 Release"></page></link></p></div>
 

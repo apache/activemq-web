@@ -1,18 +1,16 @@
 <div class="wiki-content maincontent">
-<h2 id="ActiveMQ4.0M4Release-NewandNoteworthy">New and Noteworthy</h2>
+<h2>New and Noteworthy</h2>
 
-<p>This is the first milestone release of 4.x since the move to Apache so the package names have changed from org.activemq to org.apache.activemq. For a full list see the <a shape="rect" href="changes-in-40.xml">Changes in 4.0</a>.</p>
+<p>This is the first milestone release of 4.x since the move to Apache so the package names have changed from org.activemq to org.apache.activemq. For a full list see the <link><page ri:content-title="Changes in 4.0"></page></link>.</p>
 
-<p>This release of ActiveMQ includes a large number of <a shape="rect" href="changes-in-40.xml">new features</a> such as <a shape="rect" href="masterslave.xml">MasterSlave</a> and <a shape="rect" href="message-groups.xml">Message Groups</a> together with numerous bug fixes.</p>
+<p>This release of ActiveMQ includes a large number of <link><page ri:content-title="Changes in 4.0"></page><link-body>new features</link-body></link> such as <link><page ri:content-title="MasterSlave"></page></link> and <link><page ri:content-title="Message Groups"></page></link> together with numerous bug fixes.</p>
 
-<h2 id="ActiveMQ4.0M4Release-DownloadHere">Download Here</h2>
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Download</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://cvs.apache.org/repository/incubator-activemq/distributions/activemq-4.0-M4.zip">activemq-4.0-M4.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://cvs.apache.org/repository/incubator-activemq/distributions/activemq-4.0-M4-src.zip">activemq-4.0-M4-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://cvs.apache.org/repository/incubator-activemq/distributions/activemq-4.0-M4.tar.gz">activemq-4.0-M4.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://cvs.apache.org/repository/incubator-activemq/distributions/activemq-4.0-M4-src.tar.gz">activemq-4.0-M4-src.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in gz package</p></td></tr></tbody></table></div>
+<h2>Download Here</h2>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Download</p></th><th colspan="1" rowspan="1"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://cvs.apache.org/repository/incubator-activemq/distributions/activemq-4.0-M4.zip">activemq-4.0-M4.zip</a></p></td><td colspan="1" rowspan="1"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://cvs.apache.org/repository/incubator-activemq/distributions/activemq-4.0-M4-src.zip">activemq-4.0-M4-src.zip</a></p></td><td colspan="1" rowspan="1"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://cvs.apache.org/repository/incubator-activemq/distributions/activemq-4.0-M4.tar.gz">activemq-4.0-M4.tar.gz</a></p></td><td colspan="1" rowspan="1"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://cvs.apache.org/repository/incubator-activemq/distributions/activemq-4.0-M4-src.tar.gz">activemq-4.0-M4-src.tar.gz</a></p></td><td colspan="1" rowspan="1"><p>Source Distribution in gz package</p></td></tr></tbody></table>
 
 
-<h2 id="ActiveMQ4.0M4Release-Changelog">Changelog</h2>
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?projectId=10520&amp;styleName=Html&amp;version=11726" rel="nofollow">release notes</a></p>
+<h2>Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?projectId=10520&amp;styleName=Html&amp;version=11726">release notes</a></p>
 
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
-</div></div>
+<structured-macro ac:macro-id="8d93ac92-0500-4bfe-942f-1385b04c0286" ac:name="jiraissues" ac:schema-version="1"><parameter ac:name="url"><url ri:value="http://jira.activemq.org/jira/secure/IssueNavigator.jspa?view=rss&amp;&amp;pid=10520&amp;fixfor=11726&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;tempMax=25&amp;reset=true&amp;decorator=none"></url></parameter></structured-macro></div>
 

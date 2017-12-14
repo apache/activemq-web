@@ -6,13 +6,11 @@
 
 <p>e.g. here is an example selector</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-JMSMessageID = &#39;abc&#39;
-]]></script>
-</div></div>
+<structured-macro ac:macro-id="8edc4aec-e914-4d4b-912f-59a0a0fccd19" ac:name="code" ac:schema-version="1"><plain-text-body>
+JMSMessageID = 'abc'
+</plain-text-body></structured-macro>
 
 <p>Note that this is not a very efficient way of working with JMS (JMS is designed for consumers to be long lived objects working across many messageS), but it can be useful in certain situations.</p>
 
-<p>Another option is just to use <a shape="rect" href="jmx.xml">JMX</a> directly to browse messages on a queue, process them and then delete them.</p></div>
+<p>Another option is just to use <link><page ri:content-title="JMX"></page></link> directly to browse messages on a queue, process them and then delete them.</p></div>
 

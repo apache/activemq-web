@@ -3,7 +3,7 @@
 
 <p>///////////////////////////////////////////////&#160;</p>
 
-<p>Given that there are several separate efforts going on now toward the common goal of creating an ActiveMQ c++ client, I've put together a <a shape="rect" class="external-link" href="http://docs.codehaus.org/download/attachments/48149/ActiveMQClientArchitecture.pdf" rel="nofollow">doc</a>that attempts to merge our complete set of goals and propose an architecture (in rough form) that meets those goals.&#160; I've stored the document here because it was too large for the distribution list.</p>
+<p>Given that there are several separate efforts going on now toward the common goal of creating an ActiveMQ c++ client, I've put together a <a shape="rect" href="http://docs.codehaus.org/download/attachments/48149/ActiveMQClientArchitecture.pdf">doc</a>that attempts to merge our complete set of goals and propose an architecture (in rough form) that meets those goals.&#160; I've stored the document here because it was too large for the distribution list.</p>
 
 <p> Please review and provide feedback at your earliest convenience.</p>
 

@@ -1,10 +1,10 @@
-<div class="wiki-content maincontent"><h1 id="SJSASwithGenericJMSRA-UsingActiveMQ,GenericJMSRAandSJSAS(Glassfish)">Using ActiveMQ, Generic JMS RA and SJSAS (Glassfish)</h1>
+<div class="wiki-content maincontent"><h1>Using ActiveMQ, Generic JMS RA and SJSAS (Glassfish)</h1>
 
 
 <p>This document is my notes on making ActiveMQ and SJSAS work together using GenericJMSRA. The objectives is to make ActiveMQ as the JMS provider and MDB can be deployed in SJSAS, listening messages from ActiveMQ. Please note that, the SJSAS version I use is 9.0 Update 1. I don't have time to test it with SJSAS 9.1 or Glassfish v2.</p>
 
 
-<h2 id="SJSASwithGenericJMSRA-Theprocedures">The procedures</h2>
+<h2>The procedures</h2>
 <p>First, download all binaries:</p>
 <ul><li>genericra 1.7 (rar)</li><li>activemq 4.1.1 (zip or tar.gz)</li></ul>
 
@@ -15,8 +15,7 @@
 
 
 <p>In order to use genericra you need to first create a resource adapter config using asadmin (Command line tools of SJSAS).</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="d65d9015-c231-4d9a-ba45-27e17013ab07" ac:name="code" ac:schema-version="1"><plain-text-body>
 asadmin create-resource-adapter-config
   --property
       SupportsXA=false
@@ -34,26 +33,20 @@ asadmin create-resource-adapter-config
       :ConnectionFactoryProperties=brokerURL\\=tcp\\://127.0.0.1\\:61616
       :LogLevel=FINE
   myapp#genericra
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>You should note that, the above command should executed as one single line and no space around ':'. Just like:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="74e30e38-1931-42cc-8b5d-3992951786eb" ac:name="code" ac:schema-version="1"><plain-text-body>
 asadmin create-resource-adapter-config --property SupportsXA=false:ConnectionFactoryProperties=brokerURL\\=tcp\\://127.0.0.1\\:61616 myapp#genericra
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>Under DOS prompt, you should use ONLY ONE '/' to do espcape, like this.</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="3420b706-4660-4803-b168-f70ff659d3b2" ac:name="code" ac:schema-version="1"><plain-text-body>
 asadmin create-resource-adapter-config --property SupportsXA=false:ConnectionFactoryProperties=brokerURL\=tcp\://127.0.0.1\:61616 myapp#genericra
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>Package your application, genericra.rar and activemq dependencies in one single EAR. The structure of the EAR should like this:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="635b2f67-7289-4173-8aaa-db488218a426" ac:name="code" ac:schema-version="1"><plain-text-body>
    lib/activemq-core-4.1.1.jar
    lib/log4j-1.2.13.jar
    lib/commons-logging-1.1.jar
@@ -62,17 +55,15 @@ asadmin create-resource-adapter-config --property SupportsXA=false:ConnectionFac
    META-INF/application.xml
    genericra.rar
    mymodules.jar
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 
 <p>Inside the mymodules.jar (where I put my MDB), the sun-ejb-jar.xml should look like this:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<structured-macro ac:macro-id="f5cfa6c7-08a0-431d-9364-e18d42f5ecc5" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;!DOCTYPE sun-ejb-jar
-  PUBLIC &quot;-//Sun Microsystems, Inc.//DTD Application Server 8.1 EJB 2.1//EN&quot;
-    &quot;http://www.sun.com/software/appserver/dtds/sun-ejb-jar_2_1-1.dtd&quot;&gt;
+  PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 8.1 EJB 2.1//EN"
+    "http://www.sun.com/software/appserver/dtds/sun-ejb-jar_2_1-1.dtd"&gt;
 &lt;sun-ejb-jar&gt;
   &lt;enterprise-beans&gt;
     &lt;ejb&gt;
@@ -96,19 +87,17 @@ asadmin create-resource-adapter-config --property SupportsXA=false:ConnectionFac
     &lt;/ejb&gt;
   &lt;/enterprise-beans&gt;
 &lt;/sun-ejb-jar&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 
 <p>And the application.xml should look like this:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<structured-macro ac:macro-id="263c700b-ccb7-4965-b7d4-d13646bad342" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;application
-    xmlns=&quot;http://java.sun.com/xml/ns/javaee&quot;
-    xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-    xsi:schemaLocation=&quot;http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd&quot;
-    version=&quot;5&quot;&gt;
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_5.xsd"
+    version="5"&gt;
   &lt;description&gt;Example DD&lt;/description&gt;
   &lt;display-name&gt;sample app with amq and genericra&lt;/display-name&gt;
   &lt;module&gt;
@@ -118,42 +107,35 @@ asadmin create-resource-adapter-config --property SupportsXA=false:ConnectionFac
     &lt;connector&gt;genericra.rar&lt;/connector&gt;
   &lt;/module&gt;
 &lt;/application&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 
 <p>Deploy the genericra:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="b039963c-3b76-42ad-a184-34d0eedf61c5" ac:name="code" ac:schema-version="1"><plain-text-body>
 asadmin deploy --name myapp myapp.ear
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 
 <p>Create connection pool. Run the following command in one single line:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="c13f51cd-e124-4983-80b4-0aef8c78207e" ac:name="code" ac:schema-version="1"><plain-text-body>
 asadmin create-connector-connection-pool
   --raname myapp#genericra
   --connectiondefinition javax.jms.QueueConnectionFactory
   --transactionsupport LocalTransaction
   ActiveMQQueueConnectionFactoryPool
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 
 <p>Create connection factory admin object. Run the following command in one single line, note that, "jms/SimpleQueueConnectionFactory" need to match in your sun-ejb-jar.xml:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="d9e007e0-971d-41af-a9ce-55dc969c4eee" ac:name="code" ac:schema-version="1"><plain-text-body>
 asadmin create-connector-resource
   --poolname ActiveMQQueueConnectionFactoryPool
   jms/SimpleQueueConnectionFactory
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 
 
-<h2 id="SJSASwithGenericJMSRA-Classloader/commons-logging+log4jissue">Classloader / commons-logging+log4j issue</h2>
+<h2>Classloader / commons-logging+log4j issue</h2>
 <p>In the procedure shown above, you should notice one thing, ie, the RA, ActiveMQ and my MDB is deployed as one single EAR. You can deploy the genericra standalone without putting it into the ear, provided that you are not using commons-logging and log4j (directly or indirectly).</p>
 
 <p>In the application I'm working on, commons-logging is used, and ActiveMQ also use commons-logging.  In SJSAS, connector classloader is parent of the application classloader, as a result, if you deploy genericra independently, and then you deploy your application, log4j.xml will never get loaded except you put your application log4j.xml along with the ActiveMQ jars.</p>
@@ -169,14 +151,15 @@ asadmin create-connector-resource
 <p>If you deploy the RA independently, the ra name is just genericra (as shown in the example by Ramesh).</p>
 
 
-<h2 id="SJSASwithGenericJMSRA-LocalTransaction">LocalTransaction</h2>
+<h2>LocalTransaction</h2>
 <p>In the instruction described above, LocalTransaction is used. (SupportsXA=false and --transactionsupport LocalTransaction) as I am currently using Non-XA transaction, however, as example shown by Ramesh, XA should also work.</p>
 
 
-<h2 id="SJSASwithGenericJMSRA-Configuringgenericra">Configuring genericra</h2>
+<h2>Configuring genericra</h2>
 <p>When you create the resource-adapter-config, there is two way to configure.  One way is using JNDI, another way is using JavaBean introspection feature of genericra. In the example above, I go with JavaBean introspection feature (so 'ProviderIntegrationMode=javabean'). For more details on this, please checkout the user guide of genericra. Also, I found that expample provided on the genericra website is also valuable resource.</p>
 
 
-<h2 id="SJSASwithGenericJMSRA-Reference">Reference</h2>
-<ul><li><a shape="rect" class="external-link" href="http://weblogs.java.net/blog/rampsarathy/archive/2007/03/glassfish_v2_an_1.html" rel="nofollow">Another example on using genericjmsra and activemq by Ramesh</a></li><li><a shape="rect" class="external-link" href="https://genericjmsra.dev.java.net/docs/userguide/userguide.html" rel="nofollow">Official user guide on configuring genericjmsra</a></li><li><a shape="rect" class="external-link" href="http://forums.java.net/jive/thread.jspa?messageID=211849" rel="nofollow">The thread in Glassfish forum which I found my answer</a></li></ul></div>
+<h2>Reference</h2>
+<ul><li><a shape="rect" href="http://weblogs.java.net/blog/rampsarathy/archive/2007/03/glassfish_v2_an_1.html">Another example on using genericjmsra and activemq by Ramesh</a></li><li><a shape="rect" href="https://genericjmsra.dev.java.net/docs/userguide/userguide.html">Official user guide on configuring genericjmsra</a></li><li><a shape="rect" href="http://forums.java.net/jive/thread.jspa?messageID=211849">The thread in Glassfish forum which I found my answer</a></li></ul>
+</div>
 

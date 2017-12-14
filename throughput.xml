@@ -3,5 +3,5 @@
 
 <p>How many messages can we process per second. </p>
 
-<p>Normally <a shape="rect" href="mom.xml">MOM</a> style applications focus on asynchronous messaging and <a shape="rect" href="seda.xml">SEDA</a> style architectures which aim for massive throughput numbers at the cost of some <a shape="rect" href="latency.xml">Latency</a></p></div>
+<p>Normally <link><page ri:content-title="MOM"></page></link> style applications focus on asynchronous messaging and <link><page ri:content-title="SEDA"></page></link> style architectures which aim for massive throughput numbers at the cost of some <link><page ri:content-title="Latency"></page></link></p></div>
 

@@ -1,15 +1,15 @@
-<div class="wiki-content maincontent"><h1 id="ActiveMQ-CPP,libtoolandpackagingnotes-ActiveMQ-CPP,libtoolandpackagingnotes">ActiveMQ-CPP, libtool and packaging notes</h1>
+<div class="wiki-content maincontent"><h1>ActiveMQ-CPP, libtool and packaging notes</h1>
 
-<h3 id="ActiveMQ-CPP,libtoolandpackagingnotes-Introduction">Introduction</h3>
+<h3>Introduction</h3>
 
 <p>This page attempts to summarise information to be considered</p>
 <ul><li>when configuring libtool</li><li>when packaging ActiveMQ for distribution on Debian, Red Hat, Solaris.</li></ul>
 
 
-<h3 id="ActiveMQ-CPP,libtoolandpackagingnotes-Concepts">Concepts</h3>
+<h3>Concepts</h3>
 
 <p>Product version numbers</p>
-<ul><li>Please see the notes on <a shape="rect" href="activemq-cpp-product-version-number.xml">ActiveMQ-CPP product version number</a></li></ul>
+<ul><li>Please see the notes on <link><page ri:content-title="ActiveMQ-CPP product version number"></page></link></li></ul>
 
 
 <p>SONAME</p>
@@ -28,6 +28,7 @@
 
 <p>Debian package name</p>
 <ul><li>The package name includes the following from libtool: release number and interface number</li><li>for example, if interface version = 4, then the package name = libactivemq-cpp4</li><li>The product version number is not part of the Debian package name - it is used elsewhere in Debian's control files</li></ul>
+
 
 </div>
 

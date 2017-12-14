@@ -1,4 +1,5 @@
 <div class="wiki-content maincontent"><p>ActiveMQ-CPP has been designed to have a pluggable connector architecture.  Out of the box, it comes with support for the following protocols:</p>
 
-<ul class="alternate"><li><a shape="rect" href="stomp-support.xml">Stomp</a></li><li><a shape="rect" href="openwire-support.xml">OpenWire</a></li></ul></div>
+<ul class="alternate"><li><link><page ri:content-title="Stomp Support"></page><link-body>Stomp</link-body></link></li><li><link><page ri:content-title="OpenWire Support"></page><link-body>OpenWire</link-body></link></li></ul>
+</div>
 

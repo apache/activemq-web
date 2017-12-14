@@ -1,10 +1,10 @@
-<div class="wiki-content maincontent"><p>ActiveMQ is specifically designed to allow custom transports to be plugged in. You can programatically create TransportConnector instances and add them to the BrokerService in Java code using the <a shape="rect" class="external-link" href="http://activemq.codehaus.org/maven/apidocs/org/apache/activemq/broker/BrokerService.html#addConnector(org.apache.activemq.broker.TransportConnector)" rel="nofollow">BrokerService.addConnector() method</a></p>
+<div class="wiki-content maincontent"><p>ActiveMQ is specifically designed to allow custom transports to be plugged in. You can programatically create TransportConnector instances and add them to the BrokerService in Java code using the <a shape="rect" href="http://activemq.codehaus.org/maven/apidocs/org/apache/activemq/broker/BrokerService.html#addConnector(org.apache.activemq.broker.TransportConnector)">BrokerService.addConnector() method</a></p>
 
 <p>or you can use the transport discovery mechanism, so that folks can just use your new transport using the neat URI syntax.</p>
 
-<p>The way it works is that the URI scheme (e.g. "vm") is used to find a text file on the classpath - <a shape="rect" class="external-link" href="http://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-core/src/main/resources/META-INF/services/org/apache/activemq/transport/">here are all the schemes provided</a>.</p>
+<p>The way it works is that the URI scheme (e.g. "vm") is used to find a text file on the classpath - <a shape="rect" href="http://svn.apache.org/repos/asf/incubator/activemq/trunk/activemq-core/src/main/resources/META-INF/services/org/apache/activemq/transport/">here are all the schemes provided</a>.</p>
 
-<p>then the contents of the file is the class name of a Java class on the classpath which extends the <a shape="rect" class="external-link" href="http://activemq.codehaus.org/maven/apidocs/org/apache/activemq/transport/TransportFactory.html" rel="nofollow">TransportFactory class</a>.</p>
+<p>then the contents of the file is the class name of a Java class on the classpath which extends the <a shape="rect" href="http://activemq.codehaus.org/maven/apidocs/org/apache/activemq/transport/TransportFactory.html">TransportFactory class</a>.</p>
 
 <p>Then once you've implemented a Transport and TransportFactory class, folks can use your new transport using a URI in the JMS client or broker XML config file using the URI using your new schema name. e.g. if you wrote a new <em>foo</em> transport, you could use a URI of <em>foo://localhost?myParam=bar</em></p></div>
 

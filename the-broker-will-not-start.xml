@@ -1,10 +1,8 @@
 <div class="wiki-content maincontent"><p>It's been reported that during broker start some users get a message similar to:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="8c4d3eee-4425-40ed-b43d-07a41ece98b6" ac:name="code" ac:schema-version="1"><plain-text-body>
 15:26:29 INFO  Opening journal. Caught: javax.jms.JMSException: Failed to open transaction journal: java.io.IOException: Invalid argument
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<p>It could be <a shape="rect" href="journal-is-already-opened-by-this-application.xml">this problem</a> or the problem could be due to a bad os/jvm combination.  See <a shape="rect" href="known-bad-os-and-jvm-combinations.xml">Known Bad OS and JVM Combinations</a></p></div>
+<p>It could be <link><page ri:content-title="Journal is already opened by this application"></page><link-body>this problem</link-body></link> or the problem could be due to a bad os/jvm combination.  See <link><page ri:content-title="Known Bad OS and JVM Combinations"></page></link></p></div>
 

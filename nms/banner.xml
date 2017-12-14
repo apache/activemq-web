@@ -1,8 +1,8 @@
-<div class="wiki-content maincontent"><div id="asf_logo">
-	<div id="activemq_logo">
-            <a shape="rect" style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href="">ActiveMQ</a>
-            <a shape="rect" style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org">ASF</a>
-	</div>
-</div>
-</div>
+<div class="wiki-content maincontent"><p><structured-macro ac:macro-id="2aca1a80-5394-4463-884c-a86206f71fdb" ac:name="html" ac:schema-version="1"><parameter ac:name="output">html</parameter><parameter ac:name="atlassian-macro-output-type">INLINE</parameter><parameter ac:name="noPanel">true</parameter><plain-text-body>&lt;div id="asf_logo"&gt;
+	&lt;div id="activemq_logo"&gt;
+            &lt;a style="float:left; width:280px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:10px; margin-left:100px;" href=""&gt;ActiveMQ&lt;/a&gt;
+            &lt;a style="float:right; width:210px;display:block;text-indent:-5000px;text-decoration:none;line-height:60px; margin-top:15px; margin-right:10px;" href="http://www.apache.org"&gt;ASF&lt;/a&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+</plain-text-body></structured-macro></p></div>
 

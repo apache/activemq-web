@@ -5,8 +5,7 @@ Using the basic building block of a Channel, there exists a functional hierarchy
 
 <p>To use a BlazeChannel create one from the a factory:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="f30411e7-098a-436f-aee0-aef2d1b9764d" ac:name="code" ac:schema-version="1"><plain-text-body>
 import org.apache.activeblaze.*;
 ...
 BlazeChannelFactory factory = new BlazeChannelFactory();
@@ -14,18 +13,16 @@ BlazeChannel sender = factory.createChannel();
 //start the channel and send a message
 sender.start();
 
-String destination = &quot;foo.bar&quot;;
-BlazeMessage msg = new BlazeMessage(&quot;test payload&quot;);
+String destination = "foo.bar";
+BlazeMessage msg = new BlazeMessage("test payload");
 sender.broadcast(destination,msg);
 //shutdown the sender
 sender.shutDown();
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>You can similarly subscribe to Topic messages by using a listener</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="f52abf76-f5a1-49db-b7a5-88dcf8f9b651" ac:name="code" ac:schema-version="1"><plain-text-body>
 BlazeChannel receiver = factory.createChannel();
 receiver.start();
 
@@ -33,11 +30,10 @@ receiver.start();
 
 receiver.addBlazeTopicMessageListener(destination, new BlazeMessageListener() {
             public void onMessage(BlazeMessage msg) {
-                System.out.println(&quot;Got a msg: &quot; + msg);
+                System.out.println("Got a msg: " + msg);
             }
         });
 
 receiver.shutDown();
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

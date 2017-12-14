@@ -1,41 +1,39 @@
-<div class="wiki-content maincontent"><div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Removed in 5.9</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><ul class="alternate"><li><a shape="rect" class="external-link" href="https://issues.apache.org/jira/browse/AMQ-4406">https://issues.apache.org/jira/browse/AMQ-4406</a></li></ul>
-</div></div>
-<h2 id="CommandAgent-CommandAgent">Command Agent</h2>
+<div class="wiki-content maincontent"><structured-macro ac:macro-id="333621b0-0930-4059-9eeb-3ca28a0e2e4b" ac:name="warning" ac:schema-version="1"><parameter ac:name="title">Removed in 5.9</parameter><rich-text-body><ul class="alternate"><li><a shape="rect" class="external-link" href="https://issues.apache.org/jira/browse/AMQ-4406">https://issues.apache.org/jira/browse/AMQ-4406</a></li></ul>
+</rich-text-body></structured-macro>
+<h2>Command Agent</h2>
 
 <p>From 4.2 onwards Apache ActiveMQ allows you to communicate with a broker Command Agent to be able to perform administration queries and commands. This allows you to use the message bus itself to communicate with the message broker to list available queues, topics, subscriptions, to view metadata, browse queues and so forth.</p>
 
-<h3 id="CommandAgent-EnablingtheCommandAgent">Enabling the Command Agent</h3>
+<h3>Enabling the Command Agent</h3>
 
 <p>To enable the command agent, in the activemq.xml (or your spring.xml you use to configure the broker) add the following</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="b0bfb924-553e-4cc7-9cbf-d469cb1fa83f" ac:name="code" ac:schema-version="1"><plain-text-body>
 &lt;beans&gt;
-  &lt;broker useJmx=&quot;true&quot; xmlns=&quot;http://activemq.apache.org/schema/core&quot;&gt;
+  &lt;broker useJmx="true" xmlns="http://activemq.apache.org/schema/core"&gt;
     ...
         &lt;managementContext&gt;
-            &lt;managementContext createConnector=&quot;true&quot;/&gt;
+            &lt;managementContext createConnector="true"/&gt;
         &lt;/managementContext&gt;
     ...
   &lt;/broker&gt;
 
-  &lt;commandAgent xmlns=&quot;http://activemq.apache.org/schema/core&quot;/&gt;
+  &lt;commandAgent xmlns="http://activemq.apache.org/schema/core"/&gt;
   ...
 &lt;/beans&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>The broker will then have a command agent connected which will listen on the topic <strong>ActiveMQ.Agent</strong>.</p>
 
-<h3 id="CommandAgent-UsingJabber(XMPP)totalktotheBroker">Using Jabber (XMPP) to talk to the Broker</h3>
+<h3>Using Jabber (XMPP) to talk to the Broker</h3>
 
-<p>You can use the <a shape="rect" href="xmpp.xml">XMPP</a> support to talk with the broker. For example follow the instructions in <a shape="rect" href="xmpp.xml">XMPP</a> to connect via a Jabber client, then just join the room <strong>ActiveMQ.Agent</strong> and talk to the broker!</p>
+<p>You can use the <link><page ri:content-title="XMPP"></page></link> support to talk with the broker. For example follow the instructions in <link><page ri:content-title="XMPP"></page></link> to connect via a Jabber client, then just join the room <strong>ActiveMQ.Agent</strong> and talk to the broker!</p>
 
-<p>The following image shows the <a shape="rect" class="external-link" href="http://jivesoftware.com/products/spark/" rel="nofollow">Spark</a> client in action talking to the broker</p>
+<p>The following image shows the <a shape="rect" href="http://jivesoftware.com/products/spark/">Spark</a> client in action talking to the broker</p>
 
-<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="command-agent.data/help.png" data-image-src="/confluence/download/attachments/35957/help.png?version=1&amp;modificationDate=1164085283000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="3231" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="help.png" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/png" data-linked-resource-container-id="35957" data-linked-resource-container-version="10"></span></p>
+<p><image><attachment ri:filename="help.png"></attachment></image></p>
 
-<h3 id="CommandAgent-Usingtheinteractiveconsole">Using the interactive console</h3>
+<h3>Using the interactive console</h3>
 
 <p>The activemq-core module has a simple Java class called SimpleConsole which you can run in your IDE to get an interactive console for communicating with a broker over JMS. Type in the various commands (or help to get more help) and the results are returned on the console.</p></div>
 

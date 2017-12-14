@@ -1,32 +1,30 @@
-<div class="wiki-content maincontent"><h2 id="Apache.NMS.ActiveMQv1.5.6-NewandNoteworthy">New and Noteworthy</h2>
+<div class="wiki-content maincontent"><h2>New and Noteworthy</h2>
 
 <p>This release adds some great new fixes to the NMS.ActiveMQ API.</p>
 
 <ul><li>Adds compression support to the ObjectMessage payload</li><li>Fixes an issue in Message marshaling when tight-marshaling is enabled.</li></ul>
 
 
-<h5 id="Apache.NMS.ActiveMQv1.5.6-NMS.ActiveMQUpdates">NMS.ActiveMQ Updates</h5>
+<h5>NMS.ActiveMQ Updates</h5>
 
 <p>This release focuses on stability fixes to the ActiveMQ provider.  No new features were added in this release.  See the release notes below for a list of issues that were fixed in this release.</p>
 
-<h2 id="Apache.NMS.ActiveMQv1.5.6-APIDocumentation">API Documentation</h2>
+<h2>API Documentation</h2>
 
-<p>Refer to the API for this release <a shape="rect" href="nms-api.xml">here</a></p>
+<p>Refer to the API for this release <link><page ri:content-title="NMS API"></page><link-body>here</link-body></link></p>
 
-<h2 id="Apache.NMS.ActiveMQv1.5.6-DownloadHere">Download Here</h2>
+<h2>Download Here</h2>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Download Link </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> PGP Signature File </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Version </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Apache.NMS.ActiveMQ Source code </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.6-src.zip">Apache.NMS.ActiveMQ-1.5.6-src.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.6-src.zip.asc">Apache.NMS.ActiveMQ-1.5.6-src.zip.asc</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1.5.6.2746 </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Apache.NMS.ActiveMQ Binary Assemblies </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.6-bin.zip">Apache.NMS.ActiveMQ-1.5.6-bin.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.6-bin.zip.asc">Apache.NMS.ActiveMQ-1.5.6-bin.zip.asc</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1.5.6.2746 </p></td></tr></tbody></table></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Description </p></th><th colspan="1" rowspan="1"><p> Download Link </p></th><th colspan="1" rowspan="1"><p> PGP Signature File </p></th><th colspan="1" rowspan="1"><p> Version </p></th></tr><tr><td colspan="1" rowspan="1"><p> Apache.NMS.ActiveMQ Source code </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.6-src.zip">Apache.NMS.ActiveMQ-1.5.6-src.zip</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.6-src.zip.asc">Apache.NMS.ActiveMQ-1.5.6-src.zip.asc</a> </p></td><td colspan="1" rowspan="1"><p> 1.5.6.2746 </p></td></tr><tr><td colspan="1" rowspan="1"><p> Apache.NMS.ActiveMQ Binary Assemblies </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.6-bin.zip">Apache.NMS.ActiveMQ-1.5.6-bin.zip</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.ActiveMQ-1.5.6-bin.zip.asc">Apache.NMS.ActiveMQ-1.5.6-bin.zip.asc</a> </p></td><td colspan="1" rowspan="1"><p> 1.5.6.2746 </p></td></tr></tbody></table>
 
 
-<h2 id="Apache.NMS.ActiveMQv1.5.6-SVNTagCheckout">SVN Tag Checkout</h2>
+<h2>SVN Tag Checkout</h2>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="367b042d-e690-46c2-9051-fddfd6d9d880" ac:name="code" ac:schema-version="1"><plain-text-body>
 svn co https://svn.apache.org/repos/asf/activemq/activemq-dotnet/Apache.NMS.ActiveMQ/tags/1.5.6/
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h2 id="Apache.NMS.ActiveMQv1.5.6-Changelog">Changelog</h2>
+<h2>Changelog</h2>
 
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311201&amp;styleName=Html&amp;version=12321250">release notes</a></p></div>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311201&amp;styleName=Html&amp;version=12321250">release notes</a></p></div>
 

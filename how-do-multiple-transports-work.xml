@@ -1,5 +1,5 @@
 <div class="wiki-content maincontent">
-<h3 id="Howdomultipletransportswork-ForActiveMQ3.x/4.x">For ActiveMQ 3.x/4.x</h3>
+<h3>For ActiveMQ 3.x/4.x</h3>
 
 
 <p>The transport a client uses to connect to the broker is just the transport your client uses. So messages the broker sends to your client will be sent over that transport. However the broker can support many transports.</p>

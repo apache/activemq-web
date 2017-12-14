@@ -1,12 +1,11 @@
 <div class="wiki-content maincontent">
-<h3 id="Howtodeployactivemq-ra-version.rartoweblogic-ThisisaguideonhowtodeployActiveMQ'sresouceadaptertoweblogic9.1.">This is a guide on how to deploy ActiveMQ's resouce adapter to weblogic 9.1.</h3>
+<h3>This is a guide on how to deploy ActiveMQ's resouce adapter to weblogic 9.1.</h3>
 
 <ol><li>Create a new domain in weblogic using the configuration wizard (Start menu BEA Products -&gt; Tools -&gt; configuration Wizard ).</li><li>Add the jar dependencies (these are the jars inside the rar file..for some reason weblogic is not loading these from the rar file)&#160; in the classpath . One way to do this is by dropping the jars in the lib directory of the domain (&lt;%BEA_HOME%&gt;\user_projects\domains\&lt;%DOMAIN_NAME%&gt;\lib).&#160;</li></ol>
 
 
 <ol><li>Add the BrokerXmlConfig file called "broker-config.xml" in the classpath. This can be found in the rar file "activemq-rar-*.rar". Otherwise, modify ra.xml by providing an absolute path to "broker-config.xml", see below.
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="e40688bb-e6be-4280-895d-cc1b33d28668" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
 &lt;config-property&gt;
   &lt;description&gt;
     Sets the XML configuration file used to configure the ActiveMQ broker via
@@ -21,11 +20,11 @@
   &lt;config-property-type&gt;java.lang.String&lt;/config-property-type&gt;
   &lt;config-property-value&gt;xbean:file:C:\broker-config.xml&lt;/config-property-value&gt;
 &lt;/config-property&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 &#160;
 <br clear="none" class="atl-forced-newline">
 &#160;
 <br clear="none" class="atl-forced-newline">
-&#160;</li><li>Start the domain's weblogic server (BEA Products -&gt; User Projects -&gt; &lt;domain_name&gt; -&gt; Start Admin Server for Weblogic Server Domain).</li><li>Start the domain's admin console (BEA Products -&gt; User Projects -&gt; &lt;domain_name&gt; -&gt; Admin Server Console) and enter the username and password.</li><li>On the main menu, click "Deployments" under "Your Deployed Resources"</li><li>On the deployment table, click "install" button. If the button is disabled, then click "Lock &amp; Edit" to enable it.</li><li>Browse for the activemq-ra-*.rar file then click next (for testing purpose, choose the default onwards).</li><li>Click the "activate changes" button to check if the resource adapter is properly deployed.</li></ol></div>
+&#160;</li><li>Start the domain's weblogic server (BEA Products -&gt; User Projects -&gt; &lt;domain_name&gt; -&gt; Start Admin Server for Weblogic Server Domain).</li><li>Start the domain's admin console (BEA Products -&gt; User Projects -&gt; &lt;domain_name&gt; -&gt; Admin Server Console) and enter the username and password.</li><li>On the main menu, click "Deployments" under "Your Deployed Resources"</li><li>On the deployment table, click "install" button. If the button is disabled, then click "Lock &amp; Edit" to enable it.</li><li>Browse for the activemq-ra-*.rar file then click next (for testing purpose, choose the default onwards).</li><li>Click the "activate changes" button to check if the resource adapter is properly deployed.</li></ol>
+</div>
 

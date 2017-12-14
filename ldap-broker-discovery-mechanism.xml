@@ -1,76 +1,51 @@
 <div class="wiki-content maincontent"><p>Configuring network topologies can be quite tedious when the number of brokers in the system is large.  To help ease the configuration overhead for these types of situations, a broker can be configured to look up its broker connections using a LDAP v3 directory server.</p>
-<div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Note</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
-<p>The basic feature was added to satisfy <span style="text-decoration: line-through;"><a shape="rect" class="external-link" href="https://issues.apache.org/activemq/browse/AMQ-358">AMQ-358</a></span>.  There are known problems and limitations with this implementation. These deficiencies have been addressed in <a shape="rect" class="external-link" href="https://issues.apache.org/activemq/browse/AMQ-1587">AMQ-1587</a>. The features discussed on this page require the patch attached to JIRA issue <a shape="rect" class="external-link" href="https://issues.apache.org/activemq/browse/AMQ-1587">AMQ-1587</a>. This patch should apply cleanly to the ActiveMQ 5.0.0 release or the current development trunk.</p></div></div>
+<structured-macro ac:macro-id="a427293d-0b2e-4268-92e2-8d6aad9fa8a3" ac:name="warning" ac:schema-version="1"><parameter ac:name="title">Note</parameter><rich-text-body>
+<p>The basic feature was added to satisfy <span style="text-decoration: line-through;"><a shape="rect" href="https://issues.apache.org/activemq/browse/AMQ-358">AMQ-358</a></span>.  There are known problems and limitations with this implementation. These deficiencies have been addressed in <a shape="rect" href="https://issues.apache.org/activemq/browse/AMQ-1587">AMQ-1587</a>. The features discussed on this page require the patch attached to JIRA issue <a shape="rect" href="https://issues.apache.org/activemq/browse/AMQ-1587">AMQ-1587</a>. This patch should apply cleanly to the ActiveMQ 5.0.0 release or the current development trunk.</p></rich-text-body></structured-macro>
 
-<h2 id="LDAPBrokerDiscoveryMechanism-LDAPv3DirectoryServerCompliance">LDAP v3 Directory Server Compliance</h2>
+<h2>LDAP v3 Directory Server Compliance</h2>
 
-<p>The following table lists a known subset of directory servers and their compliance to work with the LDAP discovery feature.  Most LDAP v3 directory servers will support this feature if they properly implement the <a shape="rect" class="external-link" href="http://www.ietf.org/rfc/rfc2307.txt" rel="nofollow">RFC2307</a> schemas. In order to support the persistent search capabilities the server must implement the extension defined in <a shape="rect" class="external-link" href="http://www.ietf.org/proceedings/01aug/I-D/draft-ietf-ldapext-psearch-03.txt" rel="nofollow">draft-ietf-ldapext-psearch-03.txt</a>.</p>
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Vendor </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Product </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Version </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> <a shape="rect" class="external-link" href="http://www.ietf.org/rfc/rfc2307.txt" rel="nofollow">RFC2307</a> </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> <a shape="rect" class="external-link" href="http://www.ietf.org/proceedings/01aug/I-D/draft-ietf-ldapext-psearch-03.txt" rel="nofollow">draft-ietf-ldapext-psearch-03.txt</a> </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Apache </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> ApacheDS </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1.0.x </p></td><td colspan="1" rowspan="1" class="confluenceTd">     
-<div class="cfm-align-center" style="text-align: center;"><img class="emoticon emoticon-tick" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/check.png" data-emoticon-name="tick" alt="(tick)"></div>
- </td><td colspan="1" rowspan="1" class="confluenceTd">     
-<div class="cfm-align-center" style="text-align: center;"><img class="emoticon emoticon-tick" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/check.png" data-emoticon-name="tick" alt="(tick)"></div>
- </td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Microsoft </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Active Directory </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Windows 2000 <br clear="none" class="atl-forced-newline">
-Windows 2003 </p></td><td colspan="1" rowspan="1" class="confluenceTd">     
-<div class="cfm-align-center" style="text-align: center;"><img class="emoticon emoticon-warning" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/warning.png" data-emoticon-name="warning" alt="(warning)"></div>
- </td><td colspan="1" rowspan="1" class="confluenceTd">     
-<div class="cfm-align-center" style="text-align: center;"><img class="emoticon emoticon-cross" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/error.png" data-emoticon-name="cross" alt="(error)"></div>
- </td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Microsoft </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Active Directory </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Windows 2003 R2 </p></td><td colspan="1" rowspan="1" class="confluenceTd">     
-<div class="cfm-align-center" style="text-align: center;"><img class="emoticon emoticon-tick" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/check.png" data-emoticon-name="tick" alt="(tick)"></div>
- </td><td colspan="1" rowspan="1" class="confluenceTd">     
-<div class="cfm-align-center" style="text-align: center;"><img class="emoticon emoticon-cross" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/error.png" data-emoticon-name="cross" alt="(error)"></div>
- </td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Sun </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> OpenDS </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0.9.x </p></td><td colspan="1" rowspan="1" class="confluenceTd">     
-<div class="cfm-align-center" style="text-align: center;"><img class="emoticon emoticon-tick" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/check.png" data-emoticon-name="tick" alt="(tick)"></div>
- </td><td colspan="1" rowspan="1" class="confluenceTd">     
-<div class="cfm-align-center" style="text-align: center;"><img class="emoticon emoticon-tick" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/check.png" data-emoticon-name="tick" alt="(tick)"></div>
- </td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> OpenLDAP </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> OpenLDAP </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 2.3.x <br clear="none" class="atl-forced-newline">
-2.4.x </p></td><td colspan="1" rowspan="1" class="confluenceTd">     
-<div class="cfm-align-center" style="text-align: center;"><img class="emoticon emoticon-tick" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/check.png" data-emoticon-name="tick" alt="(tick)"></div>
- </td><td colspan="1" rowspan="1" class="confluenceTd">     
-<div class="cfm-align-center" style="text-align: center;"><img class="emoticon emoticon-cross" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/error.png" data-emoticon-name="cross" alt="(error)"></div>
- </td></tr></tbody></table></div>
+<p>The following table lists a known subset of directory servers and their compliance to work with the LDAP discovery feature.  Most LDAP v3 directory servers will support this feature if they properly implement the <a shape="rect" href="http://www.ietf.org/rfc/rfc2307.txt">RFC2307</a> schemas. In order to support the persistent search capabilities the server must implement the extension defined in <a shape="rect" href="http://www.ietf.org/proceedings/01aug/I-D/draft-ietf-ldapext-psearch-03.txt">draft-ietf-ldapext-psearch-03.txt</a>.</p>
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Vendor </p></th><th colspan="1" rowspan="1"><p> Product </p></th><th colspan="1" rowspan="1"><p> Version </p></th><th colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.ietf.org/rfc/rfc2307.txt">RFC2307</a> </p></th><th colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.ietf.org/proceedings/01aug/I-D/draft-ietf-ldapext-psearch-03.txt">draft-ietf-ldapext-psearch-03.txt</a> </p></th></tr><tr><td colspan="1" rowspan="1"><p> Apache </p></td><td colspan="1" rowspan="1"><p> ApacheDS </p></td><td colspan="1" rowspan="1"><p> 1.0.x </p></td><td colspan="1" rowspan="1"> <structured-macro ac:macro-id="753b737b-68f8-4f04-8e20-24ee5df10c28" ac:name="center" ac:schema-version="1"><rich-text-body><emoticon ac:name="tick"></emoticon></rich-text-body></structured-macro> </td><td colspan="1" rowspan="1"> <structured-macro ac:macro-id="75eeb37f-8cde-434b-a7ac-336f8355fc45" ac:name="center" ac:schema-version="1"><rich-text-body><emoticon ac:name="tick"></emoticon></rich-text-body></structured-macro> </td></tr><tr><td colspan="1" rowspan="1"><p> Microsoft </p></td><td colspan="1" rowspan="1"><p> Active Directory </p></td><td colspan="1" rowspan="1"><p> Windows 2000 <br clear="none" class="atl-forced-newline">
+Windows 2003 </p></td><td colspan="1" rowspan="1"> <structured-macro ac:macro-id="99755497-54df-4641-bc37-d65c40c4a94a" ac:name="center" ac:schema-version="1"><rich-text-body><emoticon ac:name="warning"></emoticon></rich-text-body></structured-macro> </td><td colspan="1" rowspan="1"> <structured-macro ac:macro-id="bfc77587-566e-4a55-810c-b3d21a4517f8" ac:name="center" ac:schema-version="1"><rich-text-body><emoticon ac:name="cross"></emoticon></rich-text-body></structured-macro> </td></tr><tr><td colspan="1" rowspan="1"><p> Microsoft </p></td><td colspan="1" rowspan="1"><p> Active Directory </p></td><td colspan="1" rowspan="1"><p> Windows 2003 R2 </p></td><td colspan="1" rowspan="1"> <structured-macro ac:macro-id="2a2ef9b4-240a-4ed8-acfd-f76aa4f5a41b" ac:name="center" ac:schema-version="1"><rich-text-body><emoticon ac:name="tick"></emoticon></rich-text-body></structured-macro> </td><td colspan="1" rowspan="1"> <structured-macro ac:macro-id="06af8861-aedf-481a-a354-d84aa9e7247f" ac:name="center" ac:schema-version="1"><rich-text-body><emoticon ac:name="cross"></emoticon></rich-text-body></structured-macro> </td></tr><tr><td colspan="1" rowspan="1"><p> Sun </p></td><td colspan="1" rowspan="1"><p> OpenDS </p></td><td colspan="1" rowspan="1"><p> 0.9.x </p></td><td colspan="1" rowspan="1"> <structured-macro ac:macro-id="1076701b-fc3e-4674-9c82-ca56e0af1144" ac:name="center" ac:schema-version="1"><rich-text-body><emoticon ac:name="tick"></emoticon></rich-text-body></structured-macro> </td><td colspan="1" rowspan="1"> <structured-macro ac:macro-id="46fa0e57-7082-47c7-98bc-b4b7fd1c67de" ac:name="center" ac:schema-version="1"><rich-text-body><emoticon ac:name="tick"></emoticon></rich-text-body></structured-macro> </td></tr><tr><td colspan="1" rowspan="1"><p> OpenLDAP </p></td><td colspan="1" rowspan="1"><p> OpenLDAP </p></td><td colspan="1" rowspan="1"><p> 2.3.x <br clear="none" class="atl-forced-newline">
+2.4.x </p></td><td colspan="1" rowspan="1"> <structured-macro ac:macro-id="bf789dde-30f1-47f2-a50c-3a688f61230c" ac:name="center" ac:schema-version="1"><rich-text-body><emoticon ac:name="tick"></emoticon></rich-text-body></structured-macro> </td><td colspan="1" rowspan="1"> <structured-macro ac:macro-id="1b3c8833-380a-4766-82aa-1939c194ab94" ac:name="center" ac:schema-version="1"><rich-text-body><emoticon ac:name="cross"></emoticon></rich-text-body></structured-macro> </td></tr></tbody></table>
 
-<p><img class="emoticon emoticon-warning" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/warning.png" data-emoticon-name="warning" alt="(warning)"> LDAP v3 directory server which do not support <a shape="rect" class="external-link" href="http://www.ietf.org/rfc/rfc2307.txt" rel="nofollow">RFC2307</a> by default. Support can be added by manually importing them. See vendor specific setup requirements on how to do this.<br clear="none">
-<img class="emoticon emoticon-cross" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/error.png" data-emoticon-name="cross" alt="(error)"> LDAP v3 directory servers which do not support the <a shape="rect" class="external-link" href="http://www.ietf.org/proceedings/01aug/I-D/draft-ietf-ldapext-psearch-03.txt" rel="nofollow">draft-ietf-ldapext-psearch-03.txt</a>.</p>
+<p><emoticon ac:name="warning"></emoticon> LDAP v3 directory server which do not support <a shape="rect" href="http://www.ietf.org/rfc/rfc2307.txt">RFC2307</a> by default. Support can be added by manually importing them. See vendor specific setup requirements on how to do this.<br clear="none">
+<emoticon ac:name="cross"></emoticon> LDAP v3 directory servers which do not support the <a shape="rect" href="http://www.ietf.org/proceedings/01aug/I-D/draft-ietf-ldapext-psearch-03.txt">draft-ietf-ldapext-psearch-03.txt</a>.</p>
 
-<h2 id="LDAPBrokerDiscoveryMechanism-LDAPNetworkConnectorProperties">LDAP Network Connector Properties</h2>
+<h2>LDAP Network Connector Properties</h2>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Property </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Required </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> uri </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> null </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <strong>Yes</strong> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The URI of the LDAP v3 Server to connect to (i.e. ldap://host:port, failover://(ldap://host1:port,ldap://host2:port). </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> base </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> null </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <strong>Yes</strong> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The RDN base used as the root for the search criteria. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> user </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> null </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <strong>Yes</strong>, if not using anonymousAuthentication </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The username needed to bind to the server. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> password </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> null </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <strong>Yes</strong>, if not using anonymousAuthentication </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The password needed to bind to the server. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> anonymousAuthentication </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <strong>Yes</strong>, if not using user/password </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Enable if you want to bind to the server anonymously.  This is recommended over using user/password properties since your login credentials will not be stored in an unencrypted XML file. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> searchEventListener </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> false </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> No </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Enable if you want the broker to stay in sync with changes made to entries matching the search criteria. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> searchScope </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> ONELEVEL_SCOPE </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> No </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Can be any of search scopes defined by javax.naming.directory.SearchControls class. <br clear="none" class="atl-forced-newline">
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Property </p></th><th colspan="1" rowspan="1"><p> Default </p></th><th colspan="1" rowspan="1"><p> Required </p></th><th colspan="1" rowspan="1"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1"><p> uri </p></td><td colspan="1" rowspan="1"><p> null </p></td><td colspan="1" rowspan="1"><p> <strong>Yes</strong> </p></td><td colspan="1" rowspan="1"><p> The URI of the LDAP v3 Server to connect to (i.e. ldap://host:port, failover://(ldap://host1:port,ldap://host2:port). </p></td></tr><tr><td colspan="1" rowspan="1"><p> base </p></td><td colspan="1" rowspan="1"><p> null </p></td><td colspan="1" rowspan="1"><p> <strong>Yes</strong> </p></td><td colspan="1" rowspan="1"><p> The RDN base used as the root for the search criteria. </p></td></tr><tr><td colspan="1" rowspan="1"><p> user </p></td><td colspan="1" rowspan="1"><p> null </p></td><td colspan="1" rowspan="1"><p> <strong>Yes</strong>, if not using anonymousAuthentication </p></td><td colspan="1" rowspan="1"><p> The username needed to bind to the server. </p></td></tr><tr><td colspan="1" rowspan="1"><p> password </p></td><td colspan="1" rowspan="1"><p> null </p></td><td colspan="1" rowspan="1"><p> <strong>Yes</strong>, if not using anonymousAuthentication </p></td><td colspan="1" rowspan="1"><p> The password needed to bind to the server. </p></td></tr><tr><td colspan="1" rowspan="1"><p> anonymousAuthentication </p></td><td colspan="1" rowspan="1"><p> false </p></td><td colspan="1" rowspan="1"><p> <strong>Yes</strong>, if not using user/password </p></td><td colspan="1" rowspan="1"><p> Enable if you want to bind to the server anonymously.  This is recommended over using user/password properties since your login credentials will not be stored in an unencrypted XML file. </p></td></tr><tr><td colspan="1" rowspan="1"><p> searchEventListener </p></td><td colspan="1" rowspan="1"><p> false </p></td><td colspan="1" rowspan="1"><p> No </p></td><td colspan="1" rowspan="1"><p> Enable if you want the broker to stay in sync with changes made to entries matching the search criteria. </p></td></tr><tr><td colspan="1" rowspan="1"><p> searchScope </p></td><td colspan="1" rowspan="1"><p> ONELEVEL_SCOPE </p></td><td colspan="1" rowspan="1"><p> No </p></td><td colspan="1" rowspan="1"><p> Can be any of search scopes defined by javax.naming.directory.SearchControls class. <br clear="none" class="atl-forced-newline">
  OBJECT_SCOPE - search the named object defined by base. <br clear="none" class="atl-forced-newline">
  ONELEVEL_SCOPE - search one level of the base. <br clear="none" class="atl-forced-newline">
- SUBTREE_SCOPE - search entire subtree rooted at the base. </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> searchFilter </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> (&amp;(objectClass=ipHost)(objectClass=ipService)) </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> No </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Can be any filter that conforms to <a shape="rect" class="external-link" href="http://www.ietf.org/rfc/rfc2254.txt" rel="nofollow">RFC2254</a>.  If a custom one is specified the actual search filter used will be (&amp;(&amp;(objectClass=ipHost)(objectClass=ipService))(USER CUSTOM)) </p></td></tr></tbody></table></div>
+ SUBTREE_SCOPE - search entire subtree rooted at the base. </p></td></tr><tr><td colspan="1" rowspan="1"><p> searchFilter </p></td><td colspan="1" rowspan="1"><p> (&amp;(objectClass=ipHost)(objectClass=ipService)) </p></td><td colspan="1" rowspan="1"><p> No </p></td><td colspan="1" rowspan="1"><p> Can be any filter that conforms to <a shape="rect" href="http://www.ietf.org/rfc/rfc2254.txt">RFC2254</a>.  If a custom one is specified the actual search filter used will be (&amp;(&amp;(objectClass=ipHost)(objectClass=ipService))(USER CUSTOM)) </p></td></tr></tbody></table>
 
-<div class="confluence-information-macro confluence-information-macro-information"><p class="title">Other Properties</p><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
-<p>All of the properties defined in <a shape="rect" class="external-link" href="http://activemq.apache.org/networks-of-brokers.html">Networks of Brokers</a> are also available to the ldapNetworkConnector. Any of the properties defined for a normal networkConnector will be used as connection parameters to any discovered brokers matching the search criteria.</p></div></div>
+<structured-macro ac:macro-id="28339d06-babf-4416-be4a-ce171185c755" ac:name="info" ac:schema-version="1"><parameter ac:name="title">Other Properties</parameter><rich-text-body>
+<p>All of the properties defined in <a shape="rect" href="http://activemq.apache.org/networks-of-brokers.html">Networks of Brokers</a> are also available to the ldapNetworkConnector. Any of the properties defined for a normal networkConnector will be used as connection parameters to any discovered brokers matching the search criteria.</p></rich-text-body></structured-macro>
 
-<h2 id="LDAPBrokerDiscoveryMechanism-Example1:SimpleNetworkofBrokers">Example 1: Simple Network of Brokers</h2>
-    
-<div class="cfm-align-center" style="text-align: center;">
-<h3 id="LDAPBrokerDiscoveryMechanism-NetworkConfiguration">Network Configuration</h3>
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Topology </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>LDAP v3 Directory Structure</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Entry</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="ldap-broker-discovery-mechanism.data/Example1-Topology.jpg" data-image-src="/confluence/download/attachments/77126/Example1-Topology.jpg?version=4&amp;modificationDate=1203881427000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59671452" data-linked-resource-version="4" data-linked-resource-type="attachment" data-linked-resource-default-alias="Example1-Topology.jpg" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="77126" data-linked-resource-container-version="21"></span></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="ldap-broker-discovery-mechanism.data/Example1-DirectoryStructure.jpg" data-image-src="/confluence/download/attachments/77126/Example1-DirectoryStructure.jpg?version=1&amp;modificationDate=1203881557000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59671497" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Example1-DirectoryStructure.jpg" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="77126" data-linked-resource-container-version="21"></span></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="ldap-broker-discovery-mechanism.data/Example1-Entry.jpg" data-image-src="/confluence/download/attachments/77126/Example1-Entry.jpg?version=1&amp;modificationDate=1203881408000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59671496" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Example1-Entry.jpg" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="77126" data-linked-resource-container-version="21"></span></p></td></tr></tbody></table></div>
+<h2>Example 1: Simple Network of Brokers</h2>
+<structured-macro ac:macro-id="2ba452b0-259d-462c-a82c-c21d12695445" ac:name="center" ac:schema-version="1"><rich-text-body>
+<h3>Network Configuration</h3>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Topology </p></th><th colspan="1" rowspan="1"><p>LDAP v3 Directory Structure</p></th><th colspan="1" rowspan="1"><p>Entry</p></th></tr><tr><td colspan="1" rowspan="1"><p><image><attachment ri:filename="Example1-Topology.jpg"></attachment></image></p></td><td colspan="1" rowspan="1"><p><image><attachment ri:filename="Example1-DirectoryStructure.jpg"></attachment></image></p></td><td colspan="1" rowspan="1"><p><image><attachment ri:filename="Example1-Entry.jpg"></attachment></image></p></td></tr></tbody></table>
 
-<h3 id="LDAPBrokerDiscoveryMechanism-ActiveMQConfiguration(activemq.xml)">ActiveMQ Configuration (activemq.xml)</h3></div>
-
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>srv-a.mydomain.com</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;broker brokerName=&quot;srv-a.mydomain.com&quot; ...&gt;
+<h3>ActiveMQ Configuration (activemq.xml)</h3></rich-text-body></structured-macro>
+<structured-macro ac:macro-id="c2087f81-3628-461b-badf-a57819ee0219" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">srv-a.mydomain.com</parameter><plain-text-body>
+&lt;broker brokerName="srv-a.mydomain.com" ...&gt;
    ...
 
    &lt;networkConnectors&gt;
-      &lt;ldapNetworkConnector uri=&quot;ldap://myldap.mydomain.com:389&quot;
-                            base=&quot;dc=brokers,dc=mydomain,dc=com&quot;
-                            anonymousAuthentication=&quot;true&quot;
-                            searchFilter=&quot;(cn=*)&quot;
-                            searchScope=&quot;SUBTREE_SCOPE&quot;
+      &lt;ldapNetworkConnector uri="ldap://myldap.mydomain.com:389"
+                            base="dc=brokers,dc=mydomain,dc=com"
+                            anonymousAuthentication="true"
+                            searchFilter="(cn=*)"
+                            searchScope="SUBTREE_SCOPE"
                             /&gt;
    &lt;/networkConnectors&gt;
 
    ...
 &lt;/broker&gt;
-]]></script>
-</div></div>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>srv-b.mydomain.com</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;broker brokerName=&quot;srv-b.mydomain.com&quot; ...&gt;
+</plain-text-body></structured-macro>
+<structured-macro ac:macro-id="a7e01047-93ed-43e5-adb8-3643dc1192bd" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">srv-b.mydomain.com</parameter><plain-text-body>
+&lt;broker brokerName="srv-b.mydomain.com" ...&gt;
    ...
 
    &lt;networkConnectors/&gt;
@@ -79,58 +54,50 @@ Windows 2003 </p></td><td colspan="1" rowspan="1" class="confluenceTd">
 
    ...
 &lt;/broker&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h2 id="LDAPBrokerDiscoveryMechanism-Example2:LargerNetworkofBrokers">Example 2: Larger Network of Brokers</h2>
-    
-<div class="cfm-align-center" style="text-align: center;">
-<h3 id="LDAPBrokerDiscoveryMechanism-NetworkConfiguration.1">Network Configuration</h3>
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Topology </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>LDAP v3 Directory Structure</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="ldap-broker-discovery-mechanism.data/Example2-Topology.jpg" data-image-src="/confluence/download/attachments/77126/Example2-Topology.jpg?version=2&amp;modificationDate=1203881712000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59671455" data-linked-resource-version="2" data-linked-resource-type="attachment" data-linked-resource-default-alias="Example2-Topology.jpg" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="77126" data-linked-resource-container-version="21"></span></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image" src="ldap-broker-discovery-mechanism.data/Example2-DirectoryStructure.jpg" data-image-src="/confluence/download/attachments/77126/Example2-DirectoryStructure.jpg?version=1&amp;modificationDate=1203882106000&amp;api=v2" data-unresolved-comment-count="0" data-linked-resource-id="59671498" data-linked-resource-version="1" data-linked-resource-type="attachment" data-linked-resource-default-alias="Example2-DirectoryStructure.jpg" data-base-url="https://cwiki.apache.org/confluence" data-linked-resource-content-type="image/jpeg" data-linked-resource-container-id="77126" data-linked-resource-container-version="21"></span></p></td></tr></tbody></table></div>
+<h2>Example 2: Larger Network of Brokers</h2>
+<structured-macro ac:macro-id="808671ba-f099-4d44-92a2-0e089dcb7809" ac:name="center" ac:schema-version="1"><rich-text-body>
+<h3>Network Configuration</h3>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Topology </p></th><th colspan="1" rowspan="1"><p>LDAP v3 Directory Structure</p></th></tr><tr><td colspan="1" rowspan="1"><p><image><attachment ri:filename="Example2-Topology.jpg"></attachment></image></p></td><td colspan="1" rowspan="1"><p><image><attachment ri:filename="Example2-DirectoryStructure.jpg"></attachment></image></p></td></tr></tbody></table>
 
-<h3 id="LDAPBrokerDiscoveryMechanism-ActiveMQConfiguration(activemq.xml).1">ActiveMQ Configuration (activemq.xml)</h3></div>
-
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>srv-a.mydomain.com</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;broker brokerName=&quot;srv-a.mydomain.com&quot; ...&gt;
+<h3>ActiveMQ Configuration (activemq.xml)</h3></rich-text-body></structured-macro>
+<structured-macro ac:macro-id="f91be329-8554-4135-bef1-0c8b93c5c6e4" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">srv-a.mydomain.com</parameter><plain-text-body>
+&lt;broker brokerName="srv-a.mydomain.com" ...&gt;
    ...
 
    &lt;networkConnectors&gt;
-      &lt;ldapNetworkConnector uri=&quot;ldap://myldap.mydomain.com:389&quot;
-                            base=&quot;dc=brokers-for-srv-a,dc=mydomain,dc=com&quot;
-                            anonymousAuthentication=&quot;true&quot;
-                            searchFilter=&quot;(cn=*)&quot;
-                            searchScope=&quot;SUBTREE_SCOPE&quot;
-                            networkTTL=&quot;2&quot;
+      &lt;ldapNetworkConnector uri="ldap://myldap.mydomain.com:389"
+                            base="dc=brokers-for-srv-a,dc=mydomain,dc=com"
+                            anonymousAuthentication="true"
+                            searchFilter="(cn=*)"
+                            searchScope="SUBTREE_SCOPE"
+                            networkTTL="2"
                             /&gt;
       &lt;!-- networkTTL=2 since we want messages to flow from srv-a to srv-c --&gt;
    &lt;/networkConnectors&gt;
 
    ...
 &lt;/broker&gt;
-]]></script>
-</div></div>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>srv-b.mydomain.com</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;broker brokerName=&quot;srv-b.mydomain.com&quot; ...&gt;
+</plain-text-body></structured-macro>
+<structured-macro ac:macro-id="7f686481-2d28-4f23-ad44-af7bfe3b14fe" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">srv-b.mydomain.com</parameter><plain-text-body>
+&lt;broker brokerName="srv-b.mydomain.com" ...&gt;
    ...
 
    &lt;networkConnectors/&gt;
-      &lt;ldapNetworkConnector uri=&quot;ldap://myldap.mydomain.com:389&quot;
-                            base=&quot;dc=brokers-other,dc=mydomain,dc=com&quot;
-                            anonymousAuthentication=&quot;true&quot;
-                            searchFilter=&quot;(cn=*)&quot;
-                            searchScope=&quot;SUBTREE_SCOPE&quot;
+      &lt;ldapNetworkConnector uri="ldap://myldap.mydomain.com:389"
+                            base="dc=brokers-other,dc=mydomain,dc=com"
+                            anonymousAuthentication="true"
+                            searchFilter="(cn=*)"
+                            searchScope="SUBTREE_SCOPE"
                             /&gt;
    &lt;/networkConnectors&gt;
 
    ...
 &lt;/broker&gt;
-]]></script>
-</div></div>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>srv-c.mydomain.com</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;broker brokerName=&quot;srv-c.mydomain.com&quot; ...&gt;
+</plain-text-body></structured-macro>
+<structured-macro ac:macro-id="e3f54c10-ecca-4470-aa05-ba87834c7177" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">srv-c.mydomain.com</parameter><plain-text-body>
+&lt;broker brokerName="srv-c.mydomain.com" ...&gt;
    ...
 
    &lt;networkConnectors/&gt;
@@ -139,24 +106,21 @@ Windows 2003 </p></td><td colspan="1" rowspan="1" class="confluenceTd">
 
    ...
 &lt;/broker&gt;
-]]></script>
-</div></div>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>srv-d.mydomain.com</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;broker brokerName=&quot;srv-d.mydomain.com&quot; ...&gt;
+</plain-text-body></structured-macro>
+<structured-macro ac:macro-id="4c53b2b9-48d8-44a4-a8fe-736fcfe3392b" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">srv-d.mydomain.com</parameter><plain-text-body>
+&lt;broker brokerName="srv-d.mydomain.com" ...&gt;
    ...
 
    &lt;networkConnectors/&gt;
-      &lt;ldapNetworkConnector uri=&quot;ldap://myldap.mydomain.com:389&quot;
-                            base=&quot;dc=brokers-other,dc=mydomain,dc=com&quot;
-                            anonymousAuthentication=&quot;true&quot;
-                            searchFilter=&quot;(cn=*)&quot;
-                            searchScope=&quot;SUBTREE_SCOPE&quot;
+      &lt;ldapNetworkConnector uri="ldap://myldap.mydomain.com:389"
+                            base="dc=brokers-other,dc=mydomain,dc=com"
+                            anonymousAuthentication="true"
+                            searchFilter="(cn=*)"
+                            searchScope="SUBTREE_SCOPE"
                             /&gt;
    &lt;/networkConnectors&gt;
 
    ...
 &lt;/broker&gt;
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

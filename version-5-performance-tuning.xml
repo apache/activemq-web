@@ -1,10 +1,10 @@
-<div class="wiki-content maincontent"><p>For a more complete overview see <a shape="rect" href="performance.xml">Performance</a>.</p>
+<div class="wiki-content maincontent"><p>For a more complete overview see <link><page ri:content-title="Performance"></page></link>.</p>
 
 <p>There are trade-offs between performance and reliabilty. <br clear="none">
 By default, activemq strikes a balance between the two, so there are some things you can change to increase throughput.</p>
 
 
-<h2 id="Version5PerformanceTuning-Asyncpublishing">Async publishing</h2>
+<h2>Async publishing</h2>
 
 <p>First some background:</p>
 
@@ -12,28 +12,29 @@ By default, activemq strikes a balance between the two, so there are some things
 
 <p>So if you looking for good performance with topic messages, either set the delivery mode on the publisher to be non-persistent, or set the <strong>useAsyncSend</strong> property on the ActiveMQ ConnectionFactory to be <strong>true</strong>.</p>
 
-<h2 id="Version5PerformanceTuning-Pre-fetchsizesforConsumers">Pre-fetch sizes for Consumers</h2>
+<h2>Pre-fetch sizes for Consumers</h2>
 
 <p>ActiveMQ will push as many messages to the consumer as fast as possible, where they will be queued for processing by an ActiveMQ Session. The maximum number of messages that ActiveMQ will push to a Consumer without the Consumer processing a message is set  by the pre-fetch size. You can improve throughput by running ActiveMQ with larger pre-fetch sizes. Pre-fetch sizes are determined by the ActiveMQPrefetchPolicy bean, which is set on the ActiveMQ ConnectionFactory.</p>
 
 <p>Default values:</p>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>consumer type</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default value</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> queue </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1000</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> queue browser </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 500</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>topic </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>  32766</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>durable topic </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1000</p></td></tr></tbody></table></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>consumer type</p></th><th colspan="1" rowspan="1"><p>default value</p></th></tr><tr><td colspan="1" rowspan="1"><p> queue </p></td><td colspan="1" rowspan="1"><p> 1000</p></td></tr><tr><td colspan="1" rowspan="1"><p> queue browser </p></td><td colspan="1" rowspan="1"><p> 500</p></td></tr><tr><td colspan="1" rowspan="1"><p>topic </p></td><td colspan="1" rowspan="1"><p>  32766</p></td></tr><tr><td colspan="1" rowspan="1"><p>durable topic </p></td><td colspan="1" rowspan="1"><p> 1000</p></td></tr></tbody></table>
 
 
 
 
 
-<h2 id="Version5PerformanceTuning-OptimizedAcknowledge">Optimized Acknowledge</h2>
+<h2>Optimized Acknowledge</h2>
 
 <p>When consuming messages in auto acknowledge mode (set when creating the consumers' session), ActiveMQ will acknowledge receipt of messages back to the broker in batches (to improve performance). The batch size is 50% of the prefetch limit for the Consumer. You switch batch acknowledgment off by setting the <strong>optimizeAcknowledge</strong> property on the ActiveMQ ConnectionFactory to be <strong>false</strong></p>
 
-<h2 id="Version5PerformanceTuning-StraightthroughSessionConsumption">Straight through Session Consumption</h2>
+<h2>Straight through Session Consumption</h2>
 
 <p>By default, a Consumer's session will dispatch messages to the consumer in a separate thread. If you are using Consumers with auto acknowledge, you can increase throughput by passing messages straight through the Session to the Consumer by setting the <strong>alwaysSessionAsync</strong> property on the ActiveMQ ConnectionFactory to be <strong>false</strong></p>
 
-<h2 id="Version5PerformanceTuning-FilebasedPersistence">File based Persistence</h2>
+<h2>File based Persistence</h2>
 
-<p>The default persistence store is the <a shape="rect" href="amq-message-store.xml">AMQ Message Store</a></p>
+<p>The default persistence store is the <link><page ri:content-title="AMQ Message Store"></page></link></p>
+
 </div>
 

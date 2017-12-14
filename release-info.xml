@@ -1,5 +1,6 @@
 <div class="wiki-content maincontent">
-<h2 id="ReleaseInfo-GeneralReleaseInformation">General Release Information</h2>
+<h2>General Release Information</h2>
 
-<ul><li><a shape="rect" class="external-link" href="http://jira.activemq.org/jira/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel" rel="nofollow">Current RoadMap</a></li><li><a shape="rect" href="release-guide.xml">Release Guide</a></li><li><a shape="rect" class="external-link" href="http://wiki.apache.org/incubator/SigningReleases">Signing Releases</a></li><li><a shape="rect" class="external-link" href="http://apache.org/dev/mirrors.html">Apache Mirror Guidelines</a></li></ul></div>
+<ul><li><a shape="rect" href="http://jira.activemq.org/jira/browse/AMQ?report=com.atlassian.jira.plugin.system.project:roadmap-panel">Current RoadMap</a></li><li><link><page ri:content-title="Release Guide"></page></link></li><li><a shape="rect" href="http://wiki.apache.org/incubator/SigningReleases">Signing Releases</a></li><li><a shape="rect" href="http://apache.org/dev/mirrors.html">Apache Mirror Guidelines</a></li></ul>
+</div>
 

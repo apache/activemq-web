@@ -4,54 +4,51 @@
 
 <p>Take a look at the following example:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="bd6d23fc-406a-498a-8d12-05f047cb310f" ac:name="code" ac:schema-version="1"><plain-text-body>
 StompConnection connection = new StompConnection();
-connection.open(&quot;localhost&quot;, 61613);
+connection.open("localhost", 61613);
 		
-connection.connect(&quot;system&quot;, &quot;manager&quot;);
+connection.connect("system", "manager");
 		
-connection.send(&quot;/queue/test&quot;, &quot;message 1&quot;);
-connection.send(&quot;/queue/test&quot;, &quot;message 2&quot;);
-connection.send(&quot;/queue/test&quot;, &quot;message 3&quot;);
+connection.send("/queue/test", "message 1");
+connection.send("/queue/test", "message 2");
+connection.send("/queue/test", "message 3");
 		
 HashMap&lt;String, String&gt; headers = new HashMap&lt;String, String&gt;();
-headers.put(&quot;activemq.prefetchSize&quot;, &quot;1&quot;);
-connection.subscribe(&quot;/queue/test&quot;, &quot;client&quot;, headers);
+headers.put("activemq.prefetchSize", "1");
+connection.subscribe("/queue/test", "client", headers);
 		
-connection.begin(&quot;tx1&quot;);
+connection.begin("tx1");
 StompFrame frame = connection.receive();
 System.out.println(frame.getBody());
-connection.ack(frame, &quot;tx1&quot;);
-connection.abort(&quot;tx1&quot;);
+connection.ack(frame, "tx1");
+connection.abort("tx1");
 		
-connection.begin(&quot;tx2&quot;);
-connection.ack(frame, &quot;tx2&quot;);        //sending the ack again
+connection.begin("tx2");
+connection.ack(frame, "tx2");        //sending the ack again
 frame = connection.receive();
 System.out.println(frame.getBody());
-connection.ack(frame, &quot;tx2&quot;);
-connection.commit(&quot;tx2&quot;);
+connection.ack(frame, "tx2");
+connection.commit("tx2");
 		
-connection.begin(&quot;tx3&quot;);
+connection.begin("tx3");
 frame = connection.receive();
 System.out.println(frame.getBody());
-connection.ack(frame, &quot;tx3&quot;);
-connection.commit(&quot;tx3&quot;);
-]]></script>
-</div></div>
+connection.ack(frame, "tx3");
+connection.commit("tx3");
+</plain-text-body></structured-macro>
 
 <p>This simple application will print </p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="56487b6e-0246-466b-9e13-4c366a548105" ac:name="code" ac:schema-version="1"><plain-text-body>
 message 1
 message 2
 message 3
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>Since the transaction <code>tx1</code> has been aborted, we needed to acknowledge that message again in <code>tx2</code> in order to be able to receive the next message (since the prefetch size used is 1).</p>
 
 <p>Also take a look at these pages for more info:</p>
-<ul><li><a shape="rect" class="external-link" href="http://activemq.apache.org/stomp/stomp10/additional.html#transaction_handling">http://activemq.apache.org/stomp/stomp10/additional.html#transaction_handling</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/what-is-the-prefetch-limit-for.html">http://activemq.apache.org/what-is-the-prefetch-limit-for.html</a></li></ul></div>
+<ul><li><a shape="rect" class="external-link" href="http://activemq.apache.org/stomp/stomp10/additional.html#transaction_handling">http://activemq.apache.org/stomp/stomp10/additional.html#transaction_handling</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/what-is-the-prefetch-limit-for.html">http://activemq.apache.org/what-is-the-prefetch-limit-for.html</a></li></ul>
+</div>
 

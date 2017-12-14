@@ -1,13 +1,12 @@
 <div class="wiki-content maincontent">
 
 
-<h2 id="InboundCommunication-INLINEConfiguringanMDBtoreceivemessagesfromActiveMQ">Configuring an MDB to receive messages from ActiveMQ</h2>
-<p>There are three MDBs declared in the <a shape="rect" href="inbound-communication.data/ejb-jar.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3249" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="ejb-jar.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">ejb-jar.xml</a> deployment descriptor.  For this example, I will be explaining how to configure the <code>TopicDurableMDB</code> to be invoked by JBoss when a message is received on an ActiveMQ Topic.</p>
+<h2><structured-macro ac:macro-id="266bfef6-a4d2-4ae3-9429-a53a5a694960" ac:name="excerpt" ac:schema-version="1"><parameter ac:name="atlassian-macro-output-type">INLINE</parameter><rich-text-body><p>Configuring an MDB to receive messages from ActiveMQ</p></rich-text-body></structured-macro></h2>
+<p>There are three MDBs declared in the <link><attachment ri:filename="ejb-jar.xml"><page ri:content-title="JBoss Integration"></page></attachment><link-body>ejb-jar.xml</link-body></link> deployment descriptor.  For this example, I will be explaining how to configure the <code>TopicDurableMDB</code> to be invoked by JBoss when a message is received on an ActiveMQ Topic.</p>
 
-<h3 id="InboundCommunication-TheBean">The Bean</h3>
-<p>In the <a shape="rect" href="inbound-communication.data/ejb-jar.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3249" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="ejb-jar.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">ejb-jar.xml</a> deployment descriptor, the <code>TopicDurableMDB</code> is declared as follows:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>ejb-jar.xml</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[ 
+<h3>The Bean</h3>
+<p>In the <link><attachment ri:filename="ejb-jar.xml"><page ri:content-title="JBoss Integration"></page></attachment><link-body>ejb-jar.xml</link-body></link> deployment descriptor, the <code>TopicDurableMDB</code> is declared as follows:</p>
+<structured-macro ac:macro-id="93b54ff4-22bf-4757-8139-2e2fd39d4021" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">ejb-jar.xml</parameter><plain-text-body> 
 &lt;message-driven&gt;
    ...
    &lt;ejb-name&gt;TopicDurableMDB&lt;/ejb-name&gt;
@@ -27,14 +26,12 @@
    &lt;/activation-config&gt;
    ...
 &lt;/message-driven&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 <p>The <code>activation-config</code> element and it's child element, <code>activation-config-property</code>, are new elements for EJBs, so you might not be familiar with them.  I won't go into to much detail about them, but it is important to understand that this is the first mechanism you use to link an MDB to a JCA.  </p>
 
-<h3 id="InboundCommunication-TheConnector">The Connector</h3>
-<p>The two <code>activation-config-properties</code> shown above link to the following elements in the <a shape="rect" class="external-link" href="http://activemq.codehaus.org/checkout/activemq/modules/ra/src/rar/META-INF/ra.xml" rel="nofollow">ra.xml</a> file, which is contained within the <a shape="rect" href="jboss-integration.xml#JBossIntegration-rarfile">activemq-ra-1.2.rar</a> file:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>ra.xml</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<h3>The Connector</h3>
+<p>The two <code>activation-config-properties</code> shown above link to the following elements in the <a shape="rect" href="http://activemq.codehaus.org/checkout/activemq/modules/ra/src/rar/META-INF/ra.xml">ra.xml</a> file, which is contained within the <link ac:anchor="rarfile" ac:tooltip="The ActiveMQ JCA"><page ri:content-title="JBoss Integration"></page><link-body>activemq-ra-1.2.rar</link-body></link> file:</p>
+<structured-macro ac:macro-id="7bf9366c-c37f-4f3a-8819-fc99e87c4104" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">ra.xml</parameter><plain-text-body>
 &lt;inbound-resourceadapter&gt;
       ...
          &lt;activationspec&gt;
@@ -48,54 +45,47 @@
          &lt;/activationspec&gt;
       ...
 &lt;/inbound-resourceadapter&gt;
-]]></script>
-</div></div>
-<p>In the <a shape="rect" href="inbound-communication.data/ejb-jar.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3249" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="ejb-jar.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">ejb-jar.xml</a> file section shown above, the value of the <code>Destination</code> property is set to <code>topic.testTopic</code>.  This value is the physical name of the ActiveMQ destination the <code>TopicDurableMDB</code> will be receiving messages from and not a JNDI name.  In other words, the value of the <code>Destination</code> property has no meaning to JBoss.  It is purely an ActiveMQ setting. </p>
+</plain-text-body></structured-macro>
+<p>In the <link><attachment ri:filename="ejb-jar.xml"><page ri:content-title="JBoss Integration"></page></attachment><link-body>ejb-jar.xml</link-body></link> file section shown above, the value of the <code>Destination</code> property is set to <code>topic.testTopic</code>.  This value is the physical name of the ActiveMQ destination the <code>TopicDurableMDB</code> will be receiving messages from and not a JNDI name.  In other words, the value of the <code>Destination</code> property has no meaning to JBoss.  It is purely an ActiveMQ setting. </p>
 
-<h3 id="InboundCommunication-TheGlue">The Glue</h3>
-<p>In JBoss, the thing which connects an inbound JMS destination to an MDB is a JBoss container.  To use ActiveMQ as the inbound message source for the <code>TopicDurableMDB</code> we must configure a new JBoss container.  We do this in the <a shape="rect" href="inbound-communication.data/jboss.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3251" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="jboss.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">jboss.xml</a> file.</p>
+<h3>The Glue</h3>
+<p>In JBoss, the thing which connects an inbound JMS destination to an MDB is a JBoss container.  To use ActiveMQ as the inbound message source for the <code>TopicDurableMDB</code> we must configure a new JBoss container.  We do this in the <link><attachment ri:filename="jboss.xml"><page ri:content-title="JBoss Integration"></page></attachment><link-body>jboss.xml</link-body></link> file.</p>
 
-<p>Three things are needed in the <a shape="rect" href="inbound-communication.data/jboss.xml?version=3&amp;modificationDate=1117021488000&amp;api=v2" data-linked-resource-id="3251" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="jboss.xml" data-nice-type="XML File" data-linked-resource-content-type="text/xml" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">jboss.xml</a> file in order to tie an MDB to a connector.  They are:</p>
+<p>Three things are needed in the <link><attachment ri:filename="jboss.xml"><page ri:content-title="JBoss Integration"></page></attachment><link-body>jboss.xml</link-body></link> file in order to tie an MDB to a connector.  They are:</p>
 
 <ol><li>Configure a new <code>invoker-proxy-binding</code> that declares <code>JBossMessageEndpointFactory</code> as the <code>proxy-factory</code></li><li>Configure a new MDB container which uses the new <code>invoker-proxy-binding</code></li><li>Declare which MDBs should go into the new container</li></ol>
 
 
 <p>This first snippet configures a new <code>invoker-proxy-binding</code>:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>jboss.xml &#8211; invoker-proxy-binding</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="b0c5918e-6353-42c5-8497-2dc26104f808" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">jboss.xml -- invoker-proxy-binding</parameter><plain-text-body>
 &lt;invoker-proxy-binding&gt;
    &lt;name&gt;activemq-message-driven-bean&lt;/name&gt;
    &lt;invoker-mbean&gt;default&lt;/invoker-mbean&gt;
    &lt;proxy-factory&gt;org.jboss.ejb.plugins.inflow.JBossMessageEndpointFactory&lt;/proxy-factory&gt;
    ...
 &lt;/invoker-proxy-binding&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>This second snippet configures a new MDB container which uses the <code>invoker-proxy-binding</code> configured above:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>jboss.xml &#8211; container-configuration</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="f089de17-bdb2-4912-962b-802892187292" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">jboss.xml -- container-configuration</parameter><plain-text-body>
 &lt;container-configuration&gt;
    &lt;container-name&gt;ActiveMQ Message Driven Bean&lt;/container-name&gt;
    &lt;call-logging&gt;false&lt;/call-logging&gt;
    &lt;invoker-proxy-binding-name&gt;activemq-message-driven-bean&lt;/invoker-proxy-binding-name&gt;
    ...
 &lt;/container-configuration&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<p>This third snippet links the <code>TopicDurableMDB</code> to the <a shape="rect" href="jboss-integration.xml#JBossIntegration-rarfile">activemq-ra-1.2.rar</a> connector and tells JBoss to put instances of <code>TopicDurableMDB</code> into the new MDB container declared above:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>jboss.xml &#8211; TopicDurableMDB</b></div><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<p>This third snippet links the <code>TopicDurableMDB</code> to the <link ac:anchor="rarfile" ac:tooltip="The ActiveMQ JCA"><page ri:content-title="JBoss Integration"></page><link-body>activemq-ra-1.2.rar</link-body></link> connector and tells JBoss to put instances of <code>TopicDurableMDB</code> into the new MDB container declared above:</p>
+<structured-macro ac:macro-id="88e4dbc4-c3e3-40aa-a1d9-ccf9cd47297e" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><parameter ac:name="title">jboss.xml -- TopicDurableMDB</parameter><plain-text-body>
 &lt;message-driven&gt;
    &lt;ejb-name&gt;TopicDurableMDB&lt;/ejb-name&gt;
    &lt;resource-adapter-name&gt;activemq-ra-1.2-SNAPSHOT.rar&lt;/resource-adapter-name&gt;
    &lt;configuration-name&gt;ActiveMQ Message Driven Bean&lt;/configuration-name&gt;
 &lt;/message-driven&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>The above examples highlight the key configuration settings needed to enable MDBs deployed in JBoss to process messages from an ActiveMQ destination.  </p>
 
-<p>You can try the above example, plus a few more, by downloading the <a shape="rect" href="inbound-communication.data/activemq-jboss-test.zip?version=3&amp;modificationDate=1117021355000&amp;api=v2" data-linked-resource-id="3278" data-linked-resource-version="3" data-linked-resource-type="attachment" data-linked-resource-default-alias="activemq-jboss-test.zip" data-nice-type="Zip Archive" data-linked-resource-content-type="application/zip" data-linked-resource-container-id="35943" data-linked-resource-container-version="53">activemq-jboss-test.zip</a> file which contains the complete sample project.</p></div>
+<p>You can try the above example, plus a few more, by downloading the <link><attachment ri:filename="activemq-jboss-test.zip"><page ri:content-title="JBoss Integration"></page></attachment><link-body>activemq-jboss-test.zip</link-body></link> file which contains the complete sample project.</p></div>
 

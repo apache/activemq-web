@@ -1,14 +1,12 @@
-<div class="wiki-content maincontent"><h2 id="HowdoIsendmessagestodifferentDestinationsfromasingleMessageProducer-HowdoIsendmessagestodifferentDestinationsfromasingleMessageProducer?">How do I send messages to different Destinations from a single MessageProducer?</h2>
+<div class="wiki-content maincontent"><h2>How do I send messages to different Destinations from a single MessageProducer?</h2>
 
 <p>Create the MessageProducer using a null destination; then specify the destination each time you send...</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="cfdfbd31-1bde-4d5f-aa90-0f60d4ed9759" ac:name="code" ac:schema-version="1"><plain-text-body>
 MessageProducer producer = session.createProducer(null);
 ...
 producer.send(someDestination, message);
 ...
 producer.send(anotherDestination, message);
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

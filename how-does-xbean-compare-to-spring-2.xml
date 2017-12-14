@@ -1,17 +1,17 @@
-<div class="wiki-content maincontent"><p>Spring 2.0 has introduced the ability to handle custom XML languages inside the spring.xml. This is something we developed <a shape="rect" class="external-link" href="http://geronimo.apache.org/xbean/">XBean</a> for way back in the Spring 1.x days.</p>
+<div class="wiki-content maincontent"><p>Spring 2.0 has introduced the ability to handle custom XML languages inside the spring.xml. This is something we developed <a shape="rect" href="http://geronimo.apache.org/xbean/">XBean</a> for way back in the Spring 1.x days.</p>
 
 <p>The Spring hook requires component developers to write their own XML handling, processing DOMs and so forth. On various projects like ActiveMQ, Jencks, Jetty, ServiceMix, XFire - we didn't want to have to spend time hand-crafting parsing of XML code. So XBean is used to auto-create the parsing code along with an XSD and reference documentation for how to configure these services in custom XML languages.</p>
 
 <p>So you can think of XBean as being like a JAXB2 tool for working inside Spring XML files</p>
 
-<h3 id="HowdoesXBeancomparetoSpring2-Springversionssupported">Spring versions supported</h3>
+<h3>Spring versions supported</h3>
 
 <p>So you can use XBean in Spring 1.x or Spring 2.x (for Spring 2.0 support you need XBean 2.6 or later along with the matching release of ActiveMQ).</p>
 
 <p>If you are using Spring 1.x you use the XBean versions of the Spring ApplicationContext classes. In Spring 2.0 the XBean functionality works perfectly fine inside a regular spring.xml file. The only main difference between using the XBean ApplicationContext files and the Spring ones is that the Spring ones mandate validation, so your XML must include all the XSD information (which is handy for IDE completion anyway) whereas this is not mandatory in the XBean configuraiton files.</p>
 
 
-<h3 id="HowdoesXBeancomparetoSpring2-Examples">Examples</h3>
+<h3>Examples</h3>
 
 <p>Here's a regular Spring 2 XML file using ActiveMQ's XML inside it to configure a broker &amp; destinations &amp; a connection factory</p>
 

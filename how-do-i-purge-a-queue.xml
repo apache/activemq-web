@@ -1,16 +1,17 @@
 <div class="wiki-content maincontent"><p>A frequent requirement is to purge a queue (i.e. delete all the messages on it).</p>
 
-<h3 id="HowdoIpurgeaqueue-Solution">Solution</h3>
+<h3>Solution</h3>
 
-<p>You can use the <a shape="rect" href="web-console.xml">Web Console</a> to view queues, add/remove queues, purge queues or delete/forward individual messages.</p>
+<p>You can use the <link><page ri:content-title="Web Console"></page></link> to view queues, add/remove queues, purge queues or delete/forward individual messages.</p>
 
-<p>Another option is to use <a shape="rect" href="jmx.xml">JMX</a> to browse the queues and call the <strong>purge()</strong> method on the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/jmx/QueueViewMBean.html">QueueViewMBean</a>. </p>
+<p>Another option is to use <link><page ri:content-title="JMX"></page></link> to browse the queues and call the <strong>purge()</strong> method on the <a shape="rect" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/jmx/QueueViewMBean.html">QueueViewMBean</a>. </p>
 
-<p>You could also delete the queue via removeQueue(String) or removeTopic(String) methods on the <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/jmx/BrokerViewMBean.html">BrokerViewMBean</a></p>
+<p>You could also delete the queue via removeQueue(String) or removeTopic(String) methods on the <a shape="rect" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/jmx/BrokerViewMBean.html">BrokerViewMBean</a></p>
 
-<p>You can also do it <a shape="rect" href="how-can-i-see-what-destinations-are-used.xml">programmatically</a></p>
+<p>You can also do it <link><page ri:content-title="How can I see what destinations are used"></page><link-body>programmatically</link-body></link></p>
 
-<h3 id="HowdoIpurgeaqueue-AlsoSee">Also See</h3>
+<h3>Also See</h3>
 
-<ul><li><a shape="rect" href="web-console.xml">Web Console</a></li><li><a shape="rect" href="jmx.xml">JMX</a></li><li><a shape="rect" href="how-do-i-find-the-size-of-a-queue.xml">How do I find the Size of a Queue</a></li><li><a shape="rect" href="how-can-i-see-what-destinations-are-used.xml">How can I see what destinations are used</a></li></ul></div>
+<ul><li><link><page ri:content-title="Web Console"></page></link></li><li><link><page ri:content-title="JMX"></page></link></li><li><link><page ri:content-title="How do I find the Size of a Queue"></page></link></li><li><link><page ri:content-title="How can I see what destinations are used"></page></link></li></ul>
+</div>
 

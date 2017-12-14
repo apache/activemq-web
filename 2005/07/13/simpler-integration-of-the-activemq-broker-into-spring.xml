@@ -1,14 +1,12 @@
 <div class="wiki-content maincontent">
 <p>It was often a bit harder than it might be to configure an ActiveMQ broker inside a Spring XML configuration file. We've just added a simple Spring FactoryBean to make this process much simpler...</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="829c32f2-1ea0-485c-b13b-7bc52e046144" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
   &lt;!-- lets deploy an embedded broker in this spring.xml --&gt;
-  &lt;bean id=&quot;broker&quot; class=&quot;org.activemq.spring.BrokerFactoryBean&quot;&gt;
-    &lt;property name=&quot;config&quot; value=&quot;classpath:foo/bar/broker.xml&quot;/&gt;
+  &lt;bean id="broker" class="org.activemq.spring.BrokerFactoryBean"&gt;
+    &lt;property name="config" value="classpath:foo/bar/broker.xml"/&gt;
   &lt;/bean&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<p>See <a shape="rect" href="../../../how-do-i-embed-a-broker-inside-a-connection.xml">more detail</a> or try the <a shape="rect" href="../../../spring-support.xml">Spring Support</a></p></div>
+<p>See <link><page ri:content-title="How do I embed a Broker inside a Connection"></page><link-body>more detail</link-body></link> or try the <link><page ri:content-title="Spring Support"></page></link></p></div>
 

@@ -1,9 +1,9 @@
-<div class="wiki-content maincontent"><p>This website is actually rendered from the Wiki contents that you can <a shape="rect" href="how-do-i-edit-the-website.xml">edit</a>.  <br clear="none">
+<div class="wiki-content maincontent"><p>This website is actually rendered from the Wiki contents that you can <link><page ri:content-title="How do I edit the website"></page><link-body>edit</link-body></link>.  <br clear="none">
 When viewing a page on the static HTML website you can click on the <strong>edit</strong> link (bottom of the page) and you can edit the page. </p>
 
-<p>Other useful <a shape="rect" href="site.xml">Site links</a> are</p>
+<p>Other useful <link><page ri:content-title="Site"></page><link-body>Site links</link-body></link> are</p>
 
-<ul class="childpages-macro"><li><a shape="rect" href="banner.xml">Banner</a></li><li><a shape="rect" href="navigation.xml">Navigation</a></li><li><a shape="rect" href="quicklinks.xml">QuickLinks</a></li><li><a shape="rect" href="siteindex.xml">SiteIndex</a></li><li><a shape="rect" href="sitemap.xml">SiteMap</a></li></ul>
+<structured-macro ac:macro-id="d6f12256-015e-46f5-91b7-1ba114ec712e" ac:name="include" ac:schema-version="1"><parameter ac:name=""><link><page ri:content-title="Site"></page></link></parameter></structured-macro>
 
 <p>Note that it takes a little while to update the Apache site at <a shape="rect" class="external-link" href="http://activemq.apache.org/">http://activemq.apache.org/</a> due to caching. Though this site usually updates quickly: <a shape="rect" class="external-link" href="http://cwiki.apache.org/ACTIVEMQ/">http://cwiki.apache.org/ACTIVEMQ/</a></p></div>
 

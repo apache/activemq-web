@@ -1,7 +1,7 @@
-<div class="wiki-content maincontent"><h3 id="HowdoesaQueuecomparetoaTopic-Topics">Topics</h3>
+<div class="wiki-content maincontent"><h3>Topics</h3>
 <p>In JMS a Topic implements <em>publish and subscribe</em> semantics. When you publish a message it goes to all the subscribers who are interested - so zero to many subscribers will receive a copy of the message. Only subscribers who had an active subscription at the time the broker receives the message will get a copy of the message.</p>
 
-<h3 id="HowdoesaQueuecomparetoaTopic-Queues">Queues</h3>
+<h3>Queues</h3>
 <p>A JMS Queue implements <em>load balancer</em> semantics. A single message will be received by exactly one consumer. If there are no consumers available at the time the message is sent it will be kept until a consumer is available that can process the message. If a consumer receives a message and does not acknowledge it before closing then the message will be redelivered to another consumer. A queue can have many consumers with messages <em>load balanced</em> across the available consumers.</p>
 
 <p>So Queues implement a reliable load balancer in JMS.</p></div>

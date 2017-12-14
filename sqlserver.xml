@@ -1,67 +1,62 @@
-<div class="wiki-content maincontent"><h2 id="SQLServer-SQLServer">SQL Server</h2>
+<div class="wiki-content maincontent"><h2>SQL Server</h2>
 
 
-<h3 id="SQLServer-SQLServer2000Drivers">SQL Server 2000 Drivers&#160;</h3>
+<h3>SQL Server 2000 Drivers&#160;</h3>
 
 <p>Here is an example of a configuration for SQLServer kindly supplied by Ning Li</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="68c6db6b-f866-4826-94a7-705146d7057e" ac:name="code" ac:schema-version="1"><plain-text-body>
 &lt;persistenceAdapter&gt;
-     &lt;journaledJDBC journalLogFiles=&quot;5&quot;
-dataDirectory=&quot;../activemq-data&quot; dataSource=&quot;#mssql-ds&quot;&gt;
+     &lt;journaledJDBC journalLogFiles="5"
+dataDirectory="../activemq-data" dataSource="#mssql-ds"&gt;
       &lt;adapter&gt;&lt;imageBasedJDBCAdaptor/&gt;&lt;/adapter&gt;
      &lt;/journaledJDBC&gt;
 &lt;/persistenceAdapter&gt;
 
 
- &lt;bean id=&quot;mssql-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot;
-destroy-method=&quot;close&quot;&gt;
-   &lt;property name=&quot;driverClassName&quot;
-value=&quot;com.microsoft.jdbc.sqlserver.SQLServerDriver&quot;/&gt;
-   &lt;property name=&quot;url&quot; value=&quot;jdbc:microsoft:sqlserver://HOSTNAME
-\\INSTANCE;DataBaseName=DBNAME&quot;/&gt;
-   &lt;property name=&quot;username&quot; value=&quot;sa&quot;/&gt;
-   &lt;property name=&quot;password&quot; value=&quot;password&quot;/&gt;
+ &lt;bean id="mssql-ds" class="org.apache.commons.dbcp.BasicDataSource"
+destroy-method="close"&gt;
+   &lt;property name="driverClassName"
+value="com.microsoft.jdbc.sqlserver.SQLServerDriver"/&gt;
+   &lt;property name="url" value="jdbc:microsoft:sqlserver://HOSTNAME
+\\INSTANCE;DataBaseName=DBNAME"/&gt;
+   &lt;property name="username" value="sa"/&gt;
+   &lt;property name="password" value="password"/&gt;
  &lt;/bean&gt;
-]]></script>
-</div></div>
-<p>Information about the Microsoft SqlServer 2000 drivers can be found <a shape="rect" class="external-link" href="http://support.microsoft.com/kb/313100/" rel="nofollow">here</a></p>
+</plain-text-body></structured-macro>
+<p>Information about the Microsoft SqlServer 2000 drivers can be found <a shape="rect" href="http://support.microsoft.com/kb/313100/">here</a></p>
 
-<h3 id="SQLServer-SQLServer2005Drivers">SQL Server 2005 Drivers</h3>
+<h3>SQL Server 2005 Drivers</h3>
 
 <p>Here is an example of the configuration for Microsoft SQL Server 2005 drivers</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="4153d4ca-cbd0-483a-981c-76bda5c2c0d5" ac:name="code" ac:schema-version="1"><plain-text-body>
 &lt;persistenceAdapter&gt;
-  &lt;journaledJDBC journalLogFiles=&quot;5&quot; dataDirectory=&quot;../activemq-data&quot; dataSource=&quot;#mssql-ds&quot;&gt;
+  &lt;journaledJDBC journalLogFiles="5" dataDirectory="../activemq-data" dataSource="#mssql-ds"&gt;
     &lt;adapter&gt;&lt;imageBasedJDBCAdaptor/&gt;&lt;/adapter&gt;
   &lt;/journaledJDBC&gt;
 &lt;/persistenceAdapter&gt;
 
-&lt;bean id=&quot;mssql-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
-  &lt;property name=&quot;driverClassName&quot; value=&quot;com.microsoft.sqlserver.jdbc.SQLServerDriver&quot;/&gt;
-  &lt;property name=&quot;url&quot; value=&quot;jdbc:sqlserver://HOST:PORT;databaseName=DBNAME;user=USER;password=PASSWORD&quot;/&gt;
-  &lt;property name=&quot;username&quot; value=&quot;USER&quot;/&gt;
-  &lt;property name=&quot;password&quot; value=&quot;PASSWORD&quot;/&gt;
+&lt;bean id="mssql-ds" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"&gt;
+  &lt;property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/&gt;
+  &lt;property name="url" value="jdbc:sqlserver://HOST:PORT;databaseName=DBNAME;user=USER;password=PASSWORD"/&gt;
+  &lt;property name="username" value="USER"/&gt;
+  &lt;property name="password" value="PASSWORD"/&gt;
 &lt;/bean&gt;
-]]></script>
-</div></div>
-<p>Information about the Microsoft SqlServer 2005 drivers can be found <a shape="rect" class="external-link" href="http://msdn.microsoft.com/data/ref/jdbc/" rel="nofollow">here</a></p>
+</plain-text-body></structured-macro>
+<p>Information about the Microsoft SqlServer 2005 drivers can be found <a shape="rect" href="http://msdn.microsoft.com/data/ref/jdbc/">here</a></p>
 
-<h3 id="SQLServer-jTDSDrivers">jTDS Drivers</h3>
+<h3>jTDS Drivers</h3>
 
 <p>Here's an example of the configuration for the jTDS drivers:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;bean id=&quot;mssql-ds&quot; class=&quot;net.sourceforge.jtds.jdbcx.JtdsDataSource&quot;&gt;
-   &lt;property name=&quot;serverName&quot; value=&quot;SERVERNAME&quot;/&gt;
-   &lt;property name=&quot;portNumber&quot; value=&quot;PORTNUMBER&quot;/&gt;
-   &lt;property name=&quot;databaseName&quot; value=&quot;DATABASENAME&quot;/&gt;
-   &lt;property name=&quot;user&quot; value=&quot;USER&quot;/&gt;
-   &lt;property name=&quot;password&quot; value=&quot;PASSWORD&quot;/&gt;
+<structured-macro ac:macro-id="bb9583c5-c6e6-4128-b919-d4ffad77ab5e" ac:name="code" ac:schema-version="1"><plain-text-body>
+&lt;bean id="mssql-ds" class="net.sourceforge.jtds.jdbcx.JtdsDataSource"&gt;
+   &lt;property name="serverName" value="SERVERNAME"/&gt;
+   &lt;property name="portNumber" value="PORTNUMBER"/&gt;
+   &lt;property name="databaseName" value="DATABASENAME"/&gt;
+   &lt;property name="user" value="USER"/&gt;
+   &lt;property name="password" value="PASSWORD"/&gt;
  &lt;/bean&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 <p>A note about the jTDS Drivers: Using both the JtdsDataSource and the DBCP BasicDataSource seem to result in client connection starvation on Windows. The JtdsDataSource is better behaved, though, i.e. it doesn't throw an exception. There is mileage in upping the maximum number of client ports and dropping the Tcp wait delay down to 30 seconds. Use RegEdit to add the following values:</p>
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Type </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Key </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Value </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> TcpTimedWaitDelay </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> DWORD </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\ Services\TCPIP\Parameters </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 30 (Decimal) </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Reduces the time a connection spends in TIME_WAIT to 30 seconds </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> MaxUserPort </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> DWORD </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\ Services\TCPIP\Parameters </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 32768 (Decimal) </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Increases the number of ports a client application can use to 32768 </p></td></tr></tbody></table></div></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Name </p></th><th colspan="1" rowspan="1"><p> Type </p></th><th colspan="1" rowspan="1"><p> Key </p></th><th colspan="1" rowspan="1"><p> Value </p></th><th colspan="1" rowspan="1"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1"><p> TcpTimedWaitDelay </p></td><td colspan="1" rowspan="1"><p> DWORD </p></td><td colspan="1" rowspan="1"><p> HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\ Services\TCPIP\Parameters </p></td><td colspan="1" rowspan="1"><p> 30 (Decimal) </p></td><td colspan="1" rowspan="1"><p> Reduces the time a connection spends in TIME_WAIT to 30 seconds </p></td></tr><tr><td colspan="1" rowspan="1"><p> MaxUserPort </p></td><td colspan="1" rowspan="1"><p> DWORD </p></td><td colspan="1" rowspan="1"><p> HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\ Services\TCPIP\Parameters </p></td><td colspan="1" rowspan="1"><p> 32768 (Decimal) </p></td><td colspan="1" rowspan="1"><p> Increases the number of ports a client application can use to 32768 </p></td></tr></tbody></table>
+</div>
 

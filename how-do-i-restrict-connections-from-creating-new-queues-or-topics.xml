@@ -1,6 +1,6 @@
-<div class="wiki-content maincontent"><h2 id="HowdoIrestrictconnectionsfromcreatingnewqueuesortopics-HowdoIrestrictconnectionsfromcreatingnewqueuesortopics?">How do I restrict connections from creating new queues or topics?</h2>
+<div class="wiki-content maincontent"><h2>How do I restrict connections from creating new queues or topics?</h2>
 
-<p>As is described in <a shape="rect" href="how-do-i-create-new-destinations.xml">How do I create new destinations</a> there is no need to create all the destinations up front, you can let the broker create them on the fly.</p>
+<p>As is described in <link><page ri:content-title="How do I create new destinations"></page></link> there is no need to create all the destinations up front, you can let the broker create them on the fly.</p>
 
-<p>However if you don't want this behaviour, or wish to restrict this behaviour to certain topic or queue <a shape="rect" href="wildcards.xml">Wildcards</a> (areas of the queue or topic name space) then you can use the <a shape="rect" href="security.xml">Security</a> plugins to disallow the <strong>admin</strong> role on whatever areas of the queue and topic namespace you wish</p></div>
+<p>However if you don't want this behaviour, or wish to restrict this behaviour to certain topic or queue <link><page ri:content-title="Wildcards"></page></link> (areas of the queue or topic name space) then you can use the <link><page ri:content-title="Security"></page></link> plugins to disallow the <strong>admin</strong> role on whatever areas of the queue and topic namespace you wish</p></div>
 

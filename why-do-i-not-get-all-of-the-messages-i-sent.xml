@@ -1,6 +1,6 @@
-<div class="wiki-content maincontent"><h3 id="WhydoInotgetallofthemessagesIsent-ForActiveMQ3.x/4.x"><strong>For ActiveMQ 3.x/4.x</strong></h3>
+<div class="wiki-content maincontent"><h3><strong>For ActiveMQ 3.x/4.x</strong></h3>
 
-<p>As <a shape="rect" class="external-link" href="http://forums.logicblaze.com/posts/list/0/14.page#37" rel="nofollow">Matt reported</a> its possible that there is a race condition in your application; are you sure you had created your consumer and called start() on the JMS Connection before the producer started publishing messages?</p>
+<p>As <a shape="rect" href="http://forums.logicblaze.com/posts/list/0/14.page#37">Matt reported</a> its possible that there is a race condition in your application; are you sure you had created your consumer and called start() on the JMS Connection before the producer started publishing messages?</p>
 
 <p>Another option if startup race conditions are a problem is to use durable messaging.</p></div>
 

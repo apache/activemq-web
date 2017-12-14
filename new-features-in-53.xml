@@ -1,7 +1,8 @@
-<div class="wiki-content maincontent"><p>Apache ActiveMQ 5.3 is primarily a maintenance release which <a shape="rect" class="external-link" href="https://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11914&amp;styleName=Html&amp;projectId=10520">resolves</a> 334 issues.</p>
+<div class="wiki-content maincontent"><p>Apache ActiveMQ 5.3 is primarily a maintenance release which <a shape="rect" href="https://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11914&amp;styleName=Html&amp;projectId=10520">resolves</a> 334 issues.</p>
 
-<h2 id="NewFeaturesin5.3-NewFeaturesin5.3">New Features in 5.3</h2>
+<h2>New Features in 5.3</h2>
 <p>The new features and enhancements in this release include:</p>
 
-<ul><li>New <a shape="rect" href="kahadb.xml">KahaDB</a> persistent storage</li><li><a shape="rect" class="external-link" href="http://camel.apache.org">Camel 2.0.0</a> along with its web console</li><li>stomp over SSL and NIO support</li><li>Improved configuration - default one production oriented and a lot of use case configuration examples (like scalability and throughput)</li><li>Ability to query broker for statistics from non-Java clients (by sending a message)</li><li>More broker plugins included to help tracing messages in networks, improving logging, etc.</li><li>FTP support for blob messages</li><li>Improved activemq-admin to lookup for local processes if possible</li><li>... and much more</li></ul></div>
+<ul><li>New <link><page ri:content-title="KahaDB"></page></link> persistent storage</li><li><a shape="rect" href="http://camel.apache.org">Camel 2.0.0</a> along with its web console</li><li>stomp over SSL and NIO support</li><li>Improved configuration - default one production oriented and a lot of use case configuration examples (like scalability and throughput)</li><li>Ability to query broker for statistics from non-Java clients (by sending a message)</li><li>More broker plugins included to help tracing messages in networks, improving logging, etc.</li><li>FTP support for blob messages</li><li>Improved activemq-admin to lookup for local processes if possible</li><li>... and much more</li></ul>
+</div>
 

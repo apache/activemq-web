@@ -1,24 +1,23 @@
-<div class="wiki-content maincontent"><h3 id="StaticTransportReference-TheStaticTransport">The Static Transport</h3>
+<div class="wiki-content maincontent"><h3>The Static Transport</h3>
 
 <p>The static transport provides a hard coded mechanism to discover other connections using a list of URIs. A connection using this discovery mechanism will attempt to connect to all URIs in the list until it is succesful.</p>
 
-<h4 id="StaticTransportReference-ConfigurationSyntax">Configuration Syntax</h4>
+<h4>Configuration Syntax</h4>
 
 <p><strong>static:(uri1,uri2,uri3,...)?options</strong></p>
 
-<h4 id="StaticTransportReference-ExampleURI">Example URI</h4>
+<h4>Example URI</h4>
 
-<div class="preformatted panel" style="border-width: 1px;"><div class="preformattedContent panelContent">
-<pre>static:(tcp://localhost:61616,tcp://remotehost:61617?trace=false,vm://localbroker)?initialReconnectDelay=100
-</pre>
-</div></div>
+<structured-macro ac:macro-id="9abadd5a-ba82-42f6-9c39-d6ce7a4fbc14" ac:name="noformat" ac:schema-version="1"><plain-text-body>
+static:(tcp://localhost:61616,tcp://remotehost:61617?trace=false,vm://localbroker)?initialReconnectDelay=100
+</plain-text-body></structured-macro>
 
-<h5 id="StaticTransportReference-Options">Options</h5>
+<h5>Options</h5>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Option Name </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Default Value </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> initialReconnectDelay </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 10 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> How long to wait before the first reconnect attempt (in ms) </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> maxReconnectDelay </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 30000 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The maximum amount of time we ever wait between reconnect attempts (in ms) </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> useExponentialBackOff </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> true </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> Should an exponential backoff be used btween reconnect attempts </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> backOffMultiplier </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 2 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> The exponent used in the exponential backoff attempts </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> maxReconnectAttempts </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 0 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> If not 0, then this is the maximum number of reconnect attempts before an error is sent back to the client </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> minConnectTime </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 500 </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> If a connaction fails faster than this amount of time then it is considered a connection failure </p></td></tr></tbody></table></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Option Name </p></th><th colspan="1" rowspan="1"><p> Default Value </p></th><th colspan="1" rowspan="1"><p> Description </p></th></tr><tr><td colspan="1" rowspan="1"><p> initialReconnectDelay </p></td><td colspan="1" rowspan="1"><p> 10 </p></td><td colspan="1" rowspan="1"><p> How long to wait before the first reconnect attempt (in ms) </p></td></tr><tr><td colspan="1" rowspan="1"><p> maxReconnectDelay </p></td><td colspan="1" rowspan="1"><p> 30000 </p></td><td colspan="1" rowspan="1"><p> The maximum amount of time we ever wait between reconnect attempts (in ms) </p></td></tr><tr><td colspan="1" rowspan="1"><p> useExponentialBackOff </p></td><td colspan="1" rowspan="1"><p> true </p></td><td colspan="1" rowspan="1"><p> Should an exponential backoff be used btween reconnect attempts </p></td></tr><tr><td colspan="1" rowspan="1"><p> backOffMultiplier </p></td><td colspan="1" rowspan="1"><p> 2 </p></td><td colspan="1" rowspan="1"><p> The exponent used in the exponential backoff attempts </p></td></tr><tr><td colspan="1" rowspan="1"><p> maxReconnectAttempts </p></td><td colspan="1" rowspan="1"><p> 0 </p></td><td colspan="1" rowspan="1"><p> If not 0, then this is the maximum number of reconnect attempts before an error is sent back to the client </p></td></tr><tr><td colspan="1" rowspan="1"><p> minConnectTime </p></td><td colspan="1" rowspan="1"><p> 500 </p></td><td colspan="1" rowspan="1"><p> If a connaction fails faster than this amount of time then it is considered a connection failure </p></td></tr></tbody></table>
 
 
-<h5 id="StaticTransportReference-Notes">Notes</h5>
+<h5>Notes</h5>
 
-<p>As the static transport protocol is for broker discovery, it should not be used by client programs. Clients wishing to failover to a static list of broker instances, should use the <a shape="rect" class="external-link" href="http://activemq.apache.org/failover-transport-reference.html">failover://</a> transport instead. </p></div>
+<p>As the static transport protocol is for broker discovery, it should not be used by client programs. Clients wishing to failover to a static list of broker instances, should use the <a shape="rect" href="http://activemq.apache.org/failover-transport-reference.html">failover://</a> transport instead. </p></div>
 

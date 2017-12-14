@@ -1,6 +1,6 @@
-<div class="wiki-content maincontent"><p>There's been more interesting <a shape="rect" href="../../../articles.xml">Articles</a> lately on <a shape="rect" href="../../../index.xml">Apache ActiveMQ</a>, [ActiveMessaging and rails...</p>
+<div class="wiki-content maincontent"><p>There's been more interesting <link><page ri:content-title="Articles"></page></link> lately on <link><page ri:content-title="Index"></page><link-body>Apache ActiveMQ</link-body></link>, [ActiveMessaging and rails...</p>
 
-<ul><li><a shape="rect" class="external-link" href="http://notdennisbyrne.blogspot.com/2007/06/integrating-rails-and-activemq-with.html" rel="nofollow">Integrating Rails and ActiveMQ with ActiveMessaging/REST</a> by <a shape="rect" class="external-link" href="http://notdennisbyrne.blogspot.com/" rel="nofollow">(not) Dennis Byrne</a></li><li><a shape="rect" class="external-link" href="http://beechbonanza.blogspot.com/2007/06/asynchronous-messaging-with-rails.html" rel="nofollow">Asynchronous Messaging with Rails</a> by <a shape="rect" class="external-link" href="http://beechbonanza.blogspot.com/" rel="nofollow">Shane Harvie</a></li></ul>
+<ul><li><a shape="rect" href="http://notdennisbyrne.blogspot.com/2007/06/integrating-rails-and-activemq-with.html">Integrating Rails and ActiveMQ with ActiveMessaging/REST</a> by <a shape="rect" href="http://notdennisbyrne.blogspot.com/">(not) Dennis Byrne</a></li><li><a shape="rect" href="http://beechbonanza.blogspot.com/2007/06/asynchronous-messaging-with-rails.html">Asynchronous Messaging with Rails</a> by <a shape="rect" href="http://beechbonanza.blogspot.com/">Shane Harvie</a></li></ul>
 
 
 <p>Check them out, they're both great.</p></div>

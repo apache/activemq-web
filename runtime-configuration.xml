@@ -4,15 +4,13 @@ without any down time.<br clear="none">
 The addition of a new store could entail a new network connector and some new authorization policies, both of which can now be modified on the fly.</p>
 
 <p>The plugin is configured via the broker xml configuration as follows:</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;broker xmlns=&quot;http://activemq.apache.org/schema/core&quot; start=&quot;false&quot; ... &gt;
+<structured-macro ac:macro-id="2e5295a6-1d1e-45bc-9bdf-81324f278474" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;broker xmlns="http://activemq.apache.org/schema/core" start="false" ... &gt;
     &lt;plugins&gt;
-      &lt;runtimeConfigurationPlugin checkPeriod=&quot;1000&quot; /&gt;
+      &lt;runtimeConfigurationPlugin checkPeriod="1000" /&gt;
     &lt;/plugins&gt;
     ...
 &lt;/broker&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 <p>Note: the start="false" attribute. It ensures that xbean-spring does not auto start the broker when the application context is loading. <br clear="none">
 This ensures that the plugins reference to the broker is fully initialized before it is used and the xml configuration location can be successfully resolved.</p>
 
@@ -24,5 +22,5 @@ If checkPeriod is 0 (default) there is no automatic check for changes but a manu
 
 
 
-<p>Some more implementation detail and links to the tests can be found in <a shape="rect" class="external-link" href="https://issues.apache.org/jira/browse/AMQ-4682">AMQ-4682</a></p></div>
+<p>Some more implementation detail and links to the tests can be found in <a shape="rect" href="https://issues.apache.org/jira/browse/AMQ-4682">AMQ-4682</a></p></div>
 

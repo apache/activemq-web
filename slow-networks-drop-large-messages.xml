@@ -1,10 +1,10 @@
-<div class="wiki-content maincontent"><div class="confluence-information-macro confluence-information-macro-note"><p class="title">Note</p><span class="aui-icon aui-icon-small aui-iconfont-warning confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p> This article only applies to older versions of ActiveMQ, i.e. 5.3 and 5.4.0. From 5.4.2 onwards this issue has been adressed in the bugs <a shape="rect" class="external-link" href="https://issues.apache.org/jira/browse/AMQ-2511">AMQ-2511</a> and <a shape="rect" class="external-link" href="https://issues.apache.org/jira/browse/AMQ-2088">AMQ-2088</a>. </p></div></div>
+<div class="wiki-content maincontent"><structured-macro ac:macro-id="e2358d29-392c-4d4e-ad46-a9bc2b143363" ac:name="note" ac:schema-version="1"><parameter ac:name="title">Note</parameter><rich-text-body><p> This article only applies to older versions of ActiveMQ, i.e. 5.3 and 5.4.0. From 5.4.2 onwards this issue has been adressed in the bugs <a shape="rect" href="https://issues.apache.org/jira/browse/AMQ-2511">AMQ-2511</a> and <a shape="rect" href="https://issues.apache.org/jira/browse/AMQ-2088">AMQ-2088</a>. </p></rich-text-body></structured-macro>
 <p>You may experience problems sending large messages using networks across slow links.</p>
 
 <p>The symptoms are usually that the network connection will be dropped and continuously re-established.</p>
 
-<p>This problem arises because the ActiveMQ message broker continuously checks for activity on a socket, and whilst building a large message in the TCP socket buffer, the <a shape="rect" href="activemq-inactivitymonitor.xml">inactivity</a> monitor will time out - see <a shape="rect" href="configuring-wire-formats.xml">Configuring Wire Formats</a> and the <a shape="rect" href="tcp-transport-reference.xml">TCP Transport Reference</a>.<br clear="none">
-The <a shape="rect" href="activemq-inactivitymonitor.xml">inactivity monitor</a> uses an activity flag that is only updated after a message is received (in case the connection is not idle).<br clear="none">
+<p>This problem arises because the ActiveMQ message broker continuously checks for activity on a socket, and whilst building a large message in the TCP socket buffer, the <link><page ri:content-title="ActiveMQ InactivityMonitor"></page><link-body>inactivity</link-body></link> monitor will time out - see <link><page ri:content-title="Configuring Wire Formats"></page></link> and the <link><page ri:content-title="TCP Transport Reference"></page></link>.<br clear="none">
+The <link><page ri:content-title="ActiveMQ InactivityMonitor"></page><link-body>inactivity monitor</link-body></link> uses an activity flag that is only updated after a message is received (in case the connection is not idle).<br clear="none">
 The monitor then clears the activity flag, waits the timeout amount and peeks at the activity flag. If it's still cleared, then we assume the connection was inactive. When the connection is NOT in use, a keep alive message is sent. But in case the connection is in use because of a larger message being sent/received, no keep alive will be sent and the activity flag will not be updated. That can lead to inactivity timeouts.<br clear="none">
 Ideally the activity flag would get cleared every time a few bytes arrive from the network... but right now it is only cleared when an entire message is assembled.</p>
 
@@ -12,19 +12,18 @@ Ideally the activity flag would get cleared every time a few bytes arrive from t
 
 <p>e.g. configure your network connection like this:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<structured-macro ac:macro-id="fd790009-2e60-4165-b17f-51be3cb3ee05" ac:name="code" ac:schema-version="1"><plain-text-body>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 
-&lt;beans xmlns=&quot;http://activemq.org/config/1.0&quot;&gt;
+&lt;beans xmlns="http://activemq.org/config/1.0"&gt;
 
-  &lt;broker brokerName=&quot;receiver&quot;&gt;
+  &lt;broker brokerName="receiver"&gt;
     &lt;transportConnectors&gt;
-      &lt;transportConnector uri=&quot;tcp://localhost:62002&quot;/&gt;
+      &lt;transportConnector uri="tcp://localhost:62002"/&gt;
     &lt;/transportConnectors&gt;
 
     &lt;networkConnectors&gt;
-      &lt;networkConnector uri=&quot;static:(tcp://somehost:62001?wireFormat.maxInactivityDuration=0)&quot;/&gt;
+      &lt;networkConnector uri="static:(tcp://somehost:62001?wireFormat.maxInactivityDuration=0)"/&gt;
     &lt;/networkConnectors&gt;
 
     &lt;persistenceAdapter&gt;
@@ -33,9 +32,8 @@ Ideally the activity flag would get cleared every time a few bytes arrive from t
   &lt;/broker&gt;
 
 &lt;/beans&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="Slownetworksdroplargemessages-Seealso">See also</h3>
-<p><a shape="rect" href="activemq-inactivitymonitor.xml">ActiveMQ InactivityMonitor</a></p></div>
+<h3>See also</h3>
+<p><link><page ri:content-title="ActiveMQ InactivityMonitor"></page></link></p></div>
 

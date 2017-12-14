@@ -2,18 +2,15 @@
 
 <p>here's an example jndi.properties file:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="b2ea7c88-9510-4469-a2f2-0687d16e3fc7" ac:name="code" ac:schema-version="1"><plain-text-body>
 java.naming.factory.initial = com.sun.jndi.fscontext.RefFSContextFactory
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>Here's an example .bindind file:</p>
 
 <p>For ActiveMQ 4.x its </p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="2defed32-5b5e-422b-8bf7-d46b8ab93991" ac:name="code" ac:schema-version="1"><plain-text-body>
 Archive/ClassName=org.apache.activemq.command.ActiveMQQueue
 Archive/FactoryName=org.apache.activemq.jndi.JNDIReferenceFactory
 Archive/RefAddr/0/Type=physicalName
@@ -52,13 +49,11 @@ QueueConnectionFactory/RefAddr/2/Encoding=String
 QueueConnectionFactory/RefAddr/3/Type=userName
 QueueConnectionFactory/RefAddr/3/Content=defaultUser
 QueueConnectionFactory/RefAddr/3/Encoding=String
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>For ActiveMQ 3.x it is </p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="e1aa7918-9437-49e6-aafc-6795f88d1d3f" ac:name="code" ac:schema-version="1"><plain-text-body>
 Archive/ClassName=org.activemq.message.ActiveMQQueue
 Archive/FactoryName=org.activemq.jndi.JNDIReferenceFactory
 Archive/RefAddr/0/Type=physicalName
@@ -103,6 +98,5 @@ QueueConnectionFactory/RefAddr/4/Encoding=String
 QueueConnectionFactory/RefAddr/5/Type=useAsyncSend
 QueueConnectionFactory/RefAddr/5/Content=true
 QueueConnectionFactory/RefAddr/5/Encoding=String
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

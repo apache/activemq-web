@@ -1,31 +1,27 @@
-<div class="wiki-content maincontent"><p><a shape="rect" href="how-do-durable-queues-and-topics-work.xml">Durable topic subscribers</a> that are offline for a long period of time are usually not desired in the system. The reason for that is that broker needs to keep all the messages sent to those topics for the said subscribers. And this message piling can over time exhaust broker store limits for example and lead to the overall slowdown of the system.</p>
+<div class="wiki-content maincontent"><p><link><page ri:content-title="how do durable queues and topics work"></page><link-body>Durable topic subscribers</link-body></link> that are offline for a long period of time are usually not desired in the system. The reason for that is that broker needs to keep all the messages sent to those topics for the said subscribers. And this message piling can over time exhaust broker store limits for example and lead to the overall slowdown of the system.</p>
 
-<p>You can always manually unsubscribe inactive durable subscriber using management tools like <a shape="rect" href="jmx.xml">JConsole</a> or <a shape="rect" href="web-console.xml">Web Console</a>, but clearly there's more that can be done to help manage systems that use durable subscribers (perhaps coming from environments that they don't control) </p>
+<p>You can always manually unsubscribe inactive durable subscriber using management tools like <link><page ri:content-title="JMX"></page><link-body>JConsole</link-body></link> or <link><page ri:content-title="Web Console"></page></link>, but clearly there's more that can be done to help manage systems that use durable subscribers (perhaps coming from environments that they don't control) </p>
 
 <p>Staring with version 5.6 we introduced a few improvements in this area.</p>
 
-<h3 id="ManageDurableSubscribers-Expiringmessages">Expiring messages</h3>
+<h3>Expiring messages</h3>
 
-<p>Some applications send message with specified time to live. If those messages are kept on the broker for the offline durable subscriber we need to remove them when they reach their expiry time. Just as we do with queues, now we check for those messages every 30 seconds by default, which can be tuned with the appropriate <a shape="rect" href="per-destination-policies.xml">destination policy</a>. For example, the following entry</p>
+<p>Some applications send message with specified time to live. If those messages are kept on the broker for the offline durable subscriber we need to remove them when they reach their expiry time. Just as we do with queues, now we check for those messages every 30 seconds by default, which can be tuned with the appropriate <link><page ri:content-title="Per Destination Policies"></page><link-body>destination policy</link-body></link>. For example, the following entry</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;policyEntry topic=&quot;&gt;&quot; expireMessagesPeriod=&quot;300000&quot;/&gt;]]></script>
-</div></div>
+<structured-macro ac:macro-id="557bd2f0-c204-4fa3-909e-97e2891d3442" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;policyEntry topic="&gt;" expireMessagesPeriod="300000"/&gt;</plain-text-body></structured-macro>
 
 <p>will configure the broker to check for expired messages every 5 minutes.</p>
 
-<h3 id="ManageDurableSubscribers-Removinginactivesubscribers">Removing inactive subscribers</h3>
+<h3>Removing inactive subscribers</h3>
 
 <p>The other thing we can do is to automatically unsubscribe durable subscribers that are not active for some period of time. For that purpose we introduced two new broker properties:</p>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>property</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>default</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>offlineDurableSubscriberTimeout</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>-1</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Amount of time (in milliseconds) after which we remove inactive durable subs. Default -1, means don't remove them</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>offlineDurableSubscriberTaskSchedule</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>300000</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>How often we check (in milliseconds)</p></td></tr></tbody></table></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>property</p></th><th colspan="1" rowspan="1"><p>default</p></th><th colspan="1" rowspan="1"><p>description</p></th></tr><tr><td colspan="1" rowspan="1"><p>offlineDurableSubscriberTimeout</p></td><td colspan="1" rowspan="1"><p>-1</p></td><td colspan="1" rowspan="1"><p>Amount of time (in milliseconds) after which we remove inactive durable subs. Default -1, means don't remove them</p></td></tr><tr><td colspan="1" rowspan="1"><p>offlineDurableSubscriberTaskSchedule</p></td><td colspan="1" rowspan="1"><p>300000</p></td><td colspan="1" rowspan="1"><p>How often we check (in milliseconds)</p></td></tr></tbody></table>
 
 
 <p>An example configuration could look like</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;broker name=&quot;localhost&quot; offlineDurableSubscriberTimeout=&quot;86400000&quot; offlineDurableSubscriberTaskSchedule=&quot;3600000&quot;&gt;]]></script>
-</div></div>
+<structured-macro ac:macro-id="11fbff41-33b8-4d9e-b8f7-3dcd3a3c8aae" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;broker name="localhost" offlineDurableSubscriberTimeout="86400000" offlineDurableSubscriberTaskSchedule="3600000"&gt;</plain-text-body></structured-macro>
 
 <p>which means that we check every hour and remove subscriber that has been offline for a day.</p></div>
 

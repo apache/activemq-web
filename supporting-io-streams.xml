@@ -3,19 +3,19 @@
 
 <p>There are a few issues to consider...</p>
 
-<h3 id="SupportingIOStreams-Usecasess">Use casess</h3>
+<h3>Use casess</h3>
 
 <ol><li>many producers writing and only 1 consumer. Each consumer ideally should completely process 1 stream at once (IO streams are often blocking IO, so the client thread can't do much with other streams while its reading 1).</li><li>if a consumer gets 1Gb through a 10Gb file and dies, we need to re-deliver the messages to another consumer.</li></ol>
 
 
-<h3 id="SupportingIOStreams-Goal">Goal</h3>
+<h3>Goal</h3>
 
 <p>Our goal should be</p>
 
 <ul><li>for each consumer to process a single stream in one go before trying to process another.</li></ul>
 
 
-<h3 id="SupportingIOStreams-PossibleFailureConditions">Possible Failure Conditions</h3>
+<h3>Possible Failure Conditions</h3>
 
 <ul><li>Consumer could die in the middle of reading a stream.  Recovery options:
 	<ol><li>Trash the rest of the stream</li><li>Restart delivery of the stream to the next consumer</li><li>Continue delivery of the steam to the next consumer at the point of failure.</li></ol>
@@ -27,10 +27,11 @@
 
 
 
-<h3 id="SupportingIOStreams-ImplementationIssues">Implementation Issues</h3>
+<h3>Implementation Issues</h3>
 <ul><li>we can use message groups to ensure the same consumer processes all messages for a given stream - but unfortunately message groups does not prevent a consumer being overloaded with more than one message group at a time - maybe thats a new feature we can add?</li><li>avoid the broker running out of RAM - so spool to disk (or throttle the producer) if the only consumer is working on a different stream.
 	<ul><li>If messages sent using transactions, major chanages need may need to be made to how we do transaction management and message journaling.  Currently, all messages in a in progress transaction are held in memory until it commits (Synchronization callbacks are holding on the the messages).  The journal currently holds on to all transacted messages in it's journal + memory until commit, it does now allow the journal to rollover messages that are part of transaction that is in progess.</li></ul>
 	</li><li>given that the entire stream must be processed in one go, we can only ACK the entire stream of messages - so we need to disable pre-fetch?
 	<ul><li>Prefetch disabling is not needed as the consumers send back a special kind of ack which only temporarily expands the prefetch window.</li></ul>
-	</li></ul></div>
+	</li></ul>
+</div>
 

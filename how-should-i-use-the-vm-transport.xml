@@ -1,30 +1,28 @@
 <div class="wiki-content maincontent">
-<h3 id="HowshouldIusetheVMtransport-ForActiveMQ3.x/4.x">For ActiveMQ 3.x/4.x</h3>
+<h3>For ActiveMQ 3.x/4.x</h3>
 
-<p><a shape="rect" href="how-do-i-use-activemq-using-in-jvm-messaging.xml">Using the VM transport</a> to connect to an in-JVM broker is the fastest and most efficient transport you can use.</p>
+<p><link><page ri:content-title="How do I use ActiveMQ using in JVM messaging"></page><link-body>Using the VM transport</link-body></link> to connect to an in-JVM broker is the fastest and most efficient transport you can use.</p>
 
 <p>This is because by default there is no serialization to a socket or operating system socket resources used up; its purely an in-JVM List used to exchange messages with clients and the broker. Sometimes you want the VM transport to work as an async SEDA queue; other times you want to inline the processing so that there are less thread context switches which can improve throughput in high performance scenarios.</p>
 
 <p>One thing to note with the VM transport is that messages are passed by reference. One slight exception to this is the JMS ObjectMessage. (see below for details on how to disable it in ActiveMQ 4.x)</p>
 
 <p> You can also further optimise things by setting the <strong>copyMessageOnSend</strong> property to be false; which avoids making a copy of the ObjectMessage to send; though this assumes that you don't try and resuse the ObjectMessage instance; you just create it once and send it once and don't try and change the body of the message after sending it.</p>
-<div class="confluence-information-macro confluence-information-macro-warning"><p class="title">Be careful of ClassLoaders</p><span class="aui-icon aui-icon-small aui-iconfont-error confluence-information-macro-icon"></span><div class="confluence-information-macro-body">
-<p>Note that you should only perform the above optimisation if all the producers and consumers are in a compatible class loader. For example if you have 2 WARs with their own jars which are sending messages to each other, you could get strange ClassCastExceptions occuring due to the same class being loaded in each class loader; so sometimes serializing ObjectMessage is a good thing to avoid ClassPath hell - so only perform the above optimisation if you are sure you're ClassPaths are OK</p></div></div>
+<structured-macro ac:macro-id="86215832-e59d-4c91-a3d4-21bf38859198" ac:name="warning" ac:schema-version="1"><parameter ac:name="title">Be careful of ClassLoaders</parameter><rich-text-body>
+<p>Note that you should only perform the above optimisation if all the producers and consumers are in a compatible class loader. For example if you have 2 WARs with their own jars which are sending messages to each other, you could get strange ClassCastExceptions occuring due to the same class being loaded in each class loader; so sometimes serializing ObjectMessage is a good thing to avoid ClassPath hell - so only perform the above optimisation if you are sure you're ClassPaths are OK</p></rich-text-body></structured-macro>
 
 
 
-<h3 id="HowshouldIusetheVMtransport-DisablingObjectserializationwithObjectMessageforActiveMQ4.x">Disabling Object serialization with ObjectMessage for ActiveMQ 4.x</h3>
+<h3>Disabling Object serialization with ObjectMessage for ActiveMQ 4.x</h3>
 
 
 <p>The JMS specification dictates that the body of an ObjectMessage must be serialized when you call send() to avoid the object changing under your feet affecting what view the consumer sees of the object.</p>
 
 <p>You can disable the automatic serialization of ObjectMessage payloads so that the objects are passed by value in 4.x by setting the <strong>objectMessageSerializationDefered</strong> flag to true on the ActiveMQConnectionFactory (or ActiveMQConnection).</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory(&quot;vm://localhost&quot;);
+<structured-macro ac:macro-id="95dfa68c-f295-45ed-8a8f-1c45802a06f5" ac:name="code" ac:schema-version="1"><plain-text-body>
+ActiveMQConnectionFactory factory = new ActiveMQConnectionFactory("vm://localhost");
 factory.setObjectMessageSerializationDefered(true);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 <p>&#160;</p>
 
 <p>&#160;</p>

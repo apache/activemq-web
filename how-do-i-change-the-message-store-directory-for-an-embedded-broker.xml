@@ -1,5 +1,3 @@
-<div class="wiki-content maincontent"><p>Embedded brokers create an ActiveMQ directory under the current working directory to store it's persistent message data. To change the location of the directory used by the message store, set the <strong>activemq.store.dir</strong> system property to the directory you want it to use.</p><p>Example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[java -Dactivemq.store.dir=/temp your.Application
-]]></script>
-</div></div></div>
+<div class="wiki-content maincontent"><p>Embedded brokers create an ActiveMQ directory under the current working directory to store it's persistent message data. To change the location of the directory used by the message store, set the <strong>activemq.store.dir</strong> system property to the directory you want it to use.</p><p>Example:</p><structured-macro ac:macro-id="1086a0e9-3648-4f5a-aa24-ce29a6c1cd3b" ac:name="code" ac:schema-version="1"><plain-text-body>java -Dactivemq.store.dir=/temp your.Application
+</plain-text-body></structured-macro></div>
 

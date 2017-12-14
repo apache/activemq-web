@@ -1,8 +1,8 @@
-<div class="wiki-content maincontent"><p>We are obviously biased, and will tell you "just use ActiveMQ!" <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)">  But Mantaray is an OK JMS provider. The interesting thing about MantaRay is it can support a peer-based network, just as ActiveMQ does with its <a shape="rect" href="peer-transport-reference.xml">peer transport</a>.</p>
+<div class="wiki-content maincontent"><p>We are obviously biased, and will tell you "just use ActiveMQ!" <emoticon ac:name="smile"></emoticon>  But Mantaray is an OK JMS provider. The interesting thing about MantaRay is it can support a peer-based network, just as ActiveMQ does with its <link><page ri:content-title="Peer Transport Reference"></page><link-body>peer transport</link-body></link>.</p>
 
-<p>We <a shape="rect" href="performance.xml">benchmark</a> against Mantaray and other open source JMS providers and in our tests (in which we try to be as objective as possible) ActiveMQ exhibits higher performance in most scenarios.</p>
+<p>We <link><page ri:content-title="Performance"></page><link-body>benchmark</link-body></link> against Mantaray and other open source JMS providers and in our tests (in which we try to be as objective as possible) ActiveMQ exhibits higher performance in most scenarios.</p>
 
 <p>A peer transport can be useful when using non-persistent messaging. But if you want persistent messaging you often want to use a federated network with certain brokers on the network being the persistence brokers (so you can backup the file systems etc).</p>
 
-<p>The ideal topology often depends on your requirements and how you want to manage persistence and deal with hardware failures such as with <a shape="rect" href="masterslave.xml">MasterSlave</a>.</p></div>
+<p>The ideal topology often depends on your requirements and how you want to manage persistence and deal with hardware failures such as with <link><page ri:content-title="MasterSlave"></page></link>.</p></div>
 

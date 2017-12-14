@@ -1,21 +1,21 @@
-<div class="wiki-content maincontent"><h2 id="MessageTransformation-MessageTransformation">Message Transformation</h2>
+<div class="wiki-content maincontent"><h2>Message Transformation</h2>
 
 <p>It is sometimes useful to transform a message inside the JMS provider. For example you may have an application that has been live for some time that uses ObjectMessage messages, but that you wish to convert to use XML payloads (to protect yourself from serialization issues).</p>
 
-<p>So ActiveMQ in 4.2 onwards comes with a pluggable strategy called the <a shape="rect" class="external-link" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/MessageTransformer.html">MessageTransformer</a> interface. This allows you to</p>
+<p>So ActiveMQ in 4.2 onwards comes with a pluggable strategy called the <a shape="rect" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/MessageTransformer.html">MessageTransformer</a> interface. This allows you to</p>
 
 <ul><li>enrich or transform a message before it is sent to the message bus within the JMS provider</li><li>enrich or transform a message as it is received from the message bus but before it is dispatched to the consumer</li></ul>
 
 
-<p>So this allows you to turn an ObjectMessage into a TextMessage containing XML using some kind of XML marshalling technology like <a shape="rect" class="external-link" href="http://xstream.codehaus.org/" rel="nofollow">XStream</a> or <a shape="rect" class="external-link" href="http://java.sun.com/webservices/jaxb/" rel="nofollow">JAXB2</a>.</p>
+<p>So this allows you to turn an ObjectMessage into a TextMessage containing XML using some kind of XML marshalling technology like <a shape="rect" href="http://xstream.codehaus.org/">XStream</a> or <a shape="rect" href="http://java.sun.com/webservices/jaxb/">JAXB2</a>.</p>
 
 <p>For example there is the <strong>XStreamMessageTransformer</strong> which when it is configured on a ConnectionFactory will cause all ObjectMessage instances to be silently transformed to and from TextMessage instances on the wire. This can be very useful if you have non-Java clients wishing to communicate with your Java messages.</p>
 
-<h3 id="MessageTransformation-UsingaMessageTransformer">Using a MessageTransformer</h3>
+<h3>Using a MessageTransformer</h3>
 
 <p>To use a MessageTransformer you can install it on one of the following classes via the <strong>setTransformer()</strong> method</p>
 
-<ul><li><a shape="rect" class="external-link" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/ActiveMQConnection.html">ActiveMQConnectionFactory</a></li><li><a shape="rect" class="external-link" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/ActiveMQConnection.html">ActiveMQConnection</a></li><li><a shape="rect" class="external-link" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/ActiveMQSession.html">ActiveMQSession</a></li><li><a shape="rect" class="external-link" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/ActiveMQMessageConsumer.html">ActiveMQMessageConsumer</a></li><li><a shape="rect" class="external-link" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/ActiveMQMessageProducer.html">ActiveMQMessageProducer</a></li></ul>
+<ul><li><a shape="rect" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/ActiveMQConnection.html">ActiveMQConnectionFactory</a></li><li><a shape="rect" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/ActiveMQConnection.html">ActiveMQConnection</a></li><li><a shape="rect" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/ActiveMQSession.html">ActiveMQSession</a></li><li><a shape="rect" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/ActiveMQMessageConsumer.html">ActiveMQMessageConsumer</a></li><li><a shape="rect" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/ActiveMQMessageProducer.html">ActiveMQMessageProducer</a></li></ul>
 
 
 <p>The transformer is inherited on child objects; so you can install a particular transformer on a connection factory and it will be inherited on all  connections, sessions, producers, consumers</p></div>

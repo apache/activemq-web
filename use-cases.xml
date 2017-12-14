@@ -1,9 +1,9 @@
 <div class="wiki-content maincontent">
-<p>Messaging is a diverse and wide ranging subject - there are many different use cases, requirements and deployment options. This is one of the reasons why its so interesting to work on <img class="emoticon emoticon-smile" src="https://cwiki.apache.org/confluence/s/en_GB/5997/6f42626d00e36f53fe51440403446ca61552e2a2.1/_/images/icons/emoticons/smile.png" data-emoticon-name="smile" alt="(smile)"></p>
+<p>Messaging is a diverse and wide ranging subject - there are many different use cases, requirements and deployment options. This is one of the reasons why its so interesting to work on <emoticon ac:name="smile"></emoticon></p>
 
 <p>This document tries to highlight some of the main use cases we are trying to tackle with ActiveQM</p>
 
-<h2 id="UseCases-Transactionalmessaging">Transactional messaging</h2>
+<h2>Transactional messaging</h2>
 <p>This use case focusses on transactionality, persistence, never ever missing a message and processing each message exactly once irrespective of system failures.</p>
 
 <p>Typically the JMS connection will be used in an XA way with other JMS connections or other XA resources like JDBC / EJBs etc.</p>
@@ -13,27 +13,27 @@
 <p>Typically if any node is offline then all the messages will be persisted for when the node comes back online.</p>
 
 
-<h2 id="UseCases-Highperformancemarketdatadistribution">High performance market data distribution</h2>
+<h2>High performance market data distribution</h2>
 <p>This use case focusses on throughput and efficient routing. The idea is to distribute massive volumes of rapidly changing data around a large network as quickly as possible.</p>
 
 <p>Typically throughtput and performance is key - as the amount of data and rate of change is very high and so persistence is rarely used and missing a message is often acceptable in times of failure as old data is often not necessary, the latest prices are what matters.</p>
 
-<h2 id="UseCases-Clusteringandgeneralpurposeasyncmessagingmodel">Clustering and general purpose async messaging model</h2>
+<h2>Clustering and general purpose async messaging model</h2>
 <p>This use case focusses on latency and speed.</p>
 
-<p>When implementing web or EJB based clustering the aim is to maintain a cluster of nodes, typically using multicast for discovery &amp; keep-alive and then using direct socket connections to communicate efficiently between buddies. Please see <a shape="rect" class="external-link" href="http://activecluster.codehaus.org/" rel="nofollow">ActiveCluster</a> for an example API and implementation of this model of clustering.</p>
+<p>When implementing web or EJB based clustering the aim is to maintain a cluster of nodes, typically using multicast for discovery &amp; keep-alive and then using direct socket connections to communicate efficiently between buddies. Please see <a shape="rect" href="http://activecluster.codehaus.org/">ActiveCluster</a> for an example API and implementation of this model of clustering.</p>
 
 <p>This is similar to using a JMS provider as an RMI layer in EJB-style or WS style services - again could end up being mostly multicast for discovery &amp; direct sockets for communication to minimise latency. i.e. rather than having separate servers in between clients, the clients end up talking directly with each other to reduce latency.</p>
 
-<h2 id="UseCases-WebStreamingofdata">Web Streaming of data</h2>
+<h2>Web Streaming of data</h2>
 
-<p>This use case focusses on <a shape="rect" href="ajax.xml">Ajax</a> support in ActiveMQ.</p>
+<p>This use case focusses on <link><page ri:content-title="Ajax"></page></link> support in ActiveMQ.</p>
 
 <p>Increasingly folks want to stream data real time right into web browsers. For example streaming financial stock prices, to show live IM conversations, live auctions or to dynamically update live content and news.</p>
 
 <p>In this use case we integrate ActiveMQ into a web container and provide close web-integration to enable HTTP POSTs to publish messages and slow JavaScript HTTP GET operations to receive messages. </p>
 
-<h2 id="UseCases-RESTfulAPItomessagingusingHTTP">RESTful API to messaging using HTTP</h2>
+<h2>RESTful API to messaging using HTTP</h2>
 
 <p>This use case focusses on connectivity and cross-language &amp; cross-technology connectivity.</p>
 

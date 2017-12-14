@@ -2,5 +2,6 @@
 <p>ActiveMQ will preserve the order of messages sent by a single producer to all consumers on a topic. If there is a single consumer on a queue then the order of messages sent by a single producer will be preserved as well.</p>
 
 <p>If you have multiple consumers on a single queue the consumers will compete for messages and ActiveMQ will load balance across them, so order will be lost. For background on the issue and how it can be solved see</p>
-<ul><li><a shape="rect" href="exclusive-consumer.xml">Exclusive Consumer</a> which allows only a single consumer to consume from the queue at once to preseve order</li><li><a shape="rect" href="message-groups.xml">Message Groups</a> which splits the messages on a queue into parallel virtual exclusive queues to ensure that messages to a single message group (defined by the JMSXGroupID header) will have their order preserved but that different groups will be load balanced to different consumers.</li></ul></div>
+<ul><li><link><page ri:content-title="Exclusive Consumer"></page></link> which allows only a single consumer to consume from the queue at once to preseve order</li><li><link><page ri:content-title="Message Groups"></page></link> which splits the messages on a queue into parallel virtual exclusive queues to ensure that messages to a single message group (defined by the JMSXGroupID header) will have their order preserved but that different groups will be load balanced to different consumers.</li></ul>
+</div>
 

@@ -1,4 +1,4 @@
-<div class="wiki-content maincontent"><h2 id="HowdoIuseJMSefficiently-HowdoIuseJMSefficiently?">How do I use JMS efficiently?</h2>
+<div class="wiki-content maincontent"><h2>How do I use JMS efficiently?</h2>
 
 <p>JMS is designed for high performance. In particular its design is such that you are meant to create a number of objects up front on the startup of your application and then resuse them throughout your application. e.g. its a good idea to create upfront and then reuse the following</p>
 
@@ -9,26 +9,26 @@
 
 <p>Note a little trick - you can reuse the same MessageProducer for sending messages to different destinations; just create it with a null destination and specify it on the send method.</p>
 
-<div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>MessageProducer instances that are created with a null destination are anonymous producers and as such the broker cannot fire an advisory for producer when these are created.  This means that when the pooled MessageProducer is in use no advisories for producers will ever be sent.</p></div></div>
+<structured-macro ac:macro-id="ccc153ab-d88c-47fe-8513-11d4a6743a3b" ac:name="info" ac:schema-version="1"><rich-text-body><p>MessageProducer instances that are created with a null destination are anonymous producers and as such the broker cannot fire an advisory for producer when these are created.  This means that when the pooled MessageProducer is in use no advisories for producers will ever be sent.</p></rich-text-body></structured-macro>
 
-<h3 id="HowdoIuseJMSefficiently-UsingPoolingwithJMS">Using Pooling with JMS</h3>
+<h3>Using Pooling with JMS</h3>
 
-<p>To use JMS efficiently we recommend you use <a shape="rect" class="external-link" href="http://activemq.apache.org/camel/">Camel</a> to hide the JMS API and <a shape="rect" class="external-link" href="http://activemq.apache.org/camel/bean-integration.html">bind the messaging to your beans</a>. </p>
+<p>To use JMS efficiently we recommend you use <a shape="rect" href="http://activemq.apache.org/camel/">Camel</a> to hide the JMS API and <a shape="rect" href="http://activemq.apache.org/camel/bean-integration.html">bind the messaging to your beans</a>. </p>
 
-<p>Alternatively try using Spring's <a shape="rect" class="external-link" href="http://static.springsource.org/spring/docs/2.5.x/reference/jms.html#jms-mdp" rel="nofollow">MessageListenerContainer</a> for consuming messages and <a shape="rect" class="external-link" href="http://static.springsource.org/spring/docs/2.5.x/reference/jms.html#jms-jmstemplate" rel="nofollow">JmsTemplate</a> for sending - but be <a shape="rect" class="external-link" href="http://activemq.apache.org/jmstemplate-gotchas.html">aware of the gotchas</a></p>
+<p>Alternatively try using Spring's <a shape="rect" href="http://static.springsource.org/spring/docs/2.5.x/reference/jms.html#jms-mdp">MessageListenerContainer</a> for consuming messages and <a shape="rect" href="http://static.springsource.org/spring/docs/2.5.x/reference/jms.html#jms-jmstemplate">JmsTemplate</a> for sending - but be <a shape="rect" href="http://activemq.apache.org/jmstemplate-gotchas.html">aware of the gotchas</a></p>
 
-<h3 id="HowdoIuseJMSefficiently-Otherperformancetips">Other performance tips</h3>
+<h3>Other performance tips</h3>
 
 <p>Also see</p>
 
-<ul><li><a shape="rect" href="should-i-use-transactions.xml">Should I use transactions</a></li><li><a shape="rect" href="should-i-use-xa.xml">Should I use XA</a></li></ul>
+<ul><li><link><page ri:content-title="Should I use transactions"></page></link></li><li><link><page ri:content-title="Should I use XA"></page></link></li></ul>
 
 
-<h3 id="HowdoIuseJMSefficiently-JavaConnectorArchitecture">Java Connector Architecture</h3>
+<h3>Java Connector Architecture</h3>
 
-<p><a shape="rect" class="external-link" href="http://java.sun.com/j2ee/connector/" rel="nofollow">Java Connector Architecture</a> supports the pooling of JMS connections, sessions and MessageListeners, parallel message processing, thread pooling and transaction &amp; exception handling, through the use of a JCA <a shape="rect" href="resource-adapter.xml">Resource Adapter</a>.</p>
+<p><a shape="rect" href="http://java.sun.com/j2ee/connector/">Java Connector Architecture</a> supports the pooling of JMS connections, sessions and MessageListeners, parallel message processing, thread pooling and transaction &amp; exception handling, through the use of a JCA <link><page ri:content-title="Resource Adapter"></page></link>.</p>
 
-<div class="confluence-information-macro confluence-information-macro-information"><span class="aui-icon aui-icon-small aui-iconfont-info confluence-information-macro-icon"></span><div class="confluence-information-macro-body"><p>All of these benefits are also available through Spring's MessageListenerContiner <strong>except</strong> for the XA transactions. If you need XA support then you must use JCA</p></div></div>
+<structured-macro ac:macro-id="9defc5ad-cad2-4c9b-a04d-f628a5477c2b" ac:name="info" ac:schema-version="1"><rich-text-body><p>All of these benefits are also available through Spring's MessageListenerContiner <strong>except</strong> for the XA transactions. If you need XA support then you must use JCA</p></rich-text-body></structured-macro>
 
-<p>Typically JCA is used in a J2EE container via MDBs; though there is a POJO Spring based <a shape="rect" href="jca-container.xml">JCA Container</a> you can use, which is simple and lightweight and easy to embed inside Tomcat or any J2SE application.</p></div>
+<p>Typically JCA is used in a J2EE container via MDBs; though there is a POJO Spring based <link><page ri:content-title="JCA Container"></page></link> you can use, which is simple and lightweight and easy to embed inside Tomcat or any J2SE application.</p></div>
 

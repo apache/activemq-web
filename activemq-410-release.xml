@@ -1,11 +1,8 @@
-<div class="wiki-content maincontent"><div style="padding-right:20px;float:left;margin-left:-20px;">
-<p><span class="confluence-embedded-file-wrapper"><img class="confluence-embedded-image confluence-external-resource" src="http://activemq.apache.org/activemq-410-release.data/activemq-4.1-box-reflection.png" data-image-src="http://activemq.apache.org/activemq-410-release.data/activemq-4.1-box-reflection.png"></span></p></div>
+<div class="wiki-content maincontent"><structured-macro ac:macro-id="7eb0ee22-25e8-40c4-93e7-7b231d410e59" ac:name="div" ac:schema-version="1"><parameter ac:name="style">padding-right:20px;float:left;margin-left:-20px;</parameter><rich-text-body>
+<p><image><url ri:value="http://activemq.apache.org/activemq-410-release.data/activemq-4.1-box-reflection.png"></url></image></p></rich-text-body></structured-macro>
 
-
-
-
-<div style="min-height:200px">
-<h2 id="ActiveMQ4.1.0Release-NewandNoteworthy">New and Noteworthy</h2>
+<structured-macro ac:macro-id="c53e9a16-861b-44a4-9315-41722329fbd8" ac:name="div" ac:schema-version="1"><parameter ac:name="style">min-height:200px</parameter><rich-text-body>
+<h2>New and Noteworthy</h2>
 
 <p>This is release contains several major enhancements such as:</p>
 
@@ -14,28 +11,20 @@
 
 <p>It also contains a slew of bug fixes that are tracked in the change log.</p>
 
-<h2 id="ActiveMQ4.1.0Release-DownloadHere">Download Here</h2>
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Download Link</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary for Windows</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.zip">apache-activemq-4.1.0-incubator.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.zip.asc">incubator-activemq-4.1.0.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary for Unix/Linux/Cygwin</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.tar.gz">apache-activemq-4.1.0-incubator.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.tar.gz.asc">incubator-activemq-4.1.0.tar.gz.asc</a></p></td></tr></tbody></table></div>
+<h2>Download Here</h2>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Description</p></th><th colspan="1" rowspan="1"><p>Download Link</p></th><th colspan="1" rowspan="1"><p>PGP Signature file of download</p></th></tr><tr><td colspan="1" rowspan="1"><p>Binary for Windows</p></td><td colspan="1" rowspan="1"><p><a shape="rect" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.zip">apache-activemq-4.1.0-incubator.zip</a></p></td><td colspan="1" rowspan="1"><p><a shape="rect" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.zip.asc">incubator-activemq-4.1.0.zip.asc</a></p></td></tr><tr><td colspan="1" rowspan="1"><p>Binary for Unix/Linux/Cygwin</p></td><td colspan="1" rowspan="1"><p><a shape="rect" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.tar.gz">apache-activemq-4.1.0-incubator.tar.gz</a></p></td><td colspan="1" rowspan="1"><p><a shape="rect" href="http://people.apache.org/repo/m2-incubating-repository/org/apache/activemq/apache-activemq/4.1.0-incubator/apache-activemq-4.1.0-incubator.tar.gz.asc">incubator-activemq-4.1.0.tar.gz.asc</a></p></td></tr></tbody></table>
 
-</div>
+</rich-text-body></structured-macro>
 
-
-
-
-<h2 id="ActiveMQ4.1.0Release-SVNTagCheckout">SVN Tag Checkout</h2>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<h2>SVN Tag Checkout</h2>
+<structured-macro ac:macro-id="555f21ec-222c-48eb-924c-4afaccbc4b25" ac:name="code" ac:schema-version="1"><plain-text-body>
 svn co https://svn.apache.org/repos/asf/activemq/tags/activemq-4.1.0 
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h2 id="ActiveMQ4.1.0Release-Changelog">Changelog</h2>
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11691&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p>
+<h2>Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="http://issues.apache.org/activemq/secure/ReleaseNote.jspa?version=11691&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p>
 
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
-</div>
+<structured-macro ac:macro-id="e45b257b-5f8b-4949-b9f8-d1e7da3d4e24" ac:name="jiraissues" ac:schema-version="1"><parameter ac:name="columns">type;key;summary</parameter><parameter ac:name="url"><url ri:value="http://issues.apache.org/activemq/secure/IssueNavigator.jspa?view=rss&amp;&amp;pid=10520&amp;fixfor=11691&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;tempMax=25&amp;reset=true&amp;decorator=none"></url></parameter></structured-macro>
 
-
-<p>Also see the previous <a shape="rect" href="activemq-402-release.xml">ActiveMQ 4.0.2 Release</a></p></div>
+<p>Also see the previous <link><page ri:content-title="ActiveMQ 4.0.2 Release"></page></link></p></div>
 

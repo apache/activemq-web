@@ -1,19 +1,16 @@
 <div class="wiki-content maincontent">
-<h2 id="ActiveMQ3.2.2Release-NewandNoteworthy">New and Noteworthy</h2>
+<h2>New and Noteworthy</h2>
 
 <p>This release is a bug fix release and users of previous versions of 3.2 are encouraged to upgrade to this version.</p>
 
-<h2 id="ActiveMQ3.2.2Release-DownloadHere">Download Here</h2>
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Download</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.2.zip" rel="nofollow">activemq-3.2.2.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.2-src.zip" rel="nofollow">activemq-3.2.2-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.2.tar.gz" rel="nofollow">activemq-3.2.2.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.2-src.tar.gz" rel="nofollow">activemq-3.2.2-src.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in gz package</p></td></tr></tbody></table></div>
+<h2>Download Here</h2>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Download</p></th><th colspan="1" rowspan="1"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.2.zip">activemq-3.2.2.zip</a></p></td><td colspan="1" rowspan="1"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.2-src.zip">activemq-3.2.2-src.zip</a></p></td><td colspan="1" rowspan="1"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.2.tar.gz">activemq-3.2.2.tar.gz</a></p></td><td colspan="1" rowspan="1"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-3.2.2-src.tar.gz">activemq-3.2.2-src.tar.gz</a></p></td><td colspan="1" rowspan="1"><p>Source Distribution in gz package</p></td></tr></tbody></table>
 
 
-<h2 id="ActiveMQ3.2.2Release-Changelog">Changelog</h2>
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11723&amp;styleName=Html&amp;projectId=10520&amp;Create=Create" rel="nofollow">release notes</a></p>
+<h2>Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11723&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p>
 
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
-</div>
+<structured-macro ac:macro-id="8e517002-3efb-4615-8af9-0e710c7488b0" ac:name="jiraissues" ac:schema-version="1"><parameter ac:name="url"><url ri:value="http://jira.activemq.org/jira/secure/IssueNavigator.jspa?view=rss&amp;&amp;pid=10520&amp;fixfor=11723&amp;status=5&amp;status=6&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;tempMax=25&amp;reset=true&amp;decorator=none"></url></parameter></structured-macro>
 
-
-<p>You may also want to look at <a shape="rect" href="activemq-321-release.xml">the previous Changelog</a></p></div>
+<p>You may also want to look at <link><page ri:content-title="ActiveMQ 3.2.1 Release"></page><link-body>the previous Changelog</link-body></link></p></div>
 

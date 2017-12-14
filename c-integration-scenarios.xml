@@ -1,11 +1,11 @@
 <div class="wiki-content maincontent">
-<h2 id="Cintegrationscenarios-OnewayandRPCwithCservices">One way and RPC with C services</h2>
+<h2>One way and RPC with C services</h2>
 <p>Its common for the C services to be the back end services. The 2 common use cases are</p>
 
 <ul><li>we send a message one-way to a C service</li><li>we send a message to a C-service and wait for the result, then reply back to the originator the result</li></ul>
 
 
-<h3 id="Cintegrationscenarios-Makingone-waysreliable">Making one-ways reliable</h3>
+<h3>Making one-ways reliable</h3>
 
 <p>If we assume that the C-service is fairly atomic, it works or it doesn't and does not partially work, then for one-way handling we just need some code to...</p>
 
@@ -23,7 +23,7 @@
 
 <p>Another approach could be for the C service to say whether or not it has successfully processed the message before. This just pushes the problem inside the C code requiring that it persists when things are invoked and when things complete so that it can know when duplicate messages are delivered.</p>
 
-<h3 id="Cintegrationscenarios-makingRPCreliable">making RPC reliable</h3>
+<h3>making RPC reliable</h3>
 
 <p>This scenario is as above but rather than just acknowledge the inbound message we wish to send a reply and acknowledge the inbound message. So this could be regarded as a small JMS transaction.</p>
 
@@ -32,7 +32,7 @@
 
 <p>Again if the C service is capable of knowing if it has seen the message before then we can avoiid step 3.</p>
 
-<h3 id="Cintegrationscenarios-connectivitytoC">connectivity to C</h3>
+<h3>connectivity to C</h3>
 
 <p>We can link C into a Java process and invoke it directly via JNI. Another option is to wrap the C code as an Apache module and perform a HTTP POST to invoke a C service and extract the results of the service.</p></div>
 

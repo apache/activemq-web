@@ -1,6 +1,6 @@
-<div class="wiki-content maincontent"><h2 id="Performancereport-Performanceguides">Performance guides</h2>
+<div class="wiki-content maincontent"><h2>Performance guides</h2>
 
-<p>If you're not convinced by performance reports then please do try running performance tests yourself. You might wanna check out our overview of <a shape="rect" href="performance.xml">Performance</a> or try using out the <a shape="rect" href="activemq-performance-module-users-manual.xml">ActiveMQ Performance Module Users Manual</a></p>
+<p>If you're not convinced by performance reports then please do try running performance tests yourself. You might wanna check out our overview of <link><page ri:content-title="Performance"></page></link> or try using out the <link><page ri:content-title="ActiveMQ Performance Module Users Manual"></page></link></p>
 
-<p>The Commercial Providers on the <a shape="rect" href="support.xml">Support</a> page may also be able to help diagnose performance issues, suggest changes, etc...</p></div>
+<p>The Commercial Providers on the <link><page ri:content-title="Support"></page></link> page may also be able to help diagnose performance issues, suggest changes, etc...</p></div>
 

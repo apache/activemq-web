@@ -1,9 +1,8 @@
 <div class="wiki-content maincontent"><p>If you get an error like this</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="0dfcf27e-6364-483a-9709-288117d4b6b7" ac:name="code" ac:schema-version="1"><plain-text-body>
 2005-08-14 17:18:45,618 ERROR [org.jboss.resource.deployment.RARDeployment] 
-Starting failed jboss.jca:service=RARDeployment,name=&#39;activemq-ra-3.0.rar&#39;
+Starting failed jboss.jca:service=RARDeployment,name='activemq-ra-3.0.rar'
 org.jboss.deployment.DeploymentException: Error for resource adapter class 
 org.activemq.ra.ActiveMQResourceAdapter accessing property setter 
 ConfigPropertyMetaData@e62121[name=UseEmbeddedBroker type=java.lang.Boolean 
@@ -29,10 +28,9 @@ org.jboss.mx.server.RawDynamicInvoker.invoke(RawDynamicInvoker.java:150)
 org.jboss.mx.server.MBeanServerImpl.invoke(MBeanServerImpl.java:644)
         at 
 org.jboss.system.ServiceController$ServiceProxy.invoke(ServiceController.java:897)
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="java.lang.NoSuchMethodExceptionorg.activemq.ra.ActiveMQResourceAdapter.setUseEmbeddedBroker-Fix">Fix</h3>
+<h3>Fix</h3>
 
 <p>You are using 3.0 of ActiveMQ. This bug is fixed in 3.1.x so use 3.1-M6 or later.</p></div>
 

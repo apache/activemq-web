@@ -1,7 +1,7 @@
 <div class="wiki-content maincontent">
 
 
-<p>I've just committed support for JXTA based transports. Its very early days and not yet tested but it allows the reuse of JXTA for NAT / firewall based navigation using <a shape="rect" class="external-link" href="http://p2psockets.jxta.org/" rel="nofollow">p2psockets</a>.</p>
+<p>I've just committed support for JXTA based transports. Its very early days and not yet tested but it allows the reuse of JXTA for NAT / firewall based navigation using <a shape="rect" href="http://p2psockets.jxta.org/">p2psockets</a>.</p>
 
 <p>In addition we've now got SocketFactory and ServerSocketFactory based factories for TransportChannel / TransportServerChannel including a default implementation using SSL.</p></div>
 

@@ -1,31 +1,30 @@
-<div class="wiki-content maincontent"><h2 id="HowshouldIimplementrequestresponsewithJMS-HowshouldIimplementrequestresponsewithJMS?">How should I implement request response with JMS?</h2>
+<div class="wiki-content maincontent"><h2>How should I implement request response with JMS?</h2>
 
-<p>The simplest solution is to use <a shape="rect" class="external-link" href="http://activemq.apache.org/camel/spring-remoting.html">Camel as a Spring Remoting provider</a> which allows you to hide all the JMS API from your business logic and letting Camel provide the request/response handling code for you.</p>
+<p>The simplest solution is to use <a shape="rect" href="http://activemq.apache.org/camel/spring-remoting.html">Camel as a Spring Remoting provider</a> which allows you to hide all the JMS API from your business logic and letting Camel provide the request/response handling code for you.</p>
 
 <p>However if you wish to write the JMS client code yourself, please read on how it works...</p>
 
-<h3 id="HowshouldIimplementrequestresponsewithJMS-UsingtheJMSAPItoimplementrequest-response">Using the JMS API to implement request-response</h3>
+<h3>Using the JMS API to implement request-response</h3>
 
 <p>You might think at first that to implement request-response type operations in JMS that you should create a new consumer with a selector per request; or maybe create a new temporary queue per request.</p>
 
 <p>Creating temporary destinations, consumers, producers and connections are all synchronous request-response operations with the broker and so should be avoided for processing each request as it results in lots of chat with the JMS broker.</p>
 
-<p>The best way to implement request-response over JMS is to create a temporary queue and consumer per client on startup, set JMSReplyTo property on each message to the temporary queue and then use a <a shape="rect" class="external-link" href="http://java.sun.com/j2ee/1.4/docs/api/javax/jms/Message.html#setJMSCorrelationID(java.lang.String)" rel="nofollow">correlationID on each message</a> to correlate request messages to response messages. This avoids the overhead of creating and closing a consumer for each request (which is expensive). It also means you can share the same producer &amp; consumer across many threads if you want (or pool them maybe).</p>
+<p>The best way to implement request-response over JMS is to create a temporary queue and consumer per client on startup, set JMSReplyTo property on each message to the temporary queue and then use a <a shape="rect" href="http://java.sun.com/j2ee/1.4/docs/api/javax/jms/Message.html#setJMSCorrelationID(java.lang.String)">correlationID on each message</a> to correlate request messages to response messages. This avoids the overhead of creating and closing a consumer for each request (which is expensive). It also means you can share the same producer &amp; consumer across many threads if you want (or pool them maybe).</p>
 
-<p>The <a shape="rect" class="external-link" href="http://lingo.codehaus.org/" rel="nofollow">Lingo library</a> is an implementation of Spring remoting using JMS. (Spring remoting is a kind of POJO based remoting where the remoting code is invisible to your business logic code).</p>
+<p>The <a shape="rect" href="http://lingo.codehaus.org/">Lingo library</a> is an implementation of Spring remoting using JMS. (Spring remoting is a kind of POJO based remoting where the remoting code is invisible to your business logic code).</p>
 
 <p>It uses exactly this pattern; of using correlation IDs to correlate requests to responses. The server side just has to remember to put the inbound message's correlation ID on the response.</p>
 
-<p>The actual class which does this is the <a shape="rect" class="external-link" href="http://lingo.codehaus.org/maven/apidocs/org/logicblaze/lingo/jms/impl/MultiplexingRequestor.html" rel="nofollow">MultiplexingRequestor</a> . It may be just using Spring remoting with Lingo is the simplest way of implementing request response - or maybe you could just use Lingo's <a shape="rect" class="external-link" href="http://lingo.codehaus.org/maven/apidocs/org/logicblaze/lingo/jms/Requestor.html" rel="nofollow">Requestor</a> interface to keep the JMS semantics.</p>
+<p>The actual class which does this is the <a shape="rect" href="http://lingo.codehaus.org/maven/apidocs/org/logicblaze/lingo/jms/impl/MultiplexingRequestor.html">MultiplexingRequestor</a> . It may be just using Spring remoting with Lingo is the simplest way of implementing request response - or maybe you could just use Lingo's <a shape="rect" href="http://lingo.codehaus.org/maven/apidocs/org/logicblaze/lingo/jms/Requestor.html">Requestor</a> interface to keep the JMS semantics.</p>
 
-<p>More details <a shape="rect" class="external-link" href="http://docs.codehaus.org/display/LINGO/Request+Response+with+JMS" rel="nofollow">here</a></p>
+<p>More details <a shape="rect" href="http://docs.codehaus.org/display/LINGO/Request+Response+with+JMS">here</a></p>
 
-<h3 id="HowshouldIimplementrequestresponsewithJMS-Clientside">Client side</h3>
+<h3>Client side</h3>
 
 <p>So the client side creates a consumer on a temporary queue as follows...</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="e5020b3a-4e69-470a-b610-ea3fbee197fb" ac:name="code" ac:schema-version="1"><plain-text-body>
 // client side
 Destination tempDest = session.createTemporaryQueue();
 MessageConsumer responseConsumer = session.createConsumer(tempDest);
@@ -36,13 +35,11 @@ message.setJMSReplyTo(tempDest)
 message.setJMSCorrelationID(myCorrelationID);
 
 producer.send(message);
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="HowshouldIimplementrequestresponsewithJMS-Serverside">Server side</h3>
+<h3>Server side</h3>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="785c40c9-dacb-477c-b52b-d6cf5a93efdd" ac:name="code" ac:schema-version="1"><plain-text-body>
 public void onMessage(Message request) {
 
   Message response = session.createMessage();
@@ -50,15 +47,13 @@ public void onMessage(Message request) {
 
   producer.send(request.getJMSReplyTo(), response)
 }
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h2 id="HowshouldIimplementrequestresponsewithJMS-FullExamples">Full Examples</h2>
+<h2>Full Examples</h2>
 
-<h3 id="HowshouldIimplementrequestresponsewithJMS-ServerSide">Server Side</h3>
+<h3>Server Side</h3>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="c70ef9de-68d0-4a3f-914d-a38cd43b1119" ac:name="code" ac:schema-version="1"><parameter ac:name="type">java</parameter><plain-text-body>
 import org.apache.activemq.broker.BrokerService;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
@@ -75,8 +70,8 @@ public class Server implements MessageListener {
     private MessageProtocol messageProtocol;
 
     static {
-        messageBrokerUrl = &quot;tcp://localhost:61616&quot;;
-        messageQueueName = &quot;client.messages&quot;;
+        messageBrokerUrl = "tcp://localhost:61616";
+        messageQueueName = "client.messages";
         ackMode = Session.AUTO_ACKNOWLEDGE;
     }
 
@@ -146,13 +141,11 @@ public class Server implements MessageListener {
         new Server();
     }
 }
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="HowshouldIimplementrequestresponsewithJMS-ClientSide">Client Side</h3>
+<h3>Client Side</h3>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="a2819c9c-22b8-449b-b6d3-1938be462d9e" ac:name="code" ac:schema-version="1"><parameter ac:name="type">java</parameter><plain-text-body>
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
@@ -166,12 +159,12 @@ public class Client implements MessageListener {
     private MessageProducer producer;
 
     static {
-        clientQueueName = &quot;client.messages&quot;;
+        clientQueueName = "client.messages";
         ackMode = Session.AUTO_ACKNOWLEDGE;
     }
 
     public Client() {
-        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(&quot;tcp://localhost:61616&quot;);
+        ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://localhost:61616");
         Connection connection;
         try {
             connection = connectionFactory.createConnection();
@@ -194,7 +187,7 @@ public class Client implements MessageListener {
 
             //Now create the actual message you want to send
             TextMessage txtMessage = session.createTextMessage();
-            txtMessage.setText(&quot;MyProtocolMessage&quot;);
+            txtMessage.setText("MyProtocolMessage");
 
             //Set the reply to field to the temp queue you created above, this is the queue the server
             //will respond to
@@ -225,7 +218,7 @@ public class Client implements MessageListener {
             if (message instanceof TextMessage) {
                 TextMessage textMessage = (TextMessage) message;
                 messageText = textMessage.getText();
-                System.out.println(&quot;messageText = &quot; + messageText);
+                System.out.println("messageText = " + messageText);
             }
         } catch (JMSException e) {
             //Handle the exception appropriately
@@ -236,27 +229,24 @@ public class Client implements MessageListener {
         new Client();
     }
 }
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h3 id="HowshouldIimplementrequestresponsewithJMS-ProtocolClass">Protocol Class</h3>
+<h3>Protocol Class</h3>
 
 <p>This class is needed to run the client/server example above. Delegating the handling of messages to a seperate class is solely a personal preference.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="03110497-2192-42aa-b217-ccd1d89e36e2" ac:name="code" ac:schema-version="1"><parameter ac:name="type">java</parameter><plain-text-body>
 public class MessageProtocol {
     public String handleProtocolMessage(String messageText) {
         String responseText;
-        if (&quot;MyProtocolMessage&quot;.equalsIgnoreCase(messageText)) {
-            responseText = &quot;I recognize your protocol message&quot;;
+        if ("MyProtocolMessage".equalsIgnoreCase(messageText)) {
+            responseText = "I recognize your protocol message";
         } else {
-            responseText = &quot;Unknown protocol message: &quot; + messageText;
+            responseText = "Unknown protocol message: " + messageText;
         }
         
         return responseText;
     }
 }
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

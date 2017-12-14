@@ -1,5 +1,4 @@
-<div class="wiki-content maincontent"><p>The Apache.NMS.ActiveMQ client provides some additional features beyond the standard NMS API.&#160; One such feature is the ability to delete a given destination on the Broker.&#160; This can be useful during testing when you want to start the test with a destination in a known state, empty or otherwise.&#160; You can delete the destination and then the next send to that destination would recreate it at the Broker side.&#160; Deleting a destination is as simple as the following:</p><p>&#160;</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeHeader panelHeader pdl" style="border-bottom-width: 1px;"><b>Delete a destination</b></div><div class="codeContent panelContent pdl">
-<script class="brush: c#; gutter: true; theme: Eclipse" type="syntaxhighlighter"><![CDATA[protected static void DeleteDestination() 
+<div class="wiki-content maincontent"><p>The Apache.NMS.ActiveMQ client provides some additional features beyond the standard NMS API.&#160; One such feature is the ability to delete a given destination on the Broker.&#160; This can be useful during testing when you want to start the test with a destination in a known state, empty or otherwise.&#160; You can delete the destination and then the next send to that destination would recreate it at the Broker side.&#160; Deleting a destination is as simple as the following:</p><p>&#160;</p><structured-macro ac:macro-id="1d7e38db-152c-47ca-8a28-d6a97a0ce97c" ac:name="code" ac:schema-version="1"><parameter ac:name="theme">Eclipse</parameter><parameter ac:name="language">c#</parameter><parameter ac:name="title">Delete a destination</parameter><parameter ac:name="linenumbers">true</parameter><plain-text-body>protected static void DeleteDestination() 
 { 
     IConnectionFactory factory = new ConnectionFactory(ReplaceEnvVar(connectionURI)); 
     using (Connection connection = factory.CreateConnection() as Connection) 
@@ -16,6 +15,5 @@
             } 
         } 
     } 
-} ]]></script>
-</div></div><p>&#160;</p><p>&#160;</p></div>
+} </plain-text-body></structured-macro><p>&#160;</p><p>&#160;</p></div>
 

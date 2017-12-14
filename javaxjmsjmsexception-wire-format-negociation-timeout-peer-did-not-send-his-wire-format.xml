@@ -1,34 +1,30 @@
 <div class="wiki-content maincontent"><p>If you get exception like this:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="c7fff064-ddf6-4be8-b885-84e74304b951" ac:name="code" ac:schema-version="1"><plain-text-body>
 javax.jms.JMSException: Wire format negociation timeout: peer did not send his wire format.
 at org.apache.activemq.util.JMSExceptionSupport.create(JMSExceptionSupport.java:58)
 at org.apache.activemq.ActiveMQConnection.syncSendPacket(ActiveMQConnection.java:1185)
 at org.apache.activemq.ActiveMQConnection.ensureConnectionInfoSent(ActiveMQConnection.java:1263)
 at org.apache.activemq.ActiveMQConnection.start(ActiveMQConnection.java:449)
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>it can mean one of three things:</p>
 
-<h1 id="javax.jms.JMSException-Wireformatnegociationtimeout-peerdidnotsendhiswireformat.-1.You'reconnectingtotheportnotusedbyActiveMQTCPtransport">1. You're connecting to the port not used by ActiveMQ TCP transport</h1>
+<h1>1. You're connecting to the port not used by ActiveMQ TCP transport</h1>
 
 <p>Make sure to check that you're connecting to the appropriate <code>host:port</code></p>
 
-<h1 id="javax.jms.JMSException-Wireformatnegociationtimeout-peerdidnotsendhiswireformat.-2.You'reusinglog4jJMSappenderanddoesn'tfilteroutActiveMQlogmessages">2. You're using log4j JMS appender and doesn't filter out ActiveMQ log messages</h1>
+<h1>2. You're using log4j JMS appender and doesn't filter out ActiveMQ log messages</h1>
 
-<p>Be sure to read <a shape="rect" href="how-do-i-use-log4j-jms-appender-with-activemq.xml">How do I use log4j JMS appender with ActiveMQ</a> and more importantly to never send ActiveMQ log messages to JMS appender</p>
+<p>Be sure to read <link><page ri:content-title="How do I use log4j JMS appender with ActiveMQ"></page></link> and more importantly to never send ActiveMQ log messages to JMS appender</p>
 
-<h1 id="javax.jms.JMSException-Wireformatnegociationtimeout-peerdidnotsendhiswireformat.-3.Yourbrokerisprobablyunderheavyload(ornetworkconnectionisunreliable),soconnectionsetupcannotbecompletedinareasonabletime">3. Your broker is probably under heavy load (or network connection is unreliable), so connection setup cannot be completed in a reasonable time</h1>
+<h1>3. Your broker is probably under heavy load (or network connection is unreliable), so connection setup cannot be completed in a reasonable time</h1>
 
-<p>If you experience sporadic exceptions like this, the best solution is to use <a shape="rect" href="failover-transport-reference.xml">failover transport</a>, so that your clients can try connecting again if the first attempt fails. If you're getting these kind of exceptions more frequently you can also try extending wire format negotiation period (default 10 sec). You can do that by using <code>wireFormat.maxInactivityDurationInitalDelay</code> property on the connection URL in your client. For example</p>
+<p>If you experience sporadic exceptions like this, the best solution is to use <link><page ri:content-title="Failover Transport Reference"></page><link-body>failover transport</link-body></link>, so that your clients can try connecting again if the first attempt fails. If you're getting these kind of exceptions more frequently you can also try extending wire format negotiation period (default 10 sec). You can do that by using <code>wireFormat.maxInactivityDurationInitalDelay</code> property on the connection URL in your client. For example</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="9d307573-86f2-48c2-887c-50dd112ec50d" ac:name="code" ac:schema-version="1"><plain-text-body>
 tcp://localhost:61616?wireFormat.maxInactivityDurationInitalDelay=30000
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>will use 30 sec timeout.</p></div>
 

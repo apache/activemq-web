@@ -7,29 +7,26 @@ A BlazeMessage is a a Map of key value pairs, where the keys are strings and the
 
 <p>You can create a BlazeMessage by its default constructor - e.g.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="a611d08e-785c-4bdb-861c-cfa37d3c08c8" ac:name="code" ac:schema-version="1"><plain-text-body>
  import org.apache.activeblaze.*;
  ...
 
  BlazeMessage msg = new BlazeMessage();
- msg.setFloatValue(&quot;rate&quot;,0.94f);
+ msg.setFloatValue("rate",0.94f);
 
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>There's a few utility methods to support passing around standard objects - e.g.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="94118c88-1bcb-4e3e-bdfc-e352b945c4ea" ac:name="code" ac:schema-version="1"><plain-text-body>
  import org.apache.activeblaze.*;
  ...
 
- BlazeMessage msg = new BlazeMessage(&quot;test string&quot;);
+ BlazeMessage msg = new BlazeMessage("test string");
  String text = msg.getText();
 
  BlazeMessage msg = new BlazeMessage();
- msg.setText(&quot;test string&quot;);
+ msg.setText("test string");
  String text = msg.getText();
  
  ...
@@ -39,7 +36,7 @@ A BlazeMessage is a a Map of key value pairs, where the keys are strings and the
  byte[] result  = msg.getBytes();
 
  BlazeMessage msg = new BlazeMessage();
- msg.setBytes(&quot;data);
+ msg.setBytes("data);
  byte[] result = msg.getData();
 
  ...
@@ -53,6 +50,5 @@ A BlazeMessage is a a Map of key value pairs, where the keys are strings and the
  Object result = msg.getObject();
  
 
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

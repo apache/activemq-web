@@ -1,40 +1,41 @@
-<div class="wiki-content maincontent"><h3 id="Navigation-Overview"><a shape="rect" href="index.xml">Overview</a></h3>
+<div class="wiki-content maincontent"><h3><link><page ri:content-title="Index"></page><link-body>Overview</link-body></link></h3>
 
-<ul class="alternate"><li><a shape="rect" href="index.xml">Index</a></li><li><a shape="rect" href="news.xml">News</a></li><li><a shape="rect" href="getting-started.xml">Getting Started</a></li><li><a shape="rect" href="tutorials.xml">Tutorials</a></li><li><a shape="rect" href="api.xml">API</a></li><li><a shape="rect" href="faq.xml">FAQ</a></li><li><a shape="rect" href="download.xml">Download</a></li></ul>
-
-
-<h3 id="Navigation-Connectivity"><a shape="rect" href="connectivity.xml">Connectivity</a></h3>
-
-<ul class="alternate"><li><a shape="rect" href="stomp-support.xml">Stomp</a></li><li><a shape="rect" href="openwire-support.xml">OpenWire</a></li></ul>
+<ul class="alternate"><li><link><page ri:content-title="Index"></page></link></li><li><link><page ri:content-title="News"></page></link></li><li><link><page ri:content-title="Getting Started"></page></link></li><li><link><page ri:content-title="Tutorials"></page></link></li><li><link><page ri:content-title="API"></page></link></li><li><link><page ri:content-title="FAQ"></page></link></li><li><link><page ri:content-title="Download"></page></link></li></ul>
 
 
-<h3 id="Navigation-UsingActiveMQ-CPP"><a shape="rect" href="using-activemq-cpp.xml">Using ActiveMQ-CPP</a></h3>
+<h3><link><page ri:content-title="Connectivity"></page></link></h3>
 
-<ul class="alternate"><li><a shape="rect" href="getting-started.xml">Getting Started</a></li><li><a shape="rect" href="cms-api-overview.xml">CMS API Overview</a></li><li><a shape="rect" href="example.xml">Example</a></li><li><a shape="rect" href="configuring.xml">Configuring</a></li></ul>
+<ul class="alternate"><li><link><page ri:content-title="Stomp Support"></page><link-body>Stomp</link-body></link></li><li><link><page ri:content-title="OpenWire Support"></page><link-body>OpenWire</link-body></link></li></ul>
 
 
-<h3 id="Navigation-Search">Search</h3>
+<h3><link><page ri:content-title="Using ActiveMQ-CPP"></page></link></h3>
 
-<p></p><p>
-</p><div>
-<form enctype="application/x-www-form-urlencoded" method="get" action="http://www.google.com/search" style="font-size: 10px;">
-<input type="hidden" name="ie" value="UTF-8">
-<input type="hidden" name="oe" value="UTF-8">
-  <input maxlength="255" type="text" name="q" size="15" value="value"><br clear="none">
-  <input type="submit" name="btnG" value="Search">
-  <input type="hidden" name="domains" value="activemq.apache.org">
-  <input type="hidden" name="sitesearch" value="activemq.apache.org">
-</form>
+<ul class="alternate"><li><link><page ri:content-title="Getting Started"></page></link></li><li><link><page ri:content-title="CMS API Overview"></page></link></li><li><link><page ri:content-title="Example"></page></link></li><li><link><page ri:content-title="Configuring"></page></link></li></ul>
+
+
+<h3>Search</h3>
+
+<p></p><p><structured-macro ac:macro-id="a6958b0d-f81f-414e-a092-9833bafc9aea" ac:name="html" ac:schema-version="1"><plain-text-body>
+&lt;DIV&gt;
+&lt;FORM action="http://www.google.com/search" method="get" style="font-size: 10px;"&gt;
+&lt;INPUT name="ie" type="hidden" value="UTF-8"&gt;&lt;/INPUT&gt;
+&lt;INPUT name="oe" type="hidden" value="UTF-8"&gt;&lt;/INPUT&gt;
+  &lt;INPUT maxlength="255" name="q" size="15" type="text" value&gt;&lt;/INPUT&gt;&lt;BR&gt;&lt;/BR&gt;
+  &lt;INPUT name="btnG" type="submit" value="Search"&gt;&lt;/INPUT&gt;
+  &lt;INPUT name="domains" type="hidden" value="activemq.apache.org"&gt;&lt;/INPUT&gt;
+  &lt;INPUT name="sitesearch" type="hidden" value="activemq.apache.org"&gt;&lt;/INPUT&gt;
+&lt;/FORM&gt;
+&lt;/DIV&gt;
+</plain-text-body></structured-macro></p><p></p>
+
+<h3><link><page ri:content-title="Community"></page></link></h3>
+
+<ul class="alternate"><li><link><page ri:content-title="Support"></page></link></li><li><a shape="rect" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" href="irc://irc.codehaus.org/activemq">IRC</a></li><li><a shape="rect" href="http://servlet.uwyn.com/drone/log/hausbot/activemq">IRC Log</a></li><li><link><page ri:content-title="Site"></page></link></li><li><a shape="rect" href="http://activemq.apache.org/team.html">Team</a></li></ul>
+
+
+
+<h3><link><page ri:content-title="Developers"></page></link></h3>
+
+<ul class="alternate"><li><link><page ri:content-title="Source"></page></link></li><li><link><page ri:content-title="Building"></page></link></li><li><link><page ri:content-title="Creating Distributions"></page></link></li></ul>
 </div>
-<p></p>
-
-<h3 id="Navigation-Community"><a shape="rect" href="community.xml">Community</a></h3>
-
-<ul class="alternate"><li><a shape="rect" href="support.xml">Support</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/contributing.html">Contributing</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/discussion-forums.html">Discussion Forums</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/mailing-lists.html">Mailing Lists</a></li><li><a shape="rect" class="external-link" href="irc://irc.codehaus.org/activemq" rel="nofollow">IRC</a></li><li><a shape="rect" class="external-link" href="http://servlet.uwyn.com/drone/log/hausbot/activemq" rel="nofollow">IRC Log</a></li><li><a shape="rect" href="site.xml">Site</a></li><li><a shape="rect" class="external-link" href="http://activemq.apache.org/team.html">Team</a></li></ul>
-
-
-
-<h3 id="Navigation-Developers"><a shape="rect" href="developers.xml">Developers</a></h3>
-
-<ul class="alternate"><li><a shape="rect" href="source.xml">Source</a></li><li><a shape="rect" href="building.xml">Building</a></li><li><a shape="rect" href="creating-distributions.xml">Creating Distributions</a></li></ul></div>
 

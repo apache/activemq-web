@@ -1,33 +1,30 @@
-<div class="wiki-content maincontent"><h2 id="Apache.NMS.Stompv1.5.0-NewandNoteworthy">New and Noteworthy</h2>
+<div class="wiki-content maincontent"><h2>New and Noteworthy</h2>
 
 <p>This release adds some great new features to the NMS Stomp client library and fixes several bugs found in the 1.4.0 release.</p>
 
-<h6 id="Apache.NMS.Stompv1.5.0-Newinthisrelease:">New in this release:</h6>
+<h6>New in this release:</h6>
 <ul><li>Support for the current changes in the Stomp 1.1 draft specification.</li><li>Improved Inactivity Monitoring with two way heartbeats when used with a Stomp v1.1 broker.</li><li>New startupMaxReconnectAttempts option in the failover transport.</li><li>Several other bugfixes for issues found since v1.4.0 was released.</li></ul>
 
 
-<h2 id="Apache.NMS.Stompv1.5.0-APIDocumentation">API Documentation</h2>
+<h2>API Documentation</h2>
 
-<p>Refer to the API for this release <a shape="rect" href="nms-api.xml">here</a></p>
+<p>Refer to the API for this release <link><page ri:content-title="NMS API"></page><link-body>here</link-body></link></p>
 
-<h2 id="Apache.NMS.Stompv1.5.0-Apache.NMS.StompDownloads">Apache.NMS.Stomp Downloads</h2>
+<h2>Apache.NMS.Stomp Downloads</h2>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Download Link </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> PGP Signature File </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Version </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Apache.NMS.Stomp Source code </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.Stomp-1.5.0-src.zip">Apache.NMS.Stomp-1.5.0-src.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.Stomp-1.5.0-src.zip.asc">Apache.NMS.Stomp-1.5.0-src.zip.asc</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1.5.0.2216 </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Apache.NMS.Stomp Binary Assemblies </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.Stomp-1.5.1-bin.zip">Apache.NMS.Stomp-1.5.0-bin.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.Stomp-1.5.0-bin.zip.asc">Apache.NMS.Stomp-1.5.0-bin.zip.asc</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1.5.1.2216 </p></td></tr></tbody></table></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Description </p></th><th colspan="1" rowspan="1"><p> Download Link </p></th><th colspan="1" rowspan="1"><p> PGP Signature File </p></th><th colspan="1" rowspan="1"><p> Version </p></th></tr><tr><td colspan="1" rowspan="1"><p> Apache.NMS.Stomp Source code </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.Stomp-1.5.0-src.zip">Apache.NMS.Stomp-1.5.0-src.zip</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.Stomp-1.5.0-src.zip.asc">Apache.NMS.Stomp-1.5.0-src.zip.asc</a> </p></td><td colspan="1" rowspan="1"><p> 1.5.0.2216 </p></td></tr><tr><td colspan="1" rowspan="1"><p> Apache.NMS.Stomp Binary Assemblies </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.Stomp-1.5.1-bin.zip">Apache.NMS.Stomp-1.5.0-bin.zip</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS.Stomp-1.5.0-bin.zip.asc">Apache.NMS.Stomp-1.5.0-bin.zip.asc</a> </p></td><td colspan="1" rowspan="1"><p> 1.5.1.2216 </p></td></tr></tbody></table>
 
 
-<div class="panel" style="border-width: 1px;"><div class="panelContent">
-<p><strong>NOTE:</strong> Compatible with ActiveMQ Broker versions in the 4.X and 5.X family.</p>
-</div></div>
+<structured-macro ac:macro-id="164e52c6-2765-40d2-94e3-1bcc9c58d65e" ac:name="panel" ac:schema-version="1"><rich-text-body>
+<p><strong>NOTE:</strong> Compatible with ActiveMQ Broker versions in the 4.X and 5.X family.</p></rich-text-body></structured-macro>
 
-<h2 id="Apache.NMS.Stompv1.5.0-SVNTagCheckout">SVN Tag Checkout</h2>
+<h2>SVN Tag Checkout</h2>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="55c1a7db-629a-4051-bba2-f7233ec7e9fe" ac:name="code" ac:schema-version="1"><plain-text-body>
 svn co https://svn.apache.org/repos/asf/activemq/activemq-dotnet/Apache.NMS.Stomp/tags/1.5.0/
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h2 id="Apache.NMS.Stompv1.5.0-Changelog">Changelog</h2>
+<h2>Changelog</h2>
 
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311201&amp;styleName=Html&amp;version=12315640">release notes</a></p></div>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311201&amp;styleName=Html&amp;version=12315640">release notes</a></p></div>
 

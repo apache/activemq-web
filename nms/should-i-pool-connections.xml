@@ -1,6 +1,6 @@
-<div class="wiki-content maincontent"><h2 id="ShouldIpoolconnections-ShouldIpoolconnections?">Should I pool connections?</h2>
+<div class="wiki-content maincontent"><h2>Should I pool connections?</h2>
 
-<p>The Java documentation talks about <a shape="rect" class="external-link" href="http://activemq.apache.org/how-do-i-use-jms-efficiently.html">how to use JMS efficiently</a>. So when using .NET should you worry about pooling?</p>
+<p>The Java documentation talks about <a shape="rect" href="http://activemq.apache.org/how-do-i-use-jms-efficiently.html">how to use JMS efficiently</a>. So when using .NET should you worry about pooling?</p>
 
 <p>Its worth thinking about - but it depends a little on your application. If its a client UI then just have a single connection and a few sessions and you'll be fine. </p>
 

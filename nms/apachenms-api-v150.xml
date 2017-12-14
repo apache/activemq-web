@@ -1,30 +1,28 @@
-<div class="wiki-content maincontent"><h2 id="Apache.NMSAPIv1.5.0-NewandNoteworthy">New and Noteworthy</h2>
+<div class="wiki-content maincontent"><h2>New and Noteworthy</h2>
 
 <p>This release adds some great new features to the NMS API.</p>
 
-<h5 id="Apache.NMSAPIv1.5.0-NMSAPIUpdates">NMS API Updates</h5>
+<h5>NMS API Updates</h5>
 
 <ul><li>New Optional .NET Transaction Specific Connection classes that allow a client to offer support for operations within MS .NET Distributed Transactions.</li></ul>
 
 
-<h2 id="Apache.NMSAPIv1.5.0-APIDocumentation">API Documentation</h2>
+<h2>API Documentation</h2>
 
-<p>Refer to the API for this release <a shape="rect" href="nms-api.xml">here</a></p>
+<p>Refer to the API for this release <link><page ri:content-title="NMS API"></page><link-body>here</link-body></link></p>
 
-<h2 id="Apache.NMSAPIv1.5.0-DownloadHere">Download Here</h2>
+<h2>Download Here</h2>
 
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p> Description </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Download Link </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> PGP Signature File </p></th><th colspan="1" rowspan="1" class="confluenceTh"><p> Version </p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Apache.NMS Source code </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS-1.5.0-src.zip">Apache.NMS-1.5.0-src.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS-1.5.0-src.zip.asc">Apache.NMS-1.5.0-src.zip.asc</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1.5.0.2194 </p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p> Apache.NMS Binary Assemblies </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS-1.5.0-bin.zip">Apache.NMS-1.5.0-bin.zip</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> <a shape="rect" class="external-link" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS-1.5.0-bin.zip.asc">Apache.NMS-1.5.0-bin.zip.asc</a> </p></td><td colspan="1" rowspan="1" class="confluenceTd"><p> 1.5.0.2194 </p></td></tr></tbody></table></div>
+<table><tbody><tr><th colspan="1" rowspan="1"><p> Description </p></th><th colspan="1" rowspan="1"><p> Download Link </p></th><th colspan="1" rowspan="1"><p> PGP Signature File </p></th><th colspan="1" rowspan="1"><p> Version </p></th></tr><tr><td colspan="1" rowspan="1"><p> Apache.NMS Source code </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS-1.5.0-src.zip">Apache.NMS-1.5.0-src.zip</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS-1.5.0-src.zip.asc">Apache.NMS-1.5.0-src.zip.asc</a> </p></td><td colspan="1" rowspan="1"><p> 1.5.0.2194 </p></td></tr><tr><td colspan="1" rowspan="1"><p> Apache.NMS Binary Assemblies </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS-1.5.0-bin.zip">Apache.NMS-1.5.0-bin.zip</a> </p></td><td colspan="1" rowspan="1"><p> <a shape="rect" href="http://www.apache.org/dyn/closer.cgi/activemq/apache-nms/1.5.0/Apache.NMS-1.5.0-bin.zip.asc">Apache.NMS-1.5.0-bin.zip.asc</a> </p></td><td colspan="1" rowspan="1"><p> 1.5.0.2194 </p></td></tr></tbody></table>
 
 
-<h2 id="Apache.NMSAPIv1.5.0-SVNTagCheckout">SVN Tag Checkout</h2>
+<h2>SVN Tag Checkout</h2>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="c0de458d-2f72-44dc-85bb-b3bdd79cd1b6" ac:name="code" ac:schema-version="1"><plain-text-body>
 svn co https://svn.apache.org/repos/asf/activemq/activemq-dotnet/Apache.NMS/tags/1.5.0/
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
-<h2 id="Apache.NMSAPIv1.5.0-Changelog">Changelog</h2>
+<h2>Changelog</h2>
 
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311201&amp;styleName=Html&amp;version=12315640">release notes</a></p></div>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12311201&amp;styleName=Html&amp;version=12315640">release notes</a></p></div>
 

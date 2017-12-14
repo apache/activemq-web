@@ -17,5 +17,6 @@
 <ul><li>there's nothing to stop you accidentally creating 2 threads with the same selector - or 2 processes on the network starting up with the same selector and accidentally consuming from the same group of messages which completely breaks ordering; with message groups you don't have to worry about this - since it guarrentees that only 1 thread in your entire system will process messages from one group at once in order - irrespective how many consumers you start.</li></ul>
 
 
-<p>So in general; you can manually partition yourself using selectors. Message Groups however are a self-partitioning and auto-failvoer mechanism which also guarrentees that a single thread will process a specific message group at once, in order.</p></div>
+<p>So in general; you can manually partition yourself using selectors. Message Groups however are a self-partitioning and auto-failvoer mechanism which also guarrentees that a single thread will process a specific message group at once, in order.</p>
+</div>
 

@@ -1,6 +1,6 @@
-<div class="wiki-content maincontent"><p>This is much simpler and more powerful in ActiveMQ 4.0 - you can configure different <a shape="rect" href="dispatch-policies.xml">Dispatch Policies</a> directly. </p>
+<div class="wiki-content maincontent"><p>This is much simpler and more powerful in ActiveMQ 4.0 - you can configure different <link><page ri:content-title="Dispatch Policies"></page></link> directly. </p>
 
-<p>For now in ActiveMQ 3.x we have a <a shape="rect" href="what-is-the-prefetch-limit-for.xml">PrefetchPolicy configuration</a>. This allows a certain number of messages to be dispatched to a consumer before they are acknowledged. This feature is to achieve high performance; the higher the value the less likely it is that a client has to wait for messages to arrive before processing the message and so the higher the throughput.</p>
+<p>For now in ActiveMQ 3.x we have a <link><page ri:content-title="What is the Prefetch Limit For?"></page><link-body>PrefetchPolicy configuration</link-body></link>. This allows a certain number of messages to be dispatched to a consumer before they are acknowledged. This feature is to achieve high performance; the higher the value the less likely it is that a client has to wait for messages to arrive before processing the message and so the higher the throughput.</p>
 
 <p>e.g. under heavy load of a busy system you probably want to dispatch 1000 or so messages to a consumer, so as soon as its ready to receive a message, there are a bunch of them in memory waiting to be used - rather than having a slow request-response RPC each time.</p>
 
@@ -8,16 +8,15 @@
 
 <p>In ActiveMQ 3.x or later a work around for this issue is to reconfigure the PrefetchPolicy on the ConnectionFactory/Connection so that the broker only prefetches a single message per consumer; though this will greatly reduce the performance and throughput of the system.</p>
 
-<h3 id="HowdoIchangedispatchpolicy-ConfiguringthedispatchpolicyinActiveMQ4.x">Configuring the dispatch policy in ActiveMQ 4.x</h3>
+<h3>Configuring the dispatch policy in ActiveMQ 4.x</h3>
 
 <p>In AMQ 4.x, the dispatch policy can now be configured on the xml configuration file (ie. activemq.xml)<br clear="none">
 ie.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="b215a33e-7bd9-4d85-83b6-523f38286caa" ac:name="code" ac:schema-version="1"><plain-text-body>
 &lt;destinationPolicy&gt;
    &lt;policyMap&gt;&lt;policyEntries&gt; 
-      &lt;policyEntry topic=&quot;COMMAND.&gt;&quot;&gt;
+      &lt;policyEntry topic="COMMAND.&gt;"&gt;
          &lt;dispatchPolicy&gt;
            &lt;strictOrderDispatchPolicy /&gt;
          &lt;/dispatchPolicy&gt;
@@ -27,6 +26,5 @@ ie.</p>
       &lt;/policyEntry&gt;
    &lt;/policyEntries&gt;&lt;/policyMap&gt;
 &lt;/destinationPolicy&gt;
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

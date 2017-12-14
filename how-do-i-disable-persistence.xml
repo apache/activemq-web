@@ -1,9 +1,9 @@
 <div class="wiki-content maincontent"><p>There are three main ways to disable persistence, such as for unit testing JMS code</p>
 
-<ol><li>Set the NON_PERSISTENT message delivery flag on your MessageProducer</li><li>Set the <strong>persistent=false</strong> flag in the <strong>&lt;broker/&gt;</strong> element of the <a shape="rect" href="xml-configuration.xml">Xml Configuration</a> or on the property <a shape="rect" class="external-link" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/broker/BrokerService.html">BrokerService</a></li><li>Delete the persistence files before running your tests (a bit hacky)</li></ol>
+<ol><li>Set the NON_PERSISTENT message delivery flag on your MessageProducer</li><li>Set the <strong>persistent=false</strong> flag in the <strong>&lt;broker/&gt;</strong> element of the <link><page ri:content-title="Xml Configuration"></page></link> or on the property <a shape="rect" href="http://incubator.apache.org/activemq/maven/activemq-core/apidocs/org/apache/activemq/broker/BrokerService.html">BrokerService</a></li><li>Delete the persistence files before running your tests (a bit hacky)</li></ol>
 
 
-<p>If you are unit testing you may be interested in <a shape="rect" href="how-to-unit-test-jms-code.xml">How To Unit Test JMS Code</a>.</p>
+<p>If you are unit testing you may be interested in <link><page ri:content-title="How To Unit Test JMS Code"></page></link>.</p>
 
-<p>Please refer to the <a shape="rect" href="initial-configuration.xml">Initial Configuration</a> guide on how to disable persistence via system properties, java code or using the <a shape="rect" href="xml-configuration.xml">Xml Configuration</a></p></div>
+<p>Please refer to the <link><page ri:content-title="Initial Configuration"></page></link> guide on how to disable persistence via system properties, java code or using the <link><page ri:content-title="Xml Configuration"></page></link></p></div>
 

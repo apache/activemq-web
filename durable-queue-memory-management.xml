@@ -3,31 +3,31 @@
 
 <p>This page outlines design the design proposal.</p>
 
-<h2 id="DurableQueueMemoryManagement-TargetArea">TargetArea</h2>
+<h2>TargetArea</h2>
 
 <p>Maintains TargetLists for each consumer (the messages that have matched one or more consumers's selectors and are gonna be used to try dispatch stuff to the consumer DispatchArea). TargetEntry objects are added to the TargetList as messages arrive from the Queue. </p>
 
 <p>A TargetEntry can have either a direct Message reference or a CacheReference to an entry in a cache.  </p>
 
-<h3 id="DurableQueueMemoryManagement-Eagerloading">Eager loading</h3>
+<h3>Eager loading</h3>
 
 <p>Each TargetList has a watermark to indicate the first TargetEntry which is a CacheReference. The idea is that under ideal scenarios, each TargetList has the watermark equal to the high water mark (i.e. that there are enough direct message references in RAM).</p>
 
 <p>So we can have a background thread increasing the watermark up to the ideal level - which means it starts at the current watermark and directly loads the objects; de-referencing the CacheReference and replacing with direct references. </p>
 
-<h3 id="DurableQueueMemoryManagement-PendingCache">PendingCache</h3>
+<h3>PendingCache</h3>
 
 <p>TargetEntry objects added to the TargetList which are above the high watermark have their Message objects evicted from direct references into the PendingCache.</p>
 
 <p>The Target eager loader will move objects from this cache to the TargetList when they are available. If they are not in the PendingCache, they are loaded from the QueueArea.</p>
 
-<h3 id="DurableQueueMemoryManagement-QueueArea">QueueArea</h3>
+<h3>QueueArea</h3>
 
 <p>This represents the actual queue messages. There's also a matching HeadQueueCache which is a simple memory bound queue. FIFO so newer stuff is evicted from the end.</p>
 
 <p>Back </p>
 
-<h3 id="DurableQueueMemoryManagement-LinkingtheCaches">Linking the Caches</h3>
+<h3>Linking the Caches</h3>
 
 <p>The PendingCache and HeadQueueCache are linked together, along with the TargetArea/DispatchArea so that there is a fixed amount of RAM used in all the caches.</p>
 

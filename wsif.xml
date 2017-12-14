@@ -1,4 +1,4 @@
-<div class="wiki-content maincontent"><p>The <a shape="rect" class="external-link" href="http://ws.apache.org/wsif/">Apache Web Service Invocation Framework (WSIF)</a> allows you to perform web service invocations using a number of different implementation protocols like Axis, local Java, EJB, JMS, JCA CCI etc.</p>
+<div class="wiki-content maincontent"><p>The <a shape="rect" href="http://ws.apache.org/wsif/">Apache Web Service Invocation Framework (WSIF)</a> allows you to perform web service invocations using a number of different implementation protocols like Axis, local Java, EJB, JMS, JCA CCI etc.</p>
 
-<p>For more information on how to use it with ActiveMQ, take a look at: <a shape="rect" class="external-link" href="http://servicemix.apache.org/wsif.html">http://servicemix.apache.org/wsif.html</a></p></div>
+<p>For more information on how to use it with ActiveMQ, take a look at: <a shape="rect" href="http://servicemix.apache.org/wsif.html">http://servicemix.apache.org/wsif.html</a></p></div>
 

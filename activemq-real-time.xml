@@ -12,9 +12,9 @@
 
 <p>To enable cross-language support ,enable versioning of the wire format, and aid fast throughput - Apache ActiveBlaze is built on top of the Google's protobuf - a framework for efficiently encoding extensible data structures.</p>
 
-<h2 id="ActiveMQRealTime-lowlatencyreliablemulticast">low latency reliable multicast</h2>
+<h2>low latency reliable multicast</h2>
 
-<h2 id="ActiveMQRealTime-Groupmembership">Group membership</h2>
+<h2>Group membership</h2>
 
 <p>Support for dynamic joining and leaving of groups, membership notifications and true point to point and queue messaging:</p>
 <ul><li>Dynamic membership information</li><li>broadcast messaging</li><li>point-to-point</li><li>in boxes</li><li>configurable heartbeats</li></ul>
@@ -22,13 +22,13 @@
 
 
 
-<h2 id="ActiveMQRealTime-Clustermanagement">Cluster management</h2>
+<h2>Cluster management</h2>
 
 <p>A distributed state map, with the following:</p>
 <ul><li>Distributed state (Map)</li><li>Map change listeners</li><li>write locks</li><li>lock expiration</li><li>optional state and lock removal when a member leaves</li><li>automatic state and lock replication and failover</li></ul>
 
 
-<h2 id="ActiveMQRealTime-Inmoredetail...">In more detail ...</h2>
+<h2>In more detail ...</h2>
 
-<ul class="childpages-macro"><li><a shape="rect" href="broadcasting.xml">Broadcasting</a></li><li><a shape="rect" href="group-membership.xml">Group Membership</a></li><li><a shape="rect" href="life-cycle.xml">Life Cycle</a></li><li><a shape="rect" href="the-activeblaze-message-type.xml">The ActiveBlaze Message type</a></li></ul></div>
+<structured-macro ac:macro-id="91ae2935-d0f6-4b85-ba65-3c2a8ae9d156" ac:name="children" ac:schema-version="1"></structured-macro></div>
 

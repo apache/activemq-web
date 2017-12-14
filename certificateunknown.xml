@@ -1,7 +1,6 @@
 <div class="wiki-content maincontent"><p>If you get an error something like this...</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="0708482b-8175-421f-9fe9-85a126b5b52c" ac:name="code" ac:schema-version="1"><plain-text-body>
 javax.jms.JMSException: start failed: Received fatal alert: certificate_unknown
        at org.activemq.transport.tcp.TcpTransportChannel.start(TcpTransportChannel.java:200)
        at org.activemq.broker.impl.BrokerConnectorImpl.addClient(BrokerConnectorImpl.java:308)
@@ -17,12 +16,11 @@ Caused by: javax.net.ssl.SSLHandshakeException: Received fatal alert: certificat
        at com.sun.net.ssl.internal.ssl.SSLSocketImpl.readDataRecord(Unknown Source)
        at com.sun.net.ssl.internal.ssl.AppInputStream.read(Unknown Source)
        at java.io.BufferedInputStream.fill(Unknown Source) 
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>when you are trying to use SSL to connect to ActiveMQ then the "certificate_unknown" error shows on the broker when the client doesn't trust the broker's certificate.  On the client, I would see an error as well: "No trusted certificate found".  </p>
 
-<h3 id="certificate_unknown-Fix">Fix</h3>
+<h3>Fix</h3>
 
-<p>Make sure that you exported the broker's certificate (step 2 in <a shape="rect" href="how-do-i-use-ssl.xml">How do I use SSL</a>) and imported it on the client into a truststore (step 4).  If you did those, did you specify the javax.net.ssl.trustStore system property when you started your client VM? </p></div>
+<p>Make sure that you exported the broker's certificate (step 2 in <link><page ri:content-title="How do I use SSL"></page></link>) and imported it on the client into a truststore (step 4).  If you did those, did you specify the javax.net.ssl.trustStore system property when you started your client VM? </p></div>
 

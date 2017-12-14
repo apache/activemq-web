@@ -1,4 +1,4 @@
 <div class="wiki-content maincontent"><p>Apache ActiveMQ is a message broker which supports multiple wire level protocols for maximum interoperability.</p>
 
-<ul class="childpages-macro"><li><a shape="rect" href="amqp.xml">AMQP</a></li><li><a shape="rect" href="auto.xml">AUTO</a></li><li><a shape="rect" href="mqtt.xml">MQTT</a></li><li><a shape="rect" href="openwire.xml">OpenWire</a></li><li><a shape="rect" href="rest.xml">REST</a></li><li><a shape="rect" href="rss-and-atom.xml">RSS and Atom</a></li><li><a shape="rect" href="stomp.xml">Stomp</a></li><li><a shape="rect" href="wsif.xml">WSIF</a></li><li><a shape="rect" href="ws-notification.xml">WS Notification</a></li><li><a shape="rect" href="xmpp.xml">XMPP</a></li></ul></div>
+<structured-macro ac:macro-id="e08eb648-e2c7-4225-bfa7-fd7fb21abc44" ac:name="children" ac:schema-version="1"></structured-macro></div>
 

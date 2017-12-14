@@ -1,2 +1,2 @@
-<div class="wiki-content maincontent"><ul class="childpages-macro"><li><a shape="rect" href="async-sends.xml">Async Sends</a></li><li><a shape="rect" href="dispatch-policies.xml">Dispatch Policies</a></li><li><a shape="rect" href="message-cursors.xml">Message Cursors</a></li><li><a shape="rect" href="optimized-acknowledgement.xml">Optimized Acknowledgement</a></li><li><a shape="rect" href="producer-flow-control.xml">Producer Flow Control</a></li><li><a shape="rect" href="total-ordering.xml">Total Ordering</a></li></ul></div>
+<div class="wiki-content maincontent"><structured-macro ac:macro-id="7e4ec00c-b00f-47ab-bb03-2495a040ae56" ac:name="children" ac:schema-version="1"><parameter ac:name="">all</parameter></structured-macro></div>
 

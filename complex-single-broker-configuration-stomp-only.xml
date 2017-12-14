@@ -3,8 +3,7 @@
 <p>While this is a fairly detailed configuration, it locks down every ActiveMQ service.  It would be ideal if ActiveMQ shipped with a default closed configuration like this.</p>
 
 <p>ActiveMQ is assumed to be installed in /usr/local/activemq/ in this example.</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="55aa3dea-f2f2-432e-8402-ecd4d24e69fd" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
 &lt;!--
   ActiveMQ activemq.xml configuration file (/usr/local/activemq/conf/activemq.xml)
 
@@ -13,8 +12,8 @@
   * Uses the Sun JMX connector for remote management.  Point jconsole at:
      service:jmx:rmi:///jndi/rmi://myserver.domain.net:61616/jmxrmi
 
-  * Uses Kaha persistence storage, stored in the &quot;activemq-data&quot; directory.
-    &quot;activemq-data&quot; and &quot;logs&quot; sub-directories must be writable by the
+  * Uses Kaha persistence storage, stored in the "activemq-data" directory.
+    "activemq-data" and "logs" sub-directories must be writable by the
     ActiveMQ user.
 
   * Also see conf/log4j.properties for logging configuration
@@ -22,47 +21,47 @@
 
 &lt;beans&gt;
     &lt;!-- Enables system properties as variables in this configuration file --&gt;
-    &lt;bean class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;/&gt;
+    &lt;bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"/&gt;
 
-    &lt;broker xmlns=&quot;http://activemq.org/config/1.0&quot; brokerName=&quot;SERVER1&quot;
-        populateJMSXUserID=&quot;true&quot; useJmx=&quot;true&quot; persistent=&quot;true&quot;&gt;
+    &lt;broker xmlns="http://activemq.org/config/1.0" brokerName="SERVER1"
+        populateJMSXUserID="true" useJmx="true" persistent="true"&gt;
 
     &lt;!-- Queue setup.  Queues can be created on the fly by any user with
          admin rights, but it is not good to give every user admin rights.  --&gt;
     &lt;destinations&gt;
-        &lt;queue physicalName=&quot;widgets&quot; /&gt;
-        &lt;queue physicalName=&quot;spacecontrol&quot; /&gt;
-        &lt;queue physicalName=&quot;displays&quot; /&gt;
+        &lt;queue physicalName="widgets" /&gt;
+        &lt;queue physicalName="spacecontrol" /&gt;
+        &lt;queue physicalName="displays" /&gt;
     &lt;/destinations&gt;
 
     &lt;!-- We only allow Stomp clients --&gt;
     &lt;transportConnectors&gt;
-        &lt;transportConnector name=&quot;stomp&quot; uri=&quot;stomp://localhost:61613&quot;/&gt;
+        &lt;transportConnector name="stomp" uri="stomp://localhost:61613"/&gt;
     &lt;/transportConnectors&gt;
 
-    &lt;!-- We don&#39;t have any other brokers to connect to --&gt;
+    &lt;!-- We don't have any other brokers to connect to --&gt;
     &lt;networkConnectors&gt;
     &lt;/networkConnectors&gt;
 
     &lt;!-- Do not create an ActiveMQ JMX connector.  Use the Sun JMX connector
          instead, and hook ActiveMQ to it. --&gt;
     &lt;managementContext&gt;
-        &lt;managementContext createConnector=&quot;false&quot; /&gt;
+        &lt;managementContext createConnector="false" /&gt;
     &lt;/managementContext&gt;
 
     &lt;plugins&gt;
         &lt;simpleAuthenticationPlugin&gt;
             &lt;users&gt;
-                &lt;authenticationUser username=&quot;sa&quot; password=&quot;manager&quot; groups=&quot;producers,consumers,admins&quot; /&gt;
-                &lt;authenticationUser username=&quot;frontend&quot; password=&quot;manager&quot; groups=&quot;producers,consumers&quot; /&gt;
-                &lt;authenticationUser username=&quot;backend&quot; password=&quot;manager&quot; groups=&quot;consumers&quot; /&gt;
+                &lt;authenticationUser username="sa" password="manager" groups="producers,consumers,admins" /&gt;
+                &lt;authenticationUser username="frontend" password="manager" groups="producers,consumers" /&gt;
+                &lt;authenticationUser username="backend" password="manager" groups="consumers" /&gt;
             &lt;/users&gt;
         &lt;/simpleAuthenticationPlugin&gt;
         &lt;authorizationPlugin&gt;
             &lt;map&gt;
                 &lt;authorizationMap&gt;
                     &lt;authorizationEntries&gt;
-                        &lt;authorizationEntry queue=&quot;&gt;&quot; write=&quot;producers&quot; read=&quot;consumers&quot; admin=&quot;admins&quot; /&gt;
+                        &lt;authorizationEntry queue="&gt;" write="producers" read="consumers" admin="admins" /&gt;
                     &lt;/authorizationEntries&gt;
                 &lt;/authorizationMap&gt;
             &lt;/map&gt;
@@ -73,7 +72,7 @@
 
     &lt;!-- Do not create ActiveMQ.Agent topic, as it does not work if
          destination security is enabled --&gt;
-    &lt;!-- &lt;commandAgent xmlns=&quot;http://activemq.org/config/1.0&quot;/&gt; --&gt;
+    &lt;!-- &lt;commandAgent xmlns="http://activemq.org/config/1.0"/&gt; --&gt;
 
     &lt;!-- Web Console.  Auth is via JAAS.  Beware: jetty-plus-6.1.4.jar contains the
          JAAS classes, and is not included with ActiveMQ.  You need to download
@@ -81,27 +80,25 @@
          to browse the queue, and that requires a password.
     --&gt;
 
-    &lt;jetty xmlns=&quot;http://mortbay.com/schemas/jetty/1.0&quot;&gt;
+    &lt;jetty xmlns="http://mortbay.com/schemas/jetty/1.0"&gt;
         &lt;connectors&gt;
-            &lt;nioConnector port=&quot;8161&quot; /&gt;
+            &lt;nioConnector port="8161" /&gt;
         &lt;/connectors&gt;
 
         &lt;userRealms&gt;
-            &lt;!-- &quot;name&quot; must match the realm in web.xml, and &quot;loginModuleName&quot; must be defined in login.conf --&gt;
-            &lt;jaasUserRealm name=&quot;ActiveMQ&quot; loginModuleName=&quot;ActiveMQ&quot;
-                    callbackHandlerClass=&quot;org.mortbay.jetty.plus.jaas.callback.DefaultCallbackHandler&quot; /&gt;
+            &lt;!-- "name" must match the realm in web.xml, and "loginModuleName" must be defined in login.conf --&gt;
+            &lt;jaasUserRealm name="ActiveMQ" loginModuleName="ActiveMQ"
+                    callbackHandlerClass="org.mortbay.jetty.plus.jaas.callback.DefaultCallbackHandler" /&gt;
         &lt;/userRealms&gt;
 
         &lt;handlers&gt;
-            &lt;webAppContext contextPath=&quot;/admin&quot; resourceBase=&quot;${activemq.base}/webapps/admin&quot; logUrlOnStart=&quot;true&quot; /&gt;
+            &lt;webAppContext contextPath="/admin" resourceBase="${activemq.base}/webapps/admin" logUrlOnStart="true" /&gt;
         &lt;/handlers&gt;
     &lt;/jetty&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 <p>Add this XML snippet to the web.xml for the /admin/ app, in order to enable HTTP Authentication to match the activemq.xml configuration above.</p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="205793d6-8b74-4d5b-a880-25b0c46d7ebe" ac:name="code" ac:schema-version="1"><parameter ac:name="">xml</parameter><plain-text-body>
 &lt;security-constraint&gt;
     &lt;web-resource-collection&gt;
         &lt;web-resource-name&gt;Web Console&lt;/web-resource-name&gt;
@@ -116,6 +113,5 @@
     &lt;auth-method&gt;BASIC&lt;/auth-method&gt;
     &lt;realm-name&gt;ActiveMQ&lt;/realm-name&gt;
 &lt;/login-config&gt;
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

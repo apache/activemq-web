@@ -8,8 +8,9 @@
 
 <p>So the brokers communicate with a kind of Bridge which uses the multicast/UDP transports underneath.</p>
 
-<h3 id="MulticastTransport-Brokerkeep-alive">Broker keep-alive</h3>
+<h3>Broker keep-alive</h3>
 
 <p>Each broker will repeatedly send its own BrokerInfo to the cloud. The MulticastBridge will receive them and keep that broker alive; brokers which don't send the brokerInfo within the heartbeat window are logically considered to have closed.</p>
+
 </div>
 

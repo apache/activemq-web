@@ -4,7 +4,7 @@
 <ul><li>New hawtio web console</li><li>Replicated leveldb message store</li><li>Runtime configuration</li></ul>
 
 
-<p>Full details and download link can be found in the <a shape="rect" class="external-link" href="http://activemq.apache.org/activemq-590-release.html">release page</a></p>
+<p>Full details and download link can be found in the <a shape="rect" href="http://activemq.apache.org/activemq-590-release.html">release page</a></p>
 
 <p>A big thanks to everyone who contributed to this release.</p></div>
 

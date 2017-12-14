@@ -1,4 +1,4 @@
-<div class="wiki-content maincontent"><h3 id="ExclusiveConsumer-Background">Background</h3>
+<div class="wiki-content maincontent"><h3>Background</h3>
 
 <p>We maintain the order of messages in queues and dispatch them to consumers in order. However if you have multiple JMS Sessions and MessageConsumer instances consuming from the same queue (whether in the same JVM or not), you will loose the guarantee of processing the messages in order; since the messages with be processed concurrently in different threads.</p>
 
@@ -6,7 +6,7 @@
 
 <p>So what folks have to do in J2EE clusters is often to <em>pin</em> one particular JVM in the cluster to have <em>one</em> consumer on the queue to avoid loosing ordering. The problem with this is that if the particular pinned JVM goes down, no one is processing the queue any more, which can be problem.</p>
 
-<h3 id="ExclusiveConsumer-ExclusiveConsumer">Exclusive Consumer</h3>
+<h3>Exclusive Consumer</h3>
 
 <p>We have a new feature in 4.x called Exclusive Consumer or Exclusive Queues which avoids the end user having to <em>pin</em> anything. The broker will pick a single MessageConsumer to get all the messages for a queue to ensure ordering. If that consumer fails, the broker will auto failover and choose another consumer.</p>
 
@@ -14,14 +14,12 @@
 
 <p>For those who've struggled with pinning JMS consumers in J2EE clusters you'll immediately realize how useful this is to making clustered, high available distributed services.</p>
 
-<h3 id="ExclusiveConsumer-Example">Example</h3>
+<h3>Example</h3>
 
-<p>An Exclusive Consumer is created using <a shape="rect" href="destination-options.xml">Destination Options</a> as follows:</p>
+<p>An Exclusive Consumer is created using <link><page ri:content-title="Destination Options"></page></link> as follows:</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-queue = new ActiveMQQueue(&quot;TEST.QUEUE?consumer.exclusive=true&quot;);
+<structured-macro ac:macro-id="d264c935-8140-47cb-beee-f71ddae49a5a" ac:name="code" ac:schema-version="1"><parameter ac:name="">java</parameter><plain-text-body>
+queue = new ActiveMQQueue("TEST.QUEUE?consumer.exclusive=true");
 consumer = session.createConsumer(queue);
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 

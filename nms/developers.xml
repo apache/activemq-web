@@ -1,3 +1,4 @@
-<div class="wiki-content maincontent"><ul class="childpages-macro"><li><a shape="rect" href="building.xml">Building</a></li><li><a shape="rect" href="source.xml">Source</a></li></ul>
-<ul><li><a shape="rect" href="download.xml">Download</a></li></ul></div>
+<div class="wiki-content maincontent"><structured-macro ac:macro-id="6ff6e627-87f7-43d8-be4b-b5486e1cc282" ac:name="children" ac:schema-version="1"></structured-macro>
+<ul><li><link><page ri:content-title="Download"></page><link-body>Download</link-body></link></li></ul>
+</div>
 

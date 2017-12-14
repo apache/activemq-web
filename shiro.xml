@@ -1,15 +1,14 @@
-<div class="wiki-content maincontent"><p>&#160;</p><p>ActiveMQ 5.10 and later provides a fully customizable security experience using <a shape="rect" class="external-link" href="http://shiro.apache.org">Apache Shiro</a>.</p><p>The ActiveMQ Shiro plugin can secure the ActiveMQ broker, from authenticating transport connections to authorizing behavior with topics and queues and everything in between.</p><h2 id="Shiro-Quickstart">Quickstart</h2><p>The fastest/simplest way to enable the ShiroPlugin is to define it as a Spring bean in the <code>broker</code> <code>plugins</code> section and embed <a shape="rect" class="external-link" href="http://shiro.apache.org/configuration.html">Shiro ini configuration</a>:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-       xmlns:amq=&quot;http://activemq.apache.org/schema/core&quot;
-       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-       xsi:schemaLocation=&quot;
+<div class="wiki-content maincontent"><p>&#160;</p><p>ActiveMQ 5.10 and later provides a fully customizable security experience using <a shape="rect" href="http://shiro.apache.org">Apache Shiro</a>.</p><p>The ActiveMQ Shiro plugin can secure the ActiveMQ broker, from authenticating transport connections to authorizing behavior with topics and queues and everything in between.</p><h2>Quickstart</h2><p>The fastest/simplest way to enable the ShiroPlugin is to define it as a Spring bean in the <code>broker</code> <code>plugins</code> section and embed <a shape="rect" href="http://shiro.apache.org/configuration.html">Shiro ini configuration</a>:</p><structured-macro ac:macro-id="410790d6-bf71-4674-b71c-71a81928bdd4" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd&quot;&gt;
+       http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd"&gt;
 
-    &lt;broker xmlns=&quot;http://activemq.apache.org/schema/core&quot; ... other attributes here ...&gt;
+    &lt;broker xmlns="http://activemq.apache.org/schema/core" ... other attributes here ...&gt;
         &lt;plugins&gt;
-            &lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
-                &lt;property name=&quot;iniConfig&quot;&gt;&lt;value&gt;
+            &lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
+                &lt;property name="iniConfig"&gt;&lt;value&gt;
 
                 [main]
                 # Shiro object graph configuration here if desired/necessary
@@ -25,7 +24,7 @@
                 #
                 # Roles and permissions assigned to roles are defined in the [roles] section
                 # below. By transitive association, any user assigned a role is granted the
-                # role&#39;s permissions.
+                # role's permissions.
                 
                 # ActiveMQ System User
                 # needed for in-VM/local connections when authentication is enabled:
@@ -42,7 +41,7 @@
                 #
                 # roleName = wildcardPermission1, wildcardPermission2, ..., wildcardPermissionN
                 #
-                # The &#39;system&#39; role is assigned all permissions (*).  Be careful when assigning
+                # The 'system' role is assigned all permissions (*).  Be careful when assigning
                 # this to actual users other than then system user:
                 system = *
 
@@ -52,7 +51,7 @@
                 #
                 #   http://activemq.apache.org/security.html
                 #
-                # So we create an &#39;advisory&#39; role here with a wildcard/catch-all permissions
+                # So we create an 'advisory' role here with a wildcard/catch-all permissions
                 # for all advisory topics.  To make your life easy, ensure you assign this to
                 # any/all users in the [users] section above, e.g.
                 #
@@ -65,11 +64,9 @@
         &lt;/plugins&gt;
     &lt;/broker&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div><p>This config assumes you have a simple/small set of static users that access your ActiveMQ broker. We'll cover enabling more advanced user repositories later.</p><h4 id="Shiro-EncryptedPasswords">Encrypted Passwords</h4><p>The above example uses plaintext passwords, which is simple to set up and easy to use for testing, but not really secure. Most production deployments will likely want to use encrypted passwords. For example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
+</plain-text-body></structured-macro><p>This config assumes you have a simple/small set of static users that access your ActiveMQ broker. We'll cover enabling more advanced user repositories later.</p><h4>Encrypted Passwords</h4><p>The above example uses plaintext passwords, which is simple to set up and easy to use for testing, but not really secure. Most production deployments will likely want to use encrypted passwords. For example:</p><structured-macro ac:macro-id="80a54d4f-b985-456b-9d96-b85f8974b9c8" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
     &lt;!-- enabled by default.  To disable, uncomment:
-    &lt;property name=&quot;iniConfig&quot;&gt;&lt;value&gt;
+    &lt;property name="iniConfig"&gt;&lt;value&gt;
 
     [main]
     # Shiro object graph configuration here
@@ -85,44 +82,32 @@
     advisory = topic:ActiveMQ.Advisory*
     &lt;/value&gt;&lt;/property&gt;
 &lt;/bean&gt;
-]]></script>
-</div></div><p>As you can see, two things are different than the simpler/default configuration:</p><ol><li>The <code>[main]</code> section configured a <code>PasswordMatcher</code> on the implicit <code>iniRealm</code>. This indicates that all <code>.ini</code>-configured users are expected to have proper hashed/secure passwords.</li><li>The <code>[users]</code> lines now have hash values in the <code>password</code> location instead of plaintext values.</li></ol><p>To get the hashed password text values, you will want to <a shape="rect" class="external-link" href="http://search.maven.org/remotecontent?filepath=org/apache/shiro/tools/shiro-tools-hasher/1.2.2/shiro-tools-hasher-1.2.2-cli.jar" rel="nofollow">Download Shiro's Command Line Hasher</a> from Maven Central. Once downloaded, you can use it to create secure password hashes that you can safely copy-and-paste in to the <code>[users]</code> section:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[$ java -jar shiro-tools-hasher-X.X.X-cli.jar -p
-]]></script>
-</div></div><p>It will then ask you to enter the password and then confirm it:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[Password to hash:
+</plain-text-body></structured-macro><p>As you can see, two things are different than the simpler/default configuration:</p><ol><li>The <code>[main]</code> section configured a <code>PasswordMatcher</code> on the implicit <code>iniRealm</code>. This indicates that all <code>.ini</code>-configured users are expected to have proper hashed/secure passwords.</li><li>The <code>[users]</code> lines now have hash values in the <code>password</code> location instead of plaintext values.</li></ol><p>To get the hashed password text values, you will want to <a shape="rect" href="http://search.maven.org/remotecontent?filepath=org/apache/shiro/tools/shiro-tools-hasher/1.2.2/shiro-tools-hasher-1.2.2-cli.jar">Download Shiro's Command Line Hasher</a> from Maven Central. Once downloaded, you can use it to create secure password hashes that you can safely copy-and-paste in to the <code>[users]</code> section:</p><structured-macro ac:macro-id="790da932-f14a-46eb-84b5-f30042a6811a" ac:name="code" ac:schema-version="1"><plain-text-body>$ java -jar shiro-tools-hasher-X.X.X-cli.jar -p
+</plain-text-body></structured-macro><p>It will then ask you to enter the password and then confirm it:</p><structured-macro ac:macro-id="44da639a-a80b-458a-99ab-36a36213d8b2" ac:name="code" ac:schema-version="1"><plain-text-body>Password to hash:
 Password to hash (confirm):
-]]></script>
-</div></div><p>When this command executes, it will print out the securely-salted-iterated-and-hashed password. For example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[$shiro1$SHA-256$500000$eWpVX2tGX7WCP2J+jMCNqw==$it/NRclMOHrfOvhAEFZ0mxIZRdbcfqIBdwdwdDXW2dM=
-]]></script>
-</div></div><p>Take this value and place it as the password in the user definition line (followed by any desired roles, such as the <code>advisory</code> role). For example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[[users]
+</plain-text-body></structured-macro><p>When this command executes, it will print out the securely-salted-iterated-and-hashed password. For example:</p><structured-macro ac:macro-id="c4c99adb-f812-4f21-a972-d924e3c67740" ac:name="code" ac:schema-version="1"><plain-text-body>$shiro1$SHA-256$500000$eWpVX2tGX7WCP2J+jMCNqw==$it/NRclMOHrfOvhAEFZ0mxIZRdbcfqIBdwdwdDXW2dM=
+</plain-text-body></structured-macro><p>Take this value and place it as the password in the user definition line (followed by any desired roles, such as the <code>advisory</code> role). For example:</p><structured-macro ac:macro-id="60b1b0b1-204f-40ef-a55e-2b5a5ad6b3b1" ac:name="code" ac:schema-version="1"><plain-text-body>[users]
 scott = $shiro1$SHA-256$500000$eWpVX2tGX7WCP2J+jMCNqw==$it/NRclMOHrfOvhAEFZ0mxIZRdbcfqIBdwdwdDXW2dM=, advisory
 system = $shiro1$SHA-256$500000$eUyGwMGr9GYzB/gg/MoNgw==$WGc0yWFWv8+hLqjzVLgW7Hat2FQTywDXBl5izpqaLSY=, system
-]]></script>
-</div></div><h2 id="Shiro-Configuration">Configuration</h2><p>The ActiveMQ Shiro plugin can be configured in a number of ways. For example, with Java:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[BrokerService brokerService = new BrokerService();
+</plain-text-body></structured-macro><h2>Configuration</h2><p>The ActiveMQ Shiro plugin can be configured in a number of ways. For example, with Java:</p><structured-macro ac:macro-id="dd6c68e7-e08e-40a3-b8b0-853344a52c3f" ac:name="code" ac:schema-version="1"><plain-text-body>BrokerService brokerService = new BrokerService();
 
 ShiroPlugin shiroPlugin = new ShiroPlugin();
 //configure shiroPlugin via getters/setters here
 
 broker.setPlugins(new BrokerPlugin[]{shiroPlugin});
 //continue configuring the brokerService as necessary ...
-]]></script>
-</div></div><p>Or, if using traditional ActiveMQ xml, as a Spring bean in the <code>broker</code> <code>plugins</code> section. For example:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot;
-       xmlns:amq=&quot;http://activemq.apache.org/schema/core&quot;
-       xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-       xsi:schemaLocation=&quot;
+</plain-text-body></structured-macro><p>Or, if using traditional ActiveMQ xml, as a Spring bean in the <code>broker</code> <code>plugins</code> section. For example:</p><structured-macro ac:macro-id="8f5044da-28d5-4ab3-960f-7bcc8afcb793" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:amq="http://activemq.apache.org/schema/core"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
-       http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd&quot;&gt;
+       http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd"&gt;
 
-    &lt;broker xmlns=&quot;http://activemq.apache.org/schema/core&quot; ... other attributes here ...&gt;
+    &lt;broker xmlns="http://activemq.apache.org/schema/core" ... other attributes here ...&gt;
 
         &lt;plugins&gt;
     
-            &lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
+            &lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
                 &lt;!-- Config properties via getters/setters as necessary: --&gt;
             &lt;/bean&gt;
 
@@ -130,96 +115,84 @@ broker.setPlugins(new BrokerPlugin[]{shiroPlugin});
 
     &lt;/broker&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div><p>The remaining configuration examples on this page will be shown as bean XML, but know that the same configuration can be done in Java as standard JavaBeans-compatible getter and setter methods.</p><h3 id="Shiro-Enabling/Disabling">Enabling/Disabling</h3><p>You can enable or disable the ShiroPlugin entirely without having to remove it from your configuration. This is convenient when testing, or when you want to enable or disable it based on a configuration parameter at startup.</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
+</plain-text-body></structured-macro><p>The remaining configuration examples on this page will be shown as bean XML, but know that the same configuration can be done in Java as standard JavaBeans-compatible getter and setter methods.</p><h3>Enabling/Disabling</h3><p>You can enable or disable the ShiroPlugin entirely without having to remove it from your configuration. This is convenient when testing, or when you want to enable or disable it based on a configuration parameter at startup.</p><structured-macro ac:macro-id="30beb787-00a0-43a7-b9c7-d248f43355e7" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
     &lt;!-- enabled by default.  To disable, uncomment:
-    &lt;property name=&quot;enabled&quot; value=&quot;false&quot;/&gt; --&gt;
+    &lt;property name="enabled" value="false"/&gt; --&gt;
 &lt;/bean&gt;
-]]></script>
-</div></div><p>A nice technique is to use Spring's <a shape="rect" class="external-link" href="http://static.springsource.org/spring/docs/3.2.x/javadoc-api/org/springframework/context/support/PropertySourcesPlaceholderConfigurer.html" rel="nofollow">PropertySourcesPlaceholderConfigurer</a> and placeholder tokens (set <code>shiro.enabled = true</code> in one of your placeholder property files):</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans ...&gt;
+</plain-text-body></structured-macro><p>A nice technique is to use Spring's <a shape="rect" href="http://static.springsource.org/spring/docs/3.2.x/javadoc-api/org/springframework/context/support/PropertySourcesPlaceholderConfigurer.html">PropertySourcesPlaceholderConfigurer</a> and placeholder tokens (set <code>shiro.enabled = true</code> in one of your placeholder property files):</p><structured-macro ac:macro-id="8a00e352-47a8-4d57-a718-9c828da661f4" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;beans ...&gt;
 
-    &lt;bean class=&quot;org.springframework.context.support.PropertySourcesPlaceholderConfigurer&quot;&gt;
+    &lt;bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer"&gt;
        ...
     &lt;/bean&gt;
 
     &lt;broker ...&gt;
         &lt;plugins ...&gt;
 
-            &lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
-                &lt;property name=&quot;enabled&quot; value=&quot;${shiro.enabled}&quot;/&gt;
+            &lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
+                &lt;property name="enabled" value="${shiro.enabled}"/&gt;
             &lt;/bean&gt;
  
         &lt;/plugins&gt;
     &lt;/broker&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div><p>This allows you to enable or disable the Shiro plugin by simply setting a property in a <code>.properties</code> file without having to change your XML config.</p><h3 id="Shiro-ShiroEnvironment">Shiro Environment</h3><p>The <code>shiroPlugin</code> requires a Shiro <a shape="rect" class="external-link" href="http://shiro.apache.org/static/current/apidocs/org/apache/shiro/env/Environment.html">Environment</a> to function. You must either configure the plugin with:</p><ul><li>an <code>Environment</code> instance (or a Shiro <code>SecurityManager</code> instance) that you instantiate and configure elsewhere - e.g. in Java code or elsewhere in the Spring XML config, or</li><li>specify some Shiro <a shape="rect" class="external-link" href="http://shiro.apache.org/configuration.html">.ini configuration</a>, either as a direct String, an <a shape="rect" class="external-link" href="http://shiro.apache.org/static/current/apidocs/org/apache/shiro/config/Ini.html">Ini</a> instance, or a <a shape="rect" class="external-link" href="http://shiro.apache.org/static/current/apidocs/org/apache/shiro/io/ResourceUtils.html#getInputStreamForPath(java.lang.String)">resource path</a> where your <code>shiro.ini</code> file is located. The plugin will load the ini config and create an <code>Environment</code> automatically.</li></ul><h4 id="Shiro-CustomEnvironment">Custom Environment</h4><p>A Shiro <code>Environment</code> object contains everything that Shiro needs to operate, and this encapsulates the Shiro <code>SecurityManager</code> as well. If you want to construct and configure an Environment instance yourself:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans ...&gt;
+</plain-text-body></structured-macro><p>This allows you to enable or disable the Shiro plugin by simply setting a property in a <code>.properties</code> file without having to change your XML config.</p><h3>Shiro Environment</h3><p>The <code>shiroPlugin</code> requires a Shiro <a shape="rect" href="http://shiro.apache.org/static/current/apidocs/org/apache/shiro/env/Environment.html">Environment</a> to function. You must either configure the plugin with:</p><ul><li>an <code>Environment</code> instance (or a Shiro <code>SecurityManager</code> instance) that you instantiate and configure elsewhere - e.g. in Java code or elsewhere in the Spring XML config, or</li><li>specify some Shiro <a shape="rect" href="http://shiro.apache.org/configuration.html">.ini configuration</a>, either as a direct String, an <a shape="rect" href="http://shiro.apache.org/static/current/apidocs/org/apache/shiro/config/Ini.html">Ini</a> instance, or a <a shape="rect" href="http://shiro.apache.org/static/current/apidocs/org/apache/shiro/io/ResourceUtils.html#getInputStreamForPath(java.lang.String)">resource path</a> where your <code>shiro.ini</code> file is located. The plugin will load the ini config and create an <code>Environment</code> automatically.</li></ul><h4>Custom Environment</h4><p>A Shiro <code>Environment</code> object contains everything that Shiro needs to operate, and this encapsulates the Shiro <code>SecurityManager</code> as well. If you want to construct and configure an Environment instance yourself:</p><structured-macro ac:macro-id="b10b03b1-a900-471b-a1f2-92eb4b74eccb" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;beans ...&gt;
     &lt;broker ...&gt;
         &lt;plugins&gt;
         
-            &lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
-                &lt;property name=&quot;environment&quot; ref=&quot;shiroEnvironment&quot;/&gt;
+            &lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
+                &lt;property name="environment" ref="shiroEnvironment"/&gt;
             &lt;/bean&gt;
  
         &lt;/plugins&gt;
     &lt;/broker&gt;
 
-    &lt;bean id=&quot;shiroEnvironment&quot; class=&quot;..&quot;&gt;
+    &lt;bean id="shiroEnvironment" class=".."&gt;
         ... config here ...
     &lt;/bean&gt;
-    &lt;bean class=&quot;org.apache.shiro.spring.LifecycleBeanPostProcessor&quot;/&gt;
+    &lt;bean class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/&gt;
 
 &lt;/beans&gt;
-]]></script>
-</div></div><h4 id="Shiro-CustomSecurityManager">Custom SecurityManager</h4><p>Instead of configuring an <code>Environment</code> instance, you can construct a <code>SecurityManager</code> instead:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans ...&gt;
+</plain-text-body></structured-macro><h4>Custom SecurityManager</h4><p>Instead of configuring an <code>Environment</code> instance, you can construct a <code>SecurityManager</code> instead:</p><structured-macro ac:macro-id="e2b2eab0-f4cf-4f84-a1cb-e91d57883d88" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;beans ...&gt;
     &lt;broker ...&gt;
         &lt;plugins&gt;
         
-            &lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
-                &lt;property name=&quot;securityManager&quot; ref=&quot;shiroSecurityManager&quot;/&gt;
+            &lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
+                &lt;property name="securityManager" ref="shiroSecurityManager"/&gt;
             &lt;/bean&gt;
  
         &lt;/plugins&gt;
     &lt;/broker&gt;
 
-    &lt;bean id=&quot;shiroSecurityManager&quot; class=&quot;org.apache.shiro.mgt.DefaultSecurityManager&quot;&gt;
-        &lt;property name=&quot;realms&quot;&gt;
+    &lt;bean id="shiroSecurityManager" class="org.apache.shiro.mgt.DefaultSecurityManager"&gt;
+        &lt;property name="realms"&gt;
             &lt;list&gt;
-                &lt;bean id=&quot;myRealm&quot; class=&quot;...&quot;&gt;
+                &lt;bean id="myRealm" class="..."&gt;
                     ...
                 &lt;/bean&gt;
                 ... maybe more Realm beans ...
             &lt;/list&gt;
         &lt;/property&gt;
     &lt;/bean&gt;
-    &lt;bean class=&quot;org.apache.shiro.spring.LifecycleBeanPostProcessor&quot;/&gt;
+    &lt;bean class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/&gt;
 
 &lt;/beans&gt;
-]]></script>
-</div></div><p>If specifying a <code>SecurityManager</code> instead of the <code>Environment</code> property, an <code>Environment</code> will be created automatically that wraps the configured <code>SecurityManager</code>.</p><h4 id="Shiro-shiro.iniFile">shiro.ini File</h4><p>If you don't want to construct a <code>SecurityManager</code> or <code>Environment</code> in code or xml, you can easily specify a <a shape="rect" class="external-link" href="http://shiro.apache.org/configuration.html">shiro.ini</a> file instead and an Environment/SecurityManager will automatically be created based on that:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans ...&gt;
+</plain-text-body></structured-macro><p>If specifying a <code>SecurityManager</code> instead of the <code>Environment</code> property, an <code>Environment</code> will be created automatically that wraps the configured <code>SecurityManager</code>.</p><h4>shiro.ini File</h4><p>If you don't want to construct a <code>SecurityManager</code> or <code>Environment</code> in code or xml, you can easily specify a <a shape="rect" href="http://shiro.apache.org/configuration.html">shiro.ini</a> file instead and an Environment/SecurityManager will automatically be created based on that:</p><structured-macro ac:macro-id="8342078e-7dd0-42f5-ab58-e00e225b4023" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;beans ...&gt;
     &lt;broker ...&gt;
         &lt;plugins&gt;
 
-            &lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
-                &lt;property name=&quot;iniResourcePath&quot; value=&quot;classpath:myshiro.ini&quot;/&gt;
+            &lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
+                &lt;property name="iniResourcePath" value="classpath:myshiro.ini"/&gt;
             &lt;/bean&gt;
 
         &lt;/plugins&gt;
     &lt;/broker&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div><p>This allows you to keep your Shiro config separate from your ActiveMQ broker configuration if you prefer.</p><h4 id="Shiro-shiro.iniEmbedded">shiro.ini Embedded</h4><p>If you want to use ini configuration and you would prefer to have all configuration in one place, you can embed the ini config instead:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;beans ...&gt;
+</plain-text-body></structured-macro><p>This allows you to keep your Shiro config separate from your ActiveMQ broker configuration if you prefer.</p><h4>shiro.ini Embedded</h4><p>If you want to use ini configuration and you would prefer to have all configuration in one place, you can embed the ini config instead:</p><structured-macro ac:macro-id="7c1da3f0-e830-4697-9133-19700c4141ec" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;beans ...&gt;
     &lt;broker ...&gt;
         &lt;plugins ...&gt;
         
-            &lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
-                &lt;property name=&quot;iniConfig&quot;&gt;
+            &lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
+                &lt;property name="iniConfig"&gt;
                     &lt;value&gt;
                     [main]
 
@@ -238,20 +211,15 @@ broker.setPlugins(new BrokerPlugin[]{shiroPlugin});
         &lt;/plugins&gt;
     &lt;/broker&gt;
 &lt;/beans&gt;
-]]></script>
-</div></div><h2 id="Shiro-Design">Design</h2><p>The Shiro plugin is a <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/BrokerPlugin.html">BrokerPlugin</a> that inserts 3 <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/BrokerFilter.html">BrokerFilter</a>s in the broker filter chain: the <code>SubjectFilter</code>, the <code>AuthenticationFilter</code> and the <code>AuthorizationFilter</code></p><p><strong>SubjectFilter</strong></p><p>The <code>SubjectFilter</code> exists before all other Shiro-related broker filters in the broker filter chain. It constructs a Shiro <a shape="rect" class="external-link" href="http://shiro.apache.org/subject.html">Subject</a> instance reflecting the broker client and ensures the <code>Subject</code> instance is available for all downstream broker filters that may need to use the <code>Subject</code> to perform security operations.</p><p><strong>AuthenticationFilter</strong></p><p>The <code>AuthenticationFilter</code> exists immediately after the <code>SubjectFilter</code> in the broker filter chain. It ensures that the broker client <code>Subject</code> is authenticated if necessary before allowing the chain to continue. If authentication is required and the <code>Subject</code> is not authenticated, the broker filter chain will not be executed, ensuring only verified identities may perform further behavior.</p><p><strong>AuthorizationFilter</strong></p><p>The <code>AuthorizationFilter</code> exists immediately after the <code>AuthenticationFilter</code> in the broker filter chain. It ensures that the <code>Subject</code> associated with the filter chain is authorized (permitted) to perform the action being attempted before allowing the action to execute.</p><p>For example, it would ensure that the <code>Subject</code> is allowed to send a message to a particular topic before allowing the send operation to execute. If authorization is enabled and the <code>Subject</code> is not authorized to perform the desired action, the broker filter chain will not be executed.</p><h2 id="Shiro-SubjectFilter">SubjectFilter</h2><p>The ShiroPlugin installs and executes the <code>SubjectFilter</code> before all other Shiro-related broker filters in the broker filter chain. The <code>SubjectFilter</code> constructs a Shiro <a shape="rect" class="external-link" href="http://shiro.apache.org/subject.html">Subject</a> instance reflecting the broker client and ensures the <code>Subject</code> instance is available for all downstream broker filters that may need to use the <code>Subject</code> to perform security operations.</p><p>The <code>SubjectFilter</code> is mostly a 'behind the scenes' component of the SubjectFilter, but it does offer some customization for advanced use cases:</p><ul><li>the ability to customize exactly how broker clients' <code>Subject</code> instances are created via a <code>ConnectionSubjectFactory</code> and</li><li>the ability to customize how the ActiveMQ ConnectionContext's <a shape="rect" class="external-link" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/security/SecurityContext.html">SecurityContext</a> is constructed.</li></ul><p>Unless you're deeply familiar with ActiveMQ's security model, you can safely skip to <strong>Authentication</strong> below.</p><h3 id="Shiro-ConnectionSubjectFactory">ConnectionSubjectFactory</h3><p>A <code>ConnectionSubjectFactory</code> creates a <code>Subject</code> instance that represents the broker client's identity. The <code>SubjectFilter</code>'s default instance is a <code>DefaultConnectionSubjectFactory</code></p><p>Most <code>ConnectionSubjectFactory</code> implementations will simply use Shiro's <code>Subject.Builder</code> to create an anonymous Subject instance and let the downstream <code>AuthenticationFilter</code> authenticate the Subject based on any credentials associated with the connection. After authentication, the Subject will have an identity, and this is the expected flow for most connection clients.</p><p>However, if there is some other data associated with the connection that can be inspected to create a Subject instance beyond what the <code>DefaultConnectionSubjectFactory</code>, you can implement the <code>ConnectionSubjectFactory</code> interface and plug it in to the <code>SubjectFilter</code>:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
-    &lt;property name=&quot;subjectFilter.connectionSubjectFactory&quot;&gt;
-        &lt;bean class=&quot;com.my.ConnectionSubjectFactory&quot; .../&gt;
+</plain-text-body></structured-macro><h2>Design</h2><p>The Shiro plugin is a <a shape="rect" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/BrokerPlugin.html">BrokerPlugin</a> that inserts 3 <a shape="rect" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/broker/BrokerFilter.html">BrokerFilter</a>s in the broker filter chain: the <code>SubjectFilter</code>, the <code>AuthenticationFilter</code> and the <code>AuthorizationFilter</code></p><p><strong>SubjectFilter</strong></p><p>The <code>SubjectFilter</code> exists before all other Shiro-related broker filters in the broker filter chain. It constructs a Shiro <a shape="rect" href="http://shiro.apache.org/subject.html">Subject</a> instance reflecting the broker client and ensures the <code>Subject</code> instance is available for all downstream broker filters that may need to use the <code>Subject</code> to perform security operations.</p><p><strong>AuthenticationFilter</strong></p><p>The <code>AuthenticationFilter</code> exists immediately after the <code>SubjectFilter</code> in the broker filter chain. It ensures that the broker client <code>Subject</code> is authenticated if necessary before allowing the chain to continue. If authentication is required and the <code>Subject</code> is not authenticated, the broker filter chain will not be executed, ensuring only verified identities may perform further behavior.</p><p><strong>AuthorizationFilter</strong></p><p>The <code>AuthorizationFilter</code> exists immediately after the <code>AuthenticationFilter</code> in the broker filter chain. It ensures that the <code>Subject</code> associated with the filter chain is authorized (permitted) to perform the action being attempted before allowing the action to execute.</p><p>For example, it would ensure that the <code>Subject</code> is allowed to send a message to a particular topic before allowing the send operation to execute. If authorization is enabled and the <code>Subject</code> is not authorized to perform the desired action, the broker filter chain will not be executed.</p><h2>SubjectFilter</h2><p>The ShiroPlugin installs and executes the <code>SubjectFilter</code> before all other Shiro-related broker filters in the broker filter chain. The <code>SubjectFilter</code> constructs a Shiro <a shape="rect" href="http://shiro.apache.org/subject.html">Subject</a> instance reflecting the broker client and ensures the <code>Subject</code> instance is available for all downstream broker filters that may need to use the <code>Subject</code> to perform security operations.</p><p>The <code>SubjectFilter</code> is mostly a 'behind the scenes' component of the SubjectFilter, but it does offer some customization for advanced use cases:</p><ul><li>the ability to customize exactly how broker clients' <code>Subject</code> instances are created via a <code>ConnectionSubjectFactory</code> and</li><li>the ability to customize how the ActiveMQ ConnectionContext's <a shape="rect" href="http://activemq.apache.org/maven/apidocs/org/apache/activemq/security/SecurityContext.html">SecurityContext</a> is constructed.</li></ul><p>Unless you're deeply familiar with ActiveMQ's security model, you can safely skip to <strong>Authentication</strong> below.</p><h3>ConnectionSubjectFactory</h3><p>A <code>ConnectionSubjectFactory</code> creates a <code>Subject</code> instance that represents the broker client's identity. The <code>SubjectFilter</code>'s default instance is a <code>DefaultConnectionSubjectFactory</code></p><p>Most <code>ConnectionSubjectFactory</code> implementations will simply use Shiro's <code>Subject.Builder</code> to create an anonymous Subject instance and let the downstream <code>AuthenticationFilter</code> authenticate the Subject based on any credentials associated with the connection. After authentication, the Subject will have an identity, and this is the expected flow for most connection clients.</p><p>However, if there is some other data associated with the connection that can be inspected to create a Subject instance beyond what the <code>DefaultConnectionSubjectFactory</code>, you can implement the <code>ConnectionSubjectFactory</code> interface and plug it in to the <code>SubjectFilter</code>:</p><structured-macro ac:macro-id="24a32c24-9100-4131-a2cf-3ca2f1df9224" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
+    &lt;property name="subjectFilter.connectionSubjectFactory"&gt;
+        &lt;bean class="com.my.ConnectionSubjectFactory" .../&gt;
     &lt;/property&gt;
 &lt;/bean&gt;
-]]></script>
-</div></div><h3 id="Shiro-SecurityContextFactory">SecurityContextFactory</h3><p>The ActiveMQ <code>ConnectionContext</code> associated with broker client connections utilizes a <code>SecurityContext</code> object. When the <code>SubjectFilter</code> executes, it needs to create a Shiro-specific <code>SecurityContext</code> and associate it with the <code>ConnectionContext</code> so the Subject may be accessed downstream for all subsequent security operations.</p><p>The <code>SubjectFilter</code> delegates <code>SecurityContext</code> creation to a <code>SecurityContextFactory</code> instance. The <code>DefaultSecurityContextFactory</code> implementation returns <code>SubjectSecurityContext</code> instances based on the connection's associated <code>Subject</code>. It should be an extremely rare thing to change, but if you must configure a custom <code>SecurityContextFactory</code>, you can do as follows:</p><div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[&lt;bean id=&quot;shiroPlugin&quot; class=&quot;org.apache.activemq.shiro.ShiroPlugin&quot; xmlns=&quot;http://www.springframework.org/schema/beans&quot;&gt;
-    &lt;property name=&quot;subjectFilter.securityContextFactory&quot;&gt;
-        &lt;bean class=&quot;com.my.SecurityContextFactory&quot; .../&gt;
+</plain-text-body></structured-macro><h3>SecurityContextFactory</h3><p>The ActiveMQ <code>ConnectionContext</code> associated with broker client connections utilizes a <code>SecurityContext</code> object. When the <code>SubjectFilter</code> executes, it needs to create a Shiro-specific <code>SecurityContext</code> and associate it with the <code>ConnectionContext</code> so the Subject may be accessed downstream for all subsequent security operations.</p><p>The <code>SubjectFilter</code> delegates <code>SecurityContext</code> creation to a <code>SecurityContextFactory</code> instance. The <code>DefaultSecurityContextFactory</code> implementation returns <code>SubjectSecurityContext</code> instances based on the connection's associated <code>Subject</code>. It should be an extremely rare thing to change, but if you must configure a custom <code>SecurityContextFactory</code>, you can do as follows:</p><structured-macro ac:macro-id="4d0d08f3-a136-4932-882e-aabd81e6d568" ac:name="code" ac:schema-version="1"><plain-text-body>&lt;bean id="shiroPlugin" class="org.apache.activemq.shiro.ShiroPlugin" xmlns="http://www.springframework.org/schema/beans"&gt;
+    &lt;property name="subjectFilter.securityContextFactory"&gt;
+        &lt;bean class="com.my.SecurityContextFactory" .../&gt;
     &lt;/property&gt;
 &lt;/bean&gt;
-]]></script>
-</div></div><p>Note however that much of the plugin's functionality and downstream filters expect created <code>SecurityContext</code> instances to be <code>SubjectSecurityContext</code> instances.</p><h2 id="Shiro-Authentication">Authentication</h2><p>The ShiroPlugin installs the <code>AuthenticationFilter</code> immediately after the <code>SubjectFilter</code> in the broker filter chain. The <code>AuthenticationFilter</code> ensures that the broker client <code>Subject</code> is authenticated if necessary before allowing the chain to continue. If authentication is required and the <code>Subject</code> is not authenticated, the broker filter chain will not be executed, ensuring only verified identities may perform further behavior.</p><p>WORK IN PROGRESS - STILL AUTHORING</p></div>
+</plain-text-body></structured-macro><p>Note however that much of the plugin's functionality and downstream filters expect created <code>SecurityContext</code> instances to be <code>SubjectSecurityContext</code> instances.</p><h2>Authentication</h2><p>The ShiroPlugin installs the <code>AuthenticationFilter</code> immediately after the <code>SubjectFilter</code> in the broker filter chain. The <code>AuthenticationFilter</code> ensures that the broker client <code>Subject</code> is authenticated if necessary before allowing the chain to continue. If authentication is required and the <code>Subject</code> is not authenticated, the broker filter chain will not be executed, ensuring only verified identities may perform further behavior.</p><p>WORK IN PROGRESS - STILL AUTHORING</p></div>
 

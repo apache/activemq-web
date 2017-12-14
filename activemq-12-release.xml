@@ -1,23 +1,20 @@
 <div class="wiki-content maincontent">
-<h2 id="ActiveMQ1.2Release-NewandNoteworthy">New and Noteworthy</h2>
+<h2>New and Noteworthy</h2>
 <p>This release represents a major increase in functionality; the new features in this release are:-</p>
 
 <ul><li>heaps of bug fixes and new test cases</li></ul>
 
 
 
-<h2 id="ActiveMQ1.2Release-DownloadHere">Download Here</h2>
-<div class="table-wrap"><table class="confluenceTable"><tbody><tr><th colspan="1" rowspan="1" class="confluenceTh"><p>Download</p></th><th colspan="1" rowspan="1" class="confluenceTh"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-release-1.2.zip" rel="nofollow">activemq-release-1.2.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-release-1.2-src.zip" rel="nofollow">activemq-release-1.2-src.zip</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p><a shape="rect" class="external-link" href="http://dist.codehaus.org/activemq/distributions/activemq-release-1.2.tar.gz" rel="nofollow">activemq-release-1.2.tar.gz</a></p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1" class="confluenceTd"><p>[activemq-release-1.2-src.tar.gz</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>http://dist.codehaus.org/activemq/distributions/activemq-release-1.2-src.tar.gz <br clear="none">
-]</p></td><td colspan="1" rowspan="1" class="confluenceTd"><p>Source Distribution in gz package</p></td></tr></tbody></table></div>
+<h2>Download Here</h2>
+<table><tbody><tr><th colspan="1" rowspan="1"><p>Download</p></th><th colspan="1" rowspan="1"><p>Description</p></th></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-release-1.2.zip">activemq-release-1.2.zip</a></p></td><td colspan="1" rowspan="1"><p>Binary Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-release-1.2-src.zip">activemq-release-1.2-src.zip</a></p></td><td colspan="1" rowspan="1"><p>Source Distribution in zip package</p></td></tr><tr><td colspan="1" rowspan="1"><p><a shape="rect" href="http://dist.codehaus.org/activemq/distributions/activemq-release-1.2.tar.gz">activemq-release-1.2.tar.gz</a></p></td><td colspan="1" rowspan="1"><p>Binary Distribution in gz package</p></td></tr><tr><td colspan="1" rowspan="1"><p>[activemq-release-1.2-src.tar.gz</p></td><td colspan="1" rowspan="1"><p>http://dist.codehaus.org/activemq/distributions/activemq-release-1.2-src.tar.gz <br clear="none">
+]</p></td><td colspan="1" rowspan="1"><p>Source Distribution in gz package</p></td></tr></tbody></table>
 
 
-<h2 id="ActiveMQ1.2Release-Changelog">Changelog</h2>
-<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" class="external-link" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11120&amp;styleName=Html&amp;projectId=10520&amp;Create=Create" rel="nofollow">release notes</a></p>
+<h2>Changelog</h2>
+<p>For a more detailed view of new features and bug fixes, see the <a shape="rect" href="http://jira.activemq.org/jira/secure/ReleaseNote.jspa?version=11120&amp;styleName=Html&amp;projectId=10520&amp;Create=Create">release notes</a></p>
 
-<div class="aui-message warning jim-inline-block">
-    <span class="aui-icon icon-warning"></span>JIRA Issues Macro: Unable to locate JIRA server for this macro. It may be due to Application Link configuration.
-</div>
+<structured-macro ac:macro-id="4025f22b-ca17-4d67-9e1d-b90c51496e0b" ac:name="jiraissues" ac:schema-version="1"><parameter ac:name="url"><url ri:value="http://jira.activemq.org/jira/secure/IssueNavigator.jspa?view=rss&amp;pid=10520&amp;types=1&amp;types=2&amp;types=4&amp;types=3&amp;fixfor=11120&amp;statusIds=5&amp;statusIds=6&amp;sorter/field=issuekey&amp;sorter/order=DESC&amp;tempMax=25&amp;reset=true&amp;decorator=none"></url></parameter></structured-macro>
 
-
-<p>You may also want to look at <a shape="rect" href="activemq-11-release.xml">the previous Changelog</a></p></div>
+<p>You may also want to look at <link><page ri:content-title="ActiveMQ 1.1 Release"></page><link-body>the previous Changelog</link-body></link></p></div>
 

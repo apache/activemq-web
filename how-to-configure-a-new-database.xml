@@ -5,41 +5,37 @@
 
 <p>e.g.</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-  &lt;bean id=&quot;mysql-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
-    &lt;property name=&quot;driverClassName&quot; value=&quot;com.mysql.jdbc.Driver&quot;/&gt;
-    &lt;property name=&quot;url&quot; value=&quot;jdbc:mysql://localhost/activemq&quot;/&gt;
-    &lt;property name=&quot;username&quot; value=&quot;activemq&quot;/&gt;
-    &lt;property name=&quot;password&quot; value=&quot;activemq&quot;/&gt;
-    &lt;property name=&quot;poolPreparedStatements&quot; value=&quot;true&quot;/&gt;
+<structured-macro ac:macro-id="8c9473ba-d5ec-4a14-b9dc-dcefecdec2c2" ac:name="code" ac:schema-version="1"><plain-text-body>
+  &lt;bean id="mysql-ds" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"&gt;
+    &lt;property name="driverClassName" value="com.mysql.jdbc.Driver"/&gt;
+    &lt;property name="url" value="jdbc:mysql://localhost/activemq"/&gt;
+    &lt;property name="username" value="activemq"/&gt;
+    &lt;property name="password" value="activemq"/&gt;
+    &lt;property name="poolPreparedStatements" value="true"/&gt;
   &lt;/bean&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 
 <p><strong>For AMQ 3.x</strong></p>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
-&lt;bean id=&quot;mssql-ds&quot; class=&quot;org.apache.commons.dbcp.BasicDataSource&quot; destroy-method=&quot;close&quot;&gt;
-    &lt;property name=&quot;driverClassName&quot;&gt;
+<structured-macro ac:macro-id="3423b393-7e75-4fe6-baf4-6d8d7d26dc7e" ac:name="code" ac:schema-version="1"><plain-text-body>
+&lt;bean id="mssql-ds" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"&gt;
+    &lt;property name="driverClassName"&gt;
         &lt;value&gt;com.microsoft.jdbc.sqlserver.SQLServerDriver&lt;/value&gt;
     &lt;/property&gt;
-    &lt;property name=&quot;url&quot;&gt;
+    &lt;property name="url"&gt;
         &lt;value&gt;jdbc:microsoft:sqlserver://localhost:1433;DatabaseName=activedb&lt;/value&gt;
     &lt;/property&gt;
-    &lt;property name=&quot;username&quot;&gt;
+    &lt;property name="username"&gt;
         &lt;value&gt;sa&lt;/value&gt;
     &lt;/property&gt;
-    &lt;property name=&quot;password&quot;&gt;
+    &lt;property name="password"&gt;
         &lt;value&gt;&lt;/value&gt;
     &lt;/property&gt;
-    &lt;property name=&quot;poolPreparedStatements&quot;&gt;
+    &lt;property name="poolPreparedStatements"&gt;
         &lt;value&gt;true&lt;/value&gt;
     &lt;/property&gt;
 &lt;/bean&gt;
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 <p>2. Set the datasource reference to use the new jdbc configuration e.g &lt;jdbcPersistence dataSourceRef="mssql-ds"/&gt;</p>
 
 <p>3. Place the jdbc driver in the directory "activemq_home/lib/optional".</p></div>

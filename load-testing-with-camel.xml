@@ -1,4 +1,4 @@
-<div class="wiki-content maincontent"><h2 id="LoadTestingwithCamel-LoadTestingwithCamel">Load Testing with Camel</h2>
+<div class="wiki-content maincontent"><h2>Load Testing with Camel</h2>
 
 <p>It is preferable at the time of writing to check out the source of ActiveMQ and Camel and perform local builds first.</p>
 
@@ -6,11 +6,9 @@
 
 <p>Now to run a load test type</p>
 
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<structured-macro ac:macro-id="b1dce596-fa06-41a0-8d09-7759435d21d7" ac:name="code" ac:schema-version="1"><plain-text-body>
 activemq/activemq-camel-loadtest&gt; mvn test -Dtest=LocalBrokerParallelProducerLoadTest
-]]></script>
-</div></div>
+</plain-text-body></structured-macro>
 
 <p>If you want to tinker with the configuration of ActiveMQ and Camel then edit the LocalBrokerParallelProducerLoadTest-context.xml file.</p></div>
 

@@ -1,10 +1,9 @@
-<div class="wiki-content maincontent"><h1 id="ApacheActiveMQBoardReport-April2008-StatusreportfortheApacheActiveMQProject">Status report for the Apache ActiveMQ Project</h1>
-<div class="code panel pdl" style="border-width: 1px;"><div class="codeContent panelContent pdl">
-<script class="brush: java; gutter: false; theme: Default" type="syntaxhighlighter"><![CDATA[
+<div class="wiki-content maincontent"><h1>Status report for the Apache ActiveMQ Project</h1>
+<structured-macro ac:macro-id="f353b1d5-8149-4612-80d5-170391ccdfe7" ac:name="code" ac:schema-version="1"><parameter ac:name="">none</parameter><plain-text-body>
 Community:
 
  The ActiveMQ community continues to stay vibrant with a very healthy amount of email traffic 
- flowing through it&#39;s email lists.  It has also added several new committers to it&#39;s ranks.
+ flowing through it's email lists.  It has also added several new committers to it's ranks.
 
 New Committers:
 
@@ -36,6 +35,5 @@ ECN Status:
   * Apache ActiveMQ
   * Apache Camel
  
-]]></script>
-</div></div></div>
+</plain-text-body></structured-macro></div>
 
