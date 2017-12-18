@@ -1,10 +1,6 @@
-      .maincontent { overflow:hidden; }   Apache ActiveMQ ™ -- Stomp Support 
-
-[ActiveMQ](http://activemq.apache.org/) [ASF](http://www.apache.org)
+Apache ActiveMQ ™ -- Stomp Support 
 
 [Index](index.html) > [Site](site.html) > [Navigation](navigation.html) > [Stomp Support](stomp-support.html)
-
-[Download](download.html) | [API](api.html) | [Source](source.html) | [Forums](http://activemq.apache.org/discussion-forums.html) | [Support](support.html)
 
 ActiveMQ-CPP Stomp Support
 --------------------------
@@ -33,54 +29,3 @@ Stomp as a general rule only allows one session per connection.  In ActiveMQ-CP
 
 Currently the Stomp protocol is at V1.0 and doesn't supply the necessary features in the protocol to allow the use of Failover with a Stomp based Transport. The draft version of Stomp v1.1 is under way and includes provisions for keep alive monitoring between broker and client which will allow for detection of dropped connections. Even with that support though there will be limitations on what can be accomplished on Failover of a Stomp client, transactions will not be able to be restored and message recovery will not be possible. A Stomp Failover would need to behave almost as a new Stomp connection to the Broker with automatic re-subscription for active consumers, all currently prefetched messages would be purged from the active consumers. Until the Stomp v1.1 spec is ratified and the ActiveMQ-CPP client code is updated to support this it is not recommended that you combine the Stomp transport and Failover transport.
 
-### [Overview](index.html)
-
-*   [Index](index.html)
-*   [News](news.html)
-*   [Getting Started](getting-started.html)
-*   [Tutorials](tutorials.html)
-*   [API](api.html)
-*   [FAQ](faq.html)
-*   [Download](download.html)
-
-### [Connectivity](connectivity.html)
-
-*   [Stomp](stomp-support.html)
-*   [OpenWire](openwire-support.html)
-
-### [Using ActiveMQ-CPP](using-activemq-cpp.html)
-
-*   [Getting Started](getting-started.html)
-*   [CMS API Overview](cms-api-overview.html)
-*   [Example](example.html)
-*   [Configuring](configuring.html)
-
-### Search
-
-    
-  
-
-### [Community](community.html)
-
-*   [Support](support.html)
-*   [Contributing](http://activemq.apache.org/contributing.html)
-*   [Discussion Forums](http://activemq.apache.org/discussion-forums.html)
-*   [Mailing Lists](http://activemq.apache.org/mailing-lists.html)
-*   [IRC](irc://irc.codehaus.org/activemq)
-*   [IRC Log](http://servlet.uwyn.com/drone/log/hausbot/activemq)
-*   [Site](site.html)
-*   [Team](http://activemq.apache.org/team.html)
-
-### [Developers](developers.html)
-
-*   [Source](source.html)
-*   [Building](building.html)
-*   [Creating Distributions](creating-distributions.html)
-
-[Privacy Policy](http://activemq.apache.org/privacy-policy.html) \- ([edit this page](https://cwiki.apache.org/confluence/pages/editpage.action?pageId=51963))
-
-© 2004-2011 The Apache Software Foundation.  
-Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation. All other marks mentioned may be trademarks or registered trademarks of their respective owners.  
-[Graphic Design By Hiram](http://hiramchirino.com)
-
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); var pageTracker = \_gat.\_getTracker("UA-1347593-1"); pageTracker.\_initData(); pageTracker.\_trackPageview();

@@ -1,4 +1,4 @@
- ActiveMQ - Project Distribution Management  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Project Distribution Management     
 
 ActiveMQ
 
@@ -76,8 +76,3 @@ The following is the distribution management information used by this project.
 
 scp://people.apache.org/x1/www/activemq.apache.org/maven/5.7.0
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *

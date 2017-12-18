@@ -1,4 +1,4 @@
- ActiveMQ - Reactor Dependency Convergence  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Reactor Dependency Convergence     
 
 ActiveMQ
 
@@ -1651,8 +1651,3 @@ You do not have 100% convergence.
 4.  [org.apache.activemq:activemq-web](http://activemq.apache.org/activemq-web)
 5.  [org.apache.activemq:apache-activemq](http://activemq.apache.org/apache-activemq)
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *

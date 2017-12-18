@@ -1,4 +1,4 @@
- ActiveMQ - Project Dependency Management  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Project Dependency Management     
 
 ActiveMQ
 
@@ -1184,8 +1184,3 @@ jar
 
 [BSD style](http://jmock.org/license.html)
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *

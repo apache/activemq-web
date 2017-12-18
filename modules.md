@@ -1,4 +1,4 @@
- ActiveMQ - Project Modules  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Project Modules     
 
 ActiveMQ
 
@@ -164,8 +164,3 @@ Puts together the ActiveMQ distribution
 
 An Embedded Lightweight Non-Relational Database
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *

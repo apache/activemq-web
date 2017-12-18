@@ -1,4 +1,4 @@
- ActiveMQ - Project Dependencies  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Project Dependencies     
 
 ActiveMQ
 
@@ -64,8 +64,3 @@ Project Dependencies
 
 There are no dependencies for this project. It is a standalone application that does not depend on any other project.
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *

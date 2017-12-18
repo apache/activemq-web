@@ -1,4 +1,4 @@
- ActiveMQ - Team list  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Team list     
 
 ActiveMQ
 
@@ -76,8 +76,3 @@ There are no contributors listed for this project. Please check back again later
 
 function offsetDate(id, offset) { var now = new Date(); var nowTime = now.getTime(); var localOffset = now.getTimezoneOffset(); var developerTime = nowTime + ( offset * 60 * 60 * 1000 )+ ( localOffset * 60 * 1000 ); var developerDate = new Date(developerTime); document.getElementById(id).innerHTML = developerDate; } function init(){ } window.onLoad = init();
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *

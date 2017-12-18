@@ -1,4 +1,4 @@
- ActiveMQ - Source Repository  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Source Repository     
 
 ActiveMQ
 
@@ -109,8 +109,3 @@ Example: Edit the 'servers' file and add something like:
 http-proxy-host = your.proxy.name
 http-proxy-port = 3128
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *

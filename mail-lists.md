@@ -1,4 +1,4 @@
- ActiveMQ - Project Mailing Lists  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Project Mailing Lists     
 
 ActiveMQ
 
@@ -94,8 +94,3 @@ Development List
 
 -
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *

@@ -1,4 +1,4 @@
-      .maincontent { overflow:hidden; }        SyntaxHighlighter.defaults\['toolbar'\] = false; SyntaxHighlighter.all();  Apache ActiveMQ ™ -- Getting Started 3.x 
+Apache ActiveMQ ™ -- Getting Started 3.x 
 
 [ActiveMQ](http://activemq.apache.org "The most popular and powerful open source Message Broker") ™ [ASF](http://www.apache.org "The Apache Software Foundation")
 
@@ -439,11 +439,3 @@ If you are new to using ActiveMQ, running the [Examples](examples.html "Examples
 *   [Source XRef](source-xref.html "Source XRef")
 *   [Test Source XRef](test-source-xref.html "Test Source XRef")
 *   [Xml Reference](xml-reference.html "Xml Reference")
-
-[Privacy Policy](http://activemq.apache.org/privacy-policy.html) \- ([edit this page](https://cwiki.apache.org/confluence/pages/editpage.action?pageId=36078))
-
-© 2004-2011 The Apache Software Foundation.  
-Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation. All other marks mentioned may be trademarks or registered trademarks of their respective owners.  
-[Graphic Design By Hiram](http://hiramchirino.com)
-
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); var pageTracker = \_gat.\_getTracker("UA-1347593-1"); pageTracker.\_initData(); pageTracker.\_trackPageview();

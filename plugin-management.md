@@ -1,4 +1,4 @@
- ActiveMQ - Project Plugin Management  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Project Plugin Management     
 
 ActiveMQ
 
@@ -272,8 +272,3 @@ lifecycle-mapping
 
 1.0.0
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *

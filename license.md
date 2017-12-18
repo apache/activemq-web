@@ -1,4 +1,4 @@
- ActiveMQ - Project License  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Project License     
 
 ActiveMQ
 
@@ -271,8 +271,3 @@ Project License
    See the License for the specific language governing permissions and
    limitations under the License.
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *

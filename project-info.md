@@ -1,4 +1,4 @@
- ActiveMQ - Project Information  @import url("./css/maven-base.css"); @import url("./css/maven-theme.css"); @import url("./css/site.css");    
+ ActiveMQ - Project Information     
 
 ActiveMQ
 
@@ -130,8 +130,3 @@ This document lists the build plugins and the report plugins used by this projec
 
 This document provides informations on the distribution management of this project.
 
-* * *
-
-Copyright © 2005-2012 [The Apache Software Foundation](http://www.apache.org/). All Rights Reserved.
-
-* * *
