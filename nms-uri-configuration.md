@@ -1,0 +1,95 @@
+      .maincontent { overflow:hidden; }   Apache ActiveMQ ™ -- NMS URI Configuration 
+
+ActiveMQ [ASF](http://www.apache.org)
+
+[Index](index.html) > [Apache.NMS](apachenms.html) > [NMS URI Configuration](nms-uri-configuration.html)
+
+[Download](download.html) | [API](nms-api.html) | [Source](source.html) | [Forums](http://activemq.apache.org/discussion-forums.html) | [Support](http://activemq.apache.org/support.html)
+
+Configuring NMS
+---------------
+
+When working with the generic NMS API NMSConnectionFactory class you must choose via the URI which NMS provider you actually wish to use. This page documents the uri syntax and available options for the NMS providers.
+
+### **Connection URI Parameters**
+
+#####  Example Configuration
+
+cf = new NMSConnectionFactory("activemq:tcp://localhost:61616");
+
+### NMS Provider Options
+
+Click on the provider name to visit the URI configuration documentation for your chosen NMS provider.
+
+Option Name
+
+Description
+
+[activemq](activemq-uri-configuration.html)
+
+Use the NMS.ActiveMQ Provider to talk to an ActiveMQ Broker.
+
+[stomp](stomp-uri-configuration.html)
+
+Use the NMS.Stomp Provider to talk to an Stomp Broker ActivemMQ Broker supports the Stomp protocol natively.
+
+ems
+
+Use the NMS.EMS Provider to talk to a TIBCO Broker.
+
+msmq
+
+Use the NMS.MSMQ Provider to talk to a Microsoft Messaging (MSMQ) Broker.
+
+wcf
+
+Use the NMS.WCF Provider to support a Windows Communication Foundation (WCF) endpoint connection for connecting to a back-end broker.
+
+xms
+
+Use the NMS.XMS Provider to talk to an IBM MQSerios Broker. This provider is currently not implemented.
+
+### [Overview](overview.html)
+
+*   [Home](index.html)
+*   [FAQ](faq.html)
+*   [Download](download.html)
+
+### [Using NMS](using-nms.html)
+
+*   [NMS Overview](apachenms.html)
+*   [Getting Started](nms.html)
+*   [NMS API Reference](nms-api.html)
+*   [ActiveMQ](apachenmsactivemq.html)
+*   [Stomp](apachenmsstomp.html)
+*   [MSMQ](apachenmsmsmq.html)
+*   [Tibco EMS](apachenmsems.html)
+*   [WCF](apachenmswcf.html)
+
+### Search
+
+   
+
+### [Community](community.html)
+
+*   [Support](support.html)
+*   [Contributing](http://activemq.apache.org/contributing.html)
+*   [Discussion Forums](http://activemq.apache.org/discussion-forums.html)
+*   [Mailing Lists](http://activemq.apache.org/mailing-lists.html)
+*   [IRC](irc://irc.codehaus.org/activemq)
+*   [Articles](articles.html)
+*   [Site](site.html)
+*   [Team](http://activemq.apache.org/team.html)
+
+### [Developers](developers.html)
+
+*   [Source](source.html)
+*   [Building](building.html)
+
+[Privacy Policy](http://activemq.apache.org/privacy-policy.html) \- ([edit this page](https://cwiki.apache.org/confluence/pages/editpage.action?pageId=25201638))
+
+© 2004-2011 The Apache Software Foundation.  
+Apache ActiveMQ, ActiveMQ, Apache, the Apache feather logo, and the Apache ActiveMQ project logo are trademarks of The Apache Software Foundation. All other marks mentioned may be trademarks or registered trademarks of their respective owners.  
+[Graphic Design By Hiram](http://hiramchirino.com)
+
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www."); document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E")); var pageTracker = \_gat.\_getTracker("UA-1347593-1"); pageTracker.\_initData(); pageTracker.\_trackPageview();
